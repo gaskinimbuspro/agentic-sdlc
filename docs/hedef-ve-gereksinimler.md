@@ -35,7 +35,7 @@ Gökhan bir API, UI ve backend uygulaması veya birden çok servisten oluşan ü
 
 Diyagramlar okunabilir etiketler, tutarlı renk ve ikon kullanımı, açıklanmış ok yönleri ve gerektiğinde bir legend içermeli. İkonların kaynağı ve kullanım koşulları kaydedilmeli; ürün ikonlarında uygun resmî varlıklar tercih edilmeli. SVG çıktısı, PNG önizlemesi ve düzenlenebilir kaynak birlikte sürümlenmeli. Taslak ve kabul edilmiş mimari birbirinden ayırt edilmeli; diyagramlar kararlar geliştikçe güncellenmeli.
 
-Diyagram aracı ve notasyon araştırma sırasında seçilecek. Bu gereksinimin eklenmesi, mimarinin tasarlandığı veya diyagramların hazır olduğu anlamına gelmez.
+İlk [üç taslak görünüm](diagrams/README.md), düzenlenebilir SVG, PNG önizlemesi ve yerel üretim scriptiyle hazırlandı. Kalıcı notasyon ve tasarım kararları araştırmayla netleştirilecek; bu görünümler çalışan otomasyonu veya kabul edilmiş mimariyi temsil etmez.
 
 ## Başlangıçta belirlenen tercihler
 

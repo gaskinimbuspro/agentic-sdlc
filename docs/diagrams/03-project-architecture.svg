@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc">
+<title id="title">Bir proje için üretilecek teknik mimari görünümü</title><desc id="desc">Örnek web uygulaması · teknoloji, servis sayısı ve deployment profili seçilmedi</desc>
+<metadata>ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</metadata>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#2563EB" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087F8C" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7756C8" stroke-width="1.6"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#8292A8" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#A76608" stroke-width="1.6"/></marker>
+</defs>
+<rect x="0" y="0" width="1800" height="1200" rx="0" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<rect x="0" y="0" width="1800" height="145" rx="0" fill="#13243C" stroke="none" stroke-width="1.5"  />
+<text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  TASARIM GÖRÜNÜMLERİ</text>
+<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">Bir proje için üretilecek teknik mimari görünümü</text>
+<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Örnek web uygulaması · teknoloji, servis sayısı ve deployment profili seçilmedi</text>
+<rect x="1510" y="44" width="225" height="43" rx="21" fill="#FFF0CD" stroke="none" stroke-width="1.5"  />
+<text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">TASLAK · v0.1</text>
+<rect x="64" y="184" width="350" height="150" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="64" y="180" width="350" height="150" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="84" y="200" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="93" y="209" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="8" r="5" />
+  <path d="M20 21a8 8 0 0 0-16 0" />
+</svg>
+<text x="150" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">AKTÖR</text>
+<text x="150" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Kullanıcı</text>
+<text x="86" y="276" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Web arayüzünden işlem yapar</text>
+<rect x="540" y="184" width="430" height="150" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="540" y="180" width="430" height="150" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="560" y="200" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="569" y="209" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="20" height="14" x="2" y="3" rx="2" />
+  <line x1="8" x2="16" y1="21" y2="21" />
+  <line x1="12" x2="12" y1="17" y2="21" />
+</svg>
+<text x="626" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">SUNUM</text>
+<text x="626" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Web arayüzü</text>
+<text x="562" y="276" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Ekranlar, formlar ve kullanıcı akışları</text>
+<rect x="1270" y="184" width="466" height="150" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="1270" y="180" width="466" height="150" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="1290" y="200" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="1299" y="209" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" />
+</svg>
+<text x="1356" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">GEREKTİĞİNDE DIŞ SİSTEM</text>
+<text x="1356" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Kimlik hizmeti</text>
+<text x="1292" y="276" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Giriş ve oturum mekanizması</text>
+<path d="M414 255 H535" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
+<rect x="446.2421875" y="225" width="61.515625" height="23" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="477" y="240" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="400" text-anchor="middle">HTTPS</text>
+<path d="M970 255 H1265" fill="none" stroke="#7756C8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#purple)"/>
+<rect x="1062.734375" y="224" width="114.53125" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1120" y="240" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#7756C8" font-weight="400" text-anchor="middle">giriş / oturum</text>
+<rect x="64" y="400" width="1672" height="435" rx="18" fill="#EAF1FE" stroke="#B8C9E8" stroke-width="1.5" stroke-dasharray="7 6" />
+<text x="90" y="434" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#2563EB" font-weight="700" text-anchor="start">UYGULAMA SINIRI</text>
+<text x="620" y="434" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Mantıksal sorumluluklar · fiziksel servis sınırları tasarımda belirlenir</text>
+<path d="M755 330 V365 H347 V485" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
+<rect x="493.5859375" y="338" width="112.828125" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="550" y="354" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="middle">HTTPS / JSON</text>
+<rect x="120" y="494" width="455" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="490" width="455" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="140" y="510" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="149" y="519" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
+  <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
+  <line x1="6" x2="6.01" y1="6" y2="6" />
+  <line x1="6" x2="6.01" y1="18" y2="18" />
+</svg>
+<text x="206" y="524" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">GİRİŞ SINIRI</text>
+<text x="206" y="551" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">API / giriş katmanı</text>
+<text x="142" y="586" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kimlik, yetki ve girdi doğrulama</text>
+<text x="142" y="611" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Tutarlı yanıt ve hata sözleşmesi</text>
+<text x="142" y="636" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">API / yetkilendirme testleri</text>
+<rect x="665" y="494" width="455" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="665" y="490" width="455" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="685" y="510" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="694" y="519" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 13h4" />
+  <path d="M12 18h6a2 2 0 012 2v1" />
+  <path d="M12 8h8" />
+  <path d="M12 9a4.17 4.17 0 01-3 4" />
+  <path d="M16 8V5a2 2 0 012-2" />
+  <path d="M6 18a4 4 0 01-2-7.465" />
+  <path d="M6.004 5.125a4 4 0 00-2.526 5.77" />
+  <path d="M6.294 6.294A3 3 0 1112 5v13a4 4 0 11-7.967-.518" />
+  <circle cx="16" cy="13" r="0.5" fill="currentColor" />
+  <circle cx="18" cy="3" r="0.5" fill="currentColor" />
+  <circle cx="20" cy="21" r="0.5" fill="currentColor" />
+  <circle cx="20" cy="8" r="0.5" fill="currentColor" />
+</svg>
+<text x="751" y="524" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">DOMAIN</text>
+<text x="751" y="551" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">İş kuralları</text>
+<text x="687" y="586" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kullanım senaryoları ve davranış</text>
+<text x="687" y="611" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">UI ve veri erişiminden ayrılmış</text>
+<text x="687" y="636" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Unit / davranış testleri</text>
+<rect x="1210" y="494" width="470" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="1210" y="490" width="470" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="1230" y="510" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="1239" y="519" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="16" y="16" width="6" height="6" rx="1" />
+  <rect x="2" y="16" width="6" height="6" rx="1" />
+  <rect x="9" y="2" width="6" height="6" rx="1" />
+  <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+  <path d="M12 12V8" />
+</svg>
+<text x="1296" y="524" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">ADAPTER&#x27;LAR</text>
+<text x="1296" y="551" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Veri ve entegrasyon</text>
+<text x="1232" y="586" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Veri ve dış servis bağlantıları</text>
+<text x="1232" y="611" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Timeout / hata politikaları</text>
+<text x="1232" y="636" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Integration / contract testleri</text>
+<path d="M575 585 H660" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
+<rect x="595.078125" y="556" width="49.84375" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="620" y="570" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">çağrı</text>
+<path d="M1120 585 H1205" fill="none" stroke="#7756C8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#purple)"/>
+<rect x="1134.6640625" y="556" width="60.671875" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1165" y="570" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">arayüz</text>
+<rect x="120" y="725" width="1000" height="74" rx="12" fill="#FFFFFF" stroke="#D5E1F3" stroke-width="1.5"  />
+<svg x="139" y="746" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="8" height="8" x="3" y="3" rx="2" />
+  <path d="M7 11v4a2 2 0 0 0 2 2h4" />
+  <rect width="8" height="8" x="13" y="13" rx="2" />
+</svg>
+<text x="184" y="749" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="700" text-anchor="start">ORTAK BEKLENTİLER</text>
+<text x="184" y="777" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#13243C" font-weight="400" text-anchor="start">Yapılandırılmış log · metrik / trace · konfigürasyon · güvenlik · test kanıtı</text>
+<path d="M1340 680 V850 H347 V895" fill="none" stroke="#087F8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#teal)"/>
+<rect x="593.015625" y="830" width="103.96875" height="23" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="645" y="845" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="400" text-anchor="middle">veri işlemleri</text>
+<path d="M1550 680 V878 H892 V895" fill="none" stroke="#087F8C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#teal)"/>
+<rect x="1054.859375" y="857" width="120.28125" height="23" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1115" y="872" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="400" text-anchor="middle">dış API çağrıları</text>
+<path d="M1670 835 V895" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#gray)"/>
+<rect x="1669.984375" y="858" width="56.03125" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1698" y="872" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">ortam</text>
+<rect x="120" y="904" width="455" height="150" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="900" width="455" height="150" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="140" y="920" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="149" y="929" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="12" cy="5" rx="9" ry="3" />
+  <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+  <path d="M3 12A9 3 0 0 0 21 12" />
+</svg>
+<text x="206" y="934" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">KALICI VERİ</text>
+<text x="206" y="961" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Veri kaynağı</text>
+<text x="142" y="996" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">İhtiyaca göre veritabanı / depolama</text>
+<rect x="665" y="904" width="455" height="150" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="665" y="900" width="455" height="150" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="685" y="920" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="694" y="929" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="16" y="16" width="6" height="6" rx="1" />
+  <rect x="2" y="16" width="6" height="6" rx="1" />
+  <rect x="9" y="2" width="6" height="6" rx="1" />
+  <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+  <path d="M12 12V8" />
+</svg>
+<text x="751" y="934" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">ENTEGRASYON</text>
+<text x="751" y="961" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Dış sistemler</text>
+<text x="687" y="996" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">İhtiyaca göre servis ve entegrasyon</text>
+<rect x="1210" y="904" width="470" height="150" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="1210" y="900" width="470" height="150" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="1230" y="920" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="1239" y="929" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14 17H5" />
+  <path d="M19 7h-9" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" />
+</svg>
+<text x="1296" y="934" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">PLATFORM</text>
+<text x="1296" y="961" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Çalıştırma ve izleme</text>
+<text x="1232" y="996" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Ortam, ölçekleme ve işletim profili</text>
+<path d="M64 1136 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<text x="64" y="1165" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Örnek görünüm: kutular mikroservis kararı değildir. Oklar çalışma zamanındaki etkileşimleri gösterir.</text>
+<text x="64" y="1185" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">İkonlar: Lucide / Feather · ISC / MIT · Kaynak ve lisans repoda</text>
+<text x="1736" y="1166" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  03</text>
+</svg>

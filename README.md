@@ -6,6 +6,12 @@ Bir projeye ait başlangıç dokümanı bu yapıya girdi olacak. Ortak mühendis
 
 Mevcut aşama **araştırma ve gereksinimlerin netleştirilmesi**. Framework, ajan sayısı, teknoloji profilleri ve otomasyon mimarisi henüz seçilmedi.
 
+## Taslak diyagramlar
+
+[Süreç, ajan çalışma düzeni ve örnek proje mimarisi](docs/diagrams/README.md) ikonlu SVG ve PNG olarak hazırlandı. Görünümler taslak v0.1 durumundadır; tasarım kararları araştırmayla netleştikçe güncellenecek.
+
+![Ajanların çalışma düzeni taslağı](docs/diagrams/02-agent-structure.png)
+
 ## Başlangıç belgeleri
 
 - [Hedef ve gereksinimler](docs/hedef-ve-gereksinimler.md)
