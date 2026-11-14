@@ -1,0 +1,37 @@
+[
+  {
+    "key": "RES-001",
+    "issue_number": 1,
+    "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/1",
+    "title": "Araştırma kapsamını ve ortak örnek proje girdisini netleştir",
+    "body": "## Amaç\nHer yaklaşımı aynı ihtiyaçla değerlendirmek.\n\n## Kapsam\nHedef gereksinimlerini gözden geçir; müşteri yönetimi API ve UI örneğinin başlangıç dokümanını hazırla.\n\n## Kabul kriterleri\n- Kullanıcılar, temel senaryolar, kapsam ve kapsam dışı işler belli.\n- Fonksiyonel ve işletim beklentileri ayrılmış.\n- Eksikler ve varsayımlar görünür.\n- Teknoloji veya framework peşinen seçilmemiş.\n\n## Çıktı\nProje girdi taslağı ve ortak karşılaştırma senaryosu."
+  },
+  {
+    "key": "RES-002",
+    "issue_number": 2,
+    "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/2",
+    "title": "BMad Method, AWS AI-DLC ve Spec Kit yaklaşımlarını karşılaştır",
+    "body": "## Amaç\nR01–R13 gereksinimleri için mevcut yöntemlerin uygunluğunu araştırmak.\n\n## Bağımlılık\nRES-001.\n\n## Kabul kriterleri\n- Her yöntemin release veya commit kimliği kaydedilmiş.\n- research/comparison-criteria.md soruları aynı örnek üzerinden yanıtlanmış.\n- Yerleşik özellikler, ek entegrasyonlar ve doğrulanmamış noktalar ayrılmış.\n- Rol, çıktı, insan müdahalesi ve süreç maliyeti karşılaştırılmış.\n- Henüz uygulama kurulumu veya ürün geliştirmesi yapılmamış.\n\n## Çıktı\nKaynak bağlantıları içeren karşılaştırma ve gerekçeli adaylar."
+  },
+  {
+    "key": "RES-003",
+    "issue_number": 3,
+    "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/3",
+    "title": "Backend, UI ve dil profilleri için standart adaylarını araştır",
+    "body": "## Amaç\nDilden bağımsız mühendislik ilkelerini Python, .NET, Go ve UI profillerinden ayırmak.\n\n## Kabul kriterleri\n- Her aday kural için kaynak, gerekçe, kapsam ve doğrulama yöntemi bulunuyor.\n- Fowler ilkeleri ile dil veya framework rehberleri birbirine atfedilmiyor.\n- Mimari desenler bağlamlarıyla karşılaştırılıyor.\n- Zorunlu kontroller ile inceleme gerektiren kararlar ayrılıyor.\n\n## Çıktı\nHenüz kabul edilmiş sayılmayan standart adayları."
+  },
+  {
+    "key": "RES-004",
+    "issue_number": 4,
+    "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/4",
+    "title": "Geliştirici, CI ve bağımsız test süreçlerinin geçiş koşullarını araştır",
+    "body": "## Amaç\nLocal geliştirmeden yayına kadar doğrulama sorumluluklarını ve kanıtları netleştirmek.\n\n## Kabul kriterleri\n- Unit, integration, contract, UI component, E2E ve smoke kapsamları açıklanmış.\n- Geliştirici doğrulaması ile bağımsız kabul değerlendirmesi ayrılmış.\n- Test edilen commit veya artifact kimliği ve kanıt beklentileri belirlenmiş.\n- Atlanan, kararsız ve çalıştırılamayan kontroller ele alınmış.\n- Coverage ve mock politikasının gerekçesi kaynaklarla tartışılmış.\n\n## Çıktı\nAday test ve teslimat akışı."
+  },
+  {
+    "key": "RES-005",
+    "issue_number": 5,
+    "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/5",
+    "title": "GitHub repo ve görev hazırlama sözleşmesini tasarla",
+    "body": "## Amaç\nYeni proje dokümanından doğru GitHub repository ve görev düzenine geçişi tanımlamak.\n\n## Bağımlılık\nRES-001 ve RES-002 bulguları.\n\n## Kabul kriterleri\n- Hesap veya organizasyon, isimlendirme, görünürlük ve repo stratejisi alanları belli.\n- Görev şeması gereksinim, karar, bağımlılık, kabul ve test kanıtı ilişkilerini taşıyor.\n- Görev durumunun esas kaynağı belirlenmiş.\n- Tekrar denemelerde mükerrer repo, issue veya PR önlenmesi ele alınmış.\n- Araç desteği ile hesap yetkileri ayrı doğrulanıyor.\n\n## Çıktı\nAday repo hazırlama ve görev yönetimi sözleşmesi."
+  }
+]
