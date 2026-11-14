@@ -17,8 +17,8 @@
     "key": "RES-003",
     "issue_number": 3,
     "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/3",
-    "title": "Backend, UI ve dil profilleri için standart adaylarını araştır",
-    "body": "## Amaç\nDilden bağımsız mühendislik ilkelerini Python, .NET, Go ve UI profillerinden ayırmak.\n\n## Kabul kriterleri\n- Her aday kural için kaynak, gerekçe, kapsam ve doğrulama yöntemi bulunuyor.\n- Fowler ilkeleri ile dil veya framework rehberleri birbirine atfedilmiyor.\n- Mimari desenler bağlamlarıyla karşılaştırılıyor.\n- Zorunlu kontroller ile inceleme gerektiren kararlar ayrılıyor.\n- Genel süreç, ajan ilişkileri ve proje mimarisi diyagramları için ikon, düzenlenebilir kaynak, SVG/PNG ve güncellik beklentileri tanımlanmış.\n\n## Çıktı\nHenüz kabul edilmiş sayılmayan standart adayları."
+    "title": "Backend standardı v0.1: ortak kurallar, Python/.NET/Go ve test kapıları",
+    "body": "## Amaç\nYeni projelerde backend geliştiren ve doğrulayan ajanların uygulayacağı ortak kuralları ve dil profillerini belirlemek.\n\n## Mevcut çıktı\n[Backend standardı v0.1](https://github.com/gaskinimbuspro/agentic-sdlc/blob/codex/bootstrap-research/standards/backend/README.md), PR #6 içindedir.\n\n## Kabul kriterleri\n- [x] Mimari, API, güvenlik, veri, hata ve işletim için ortak kurallar.\n- [x] Python, .NET ve Go için ayrı profil, araç tercihleri ve kontrol komutu şablonları.\n- [x] Local, CI, bağımsız kabul ve smoke kapıları; gerçek sonuç ve sıfır test politikası.\n- [x] Mimar, geliştirici ve doğrulayıcı sorumlulukları; doldurulacak proje profili.\n- [x] Fowler'ın ilkeleri, dil rehberleri ve kendi araç seçimlerimizin ayrılması.\n- [ ] İlk örnek backend'de komutları gerçek kod ve bağımlılıklara bağla; eksik kuralları gözden geçir.\n- [ ] Zorunlu kontrollerin ilgili ihlalde başarısız olduğunu ve gerçek test yürüttüğünü göster.\n\n## Kapsam\nBu aşama backend standardına öncelik verir. UI standardı ve genel framework karşılaştırması araştırma planında sonraki adımlardır. İkonlu süreç ve mimari taslakları PR #6'da korunur. Bu issue yalnız dokümanların yazılmasıyla kapanmaz."
   },
   {
     "key": "RES-004",

@@ -42,7 +42,7 @@ Diyagramlar okunabilir etiketler, tutarlı renk ve ikon kullanımı, açıklanm�
 - Hedef GitHub hesabı: `gaskinimbuspro`.
 - Ana repository: `gaskinimbuspro/agentic-sdlc`.
 - Mevcut repository görünürlüğü: public.
-- Mevcut çalışma aşaması: araştırma; ürün geliştirme veya workflow kurulumu değil.
+- Mevcut öncelik: backend standardı v0.1, dil profilleri ve test kapıları; ardından gerçek örnekte doğrulama.
 - Bu çalışmanın görev takibi: GitHub.
 - Ana çatının her proje için başvurulan çalışma temeli olması; projeye özel dokümanın ayrı hazırlanması.
 

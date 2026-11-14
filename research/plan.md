@@ -4,14 +4,16 @@ Amaç, mevcut agentic development yöntemlerini inceleyerek hedef gereksinimleri
 
 ## İnceleme sırası
 
-1. Proje girdisi ve gereksinim hazırlama: Hangi bilgiler gerekiyor, eksikler nasıl ele alınıyor, başarı ölçütünü kim belirliyor?
-2. Yaklaşım karşılaştırması: BMad Method, AWS AI-DLC ve GitHub Spec Kit aynı örnekle incelenir.
-3. Mimari ve teknik profiller: Ortak ilkeler ile dil ve framework kuralları ayrılır; Python, .NET, Go ve UI profilleri araştırılır.
-4. Test ve teslimat: Local geliştirme, CI, inceleme, kabul testleri, smoke, yayın ve geri dönüş koşulları incelenir.
-5. Repo ve görev hazırlama: GitHub ayarları, görev şeması, gereksinim ilişkileri ve durum yönetimi belirlenir.
-6. Ajan çalışma düzeni: Roller, araçlar, yetkiler, bağlam aktarımı, hata sonrası devam ve maliyet değerlendirilir.
-7. Küçük deney: Önceden belirlenmiş aynı görev, sabitlenmiş yöntem sürümleri ve bağımsız kabul kriterleriyle sınanır.
-8. Karar: Bulgular, alternatifler, maliyetler ve yeniden değerlendirme koşulları kaydedilir.
+1. Backend ortak kuralları: Fowler'ın mimari ve test ilkeleri, güvenlik ve API sözleşmeleri.
+2. Dil profilleri: Python, .NET ve Go için resmî rehberler, araç seçimleri ve doğrulama komutları.
+3. Backend test kapıları: Local, CI, bağımsız kabul ve smoke; gerçek kanıt ve başarısızlık koşulları.
+4. Küçük backend deneyi: Seçilen profili gerçek örneğe bağla; zorunlu kontrollerin ihlalde kırıldığını göster ve v0.1'i gözden geçir.
+5. Proje girdisi ve yöntem karşılaştırması: Aynı örnek proje dokümanını BMad Method, AWS AI-DLC ve GitHub Spec Kit ile incele.
+6. UI standardı: Kullanıcı akışları, component düzeni, erişilebilirlik ve UI testlerini belirle.
+7. Repo, görev ve ajan düzeni: GitHub ayarları, görev sözleşmesi, roller, yetkiler ve bağlam aktarımı.
+8. Karar ve yaygınlaştırma: Deney sonuçlarını, maliyeti, standart sürümlerini ve geçiş koşullarını kaydet.
+
+Öncelik backend standardıdır. Diğer başlıklar korunur; ilk backend sürümü denenmeden orkestrasyon seçimi veya ürün uygulaması tamamlanmış sayılmaz.
 
 ## Ortak karşılaştırma örneği
 
