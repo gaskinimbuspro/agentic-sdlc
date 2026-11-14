@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1120" viewBox="0 0 1800 1120" role="img" aria-labelledby="title desc">
-<title id="title">Proje fikrinden doğrulanmış teslimata</title><desc id="desc">Önerilen yaşam döngüsü · kararlar ve geri bildirim akışı</desc>
+<title id="title">From project brief to verified delivery</title><desc id="desc">Proposed lifecycle · decisions, responsibilities, and feedback</desc>
 <metadata>ISC License
 
 Copyright (c) 2026 Lucide Icons and Contributors
@@ -53,11 +53,11 @@ SOFTWARE.
 </defs>
 <rect x="0" y="0" width="1800" height="1120" rx="0" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
 <rect x="0" y="0" width="1800" height="145" rx="0" fill="#13243C" stroke="none" stroke-width="1.5"  />
-<text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  TASARIM GÖRÜNÜMLERİ</text>
-<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">Proje fikrinden doğrulanmış teslimata</text>
-<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Önerilen yaşam döngüsü · kararlar ve geri bildirim akışı</text>
+<text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  ARCHITECTURE VIEWS</text>
+<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">From project brief to verified delivery</text>
+<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Proposed lifecycle · decisions, responsibilities, and feedback</text>
 <rect x="1510" y="44" width="225" height="43" rx="21" fill="#FFF0CD" stroke="none" stroke-width="1.5"  />
-<text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">TASLAK · v0.1</text>
+<text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">DRAFT · v0.1</text>
 <rect x="64" y="183" width="1672" height="70" rx="15" fill="#E7EEF9" stroke="none" stroke-width="1.5"  />
 <svg x="86" y="204" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
@@ -66,8 +66,8 @@ SOFTWARE.
   <path d="M16 13H8" />
   <path d="M16 17H8" />
 </svg>
-<text x="132" y="211" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">GİRDİ</text>
-<text x="132" y="236" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Proje dokümanı + ortak mühendislik standartları + çalışma ayarları</text>
+<text x="132" y="211" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">INPUT</text>
+<text x="132" y="236" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Project brief + shared engineering standards + working settings</text>
 <rect x="64" y="314" width="500" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="64" y="310" width="500" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="84" y="330" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -78,11 +78,11 @@ SOFTWARE.
   <path d="M16 13H8" />
   <path d="M16 17H8" />
 </svg>
-<text x="150" y="344" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">01 · BAĞLAM</text>
-<text x="150" y="371" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Fikri ve bağlamı anla</text>
-<text x="86" y="406" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Proje dokümanını oku</text>
-<text x="86" y="431" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Eksikleri ve varsayımları çıkar</text>
-<text x="86" y="456" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kullanıcı senaryolarını belirle</text>
+<text x="150" y="344" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">01 · CONTEXT</text>
+<text x="150" y="371" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Understand the brief</text>
+<text x="86" y="406" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Read goals and constraints</text>
+<text x="86" y="431" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Expose unknowns and assumptions</text>
+<text x="86" y="456" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Identify user scenarios</text>
 <rect x="650" y="314" width="500" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="650" y="310" width="500" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="670" y="330" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -93,11 +93,11 @@ SOFTWARE.
   <path d="m3 17 2 2 4-4" />
   <path d="m3 7 2 2 4-4" />
 </svg>
-<text x="736" y="344" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">02 · GEREKSİNİMLER</text>
-<text x="736" y="371" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Gereksinimleri netleştir</text>
-<text x="672" y="406" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">MVP, kapsam ve kapsam dışı işler</text>
-<text x="672" y="431" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kabul kriterleri ve kalite hedefleri</text>
-<text x="672" y="456" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Güvenlik / performans beklentileri</text>
+<text x="736" y="344" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">02 · REQUIREMENTS</text>
+<text x="736" y="371" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Clarify requirements</text>
+<text x="672" y="406" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">MVP, scope, and non-goals</text>
+<text x="672" y="431" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Acceptance criteria and quality targets</text>
+<text x="672" y="456" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Security and performance expectations</text>
 <rect x="1236" y="314" width="500" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="1236" y="310" width="500" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="1256" y="330" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -106,11 +106,11 @@ SOFTWARE.
   <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
   <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />
 </svg>
-<text x="1322" y="344" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">03 · TASARIM</text>
-<text x="1322" y="371" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Mimariyi tasarla</text>
-<text x="1258" y="406" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">UI akışları, API ve veri sınırları</text>
-<text x="1258" y="431" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Dil ve framework profilleri</text>
-<text x="1258" y="456" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kararlar, gerekçeler ve diyagramlar</text>
+<text x="1322" y="344" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">03 · DESIGN</text>
+<text x="1322" y="371" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Design the architecture</text>
+<text x="1258" y="406" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">UI flows, API, and data boundaries</text>
+<text x="1258" y="431" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Language and framework profile</text>
+<text x="1258" y="456" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Decisions, trade-offs, and diagrams</text>
 <rect x="1236" y="644" width="500" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="1236" y="640" width="500" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="1256" y="660" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -119,11 +119,11 @@ SOFTWARE.
   <circle cx="18" cy="6" r="3" />
   <circle cx="6" cy="18" r="3" />
 </svg>
-<text x="1322" y="674" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">04 · HAZIRLIK</text>
-<text x="1322" y="701" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Repo ve görevleri hazırla</text>
-<text x="1258" y="736" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">GitHub sahibi, repo yapısı ve şablon</text>
-<text x="1258" y="761" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Bağımlılıklar ve kabul kriterleri</text>
-<text x="1258" y="786" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Gereksinim → issue bağlantısı</text>
+<text x="1322" y="674" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">04 · READINESS</text>
+<text x="1322" y="701" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Prepare and dispatch</text>
+<text x="1258" y="736" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Confirm GitHub owner and repo policy</text>
+<text x="1258" y="761" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Planner splits work with test criteria</text>
+<text x="1258" y="786" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Coordinator claims and assigns ready tasks</text>
 <rect x="650" y="644" width="500" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="650" y="640" width="500" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="670" y="660" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -132,11 +132,11 @@ SOFTWARE.
   <path d="M6.453 15h11.094" />
   <path d="M8.5 2h7" />
 </svg>
-<text x="736" y="674" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">05 · UYGULAMA</text>
-<text x="736" y="701" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Geliştir ve doğrula</text>
-<text x="672" y="736" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kod + local test + CI</text>
-<text x="672" y="761" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Bağımsız review ve kabul kanıtı</text>
-<text x="672" y="786" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Bulgulara göre düzelt</text>
+<text x="736" y="674" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">05 · IMPLEMENTATION</text>
+<text x="736" y="701" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Implement and verify</text>
+<text x="672" y="736" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Code, developer tests, and trusted CI</text>
+<text x="672" y="761" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Independent review and acceptance evidence</text>
+<text x="672" y="786" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Repair failures within task budget</text>
 <rect x="64" y="644" width="500" height="190" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="64" y="640" width="500" height="190" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="84" y="660" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -146,39 +146,39 @@ SOFTWARE.
   <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" />
   <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" />
 </svg>
-<text x="150" y="674" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">06 · TESLİMAT</text>
-<text x="150" y="701" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Teslim et ve öğren</text>
-<text x="86" y="736" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Sürüme bağlı doğrulama sonuçları</text>
-<text x="86" y="761" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Yayın / smoke / işletim bilgisi</text>
-<text x="86" y="786" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Öğrenilenleri standarda geri taşı</text>
+<text x="150" y="674" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">06 · DELIVERY</text>
+<text x="150" y="701" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Integrate and learn</text>
+<text x="86" y="736" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Require evidence for the current candidate</text>
+<text x="86" y="761" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Release and smoke when in scope</text>
+<text x="86" y="786" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Feed lessons back into the standard</text>
 <path d="M564 405 H645" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <path d="M1150 405 H1231" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <path d="M1486 500 V635" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <path d="M1236 735 H1155" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <path d="M650 735 H569" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
-<rect x="565.1875" y="376" width="83.625" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="607" y="390" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">senaryolar</text>
-<rect x="1159.046875" y="376" width="67.90625" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="1193" y="390" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">kriterler</text>
-<rect x="1515.296875" y="557" width="69.40625" height="23" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="1550" y="572" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="400" text-anchor="middle">tasarım</text>
-<rect x="1158.1015625" y="706" width="69.796875" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="1193" y="720" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">görevler</text>
-<rect x="582.125" y="706" width="49.75" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="607" y="720" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">kanıt</text>
+<rect x="568.46875" y="376" width="77.0625" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="607" y="390" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">scenarios</text>
+<rect x="1161.7109375" y="376" width="62.578125" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1193" y="390" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">criteria</text>
+<rect x="1518.4453125" y="557" width="63.109375" height="23" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1550" y="572" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="400" text-anchor="middle">design</text>
+<rect x="1167.2421875" y="706" width="51.515625" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1193" y="720" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">tasks</text>
+<rect x="569.78125" y="706" width="74.4375" height="22" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="607" y="720" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="400" text-anchor="middle">evidence</text>
 <rect x="64" y="548" width="1086" height="56" rx="12" fill="#FFF2D9" stroke="#EAD1A1" stroke-width="1.5"  />
 <svg x="85" y="562" width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <circle cx="12" cy="8" r="5" />
   <path d="M20 21a8 8 0 0 0-16 0" />
 </svg>
-<text x="130" y="581" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A76608" font-weight="700" text-anchor="start">İNSAN YÖNLENDİRMESİ</text>
-<text x="357" y="581" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#13243C" font-weight="400" text-anchor="start">Kapsam · önemli tasarım kararları · sonuç değerlendirmesi</text>
+<text x="130" y="581" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A76608" font-weight="700" text-anchor="start">HUMAN DIRECTION</text>
+<text x="357" y="581" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#13243C" font-weight="400" text-anchor="start">Scope · material decisions · outcome evaluation</text>
 <path d="M900 830 V910 H28 V280 H900 V305" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#gray)"/>
-<rect x="457.859375" y="918" width="404.28125" height="27" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="660" y="937" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="middle">Test / review bulguları planlamaya geri döner</text>
-<text x="64" y="1005" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Düz ok: ana ilerleme     Kesikli ok: düzeltme döngüsü     Sarı alan: insanın karar ve yönlendirmesi</text>
+<rect x="435.3515625" y="918" width="449.296875" height="27" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="660" y="937" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="middle">Test and review findings feed planning and repairs</text>
+<text x="64" y="1005" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Solid arrows: main flow     Dashed arrow: feedback loop     Amber: human direction</text>
 <path d="M64 1056 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
-<text x="64" y="1085" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Süreç taslağıdır; seçilmiş bir framework veya çalışan otomasyon göstermez.</text>
-<text x="64" y="1105" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">İkonlar: Lucide / Feather · ISC / MIT · Kaynak ve lisans repoda</text>
+<text x="64" y="1085" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Proposed process; the dispatcher and enforcement have not been implemented.</text>
+<text x="64" y="1105" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">Icons: Lucide / Feather · ISC / MIT · Source and licenses in the repository</text>
 <text x="1736" y="1086" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  01</text>
 </svg>

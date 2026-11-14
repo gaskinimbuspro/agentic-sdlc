@@ -1,38 +1,28 @@
-# Araştırma planı
+# Research plan
 
-Amaç, mevcut agentic development yöntemlerini inceleyerek hedef gereksinimlerini karşılayan bir çalışma düzeni seçmek veya uyarlamaktır. Araştırma adım adım yürütülür; yalnız doküman okumakla uygulamadaki başarı eşit kabul edilmez.
+Select or adapt an agentic development method using primary sources and measured trials. Separate published guidance, vendor experience, and our policies. Reading documentation is not equivalent to proving runtime behavior.
 
-## İnceleme sırası
+## Priority order
 
-1. Backend ortak kuralları: Fowler'ın mimari ve test ilkeleri, güvenlik ve API sözleşmeleri.
-2. Dil profilleri: Python, .NET ve Go için resmî rehberler, araç seçimleri ve doğrulama komutları.
-3. Backend test kapıları: Local, CI, bağımsız kabul ve smoke; gerçek kanıt ve başarısızlık koşulları.
-4. Küçük backend deneyi: Seçilen profili gerçek örneğe bağla; zorunlu kontrollerin ihlalde kırıldığını göster ve v0.1'i gözden geçir.
-5. Proje girdisi ve yöntem karşılaştırması: Aynı örnek proje dokümanını BMad Method, AWS AI-DLC ve GitHub Spec Kit ile incele.
-6. UI standardı: Kullanıcı akışları, component düzeni, erişilebilirlik ve UI testlerini belirle.
-7. Repo, görev ve ajan düzeni: GitHub ayarları, görev sözleşmesi, roller, yetkiler ve bağlam aktarımı.
-8. Karar ve yaygınlaştırma: Deney sonuçlarını, maliyeti, standart sürümlerini ve geçiş koşullarını kaydet.
+1. Establish backend rules from architecture/testing guidance and official language/security references.
+2. Define Python/.NET/Go profiles, real command requirements, test cases, and the Definition of Done.
+3. Define planning, dispatch, exclusive task ownership, scoped contexts, independent review, and evidence transitions.
+4. Run a small real backend pilot. Prove required checks reject violations, zero/missing test evidence, stale candidate identities, and unresolved blocking findings.
+5. Compare BMad Method, AWS AI-DLC, and GitHub Spec Kit on the same project brief and acceptance criteria.
+6. Establish UI behavior/accessibility/component/testing standards.
+7. Implement repository/tracker/bootstrap and orchestration controls selected from the findings.
+8. Evaluate quality, total cost/tokens, repair loops, integration failures, and human interventions before broad adoption.
 
-Öncelik backend standardıdır. Diğer başlıklar korunur; ilk backend sürümü denenmeden orkestrasyon seçimi veya ürün uygulaması tamamlanmış sayılmaz.
+## Shared comparison example
 
-## Ortak karşılaştırma örneği
+Prepare a small customer-management API and administrative UI brief without preselecting a framework or service topology. Define users, authorization, data validation, error behavior, and operational expectations. Resolve actual product decisions rather than letting examples silently become requirements.
 
-Henüz teknoloji seçmeden, kullanıcıların müşteri kaydı açıp listeleyebildiği bir API ve yönetim ekranı örneği hazırlanacak. Başlangıç dokümanı; kullanıcı rolleri, yetkilendirme, veri doğrulama, hata davranışı ve işletim beklentilerini açıklamaya yetecek ayrıntıyı taşımalı.
+## Source records
 
-Yöntemlerin eksik gereksinimleri nasıl fark ettiği, hangi kararları insana bıraktığı ve görevlerin test edilebilirliğini nasıl sağladığı karşılaştırılacak. Mikroservis gerekliliği örneğe peşinen eklenmeyecek.
+Record URL, author/publisher, publication date where available, access date, and inspected version. Pin repositories to a commit/release for trials. Preserve source scope and limitations; a marketing overview, engineering report, and controlled experiment have different evidential weight.
 
-## Kaynak notu biçimi
+## Comparison completion
 
-Her not kaynak URL'sini, yazarı veya yayımlayan kurumu, yayın tarihini varsa, erişim tarihini ve incelenen sürümü içerir. GitHub kaynaklarında karşılaştırma için branch yerine mümkünse commit veya release sabitlenir.
+Use [the comparison criteria](comparison-criteria.md) and the same inputs. Distinguish built-in behavior from additional integration and unverified claims. Record alternatives, human involvement, costs, failure modes, and a reasoned recommendation. An adopted decision requires a recorded scope and revisit condition.
 
-Not içinde kaynak iddiası, dayanak türü, geçerli olduğu bağlam, karşı görüşler ve bizim çıkarımımız ayırt edilir. Tanıtıcı açıklama, uygulayıcı deneyimi ve deneysel sonuç aynı kanıt türü değildir.
-
-## Bir karşılaştırmanın tamamlanması
-
-- İncelenen sürümler ve birincil kaynaklar kaydedilmiş olmalı.
-- Ölçütler aynı örnek üzerinden yanıtlanmış olmalı.
-- Belgelenmiş özellik, ayrıca entegrasyon gerektiren özellik ve henüz doğrulanmamış özellik ayrılmalı.
-- Maliyet, insan müdahalesi ve sınırlamalar görünür olmalı.
-- Sonuç bir öneri içeriyorsa alternatifleri ve gerekçesi bulunmalı.
-
-Araştırma sonucu tek başına kabul edilmiş standart değildir. Kabul edilen karar, gerekçesiyle birlikte ayrı bir karar kaydına dönüşür.
+Focused contexts are a proposed default to test, not a proven universal token optimization. Include repeated context/retrieval cost and rework in measurements. Shared state belongs in versioned artifacts and a durable task ledger, not one ever-growing conversation.

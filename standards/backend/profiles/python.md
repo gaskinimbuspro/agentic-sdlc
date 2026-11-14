@@ -1,22 +1,22 @@
-# Python backend profili v0.1
+# Python backend profile v0.1
 
-Bu profil [ortak](../common.md) ve [test](../testing.md) kurallarına eklenir. Varsayılan araç tercihi uv, Ruff, mypy ve pytest'tir. Sürümleri proje başında sabitlenir. FastAPI, Django veya başka bir web framework'ü bu profil otomatik seçmez.
+Apply with [common](../common.md) and [testing](../testing.md) rules. Default tools are uv, Ruff, mypy, and pytest; pin their versions per project. This profile does not automatically select FastAPI, Django, or another web framework.
 
-| Kimlik | Kural | Doğrulama |
+| ID | Rule | Verification |
 | --- | --- | --- |
-| PY01 | PEP 8'in okunabilirlik ve isimlendirme rehberi temel alınır. Ruff format ve lint kullanılır; bu profil için satır uzunluğu 88'dir. Ruff lint seçimi `E4,E7,E9,F,I,B,UP` olarak açıkça kaydedilir; tüm kuralların varsayılan açık olduğu sanılmaz. | Format ve lint kapıları; sabit araç/config sürümü |
-| PY02 | Production fonksiyon ve arayüzlerinin tipleri tanımlıdır; `src` için mypy strict kullanılır. `Any` ve ignore'lar gerekçesiz yayılmaz. Type annotation'ın runtime validation sağlamadığı kabul edilir. | mypy; ayrıca bozuk API girdisi testleri |
-| PY03 | `pyproject.toml`, desteklenen Python sürümü ve `uv.lock` bulunur. Varsayılan layout `src/<paket>` ve `tests/` olur; framework'ün farklı resmî düzeni seçilirse profil uyarlamasında açıklanır. Testler kurulmuş proje paketini kullanır. | Kilitli sync; doğru paketin import edildiği test ortamı |
-| PY04 | İş kuralları framework request/response nesnelerine bağlanmaz. Web sınırında request/response doğrulaması ve exception eşlemesi framework'e uygun biçimde seçilir. | Transport'suz davranış ve gerçek app host testleri |
-| PY05 | Async uygulamada event loop blocking I/O ile durdurulmaz. Desteklenen async API veya uygun worker sınırı kullanılır. İptal ve kaynak temizliği korunur; uzun işin yaşam süresi request'ten ayrılır. | Timeout/cancellation ve uygun concurrency senaryoları |
-| PY06 | Beklenen hatalar tanımlı exception'larla aktarılır; geniş exception yakalama yalnız uygun sınırda, tekrar fırlatma/eşleme ve gözlemlenebilir sonuçla kullanılır. Bağlantı ve dosyalar context manager ile yönetilir. | Hata ve cleanup testleri; inceleme |
-| PY07 | pytest ile unit, app/API ve gerçek bağımlılık testleri ayrılır. Yeni projede `--import-mode=importlib` kullanılır. Fixture state'i izole edilir; gerekli suit'te sıfır test geçiş sayılmaz. | Test raporu, pytest exit code ve yürütülen test sayısı |
+| PY01 | Base naming/readability on PEP 8. Use Ruff format/lint with this profile's 88-character width and explicit `E4,E7,E9,F,I,B,UP` lint selection. | Pinned formatter/linter and configuration |
+| PY02 | Type production functions/interfaces and run mypy strict on `src`. Justify Any/ignores. Runtime input validation is separate. | mypy and malformed-input tests |
+| PY03 | Record Python version, `pyproject.toml`, and `uv.lock`. Default to `src/<package>` plus `tests`; explain official framework layout adaptations. Test the installed project package. | Locked sync and correct package imports |
+| PY04 | Keep business behavior independent of request/response objects. Select runtime validation and exception mapping for the framework. | Transport-independent and actual app-host tests |
+| PY05 | Do not block the event loop with synchronous I/O. Use appropriate async APIs/worker boundaries; preserve cancellation and cleanup. | Timeout/cancellation and relevant concurrency cases |
+| PY06 | Use defined expected exceptions. Catch broad exceptions only at suitable boundaries with observable handling/rethrow/mapping. Manage resources with context managers. | Error/cleanup tests and review |
+| PY07 | Separate unit, app/API, and real-dependency tests. Default new projects to pytest importlib mode. Isolate fixtures and reject empty required suites. | Reports, exit codes, and executed counts |
 
-PY01'in Ruff/88 seçimi ve PY02'nin strict seviyesi bu standardın tercihleridir. İsimlendirme ve typing için [P01](../sources.md#p01), [P02](../sources.md#p02); paketleme için [P03](../sources.md#p03); araçlar için [P04](../sources.md#p04), [P05](../sources.md#p05), [P06](../sources.md#p06), [P07](../sources.md#p07) kullanılır.
+Ruff/88, strict typing, package manager, and layout defaults are project choices. Sources: [P01](../sources.md#p01), [P02](../sources.md#p02), [P03](../sources.md#p03), [P04](../sources.md#p04), [P05](../sources.md#p05), [P06](../sources.md#p06), [P07](../sources.md#p07).
 
-## Kontrol komutu şablonları
+## Command templates
 
-Proje kökünde çalışacak örnek komutlar aşağıdadır. `tests/unit` ve `tests/integration` gerçek, ilgili testleri içermelidir. Integration kapsamı yoksa gerekçesi proje profilinde kaydedilir; boş suit'e sahte test eklenmez.
+Bind these to real paths in the adopting project. Required suites must contain meaningful tests. Record a justified N/A scope rather than inventing a dummy test.
 
 ```sh
 uv sync --locked --group dev
@@ -27,6 +27,6 @@ uv run --no-sync python -m pytest --import-mode=importlib tests/unit --junitxml=
 uv run --no-sync python -m pytest --import-mode=importlib tests/integration --junitxml=artifacts/integration.xml
 ```
 
-`dev` dependency group araçları ve tip stub'larını içermeli; `src` düzeni kullanılıyorsa build backend ve paket kurulumu yapılandırılmalıdır. Python/uv sürümü proje kaydında, test/lint araçları lock içinde sabitlenir. `--no-sync`, önceden başarılı kilitli sync adımına dayanır. Her komut ayrı kontrol edilir; ilk hata sonraki komutun exit code'u ile gizlenmez.
+The dev group must contain tools/stubs; a src-layout package needs a configured build backend/package installation. Record Python/uv versions and lock other tools. `--no-sync` assumes a successful locked sync. Execute each command as a separate checked step or inside a fail-fast wrapper.
 
-Framework test host'u, lifespan/startup, runtime validation, migration ve gerçek bağımlılık fixture'ları proje profilinde ayrıca seçilir. Bu şablon tek başına uygulama veya CI oluşturmaz.
+Specify framework startup/lifespan, test host, validation, migrations, and dependency fixtures before readiness. These templates do not create an application or CI pipeline.

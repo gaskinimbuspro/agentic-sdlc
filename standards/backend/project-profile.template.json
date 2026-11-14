@@ -56,5 +56,17 @@
     "backend_verify": null
   },
   "not_applicable": [],
-  "exceptions": []
+  "exceptions": [],
+  "execution_policy": {
+    "coding_task_context": "one scoped task per implementation session",
+    "independent_review_context": true,
+    "workspace_isolation": "worktree per active implementation task",
+    "dispatch_claim_policy": null,
+    "integration_target": null,
+    "required_ci_checks": [],
+    "human_decision_boundaries": [],
+    "max_parallel_tasks": null,
+    "repair_budget": null,
+    "model_routing": null
+  }
 }

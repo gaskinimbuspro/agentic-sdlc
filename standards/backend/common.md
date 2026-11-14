@@ -1,36 +1,38 @@
-# Ortak backend kuralları
+# Common backend rules
 
-Kapsam HTTP API, worker ve servis backend'leridir. HTTP, kalıcı veri, mesajlaşma veya çok kiracılık gibi özelliklere bağlı kurallar yalnız ilgili projelerde uygulanır. Doğrulama sütunu, kuralın projede hangi kontrolle bağlanacağını belirtir; bu repoda o kontrollerin çalıştırıldığı anlamına gelmez.
+Scope: HTTP APIs, workers, and services. HTTP, storage, messaging, and tenant-specific rules apply only where relevant. The verification column specifies checks to implement in each project; it does not claim those application checks already exist here.
 
-## Mimari karar temeli
+## Architecture basis
 
-Sunum veya transport, iş kuralları ve veri erişimi sorumlulukları ayırt edilir. Bunun fiziksel karşılığı dile ve ihtiyaca göre değişir; sabit sayıda klasör, proje veya servis zorunlu değildir. [F01](sources.md#f01).
+Separate transport/presentation, business behavior, and data access responsibilities. Their physical representation depends on the language and problem; no fixed number of folders, projects, or services is required. [F01](sources.md#f01).
 
-Basit kullanım senaryolarında Transaction Script; davranış ve invariant'ları yoğun modellerde Domain Model değerlendirilir. Repository, domain ile veri eşleme arasında faydalı bir sınır oluşturduğunda seçilir. Her entity için generic repository, CQRS, event sourcing veya mikroservis üretmek başlangıç şartı değildir. Bu tercih, Fowler'ın kataloğundaki alternatiflerin bu projeye uyarlanmasıdır. Repository girdisinin yazarları Edward Hieatt ve Rob Mee'dir. [F02](sources.md#f02), [F03](sources.md#f03), [F04](sources.md#f04), [F09](sources.md#f09).
+Consider Transaction Script for simple use cases and Domain Model for behavior-rich domains. Select Repository when it provides a useful domain/data-mapping boundary. Do not introduce generic repositories, CQRS, event sourcing, or microservices automatically. [F02](sources.md#f02), [F03](sources.md#f03), [F04](sources.md#f04), [F09](sources.md#f09).
 
-## Kurallar
+Use module boundaries that tooling can check where practical; folder names and reviewer discipline alone do not establish modularity. Simon Brown discusses component boundaries and compiler/build-time enforcement. Architecture decisions must record alternatives and consequences; Mark Richards' ADR lesson summary supports that practice. [A01](sources.md#a01), [A02](sources.md#a02).
 
-| Kimlik | Zorunluluk ve kapsam | Projede doğrulama | Dayanak |
+## Rules
+
+| ID | Requirement and scope | Project verification | Basis |
 | --- | --- | --- | --- |
-| B01 | Kodlamadan önce dil, framework, sürümler, mimari kararlar ve gerekli kontroller proje profilinde belirlenir. Eksik veya örnek değerler hazır proje kabul edilmez. | Profil ve tasarım incelemesi; görev başlangıç kontrolü | Proje tercihi |
-| B02 | Anlamlı iş kuralları HTTP handler veya controller'a gömülmez. SQL ve dış servis ayrıntıları belirlenen veri/entegrasyon sınırında tutulur. Modül bağımlılıkları açık olur. | İş kurallarını transport olmadan test et; yasak bağımlılıkları structural test veya analizle denetle | F01 |
-| B03 | Modüller iş yetenekleri etrafında tanımlanır. Domain Model, Transaction Script, Repository ve servis sınırı seçimi gerekçelendirilir. Kullanılmayan soyutlama eklenmez. | Mimari karar kaydı ve bağımlılık incelemesi | F02–F04, F09; proje tercihi |
-| B04 | Dış arayüzün girdi, çıktı, hata ve uyumluluk sözleşmesi bulunur. HTTP API için OpenAPI; başka protokol için uygun sözleşme seçilir. Liste, filtre, sıralama ve kaynak tüketimi sınırları belirlenir. | Sözleşme incelemesi ve API/contract testleri; kırıcı değişiklik kontrolü | Proje tercihi |
-| B05 | Güvenilmeyen girdiler çalışma zamanında sınırda doğrulanır; tip kontrolü bunun yerine geçmez. İş invariant'ları yalnız UI veya transport doğrulamasına bırakılmaz. | Bozuk, eksik, aşırı büyük ve sınır değerli girdiler; iş kuralı testleri | S02, P02 |
-| B06 | Kimlik ve kaynak bazlı yetki backend'de uygulanır. Çok kiracılık varsa tenant sınırı her ilgili erişimde korunur. Kullanıcının gönderdiği owner/tenant değeri tek başına yetki sayılmaz. | Kimliksiz, yetersiz yetkili, başka kullanıcıya/tenant'a ait kaynak senaryoları | S02 |
-| B07 | Hatalar yutulmaz; iş hatası ile beklenmeyen hata sınırda eşlenir. REST/HTTP JSON API'de varsayılan hata gövdesi RFC 9457 Problem Details olur. Stack trace veya hassas ayrıntı dışarı verilmez. | Hata sözleşmesi, status ve hassas bilgi sızıntısı testleri | S01, S02; format seçimi proje tercihi |
-| B08 | Kalıcı veri varsa transaction ve tutarlılık sınırı belirlenir. Bütünlük yalnız uygulama kontrolüne bırakılmaz; uygun veri kısıtları kullanılır. Tekrar eden ve eşzamanlı işlemlerin davranışı açıklanır. | Gerçek veri motoruyla rollback, constraint, tekrar ve ilgili concurrency testleri | Proje tercihi |
-| B09 | Şema değişikliği sürümlü migration ile yapılır. Desteklenen önceki şemadan geçiş ve dağıtım uyumluluğu incelenir. Geri dönüş, gerektiğinde ileri düzeltme ve veri koruma planını içerir. | Boş veri tabanına kurulum ve önceki sürümden migration testi | Proje tercihi |
-| B10 | Dış I/O için bağlantı/işlem zaman sınırları belirlenir. İptal uygun çağrı zincirine taşınır; kaynaklar doğru yaşam süresinde kapatılır. | Timeout, cancellation ve temizleme senaryoları | N03, N04, G06; ortaklaştırılmış proje kuralı |
-| B11 | Retry yalnız güvenli/idempotent işlem veya tanımlı idempotency mekanizması için kullanılır; sayı, süre ve backoff sınırları bellidir. Tekrar çağrı çift yan etki üretmemelidir. | İlk deneme başarısızlığı, limit ve çift işlem senaryoları | Proje tercihi |
-| B12 | Secret'lar ve hassas kişisel veriler kaynak koduna, test fixture'larına veya loglara yazılmaz. Kullanıcı girdileri SQL/komut/string birleştirmesiyle çalıştırılmaz; uygun parametrizasyon ve API'ler kullanılır. | Secret/static tarama ve ilgili enjeksiyon/log redaction testleri | S02 |
-| B13 | Yapılandırılmış log ve istek/iş ilişkilendirmesi bulunur. Servisin hata ve gecikmesini anlamaya yetecek metrikler, gerektiğinde trace ve proje kalite hedefleri belirlenir. | Kontrollü hata isteğiyle log/telemetry incelemesi; seçilen hedeflere göre ölçüm | Proje tercihi |
-| B14 | Gerekli konfigürasyon başlangıçta doğrulanır. Üretim ve test ayarları ayrılır. Para, zaman dilimi veya hassas sayı içeren alanda hassasiyet ve dönüşüm kuralları açıkça seçilir. | Eksik/yanlış ayarla başlangıç ve ilgili domain sınır testleri | Proje tercihi |
-| B15 | Toolchain ve bağımlılık sürümleri kaydedilir. CI kilitli restore kullanır; doğrulama sırasında bağımlılıkları sessizce güncellemez. Desteklenen stable sürüm seçimi proje başında resmî destek bilgisiyle yapılır. | Temiz ortamda restore/build; lock ve çalışma ağacı fark kontrolü | P03, P07, N06, G02, G03 |
-| B16 | Çalıştırılacak artifact, başlangıç ve kapanış davranışı tanımlıdır. Health/readiness kontrollerinin anlamı belgelenir; liveness uzak servis sağlığına körlemesine bağlanmaz. | Paketlenmiş artifact ile başlangıç, güvenli smoke ve graceful shutdown kontrolü | Proje tercihi |
-| B17 | Değişiklik dar kapsamlı, anlaşılır ve refactoring'e elverişli olur. Hata düzeltmesi uygun regression testiyle korunur; test için gereksiz production soyutlaması üretilmez. | PR ve regression incelemesi | F05, F09, G01 |
-| B18 | Bağımlılık ve güvenlik bulguları için tarayıcı, engelleme politikası ve süreli istisnalar belirlenir. Rapor üreten komut, tek başına güvenlik kapısının geçtiği kabul edilmez. | Politika eşiğini geçen örnek bulguda kontrolün başarısız olduğunu göster; gerçek raporu sakla | S02; kapı politikası proje tercihi |
+| B01 | Before implementation, record language, framework, versions, architecture decisions, and required checks. Incomplete/example values cannot establish readiness. | Profile/design review and task readiness check | Project policy |
+| B02 | Keep meaningful business rules outside HTTP handlers/controllers. Keep SQL and external-service details behind declared data/integration boundaries. Make module dependencies explicit. | Transport-independent behavior tests and structural/dependency checks | F01, A01 |
+| B03 | Organize modules around business capabilities. Justify domain logic patterns, Repository, and service boundaries. Avoid unused abstractions. | Architecture decisions and dependency review | F02–F04, F09; project policy |
+| B04 | Define external inputs, outputs, failures, and compatibility. Use OpenAPI for HTTP APIs and an appropriate contract for other protocols. Define pagination, filtering, ordering, and resource limits. | API/contract tests and breaking-change checks | Project policy |
+| B05 | Validate untrusted inputs at runtime. Static typing is not runtime validation. Protect business invariants beyond UI/transport validation. | Malformed, missing, oversized, boundary-value, and invariant tests | S02, P02 |
+| B06 | Enforce identity and resource-level authorization in the backend. Isolate tenants where applicable. A supplied owner/tenant identifier is not authority. | Anonymous, insufficient-role, cross-user, and cross-tenant scenarios | S02, S03 |
+| B07 | Preserve and map errors at the boundary. Default REST JSON APIs to RFC 9457 Problem Details. Do not disclose stack traces or sensitive internals. | Failure contract/status and disclosure tests | S01, S02; format selection is project policy |
+| B08 | Define transaction/consistency boundaries where data persists. Use suitable data constraints. Specify duplicate and concurrent-operation behavior. | Real-engine rollback, constraint, duplicate, and concurrency tests | Project policy |
+| B09 | Version schema changes as migrations. Test supported upgrades and deployment compatibility. Document rollback or forward recovery and data preservation. | Empty-database installation and previous-version migration tests | Project policy |
+| B10 | Bound external I/O connection/operation time. Propagate cancellation where supported; clean resources within their lifetimes. | Timeout, cancellation, and cleanup scenarios | N03, N04, G06; generalized project policy |
+| B11 | Retry only safe/idempotent operations or operations with a defined idempotency mechanism. Bound attempts/time/backoff and prevent duplicate side effects. | Transient failure, exhausted retry, and duplicate-operation tests | Project policy |
+| B12 | Keep secrets and sensitive personal data out of source, fixtures, logs, and error bodies. Use parameterized/safe APIs rather than executing concatenated input. | Secret/static scanning and relevant injection/redaction tests | S02 |
+| B13 | Provide structured logs and request/job correlation. Select metrics, tracing where needed, and measurable quality targets. | Controlled failure/telemetry inspection and target-based measurements | Project policy |
+| B14 | Validate required configuration at startup. Separate test/production settings. Define precision/time-zone/conversion rules for relevant domains. | Invalid-startup and applicable domain boundary tests | Project policy |
+| B15 | Record toolchain/dependency versions. Use locked restore in CI; verification must not silently upgrade dependencies. Select supported stable versions using current official support information. | Clean restore/build and lock/worktree diff checks | P03, P07, N06, G02, G03 |
+| B16 | Define packaged artifact, startup/shutdown, and health/readiness semantics. Do not blindly tie process liveness to remote service health. | Packaged-artifact startup, safe smoke, and graceful shutdown | Project policy |
+| B17 | Keep changes focused, understandable, and refactorable. Protect fixes with appropriate regression tests; avoid production abstractions needed only by mocks. | PR/regression review | F05, F09, G01 |
+| B18 | Select dependency/security scanners, blocking policy, and time-bounded exceptions. Producing a report does not itself prove a security gate passed. | Demonstrate rejection of a blocking finding and preserve the actual report | S02; gate policy is a project choice |
 
-## Projeye göre seçilecekler
+## Project-specific decisions
 
-Dil ve framework, ORM veya SQL aracı, authentication yöntemi, pagination biçimi, migration aracı, telemetry ürünü ve dağıtım ortamı bu metinle otomatik seçilmez. Proje profiline yazılır. Basit CRUD için zengin domain katmanları; tek servis için kuyruk, cache veya Kubernetes gerekliliği varsayılmaz.
+Choose framework, persistence tools, authentication, pagination, migrations, telemetry, and deployment in the project profile. Simple CRUD does not automatically require a rich domain model; one service does not automatically require a queue, cache, or Kubernetes.

@@ -1,11 +1,11 @@
-# Lucide ikonları
+# Lucide icons
 
-Kaynak: [lucide-icons/lucide](https://github.com/lucide-icons/lucide).
+Source: [lucide-icons/lucide](https://github.com/lucide-icons/lucide).
 
-Sabitlenen commit: [`55782beff3a0133df79c417eb68f96e8f19e2404`](https://github.com/lucide-icons/lucide/tree/55782beff3a0133df79c417eb68f96e8f19e2404).
+Pinned commit: [`55782beff3a0133df79c417eb68f96e8f19e2404`](https://github.com/lucide-icons/lucide/tree/55782beff3a0133df79c417eb68f96e8f19e2404).
 
-Alınma tarihi: 14 Kasım 2026.
+Retrieved: 14 November 2026.
 
-Bu klasörde diyagramlarda kullanılan SVG ikonları bulunur. Renk ve boyut generator içinde uygulanır. GitHub, git dalı simgesiyle temsil edilir.
+This directory contains the SVG icons used by the diagrams. The generator applies color/size. GitHub is represented by a git-branch symbol.
 
-[LICENSE](LICENSE), Lucide ISC metnini ve Feather'dan türeyen ikonlar için gereken MIT bildirimini birlikte içerir. Bu bildirimler, tek başına paylaşılabilen diyagram dosyalarının metadata'sına da eklenir.
+[LICENSE](LICENSE) preserves the Lucide ISC notice and MIT notice for Feather-derived icons. The standalone diagrams also retain these notices in their metadata.

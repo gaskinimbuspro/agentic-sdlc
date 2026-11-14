@@ -1,41 +1,39 @@
-# Mimari ve süreç diyagramları
+# Process and architecture diagrams
 
-Bu görünümler, araştırma sırasında tartışılacak çalışma düzenini somutlaştırır. Üçü de **taslak v0.1** durumundadır; seçilmiş framework, kesin ajan sayısı veya çalışan otomasyon beyanı değildir.
+These views make the proposed method discussable. All are **draft v0.1**. They do not claim an implemented dispatcher, a fixed model/agent count, or a finalized application topology.
 
-## Geliştirme süreci
+## Development process
 
-Proje dokümanından gereksinim, mimari, repo ve görev hazırlığı, geliştirme, doğrulama ve teslimata geçişi gösterir. Kesikli ok, test ve inceleme bulgularının planlamaya geri dönmesini anlatır. İnsan yönlendirmesi tüm süreç boyunca geçerlidir.
+The view covers brief, requirements, architecture, repository/tasks, implementation/verification, and delivery. Dashed arrows represent findings returning to planning. Human direction applies throughout.
 
-![Proje fikrinden doğrulanmış teslimata](01-development-process.png)
+![Project brief to verified delivery](01-development-process.png)
 
 [SVG](01-development-process.svg) · [PNG](01-development-process.png)
 
-## Ajanların çalışma düzeni
+## Backend agent responsibilities
 
-Ürün sahibi, projeye özel girdi, ortak standartlar, koordinasyon sorumluluğu, uzmanlık rolleri, paylaşılan çıktılar ve araçlar arasındaki ilişkileri gösterir. Dört uzmanlık kutusu sorumluluk alanlarıdır; ayrı ve kalıcı dört ajan kurulması kararı değildir. Araç erişimi rol ve görev için sınırlandırılır. Koordinasyonun hangi araçla uygulanacağı araştırmada belirlenecek.
+The human supplies intent. The Architect/Planner decomposes work; the Coordinator dispatches ready packets; one Implementer owns a coding task; the Independent Reviewer checks the candidate; CI supplies execution evidence. Shared artifacts carry state across scoped sessions. Role boxes are not permanent process/model counts. See the normative [delivery workflow](../../standards/backend/delivery-workflow.md).
 
-![Ajanlar, bağlam ve araçlar](02-agent-structure.png)
+![Backend agent responsibilities](02-agent-structure.png)
 
 [SVG](02-agent-structure.svg) · [PNG](02-agent-structure.png)
 
-## Bir proje için teknik mimari örneği
+## Illustrative project architecture
 
-Web arayüzü, API, iş kuralları, veri ve entegrasyon sorumluluklarını örnekler. Oklar çalışma zamanındaki etkileşimleri anlatır. Mantıksal sorumlulukların ayrı kutularda olması, ayrı mikroservisler veya repository'ler gerektirmez. Teknoloji, kimlik mekanizması ve deployment profili projeye göre seçilecek.
+The view separates UI, API, business behavior, and data/integration responsibilities. Arrows show runtime interactions. Separate logical boxes do not require separate microservices/repositories. Actual technology, identity, and deployment profiles are project decisions.
 
-![Örnek proje mimarisi](03-project-architecture.png)
+![Illustrative project architecture](03-project-architecture.png)
 
 [SVG](03-project-architecture.svg) · [PNG](03-project-architecture.png)
 
-## Düzenleme ve yeniden üretme
+## Edit and regenerate
 
-SVG dosyaları vektöreldir; SVG destekleyen editörlerde düzenlenebilir. Tekrarlanabilir üretim kaynağı [render_diagrams.py](../../scripts/render_diagrams.py) dosyasıdır. Üretilen SVG veya PNG üzerinde doğrudan yapılan değişiklikleri korumak için generator kaynağına da aktarın.
+SVG files are editable vectors. The repeatable source is [render_diagrams.py](../../scripts/render_diagrams.py). Carry direct SVG/PNG edits back into the generator if they must survive regeneration.
 
-Python 3.10 veya üzeri, Pillow, Inkscape ve DejaVu Sans fontları gerekir. Repo kökünde şu komut üç SVG ve üç PNG dosyasını yeniden üretir:
+Requires Python 3.10+, Pillow, Inkscape, and DejaVu Sans fonts. From the repository root:
 
 ```sh
 python scripts/render_diagrams.py
 ```
 
-Üretim yerel ikonlarla çalışır; ağ erişimi gerektirmez. Başlık ve metin genişlikleri üretim sırasında kontrol edilir. PNG'ler 1800 piksel genişliğindedir; sunum ve yakınlaştırma için SVG tercih edilebilir.
-
-İkonların sürümü, kaynağı ve lisansları [Lucide kaynak notunda](assets/lucide/README.md) kayıtlıdır. Lisans metinleri SVG metadata'sında ve PNG metadata'sında da bulunur.
+Rendering uses local assets and no network. The generator checks card text widths. PNGs are 1800 pixels wide; use SVG for scaling. [Icon provenance and licenses](assets/lucide/README.md) are recorded, including notices in SVG/PNG metadata.

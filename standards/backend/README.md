@@ -1,40 +1,50 @@
-# Backend standardı v0.1
+# Backend standard v0.1
 
-Bu standart, yeni bir projede backend geliştiren ve doğrulayan ajanların uyması için hazırlanmış ilk sürüm taslağıdır. Ortak kurallar, seçilen dil profili ve projeye özel framework kararları birlikte uygulanır. Başlangıç kapsamı Python, C#/.NET ve Go'dur; başka bir dil seçilirse önce onun profili eklenir.
+This draft defines how agents design, implement, test, review, and integrate a backend. Apply the common rules, the selected language profile, and the project's framework decisions together. Initial language coverage is Python, C#/.NET, and Go. Add a profile before adopting another language.
 
-## Standart bileşenleri
+## Start here
 
-| Belge | Belirlediği konu |
+1. The human supplies the project brief to the **Coordinator**.
+2. The **Backend Architect/Planner** clarifies requirements, selects architecture and language, prepares the project profile and test plan, and splits work into bounded tasks.
+3. The **Coordinator** dispatches a ready task to one **Implementer** with its own workspace and context packet.
+4. An **Independent Reviewer** checks the exact candidate against requirements; **CI** supplies execution evidence.
+5. The Coordinator advances the task only when the [Definition of Done](definition-of-done.md) is satisfied. Failed checks return to implementation; unresolved decisions or exhausted budgets become blockers.
+
+See [delivery workflow](delivery-workflow.md) for ownership, task states, context policy, and dispatch rules. These are logical roles, not a requirement for four permanent processes or four model vendors.
+
+## Standard documents
+
+| Document | Purpose |
 | --- | --- |
-| [Ortak backend kuralları](common.md) | Mimari, API, güvenlik, veri, hata ve işletim beklentileri |
-| [Test ve teslimat kuralları](testing.md) | Geliştiriciden kabul ve smoke kontrollerine kadar doğrulama |
-| [Python profili](profiles/python.md) | Paketleme, typing, biçim, lint ve pytest |
-| [.NET profili](profiles/dotnet.md) | Nullable, analyzer, DI, async ve test düzeni |
-| [Go profili](profiles/go.md) | Paketler, interface, error, context ve concurrency |
-| [Ajan çalışma sözleşmesi](agent-contract.md) | Mimar, geliştirici ve doğrulayıcının girdileri ve çıktıları |
-| [Proje profili şablonu](project-profile.template.json) | Projede kullanılacak sürümler, kararlar ve gerçek kontrol komutları |
-| [Kaynaklar ve atıf sınırları](sources.md) | Her yaklaşımın dayanağı ve bizim araç tercihlerimiz |
+| [Common rules](common.md) | Architecture, interfaces, security, data, failure handling, and operations |
+| [Testing](testing.md) | Test responsibilities, gates, and evidence |
+| [Test case matrix](test-case-matrix.md) | Required scenario families and applicability |
+| [Definition of Done](definition-of-done.md) | Conditions for accepting a backend task |
+| [Python](profiles/python.md) | Packaging, typing, formatting, linting, and pytest |
+| [.NET](profiles/dotnet.md) | Nullability, analyzers, DI, async, and tests |
+| [Go](profiles/go.md) | Packages, interfaces, errors, contexts, and concurrency |
+| [Agent contract](agent-contract.md) | Inputs, responsibilities, and mandatory outputs |
+| [Project profile](project-profile.template.json) | Project decisions, pinned versions, real commands, and execution policy |
+| [Task packet](templates/task-packet.template.json) | Scoped input for one implementation session |
+| [Verification record](templates/verification-record.template.json) | Evidence attached to a candidate |
+| [Sources](sources.md) | Primary references and limits of attribution |
 
-## Kuralların anlamı
+## Normative meaning
 
-Bu sürümü benimseyen bir projede uygulanabilir B, T ve seçilen dilin PY, NET veya GO kuralları zorunludur. Koşullu bir kural yalnız belirtilen durum varsa uygulanır. Örneğin veritabanı olmayan bir servise migration altyapısı eklenmez; para işleyen serviste para hassasiyeti ve tekrar işlem senaryoları atlanmaz.
+For a project adopting v0.1, applicable B, T, and selected PY/NET/GO rules are mandatory. Conditional requirements apply when their feature exists. A service without persistent storage does not need migrations; a money-handling service must address precision and duplicate operations.
 
-Bir kuralın uygulanmaması; gerekçe, risk, telafi kontrolü, karar veren kişi veya rol ve yeniden değerlendirme tarihiyle kaydedilir. Ajan, kontrolü geçirmek için kuralı veya test kapsamını sessizce gevşetemez. Eski bir kod tabanına geçişte mevcut ihlaller ayrıca listelenir; yeni ihlaller gizlenmez.
+Exceptions require a rule ID, rationale, risk, compensating control, accountable reviewer, and expiry/review date. An Implementer cannot approve its own exception or silently disable a test. Existing codebases need an explicit migration baseline; existing violations do not justify hiding new ones.
 
-Fowler'ın mimari ve test ilkeleri ile dil rehberleri ayrı kaynaklardır. Ruff, uv, mypy, pytest, xUnit, 88 karakter gibi seçimler bu taslağın proje tercihleridir; Fowler'ın veya dilin zorunlu tuttuğu evrensel standartlar değildir.
+Fowler's architecture/testing principles and language documentation are separate sources. uv, Ruff, mypy strict, pytest, xUnit/VSTest, and 88-character formatting are choices in this draft, not universal requirements imposed by Fowler or the languages.
 
-## Yeni projede uygulama sırası
+## Adoption and enforcement
 
-1. Mimar rolü ortak kuralları ve uygun dil profilini okur; [proje profili şablonunu](project-profile.template.json) proje için doldurur.
-2. Framework ve sürümler, modül sınırları, veri yaklaşımı, API sözleşmesi ve gereken test senaryoları belirlenir. Belirsizlikler çözülmeden proje hazır sayılmaz.
-3. Dil profilindeki komutlar gerçek proje yollarına ve sabitlenmiş araçlara bağlanır. Framework'ün doğrulama, hata eşleme, test host'u ve yaşam döngüsü davranışı ayrıca belirtilir.
-4. Projede `backend-verify` adlı tek bir doğrulama giriş noktası ve onu çalıştıran zorunlu CI kontrolü oluşturulur. Alt kontrollerin sonuçları ve test sayıları ayrı görünür kalır.
-5. Geliştirici ve doğrulayıcı, [test kapıları](testing.md) ile çalışır; gerekli kontroller başarısız, eksik veya engelliyse iş tamamlanmış sayılmaz.
+Complete the project profile, record architecture/API/data decisions, select applicable test cases, and bind commands to real paths and pinned tools. The generated project must provide a `backend-verify` entry point and required CI checks. Preserve each check's result and test count; prove new quality gates reject the relevant negative case.
 
-## Mevcut uygulama durumu
+The templates deliberately start incomplete. Changing `readiness` to `ready` is not evidence. A validation step must check the required decisions, commands, permissions, and test environment before dispatch.
 
-Bu repo standart metinlerini, komut şablonlarını ve örnek proje profili yapısını içerir. Henüz bu standardı uygulayan bir backend, genel amaçlı profil doğrulayıcısı veya çalışan `backend-verify` pipeline'ı içermez. Bir proje bu standardı aldığında kontrollerin gerçek kod üzerinde kurulması ve kırılabildiğinin gösterilmesi gerekir. Yalnız Markdown talimatı, erişim veya CI koruması sağlamaz.
+## Implementation status
 
-## Sürümleme
+This repository currently contains standards, workflow/role specifications, draft templates, research notes, and diagrams. It does not yet contain a backend application, an executing dispatcher, an evidence verifier, or a working backend CI pipeline. The next pilot must implement and exercise those controls against a real backend. Instructions alone cannot enforce access or repository protection.
 
-Projeler `backend_standard` alanıyla kullandıkları sürümü kaydeder. Standart güncellemesi, projelerdeki davranışı kendiliğinden değiştirmez; sürüm geçişi uyumluluk ve kontrol değişiklikleriyle ele alınır. Taslak v0.1'in örnek projede uygulanması ve geri bildirimle gözden geçirilmesi sonraki adımdır.
+Projects record their adopted standard version. Updates require a reviewed migration; editing this repository does not silently change active projects.

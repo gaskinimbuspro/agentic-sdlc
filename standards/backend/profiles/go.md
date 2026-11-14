@@ -1,21 +1,21 @@
-# Go backend profili v0.1
+# Go backend profile v0.1
 
-Bu profil [ortak](../common.md) ve [test](../testing.md) kurallarına eklenir. Desteklenen stable Go toolchain sürümü proje başında seçilir. Standart kütüphaneyi kullanmak varsayılandır; ek framework veya DI kütüphanesi ihtiyaçla gerekçelendirilir.
+Apply with [common](../common.md) and [testing](../testing.md) rules. Select a supported stable toolchain. Prefer the standard library unless a framework/DI dependency has a concrete justification.
 
-| Kimlik | Kural | Doğrulama |
+| ID | Rule | Verification |
 | --- | --- | --- |
-| GO01 | `gofmt` zorunludur; paket adları açık ve kısa olur. Format kontrolü dosya değiştirerek geçmez; fark bulduğunda başarısız döner. | `gofmt -l` çıktısını denetleyen kapı |
-| GO02 | Paketler anlamlı yetenek ve bağımlılık sınırlarıyla kurulur. `utils` içine iş davranışı yığılmaz; her entity için class/interface katmanları üretilmez. | Paket bağımlılığı incelemesi, gerekli structural test |
-| GO03 | Normal iş hataları `error` ile döner. Hatalar kontrol edilir, bağlamla sarılır; kimlik gerektiğinde `errors.Is/As` ile değerlendirilir. String karşılaştırması ve normal hata için panic kullanılmaz. | Negatif senaryolar, vet ve kod incelemesi |
-| GO04 | `context.Context` uygun çağrılarda ilk parametredir; deadline/cancellation alt I/O'ya taşınır. Context isteğe bağlı argüman çantası yapılmaz; genel olarak struct içine saklanmaz. | İptal/timeout testleri ve inceleme |
-| GO05 | Interface gerektiğinde ve küçük tanımlanır; genellikle tüketen pakete aittir. Sırf mock üretmek için her somut tipe interface eklenmez. | Tüketici ve API tasarım incelemesi |
-| GO06 | Goroutine'in sahibi, bitişi ve hata aktarımı bellidir. İş kapanırken goroutine/channel/timer yaşam süreleri yönetilir; shared state korunur. | Race detector ve ilgili shutdown/concurrency testleri |
-| GO07 | `go.mod` ve gerekli `go.sum` kaydedilir. Tidy farkı ve readonly build/test ile bağımlılık sapması engellenir. CI kendiliğinden yeni toolchain indirmek yerine seçilen toolchain'i kullanır veya indirme politikasını açıkça sabitler. | Tidy diff, module verify, readonly build/test |
-| GO08 | Standart `testing` ve HTTP sınırında `httptest` kullanılır; table-driven testler benzer senaryolarda tercih edilir. Gerekli suit'in gerçekten test yürüttüğü JSON olaylarından doğrulanır. | Unit/API/integration raporları ve yürütülen test sayısı |
+| GO01 | Require gofmt and clear package names. Verification must reject formatting differences rather than silently modifying files. | Check gofmt output and exit status |
+| GO02 | Use capability/dependency boundaries. Do not accumulate business behavior in utils or build class/interface layers per entity. | Dependency review and required structural checks |
+| GO03 | Return/check ordinary errors, add context, and use errors.Is/As when identity matters. Avoid error-string matching and panic for normal business failures. | Negative tests, vet, and review |
+| GO04 | Pass context.Context first where appropriate; propagate deadlines/cancellation to I/O. Do not use it as an optional-argument bag or generally store it in structs. | Cancellation/timeout tests and review |
+| GO05 | Define small interfaces when needed, generally in the consumer. Do not add interfaces to every type merely to generate mocks. | Consumer/API design review |
+| GO06 | Give goroutines an owner, termination path, and error handling. Manage channels/timers/shutdown and protect shared state. | Race detector and relevant concurrency/shutdown cases |
+| GO07 | Commit go.mod/go.sum as needed. Reject tidy drift and use readonly build/test. Pin or explicitly govern automatic toolchain downloads. | Tidy diff, module verification, readonly commands |
+| GO08 | Use testing and httptest; prefer table-driven tests for similar cases. Verify actual executed test events for each required suite. | Unit/API/integration results and counts |
 
-Paket/interface/error için [G01](../sources.md#g01), dependency için [G02](../sources.md#g02), [G03](../sources.md#g03), race için [G04](../sources.md#g04), HTTP test için [G05](../sources.md#g05), context için [G06](../sources.md#g06), test altyapısı için [G07](../sources.md#g07) kullanılır. Feature düzeni ve araç varsayılanları bu standardın proje tercihleridir.
+Sources: [G01](../sources.md#g01), [G02](../sources.md#g02), [G03](../sources.md#g03), [G04](../sources.md#g04), [G05](../sources.md#g05), [G06](../sources.md#g06), [G07](../sources.md#g07). Feature organization and tool defaults are project policies.
 
-## Kontrol komutu şablonları
+## Command templates
 
 ```sh
 format_output="$(gofmt -l .)" || exit "$?"
@@ -29,8 +29,8 @@ go test -mod=readonly -count=1 -tags=integration -json ./tests/integration/...
 go test -mod=readonly -count=1 -race -json ./...
 ```
 
-Her satır ayrı kontrol veya ilk hatada duran bir wrapper içinde çalıştırılır. `gofmt -l` tek başına fark bulunca non-zero dönmediğinden çıktı kontrolü gerekir. Hatalı gofmt çağrısının exit code'u da korunur.
+Run each line as a separate checked step or in a fail-fast wrapper. `gofmt -l` does not itself fail on formatting differences; inspect output and preserve tool failures.
 
-Bu komut düzeninde gerçek bağımlılık testleri `tests/integration` altında ve `integration` build tag'iyle ayrılır; ilk `go test` onları çalıştırmaz. Projede farklı düzen seçilirse gerçek paket yolları profile yazılır. JSON çıktısını dosyaya aktaran runner, `go test` exit code'unu korumalı ve her gerekli grupta yürütülen testleri saymalıdır.
+This layout places real-dependency tests under `tests/integration` with the integration build tag. The first test command excludes those files. Adapt actual package paths if the project chooses another layout. Report capture must preserve go test's exit status and count executed cases separately per required group.
 
-Race kontrolü desteklenen OS/architecture ve gerekli C toolchain ile CI'da çalışır. Desteklenmeyen local ortamda çalıştırılamaması `passed` sayılmaz; uygun runner'da tamamlanır. Race detector yalnız çalıştırılan yollardaki yarışları bulur; kritik concurrency senaryoları ayrıca tasarlanır. [G04](../sources.md#g04).
+Run race checks on a supported OS/architecture with the required C toolchain. An unsupported local run is blocked, not passed; complete it on an appropriate CI runner. The race detector only observes executed paths. [G04](../sources.md#g04).

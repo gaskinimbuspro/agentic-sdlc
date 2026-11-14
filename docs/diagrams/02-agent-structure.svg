@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc">
-<title id="title">Ajanlar, bağlam ve araçlar birlikte nasıl çalışır?</title><desc id="desc">Önerilen sorumluluklar · koordinasyon · ortak çıktılar · araç sınırları</desc>
+<title id="title">Backend roles, task context, and evidence</title><desc id="desc">Proposed responsibilities · exclusive coding ownership · independent review · trusted checks</desc>
 <metadata>ISC License
 
 Copyright (c) 2026 Lucide Icons and Contributors
@@ -53,11 +53,11 @@ SOFTWARE.
 </defs>
 <rect x="0" y="0" width="1800" height="1200" rx="0" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
 <rect x="0" y="0" width="1800" height="145" rx="0" fill="#13243C" stroke="none" stroke-width="1.5"  />
-<text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  TASARIM GÖRÜNÜMLERİ</text>
-<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">Ajanlar, bağlam ve araçlar birlikte nasıl çalışır?</text>
-<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Önerilen sorumluluklar · koordinasyon · ortak çıktılar · araç sınırları</text>
+<text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  ARCHITECTURE VIEWS</text>
+<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">Backend roles, task context, and evidence</text>
+<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Proposed responsibilities · exclusive coding ownership · independent review · trusted checks</text>
 <rect x="1510" y="44" width="225" height="43" rx="21" fill="#FFF0CD" stroke="none" stroke-width="1.5"  />
-<text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">TASLAK · v0.1</text>
+<text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">DRAFT · v0.1</text>
 <rect x="64" y="184" width="350" height="145" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="64" y="180" width="350" height="145" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="84" y="200" width="49" height="49" rx="13" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
@@ -65,9 +65,9 @@ SOFTWARE.
   <circle cx="12" cy="8" r="5" />
   <path d="M20 21a8 8 0 0 0-16 0" />
 </svg>
-<text x="150" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="start">ÜRÜN SAHİBİ</text>
+<text x="150" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="start">PRODUCT OWNER</text>
 <text x="150" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Gökhan</text>
-<text x="86" y="276" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Amaç, öncelik ve önemli kararlar</text>
+<text x="86" y="276" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Goals, priorities, material decisions</text>
 <rect x="480" y="184" width="475" height="145" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="480" y="180" width="475" height="145" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="500" y="200" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -78,9 +78,9 @@ SOFTWARE.
   <path d="M16 13H8" />
   <path d="M16 17H8" />
 </svg>
-<text x="566" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">PROJEYE ÖZEL GİRDİ</text>
-<text x="566" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Proje dokümanı</text>
-<text x="502" y="276" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Senaryolar, kapsam ve kısıtlar</text>
+<text x="566" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">PROJECT INPUT</text>
+<text x="566" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Project brief</text>
+<text x="502" y="276" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Scenarios, scope, and constraints</text>
 <rect x="1040" y="184" width="696" height="145" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="1040" y="180" width="696" height="145" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="1060" y="200" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -90,17 +90,17 @@ SOFTWARE.
   <circle cx="17" cy="17" r="3" />
   <circle cx="7" cy="7" r="3" />
 </svg>
-<text x="1126" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">SÜRÜMLENEN BAĞLAM</text>
-<text x="1126" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Ortak kurallar ve çalışma ayarları</text>
-<text x="1062" y="276" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Dil / UI / test profilleri · GitHub · görev şeması</text>
+<text x="1126" y="214" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">VERSIONED GUIDANCE</text>
+<text x="1126" y="241" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Shared standards and settings</text>
+<text x="1062" y="276" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Language and test profiles · GitHub · task schema</text>
 <path d="M414 252 H475" fill="none" stroke="#A76608" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#amber)"/>
 <path d="M717 325 V367 H900 V405" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <path d="M1388 325 V465 H1155" fill="none" stroke="#7756C8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#purple)"/>
-<rect x="1308.296875" y="359" width="163.40625" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="1390" y="375" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#7756C8" font-weight="400" text-anchor="middle">standartlar / yetkiler</text>
+<rect x="1296.6171875" y="359" width="186.765625" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="1390" y="375" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#7756C8" font-weight="400" text-anchor="middle">standards / permissions</text>
 <path d="M239 325 V495 H645" fill="none" stroke="#A76608" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#amber)"/>
-<rect x="344.0078125" y="463" width="175.984375" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="432" y="479" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#A76608" font-weight="400" text-anchor="middle">kararlar / yönlendirme</text>
+<rect x="352.0078125" y="463" width="159.984375" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="432" y="479" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#A76608" font-weight="400" text-anchor="middle">decisions / direction</text>
 <rect x="650" y="414" width="500" height="170" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="650" y="410" width="500" height="170" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="670" y="430" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
@@ -109,11 +109,11 @@ SOFTWARE.
   <path d="M7 11v4a2 2 0 0 0 2 2h4" />
   <rect width="8" height="8" x="13" y="13" rx="2" />
 </svg>
-<text x="736" y="444" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">KOORDİNASYON SORUMLULUĞU</text>
-<text x="736" y="471" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">İş akışını koordine et</text>
-<text x="672" y="506" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Sıradaki işi ve bağımlılıkları belirle</text>
-<text x="672" y="531" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Uygun rolü çağır, durumu kaydet</text>
-<text x="672" y="556" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Kesintide kaldığı yerden devam et</text>
+<text x="736" y="444" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">DISPATCH AND STATE CONTROL</text>
+<text x="736" y="471" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Coordinator</text>
+<text x="672" y="506" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Check readiness and dependency completion</text>
+<text x="672" y="531" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Claim, assign, budget, and track tasks</text>
+<text x="672" y="556" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#52647C" font-weight="400" text-anchor="start">Evaluate evidence before marking done</text>
 <path d="M900 580 V635" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  />
 <path d="M254 635 H1544" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  />
 <path d="M254 635 V695" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
@@ -121,57 +121,55 @@ SOFTWARE.
 <rect x="64" y="700" width="380" height="170" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="84" y="720" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
 <svg x="93" y="729" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M13 5h8" />
-  <path d="M13 12h8" />
-  <path d="M13 19h8" />
-  <path d="m3 17 2 2 4-4" />
-  <path d="m3 7 2 2 4-4" />
+  <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
+  <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
+  <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />
 </svg>
-<text x="150" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">ÜRÜN PERSPEKTİFİ</text>
-<text x="150" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Analiz ve ürün</text>
-<text x="86" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Senaryolar · kapsam · kabul</text>
-<text x="86" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Gereksinimler ve açık sorular</text>
+<text x="150" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">DECOMPOSITION</text>
+<text x="150" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Architect / Planner</text>
+<text x="86" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Requirements, decisions, test plan</text>
+<text x="86" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Split and order bounded tasks</text>
 <path d="M254 870 V906" fill="none" stroke="#8292A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M684 635 V695" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <rect x="494" y="704" width="380" height="170" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="494" y="700" width="380" height="170" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="514" y="720" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
-<svg x="523" y="729" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
-  <path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
-  <path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" />
+<svg x="523" y="729" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m18 16 4-4-4-4" />
+  <path d="m6 8-4 4 4 4" />
+  <path d="m14.5 4-5 16" />
 </svg>
-<text x="580" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">TASARIM PERSPEKTİFİ</text>
-<text x="580" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Mimari ve UX</text>
-<text x="516" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Sistem sınırları · kullanıcı akışı</text>
-<text x="516" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Kararlar ve diyagramlar</text>
+<text x="580" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">ONE CODING OWNER</text>
+<text x="580" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Implementer</text>
+<text x="516" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">One scoped task per coding context</text>
+<text x="516" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Code, tests, PR, durable handoff</text>
 <path d="M684 870 V906" fill="none" stroke="#8292A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M1114 635 V695" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <rect x="924" y="704" width="380" height="170" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="924" y="700" width="380" height="170" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="944" y="720" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
-<svg x="953" y="729" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="m18 16 4-4-4-4" />
-  <path d="m6 8-4 4 4 4" />
-  <path d="m14.5 4-5 16" />
+<svg x="953" y="729" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" />
 </svg>
-<text x="1010" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">UYGULAMA PERSPEKTİFİ</text>
-<text x="1010" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Geliştirme</text>
-<text x="946" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Kod · geliştirici testleri · PR</text>
-<text x="946" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Seçilen standartlara uyum</text>
+<text x="1010" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">CANDIDATE REVIEW</text>
+<text x="1010" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Independent review</text>
+<text x="946" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Separate context; inspect the candidate</text>
+<text x="946" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Challenge cases and report blockers</text>
 <path d="M1114 870 V906" fill="none" stroke="#8292A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M1544 635 V695" fill="none" stroke="#2563EB" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#blue)"/>
 <rect x="1354" y="704" width="380" height="170" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="1354" y="700" width="380" height="170" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="1374" y="720" width="49" height="49" rx="13" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
 <svg x="1383" y="729" width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-  <path d="m9 12 2 2 4-4" />
+  <path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" />
+  <path d="M6.453 15h11.094" />
+  <path d="M8.5 2h7" />
 </svg>
-<text x="1440" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">KALİTE PERSPEKTİFİ</text>
-<text x="1440" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Doğrulama ve review</text>
-<text x="1376" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Kabul kriterleri · bulgular</text>
-<text x="1376" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Bağımsız doğrulama kanıtı</text>
+<text x="1440" y="734" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">DETERMINISTIC SYSTEM</text>
+<text x="1440" y="761" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">CI verification</text>
+<text x="1376" y="796" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Execute checks; reject missing results</text>
+<text x="1376" y="821" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Bind reports to revision and artifact</text>
 <path d="M1544 870 V906" fill="none" stroke="#8292A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <rect x="64" y="911" width="1672" height="53" rx="12" fill="#E7EEF9" stroke="none" stroke-width="1.5"  />
 <svg x="84" y="924" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -181,13 +179,13 @@ SOFTWARE.
   <path d="M16 13H8" />
   <path d="M16 17H8" />
 </svg>
-<text x="128" y="944" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#2563EB" font-weight="700" text-anchor="start">PAYLAŞILAN DURUM VE ÇIKTILAR</text>
-<text x="480" y="944" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Gereksinimler · mimari / UX kararları · issue / PR · test raporları</text>
+<text x="128" y="944" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#2563EB" font-weight="700" text-anchor="start">DURABLE STATE AND OUTPUTS</text>
+<text x="480" y="944" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Requirements · decisions · claims · issue / PR · trusted reports</text>
 <path d="M64 938 H28 V550 H645" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="7 6" marker-end="url(#gray)"/>
-<rect x="232.1796875" y="559" width="213.640625" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
-<text x="339" y="575" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="middle">sonuç / durum geri bildirimi</text>
+<rect x="246.6328125" y="559" width="184.734375" height="24" rx="5" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<text x="339" y="575" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="middle">results / state feedback</text>
 <rect x="64" y="1002" width="1672" height="90" rx="15" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<text x="86" y="1027" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">ARAÇLAR  /  Erişim, rol ve göreve göre sınırlandırılır</text>
+<text x="86" y="1027" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">TOOLS  /  Access is limited by role and task</text>
 <svg x="86" y="1044" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 6a9 9 0 0 0-9 9V3" />
   <circle cx="18" cy="6" r="3" />
@@ -199,7 +197,7 @@ SOFTWARE.
   <path d="m6 8-4 4 4 4" />
   <path d="m14.5 4-5 16" />
 </svg>
-<text x="431" y="1064" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Terminal / kod</text>
+<text x="431" y="1064" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Terminal / code</text>
 <svg x="720" y="1044" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" />
   <path d="M6.453 15h11.094" />
@@ -211,7 +209,7 @@ SOFTWARE.
   <line x1="8" x2="16" y1="21" y2="21" />
   <line x1="12" x2="12" y1="17" y2="21" />
 </svg>
-<text x="1061" y="1064" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Tarayıcı</text>
+<text x="1061" y="1064" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Browser</text>
 <svg x="1330" y="1044" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" />
   <path d="M14 2v5a1 1 0 0 0 1 1h5" />
@@ -219,9 +217,9 @@ SOFTWARE.
   <path d="M16 13H8" />
   <path d="M16 17H8" />
 </svg>
-<text x="1371" y="1064" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Dokümanlar</text>
+<text x="1371" y="1064" font-family="DejaVu Sans, sans-serif" font-size="18" fill="#13243C" font-weight="400" text-anchor="start">Documents</text>
 <path d="M64 1136 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
-<text x="64" y="1165" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Roller sorumlulukları gösterir; ayrı ve sürekli çalışan ajan sayısı henüz belirlenmedi.</text>
-<text x="64" y="1185" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">İkonlar: Lucide / Feather · ISC / MIT · Kaynak ve lisans repoda</text>
+<text x="64" y="1165" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">One task, one coding owner, isolated workspace/context; review separately. Proposed workflow, not a running service.</text>
+<text x="64" y="1185" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">Icons: Lucide / Feather · ISC / MIT · Source and licenses in the repository</text>
 <text x="1736" y="1166" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  02</text>
 </svg>

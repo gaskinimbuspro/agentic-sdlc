@@ -1,33 +1,31 @@
 # Agentic SDLC
 
-Gökhan'ın her yeni projede kullanacağı, proje fikrini gereksinimlere, mimariye, geliştirme görevlerine ve doğrulanmış teslimata dönüştüren ortak çalışma çatısı.
+A reusable method for turning a project brief into requirements, architecture, bounded development tasks, and verified delivery.
 
-Bir projeye ait başlangıç dokümanı bu yapıya girdi olacak. Ortak mühendislik standartları, kişisel veya kurumsal çalışma ayarları ve proje gereksinimleri birlikte değerlendirilerek ilerleme yolu hazırlanacak.
+The current priority is the [backend standard v0.1](standards/backend/README.md): shared rules, Python/.NET/Go profiles, required test cases, completion criteria, and agent responsibilities. The method is a draft specification; an executing dispatcher and backend CI enforcement are still to be implemented and tested in a pilot.
 
-Mevcut öncelik **backend standardı v0.1**: ortak kurallar, Python/.NET/Go profilleri ve test kapıları. Standart ilk sürüm taslağıdır; ajan orkestrasyon framework'ü ve proje teknolojisi ayrıca seçilecek.
+## Where a new project starts
 
-## Backend standardı
+Give the Coordinator a project brief plus working settings. The Backend Architect/Planner clarifies behavior, records decisions, prepares the project profile/test plan, and splits work. The Coordinator dispatches ready tasks. One Implementer owns a coding task; independent review and trusted CI evidence control completion.
 
-[Yeni projelerin backend kuralları](standards/backend/README.md), ajanların okuyacağı ortak kuralları, dile özgü profilleri, test sorumluluklarını ve proje profili şablonunu içerir. Kontroller yeni projenin gerçek koduna ve CI'ına bağlanır; bu repo henüz çalışan bir backend pipeline'ı değildir.
+Start with [delivery workflow](standards/backend/delivery-workflow.md), [test case matrix](standards/backend/test-case-matrix.md), and [Definition of Done](standards/backend/definition-of-done.md).
 
-## Taslak diyagramlar
+## Repository map
 
-[Süreç, ajan çalışma düzeni ve örnek proje mimarisi](docs/diagrams/README.md) ikonlu SVG ve PNG olarak hazırlandı. Görünümler taslak v0.1 durumundadır; tasarım kararları araştırmayla netleştikçe güncellenecek.
+- [Goals and requirements](docs/goals-and-requirements.md)
+- [Backend standard and language profiles](standards/backend/README.md)
+- [Research plan](research/plan.md)
+- [Research sources](research/sources.md)
+- [Method comparison criteria](research/comparison-criteria.md)
+- [Research tasks and GitHub links](research/backlog.json)
+- [Draft process and architecture diagrams](docs/diagrams/README.md)
 
-![Ajanların çalışma düzeni taslağı](docs/diagrams/02-agent-structure.png)
+![Backend agent responsibilities](docs/diagrams/02-agent-structure.png)
 
-## Başlangıç belgeleri
+## Working method
 
-- [Hedef ve gereksinimler](docs/hedef-ve-gereksinimler.md)
-- [Araştırma planı](research/plan.md)
-- [Kaynak listesi](research/sources.md)
-- [Yaklaşımları karşılaştırma ölçütleri](research/comparison-criteria.md)
-- [İlk araştırma görevleri ve GitHub bağlantıları](research/backlog.json)
+Keep source claims, experiments, and our proposed policies distinct. A vendor article or attractive diagram is not proof of production reliability. Compare methods using the same brief and independent acceptance criteria before selecting the orchestration implementation.
 
-## Çalışma düzeni
+[GitHub Issues](https://github.com/gaskinimbuspro/agentic-sdlc/issues) is the current task-status source. `research/backlog.json` records task definitions and links, not a competing status database. Future projects may use a different tracker through a deliberate integration policy.
 
-Araştırma, kaynakların kendi açıklamaları ve çalışan örnekleri üzerinden ilerler. Yazarın önerisi, deney sonucu ve bizim çıkarımımız birbirinden ayrılır. Kaynak notları bir yöntemi benimseme kararı sayılmaz.
-
-Bu çalışma için görev takibi [GitHub Issues](https://github.com/gaskinimbuspro/agentic-sdlc/issues) üzerinde tutulur. `research/backlog.json` ilk görev tanımlarını ve issue bağlantılarını içerir; güncel görev durumunun kaynağı GitHub Issues'dur. Gelecekte üretilecek projelerde başka bir takip sistemini destekleme ihtiyacı ayrıca değerlendirilecek.
-
-Önce backend standardı ve test kapıları somutlaştırılır. Ardından aynı örnek proje dokümanıyla BMad Method, AWS AI-DLC ve GitHub Spec Kit karşılaştırılır; UI, repo hazırlama ve görev yönetimi standartları geliştirilir. Küçük deneylerden sonra kararlar gerekçeleriyle güncellenir.
+All repository content is maintained in English. Framework, model routing, deployment topology, and final runtime/tool versions remain project decisions.

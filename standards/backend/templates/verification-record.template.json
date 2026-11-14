@@ -1,0 +1,18 @@
+{
+  "status": "blocked",
+  "task_id": null,
+  "source_sha": null,
+  "integration_base_sha": null,
+  "candidate_sha": null,
+  "artifact_digest": null,
+  "acceptance_results": [],
+  "checks": [],
+  "review": {
+    "reviewer": null,
+    "candidate_sha": null,
+    "blocking_findings": null,
+    "evidence_url": null
+  },
+  "exceptions": [],
+  "blocker": "Template only: no execution evidence has been collected."
+}
