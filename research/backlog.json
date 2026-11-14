@@ -11,14 +11,14 @@
     "issue_number": 2,
     "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/2",
     "title": "BMad Method, AWS AI-DLC ve Spec Kit yaklaşımlarını karşılaştır",
-    "body": "## Amaç\nR01–R13 gereksinimleri için mevcut yöntemlerin uygunluğunu araştırmak.\n\n## Bağımlılık\nRES-001.\n\n## Kabul kriterleri\n- Her yöntemin release veya commit kimliği kaydedilmiş.\n- research/comparison-criteria.md soruları aynı örnek üzerinden yanıtlanmış.\n- Yerleşik özellikler, ek entegrasyonlar ve doğrulanmamış noktalar ayrılmış.\n- Rol, çıktı, insan müdahalesi ve süreç maliyeti karşılaştırılmış.\n- Henüz uygulama kurulumu veya ürün geliştirmesi yapılmamış.\n\n## Çıktı\nKaynak bağlantıları içeren karşılaştırma ve gerekçeli adaylar."
+    "body": "## Amaç\nR01–R14 gereksinimleri için mevcut yöntemlerin uygunluğunu araştırmak.\n\n## Bağımlılık\nRES-001.\n\n## Kabul kriterleri\n- Her yöntemin release veya commit kimliği kaydedilmiş.\n- research/comparison-criteria.md soruları aynı örnek üzerinden yanıtlanmış.\n- Yerleşik özellikler, ek entegrasyonlar ve doğrulanmamış noktalar ayrılmış.\n- Rol, çıktı, insan müdahalesi ve süreç maliyeti karşılaştırılmış.\n- Henüz uygulama kurulumu veya ürün geliştirmesi yapılmamış.\n\n## Çıktı\nKaynak bağlantıları içeren karşılaştırma ve gerekçeli adaylar."
   },
   {
     "key": "RES-003",
     "issue_number": 3,
     "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/3",
     "title": "Backend, UI ve dil profilleri için standart adaylarını araştır",
-    "body": "## Amaç\nDilden bağımsız mühendislik ilkelerini Python, .NET, Go ve UI profillerinden ayırmak.\n\n## Kabul kriterleri\n- Her aday kural için kaynak, gerekçe, kapsam ve doğrulama yöntemi bulunuyor.\n- Fowler ilkeleri ile dil veya framework rehberleri birbirine atfedilmiyor.\n- Mimari desenler bağlamlarıyla karşılaştırılıyor.\n- Zorunlu kontroller ile inceleme gerektiren kararlar ayrılıyor.\n\n## Çıktı\nHenüz kabul edilmiş sayılmayan standart adayları."
+    "body": "## Amaç\nDilden bağımsız mühendislik ilkelerini Python, .NET, Go ve UI profillerinden ayırmak.\n\n## Kabul kriterleri\n- Her aday kural için kaynak, gerekçe, kapsam ve doğrulama yöntemi bulunuyor.\n- Fowler ilkeleri ile dil veya framework rehberleri birbirine atfedilmiyor.\n- Mimari desenler bağlamlarıyla karşılaştırılıyor.\n- Zorunlu kontroller ile inceleme gerektiren kararlar ayrılıyor.\n- Genel süreç, ajan ilişkileri ve proje mimarisi diyagramları için ikon, düzenlenebilir kaynak, SVG/PNG ve güncellik beklentileri tanımlanmış.\n\n## Çıktı\nHenüz kabul edilmiş sayılmayan standart adayları."
   },
   {
     "key": "RES-004",

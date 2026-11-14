@@ -7,6 +7,7 @@ BMad Method, AWS AI-DLC ve GitHub Spec Kit aşağıdaki sorularla değerlendiril
 | Proje girdisi | Ayrı hazırlanmış proje dokümanını kabul ediyor mu? Eksik veya çelişkili gereksinimleri nasıl ele alıyor? |
 | Gereksinimler | Ürün davranışı, kabul kriterleri ve güvenlik veya performans beklentileri nasıl ifade ediliyor? |
 | Mimari ve UX | Servis sınırları, veri sahipliği, API sözleşmeleri, ekran akışları ve ortak kararlar nerede tutuluyor? |
+| Diyagramlar | Süreç, ajan ilişkileri ve proje mimarisi açıkça gösteriliyor mu? İkon kaynakları, düzenlenebilir kaynak ve SVG/PNG çıktıları nasıl yönetiliyor? |
 | Dil profilleri | Python, .NET ve Go'ya özgü kurallar nasıl seçiliyor, uygulanıyor ve güncelleniyor? |
 | Roller | Roller ile gerçekten başlatılan ajan oturumları nasıl ayrılıyor? Sorumluluk ve devir koşulları belli mi? |
 | Repo hazırlama | GitHub sahibi, görünürlük, isimlendirme, repo stratejisi ve başlangıç dosyaları nasıl belirleniyor? Gerçek repo oluşturma desteği var mı? |

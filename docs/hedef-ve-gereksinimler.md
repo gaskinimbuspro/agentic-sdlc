@@ -25,6 +25,17 @@ Gökhan bir API, UI ve backend uygulaması veya birden çok servisten oluşan ü
 | R11 | Çalıştırılan kontrollerin gerçek sonuçları, ilgili commit veya artifact ve kanıtları izlenmeli. Çalıştırılamayan kontroller başarılı gösterilmemeli. |
 | R12 | Durum ve bağlam farklı oturumlara aktarılabilmeli; tekrar denemeler gereksiz repo, issue veya PR kopyaları üretmemeli. |
 | R13 | Ortak çatı geliştikçe projelerin hangi sürümü kullandığı ve nasıl güncelleneceği belirlenmeli. |
+| R14 | Genel süreç, ajan çalışma düzeni ve projeye özgü mimari; tutarlı ikonlar, açık ilişkiler ve sürümlenen diyagramlarla anlatılmalı. |
+
+## Diyagram çıktıları
+
+- Süreç görünümü: Proje dokümanından gereksinim, tasarım, görev, geliştirme, doğrulama ve teslimata geçiş; karar noktaları ve geri bildirim yolları.
+- Ajan görünümü: Roller, girdiler ve çıktılar, devirler, araç erişimleri, durumun tutulduğu yerler ve insanın karar noktaları.
+- Proje mimarisi: İlgili olduğunda UI, backend, servisler, veri kaynakları, dış sistemler ve deployment sınırları.
+
+Diyagramlar okunabilir etiketler, tutarlı renk ve ikon kullanımı, açıklanmış ok yönleri ve gerektiğinde bir legend içermeli. İkonların kaynağı ve kullanım koşulları kaydedilmeli; ürün ikonlarında uygun resmî varlıklar tercih edilmeli. SVG çıktısı, PNG önizlemesi ve düzenlenebilir kaynak birlikte sürümlenmeli. Taslak ve kabul edilmiş mimari birbirinden ayırt edilmeli; diyagramlar kararlar geliştikçe güncellenmeli.
+
+Diyagram aracı ve notasyon araştırma sırasında seçilecek. Bu gereksinimin eklenmesi, mimarinin tasarlandığı veya diyagramların hazır olduğu anlamına gelmez.
 
 ## Başlangıçta belirlenen tercihler
 
