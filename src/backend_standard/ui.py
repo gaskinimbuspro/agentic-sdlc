@@ -9,7 +9,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
-from urllib.parse import unquote
+from urllib.parse import unquote_to_bytes
 
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
@@ -83,8 +83,7 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
     cases = indexed(packet["test_cases"], "test case")
     actors = packet["actors"]
     require(len(actors) == len(set(actors)), "Duplicate actor")
-    routes = [screen["route"] for screen in screens.values()]
-    require(len(routes) == len(set(routes)), "Duplicate screen route")
+    routes: set[tuple[bytes, ...]] = set()
     for screen in screens.values():
         require(set(screen["actor_ids"]) <= set(actors), "Unknown screen actor")
         route = screen["route"]
@@ -92,12 +91,16 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
             route.startswith("/")
             and not route.startswith("//")
             and not any(c in route for c in "?#\\")
-            and not re.search(r"[\x00-\x20\x7f]", route)
-            and not any(
-                unquote(segment) in {".", ".."} for segment in route.split("/")
-            ),
+            and not re.search(r"[\x00-\x20\x7f]|%(?![0-9a-fA-F]{2})", route),
             "Expected an application route path",
         )
+        segments = tuple(unquote_to_bytes(segment) for segment in route.split("/"))
+        require(
+            b"." not in segments and b".." not in segments,
+            "Expected an application route path",
+        )
+        require(segments not in routes, "Duplicate screen route")
+        routes.add(segments)
 
     def destination(screen_id: str, state: str) -> None:
         require(screen_id in screens, "Unknown screen destination")

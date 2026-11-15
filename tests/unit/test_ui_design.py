@@ -26,6 +26,29 @@ def test_rejects_browser_normalized_route_alias(route):
 
 
 @pytest.mark.parametrize(
+    ("first", "second"),
+    [
+        ("/café", "/caf%C3%A9"),
+        ("/a{b}", "/a%7Bb%7d"),
+        ('/a"b', "/a%22b"),
+    ],
+)
+def test_rejects_equivalent_encoded_routes(first, second):
+    packet = json.loads(EXAMPLE.read_text())
+    packet["screens"][0]["route"] = first
+    packet["screens"][1]["route"] = second
+    with pytest.raises(Rejected, match="Duplicate screen route"):
+        validate_design(packet, ROOT)
+
+
+def test_distinguishes_encoded_slash_from_segment_separator():
+    packet = json.loads(EXAMPLE.read_text())
+    packet["screens"][0]["route"] = "/a/b"
+    packet["screens"][1]["route"] = "/a%2Fb"
+    validate_design(packet, ROOT)
+
+
+@pytest.mark.parametrize(
     "failure",
     [
         "draft",
