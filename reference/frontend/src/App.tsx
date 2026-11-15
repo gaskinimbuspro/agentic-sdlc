@@ -166,7 +166,26 @@ function CustomerList({
   );
 }
 
-type SaveState = { kind: "ready" | "saving" } | SaveFailure;
+type SaveState =
+  | { kind: "ready" | "saving" }
+  | { kind: "blocked"; message: string }
+  | SaveFailure;
+const unresolvedSave = "customer-admin.unresolved-save";
+const storageUnavailable = {
+  kind: "blocked",
+  message:
+    "This browser could not preserve save recovery. Return to customers.",
+} as const;
+
+function initialSaveState(): SaveState {
+  try {
+    return sessionStorage.getItem(unresolvedSave)
+      ? saveFailure(null)
+      : { kind: "ready" };
+  } catch {
+    return storageUnavailable;
+  }
+}
 
 export function CustomerForm({
   navigate,
@@ -175,7 +194,7 @@ export function CustomerForm({
   navigate: Navigate;
   onCreated: (customer: Customer) => void;
 }) {
-  const [state, setState] = useState<SaveState>({ kind: "ready" });
+  const [state, setState] = useState<SaveState>(initialSaveState);
   const inFlight = useRef<AbortController | null>(null);
   const feedback = useRef<HTMLParagraphElement>(null);
   useEffect(() => () => inFlight.current?.abort(), []);
@@ -198,6 +217,18 @@ export function CustomerForm({
     setState({ kind: "saving" });
     try {
       const tenant = await sessionTenant(signal);
+      signal.throwIfAborted();
+      try {
+        if (sessionStorage.getItem(unresolvedSave)) {
+          setState(saveFailure(null));
+          return;
+        }
+        // Preserve only the unresolved-write marker across history and reload.
+        sessionStorage.setItem(unresolvedSave, "pending");
+      } catch {
+        setState(storageUnavailable);
+        return;
+      }
       sent = true;
       const response = await fetch("/api/customers", {
         method: "POST",
@@ -211,13 +242,19 @@ export function CustomerForm({
       });
       if (navigation.signal.aborted) return;
       if (response.status !== 201) {
-        setState(saveFailure(response.status));
+        const failure = saveFailure(response.status);
+        if (failure.kind !== "unconfirmed")
+          sessionStorage.removeItem(unresolvedSave);
+        setState(failure);
         return;
       }
       const customer: unknown = await response.json();
       if (!isCustomer(customer) || customer.tenant_id !== tenant)
         throw new Error("Invalid create response");
-      if (!navigation.signal.aborted) onCreated(customer);
+      if (!navigation.signal.aborted) {
+        sessionStorage.removeItem(unresolvedSave);
+        onCreated(customer);
+      }
     } catch {
       if (!navigation.signal.aborted) {
         setState(
@@ -233,6 +270,17 @@ export function CustomerForm({
     } finally {
       inFlight.current = null;
     }
+  }
+  function returnToList(path: string) {
+    if (state.kind === "unconfirmed") {
+      try {
+        sessionStorage.removeItem(unresolvedSave);
+      } catch {
+        setState(storageUnavailable);
+        return;
+      }
+    }
+    navigate(path);
   }
   return (
     <>
@@ -263,7 +311,7 @@ export function CustomerForm({
             </RouteLink>
           )}
           {!editable && state.kind !== "saving" && (
-            <RouteLink path={listPath} navigate={navigate}>
+            <RouteLink path={listPath} navigate={returnToList}>
               Back to customers
             </RouteLink>
           )}

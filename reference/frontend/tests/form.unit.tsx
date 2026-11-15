@@ -12,6 +12,8 @@ import { saveFailure } from "../src/api";
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
+  sessionStorage.clear();
 });
 
 describe("create outcomes", () => {
@@ -75,5 +77,55 @@ describe("create outcomes", () => {
     fireEvent.click(screen.getByRole("link", { name: "Back to customers" }));
     expect(navigate).toHaveBeenCalledWith("/customers");
     expect(request).toHaveBeenCalledTimes(2);
+  });
+
+  it("fences a write after leaving and remounting its route", async () => {
+    const request = vi
+      .fn()
+      .mockResolvedValueOnce(Response.json({ tenant_id: "fixture" }))
+      .mockImplementationOnce(() => new Promise<Response>(() => {}));
+    vi.stubGlobal("fetch", request);
+    const form = render(
+      <CustomerForm navigate={vi.fn()} onCreated={vi.fn()} />,
+    );
+    fireEvent.change(screen.getByLabelText("Name"), {
+      target: { value: "Ada" },
+    });
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "ada@example.test" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save customer" }));
+    await waitFor(() => expect(request).toHaveBeenCalledTimes(2));
+    form.unmount();
+
+    render(<CustomerForm navigate={vi.fn()} onCreated={vi.fn()} />);
+    expect(screen.getByRole("alert").textContent).toContain(
+      "could not confirm",
+    );
+    expect(screen.queryByRole("button", { name: "Save customer" })).toBeNull();
+    expect(request).toHaveBeenCalledTimes(2);
+  });
+
+  it("blocks the write when recovery state cannot be recorded", async () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new DOMException("Storage unavailable");
+    });
+    const request = vi
+      .fn()
+      .mockResolvedValue(Response.json({ tenant_id: "fixture" }));
+    vi.stubGlobal("fetch", request);
+    render(<CustomerForm navigate={vi.fn()} onCreated={vi.fn()} />);
+    fireEvent.change(screen.getByLabelText("Name"), {
+      target: { value: "Ada" },
+    });
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "ada@example.test" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Save customer" }));
+    expect((await screen.findByRole("alert")).textContent).toContain(
+      "preserve save recovery",
+    );
+    expect(request).toHaveBeenCalledTimes(1);
+    expect(request).toHaveBeenCalledWith("/session", expect.anything());
   });
 });

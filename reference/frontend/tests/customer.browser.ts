@@ -95,9 +95,19 @@ test("blocks a second create when the transport fails after the real write", asy
     upstreamStatus = result.status();
     await route.fulfill({ status: 503, body: "" });
   });
-  await page.goto("/customers/new");
+  await page.goto("/customers");
+  await page.getByRole("link", { name: "Add customer" }).click();
   await fillCustomer(page, "Uncertain customer", email);
   await page.getByRole("button", { name: "Save customer" }).click();
+  await expect(page.getByRole("alert")).toContainText("could not confirm");
+  await expect(page.getByRole("button", { name: "Save customer" })).toHaveCount(
+    0,
+  );
+  await page.reload();
+  await expect(page.getByRole("alert")).toContainText("could not confirm");
+  await page.goBack();
+  await expect(page.getByRole("heading", { name: "Customers" })).toBeVisible();
+  await page.goForward();
   await expect(page.getByRole("alert")).toContainText("could not confirm");
   await expect(page.getByRole("button", { name: "Save customer" })).toHaveCount(
     0,
