@@ -1,0 +1,60 @@
+name: Backend reference verification
+on:
+  pull_request:
+  push:
+    branches: [main, codex/bootstrap-research]
+permissions:
+  contents: read
+concurrency:
+  group: backend-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    name: backend-${{ matrix.profile }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [tools, python, go, dotnet]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.12.23'
+          python-version: '3.12.14'
+      - run: uv sync --locked --group dev
+      - if: matrix.profile == 'python'
+        run: uv sync --project reference/python --locked --group dev
+      - if: matrix.profile == 'go'
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: reference/go/go.sum
+      - if: matrix.profile == 'dotnet'
+        uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          dotnet-version: '10.0.404'
+      - name: Bootstrap missing .NET lock files for review
+        if: matrix.profile == 'dotnet'
+        working-directory: reference/dotnet
+        run: |
+          if [ ! -f CustomerApi/packages.lock.json ]; then
+            dotnet restore CustomerApi.Tests/CustomerApi.Tests.csproj -warnaserror
+            dotnet format CustomerApi.Tests/CustomerApi.Tests.csproj --no-restore
+            python - <<'PY'
+          import json,pathlib
+          root=pathlib.Path('.')
+          paths=list(root.glob('*/packages.lock.json'))+list(root.glob('*/*.cs'))
+          print('BASELINE_BOOTSTRAP_PAYLOAD='+json.dumps({str(p):p.read_text() for p in paths}))
+          PY
+          fi
+      - run: uv run --no-sync python scripts/backend_verify.py ${{ matrix.profile }}
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: backend-${{ matrix.profile }}-${{ github.sha }}
+          path: artifacts/${{ matrix.profile }}
+          retention-days: 7

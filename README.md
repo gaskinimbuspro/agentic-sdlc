@@ -2,7 +2,7 @@
 
 A reusable method for turning a project brief into requirements, architecture, bounded development tasks, and verified delivery.
 
-The current priority is the [backend standard v0.1](standards/backend/README.md): shared rules, Python/.NET/Go profiles, required test cases, completion criteria, and agent responsibilities. The method is a draft specification; an executing dispatcher and backend CI enforcement are still to be implemented and tested in a pilot.
+The current priority is the [backend standard v0.1](standards/backend/README.md): shared rules, Python/.NET/Go profiles, required test cases, completion criteria, and agent responsibilities. Implementation candidates now include a fail-closed input/evidence validator, reference HTTP backends, a common PostgreSQL acceptance suite, and CI check definitions. Validation and adoption status must be read from the actual reports; an executing agent dispatcher and external acceptance authority remain separate integrations.
 
 ## Where a new project starts
 

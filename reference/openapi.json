@@ -1,0 +1,64 @@
+{
+  "openapi": "3.1.0",
+  "info": {"title": "Backend reference contract", "version": "0.1.0"},
+  "paths": {
+    "/customers": {
+      "post": {
+        "security": [{"bearerAuth": []}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CreateCustomer"}}}},
+        "responses": {
+          "201": {"description": "Created", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Customer"}}}},
+          "400": {"$ref": "#/components/responses/Problem"},
+          "401": {"$ref": "#/components/responses/Problem"},
+          "403": {"$ref": "#/components/responses/Problem"},
+          "409": {"$ref": "#/components/responses/Problem"},
+          "413": {"$ref": "#/components/responses/Problem"},
+          "503": {"$ref": "#/components/responses/Problem"}
+        }
+      },
+      "get": {
+        "security": [{"bearerAuth": []}],
+        "parameters": [{"name": "limit", "in": "query", "schema": {"type": "integer", "minimum": 1, "maximum": 100, "default": 20}}],
+        "responses": {
+          "200": {"description": "Tenant-scoped customers", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Customer"}, "maxItems": 100}}}},
+          "400": {"$ref": "#/components/responses/Problem"},
+          "401": {"$ref": "#/components/responses/Problem"},
+          "403": {"$ref": "#/components/responses/Problem"},
+          "503": {"$ref": "#/components/responses/Problem"}
+        }
+      }
+    },
+    "/health/live": {"get": {"responses": {"200": {"description": "Process is live"}}}},
+    "/health/ready": {"get": {"responses": {"200": {"description": "Database available"}, "503": {"$ref": "#/components/responses/Problem"}}}}
+  },
+  "components": {
+    "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}},
+    "responses": {"Problem": {"description": "Safe problem detail", "content": {"application/problem+json": {"schema": {"$ref": "#/components/schemas/Problem"}}}}},
+    "schemas": {
+      "CreateCustomer": {
+        "type": "object", "additionalProperties": false,
+        "required": ["tenant_id", "name", "email"],
+        "properties": {
+          "tenant_id": {"type": "string", "format": "uuid"},
+          "name": {"type": "string", "minLength": 1, "maxLength": 100},
+          "email": {"type": "string", "minLength": 3, "maxLength": 254}
+        }
+      },
+      "Customer": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "tenant_id", "name", "email"],
+        "properties": {
+          "id": {"type": "string", "format": "uuid"},
+          "tenant_id": {"type": "string", "format": "uuid"},
+          "name": {"type": "string", "minLength": 1, "maxLength": 100},
+          "email": {"type": "string", "minLength": 3, "maxLength": 254}
+        }
+      },
+      "Problem": {
+        "type": "object", "additionalProperties": false,
+        "required": ["type", "title", "status"],
+        "properties": {"type": {"const": "about:blank"}, "title": {"type": "string"}, "status": {"type": "integer", "minimum": 400, "maximum": 599}}
+      }
+    }
+  }
+}
