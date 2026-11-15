@@ -1,0 +1,35 @@
+name: PostgreSQL recovery verification
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: recovery-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  recovery:
+    name: postgres-logical-restore
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.12.23'
+          python-version: '3.12.14'
+      - run: |
+          uv sync --locked --group dev --no-install-project
+          uv sync --locked --group dev --no-build-isolation
+          mkdir -p artifacts/recovery
+          uv run --no-sync python scripts/postgres_restore.py | tee artifacts/recovery/restore.json
+        shell: bash
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: postgres-restore-${{ github.sha }}
+          path: artifacts/recovery/restore.json
+          retention-days: 30
+          if-no-files-found: error

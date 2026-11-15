@@ -38,4 +38,4 @@ These prerequisites are an explicit operational boundary, not a claim that repos
 
 The [verification matrix](verification-matrix.md) and [test case matrix](test-case-matrix.md) remain the requirements-to-check map. The [reference](../../reference/README.md) supplies executable examples. [Sources](sources.md) distinguish published guidance from our mandatory policy/tool choices. Unit/negative tests in this repository exercise readiness, evidence and scanner rejection; real PostgreSQL tests exercise the selected reference behavior.
 
-A validated reference is not a certificate of security, performance or production readiness for every future project. UI standards, complete database operations, platform/GitOps rollout, production identity-provider integration and full agent scheduling remain their own scoped contracts.
+A validated reference does not establish security, performance or production readiness for an adopting project. Apply the [UI](../ui/README.md) and [database, platform and security](../operations/README.md) standards where applicable. Bind production identity, actual rollout and agent scheduling to the project's approved environments.

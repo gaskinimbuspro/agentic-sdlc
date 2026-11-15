@@ -17,6 +17,7 @@ Start with [delivery workflow](standards/backend/delivery-workflow.md), [test ca
 - [Goals and requirements](docs/goals-and-requirements.md)
 - [Backend standard and language profiles](standards/backend/README.md)
 - [UI/UX standard and design readiness](standards/ui/README.md)
+- [Database, platform/GitOps and security standards](standards/operations/README.md)
 - [Research plan](research/plan.md)
 - [Research sources](research/sources.md)
 - [Method comparison criteria](research/comparison-criteria.md)
