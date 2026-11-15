@@ -14,8 +14,8 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 from backend_standard.migrations import migrate
 
-TENANT_A = "11111111-1111-4111-8111-111111111111"
-TENANT_B = "22222222-2222-4222-8222-222222222222"
+TENANT_A = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+TENANT_B = "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
 
 
 def token(key, tenant=TENANT_A, scope="customers:write customers:read", **overrides):
@@ -54,7 +54,7 @@ def test_valid_create_and_contract(service, database):
     response = httpx.post(
         url + "/customers",
         headers=token(key),
-        json=body(name=" Ada ", email=" ADA@EXAMPLE.TEST "),
+        json=body(tenant=TENANT_A.upper(), name=" Ada ", email=" ADA@EXAMPLE.TEST "),
     )
     assert response.status_code == 201
     value = response.json()
@@ -75,6 +75,12 @@ def test_valid_create_and_contract(service, database):
         "email": "ada@example.test",
     }
     assert uuid.UUID(response.headers["X-Request-ID"])
+    deadline = time.monotonic() + 2
+    while response.headers["X-Request-ID"] not in service[2].read_text():
+        assert time.monotonic() < deadline, (
+            "Response correlation ID missing from structured logs"
+        )
+        time.sleep(0.01)
     assert rows(database) == rows(database, "customer_audit") == 1
 
 
@@ -87,6 +93,7 @@ def test_valid_create_and_contract(service, database):
         {"email": "invalid"},
         {"email": "x" * 255},
         {"extra": "forbidden"},
+        {"tenant_id": "invalid"},
     ],
 )
 def test_invalid_input_has_no_side_effects(service, database, change):
@@ -98,7 +105,9 @@ def test_invalid_input_has_no_side_effects(service, database, change):
     assert rows(database) == rows(database, "customer_audit") == 0
 
 
-@pytest.mark.parametrize("case", ["missing", "forged", "expired", "issuer", "audience"])
+@pytest.mark.parametrize(
+    "case", ["missing", "forged", "expired", "issuer", "audience", "subject"]
+)
 def test_authentication(service, database, case):
     url, key, _ = service
     headers = token(key)
@@ -112,8 +121,11 @@ def test_authentication(service, database, case):
         headers = token(key, iss="wrong-issuer")
     if case == "audience":
         headers = token(key, aud="wrong-audience")
+    if case == "subject":
+        headers = token(key, sub="")
     response = httpx.post(url + "/customers", headers=headers, json=body())
     assert response.status_code == 401
+    assert response.headers["www-authenticate"] == "Bearer"
     assert rows(database) == 0
 
 
@@ -299,3 +311,105 @@ def test_failed_migration_is_atomic(database, tmp_path):
             conn.execute(
                 sql.SQL("DROP SCHEMA {} CASCADE").format(sql.Identifier(schema))
             )
+
+
+def test_dependency_timeout_rolls_back(service, database):
+    url, key, _ = service
+    config, _ = database
+    with psycopg.connect(**config, autocommit=True) as conn:
+        conn.execute(
+            "CREATE OR REPLACE FUNCTION slow_audit() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_sleep(10); RETURN NEW; END $$"
+        )
+        conn.execute(
+            "CREATE TRIGGER force_audit_failure BEFORE INSERT ON customer_audit FOR EACH ROW EXECUTE FUNCTION slow_audit()"
+        )
+    started = time.monotonic()
+    response = httpx.post(
+        url + "/customers", headers=token(key), json=body(), timeout=7
+    )
+    assert response.status_code == 503
+    assert time.monotonic() - started < 6.5
+    assert rows(database) == rows(database, "customer_audit") == 0
+
+
+def test_liveness_does_not_depend_on_database(service, database):
+    url, _, _ = service
+    config, _ = database
+    with psycopg.connect(**config, autocommit=True) as conn:
+        conn.execute("ALTER ROLE backend_app NOLOGIN")
+        conn.execute(
+            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE usename='backend_app' AND datname=current_database()"
+        )
+        try:
+            assert httpx.get(url + "/health/live").status_code == 200
+            assert httpx.get(url + "/health/ready", timeout=7).status_code == 503
+        finally:
+            conn.execute("ALTER ROLE backend_app LOGIN")
+    deadline = time.monotonic() + 10
+    while httpx.get(url + "/health/ready", timeout=7).status_code != 200:
+        assert time.monotonic() < deadline
+        time.sleep(0.1)
+
+
+def test_invalid_configuration_fails_startup(service):
+    import os
+    import subprocess
+
+    environment = dict(os.environ, PORT="9876")
+    environment.pop("JWT_KEY", None)
+    result = subprocess.run(
+        json.loads(os.environ["REFERENCE_COMMAND"]),
+        env=environment,
+        capture_output=True,
+        text=True,
+        timeout=10,
+        check=False,
+    )
+    assert result.returncode != 0
+    assert "JWT_KEY" in result.stdout + result.stderr
+
+
+def test_unknown_route_is_problem(service):
+    url, key, _ = service
+    response = httpx.get(url + "/unknown", headers=token(key))
+    assert response.status_code == 404
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert response.json()["status"] == 404
+
+
+def test_wrong_method_is_problem(service):
+    url, key, _ = service
+    response = httpx.delete(url + "/customers", headers=token(key))
+    assert response.status_code == 405
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert "GET" in response.headers["allow"]
+    assert response.json()["status"] == 405
+
+
+@pytest.mark.parametrize(
+    "case", ["malformed", "missing-name", "missing-email", "wrong-type", "array"]
+)
+def test_malformed_or_missing_payload(service, database, case):
+    url, key, _ = service
+    payload = body()
+    if case == "missing-name":
+        payload.pop("name")
+    if case == "missing-email":
+        payload.pop("email")
+    if case == "wrong-type":
+        payload["name"] = 123
+    content = (
+        b"{"
+        if case == "malformed"
+        else b"[]"
+        if case == "array"
+        else json.dumps(payload).encode()
+    )
+    response = httpx.post(
+        url + "/customers",
+        headers=token(key) | {"Content-Type": "application/json"},
+        content=content,
+    )
+    assert response.status_code == 400
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert rows(database) == rows(database, "customer_audit") == 0

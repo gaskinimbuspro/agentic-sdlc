@@ -15,6 +15,6 @@ public sealed class DomainTests
     [InlineData("Ada", "a@b")]
     public void RejectsInvalidValues(string name, string email)
     {
-        Assert.Equal(400, Assert.Throws<CustomerFailure>(() => Domain.Values(name, email)).Status);
+        Assert.Throws<InvalidInput>(() => Domain.Values(name, email));
     }
 }

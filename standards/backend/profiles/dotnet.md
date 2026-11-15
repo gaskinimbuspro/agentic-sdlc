@@ -2,6 +2,8 @@
 
 Apply with [common](../common.md) and [testing](../testing.md) rules. Select a supported stable SDK/target framework and record the SDK in `global.json`. Justify Minimal API versus controllers; there is no fixed project-count requirement.
 
+The executable [ASP.NET Core binding](../../../reference/README.md) uses a pinned .NET 10 LTS SDK, nullable/analyzer enforcement, locked NuGet restore, xUnit/VSTest, and published-assembly HTTP/PostgreSQL acceptance in CI.
+
 | ID | Rule | Verification |
 | --- | --- | --- |
 | NET01 | Configure `.editorconfig` and analyzers. Enable nullable analysis; treat compiler/analyzer warnings as errors in new projects and connect selected style rules to checks. | Format verification and analyzer/warning-as-error build |
@@ -10,7 +12,7 @@ Apply with [common](../common.md) and [testing](../testing.md) rules. Select a s
 | NET04 | Use async I/O where supported; avoid `.Result`, `.Wait()`, and request `async void`. Propagate CancellationToken to appropriate dependencies. | Analysis/review and cancellation/timeout tests |
 | NET05 | Manage HTTP client lifetimes; default to IHttpClientFactory. Avoid uncontrolled per-request clients and dispose resources correctly with using/await using. | Client registration and cleanup checks |
 | NET06 | Enable NuGet locks, commit `packages.lock.json`, and use locked restore in CI. | Clean restore and lock-diff checks |
-| NET07 | Default to xUnit with the VSTest command profile. Use WebApplicationFactory for real API middleware/routing and the real data engine for persistence behavior. | Separate unit/integration reports and T03/T04 |
+| NET07 | Default to xUnit with the VSTest command profile. Exercise actual middleware/routing through WebApplicationFactory or a packaged HTTP process; use the real data engine for persistence behavior. | Separate unit/integration reports and T03/T04 |
 
 Sources: [N01](../sources.md#n01), [N02](../sources.md#n02), [N03](../sources.md#n03), [N04](../sources.md#n04), [N05](../sources.md#n05), [N06](../sources.md#n06). xUnit/VSTest are this draft's choices. MTP uses different CLI behavior and requires an adapted command profile. [N08](../sources.md#n08).
 

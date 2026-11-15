@@ -15,6 +15,13 @@ from backend_standard.migrations import migrate
 ROOT = Path(__file__).resolve().parents[2]
 
 
+class SafeFixture(tuple):
+    """Pytest tracebacks must not render generated passwords/signing keys."""
+
+    def __repr__(self):
+        return "<reference fixture: credentials redacted>"
+
+
 @pytest.fixture(scope="session")
 def database():
     config = {
@@ -43,7 +50,7 @@ def database():
         )
         conn.execute("GRANT USAGE ON SCHEMA public TO backend_app")
         conn.execute("GRANT SELECT,INSERT ON customers,customer_audit TO backend_app")
-    yield config, password
+    yield SafeFixture((config, password))
 
 
 @pytest.fixture(scope="session")
@@ -81,7 +88,7 @@ def service(database, tmp_path_factory):
                 time.sleep(0.1)
             else:
                 pytest.fail("Reference did not become ready")
-            yield url, key, log
+            yield SafeFixture((url, key, log))
         finally:
             process.terminate()
             try:
@@ -89,6 +96,7 @@ def service(database, tmp_path_factory):
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait(timeout=3)
+                pytest.fail("Reference exceeded the graceful shutdown deadline")
 
 
 @pytest.fixture(autouse=True)

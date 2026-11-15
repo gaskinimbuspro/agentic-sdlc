@@ -1,6 +1,6 @@
 # Backend baseline readiness
 
-Status: adoption criteria and gap assessment for the v0.1 draft. No v1 release, runtime control, framework selection or application test result is established by this document.
+Status: implementation candidate under review. The standard now has executable reference bindings, input/evidence validation, real-database acceptance and CI definitions. Actual results belong to candidate-bound CI/runner reports, not this checklist. No deployment, independent approval or v1 release is established by this document.
 
 ## What is complete at this stage
 
@@ -8,16 +8,16 @@ Status: adoption criteria and gap assessment for the v0.1 draft. No v1 release, 
 - The [verification matrix](verification-matrix.md) now maps all 28 common/testing rules to applicability, methods/evidence, responsible roles, blocking gates, rejection examples and existing source references.
 - The [delivery workflow](delivery-workflow.md) and [agent contract](agent-contract.md) specify proposed decomposition, dispatch, isolated implementation, independent review and evidence ownership.
 
-These are specification deliverables. Their presence does not establish machine enforcement, a complete project profile or a successful pilot.
+The [reference](../../reference/README.md) adds complete example profiles, real applications and executable checks. The [adoption guide](adoption.md) explains how those controls fit a new project and where independent/trusted infrastructure is still required.
 
 ## The next work, in order
 
 | Step | Deliverable | Acceptance condition | Current status |
 | --- | --- | --- | --- |
 | 1. Review common rules and applicability | Reviewed rule-to-control inventory, source/policy distinctions, explicit unresolved decisions | Every applicable rule has an evidence method and accountable owner; no silent conflicts with accepted requirements | Specified in the matrix; baseline adoption review remains open |
-| 2. Bind a selected language/framework profile | Supported pinned toolchain, actual paths, analyzers, dependency policy, test host/lifecycle, validation, persistence/migrations and error behavior | Existing profile rules map to usable commands and semantic review; no required field is an example or unresolved placeholder | Language drafts exist; framework bindings and real commands are not implemented |
-| 3. Implement project checks and evidence validation in an authorized pilot | Real `backend-verify`, trusted CI/report collection and independent review/exception authority | Selected required controls run; failure, zero tests, missing/stale evidence and unauthorized weakening are rejected | Not implemented |
-| 4. Exercise a reference backend | Small real application and accepted cases; relevant real dependency and packaged-artifact checks | Correct behavior passes; agreed negative cases fail; actual commands/reports and exact identities are preserved | Not executed |
+| 2. Bind a selected language/framework profile | Supported pinned toolchain, actual paths, analyzers, dependency policy, test host/lifecycle, validation, persistence/migrations and error behavior | Existing profile rules map to usable commands and semantic review; no required field is an example or unresolved placeholder | Python/FastAPI, Go/net-http and .NET/ASP.NET Core reference bindings and lock files implemented |
+| 3. Implement project checks and evidence validation in an authorized pilot | Real `backend-verify`, trusted CI/report collection and independent review/exception authority | Selected required controls run; failure, zero tests, missing/stale evidence and unauthorized weakening are rejected | Runner, CI and input/index validators implemented; protected acceptance authority and exception integration are operator responsibilities |
+| 4. Exercise a reference backend | Small real application and accepted cases; relevant real dependency and packaged-artifact checks | Correct behavior passes; agreed negative cases fail; actual commands/reports and exact identities are preserved | Common real-PostgreSQL/HTTP suite and rejection tests implemented; use current CI reports for pass/fail status |
 | 5. Publish the validated baseline/profile scope | Versioned baseline and selected profiles, example bindings, known limitations and upgrade process | Evidence supports exactly the released scope; unvalidated profiles stay draft | Not released |
 
 Keep this order without treating all design decisions as permanent. New requirements, support/security changes or measured problems may justify a reviewed revision. Agents must not silently reinterpret an adopted baseline during ordinary implementation.
@@ -39,12 +39,12 @@ At G0, validate the decisions, dependencies, environment/permissions and executi
 
 ## Worked acceptance design: create a customer
 
-This is a design example for later validation, not a generated project or a universal API definition. The following product decisions are illustrative and must be explicitly adopted or replaced before use:
+This design example is implemented by the [reference](../../reference/README.md), not imposed as a universal API definition. The following product decisions are illustrative and must be explicitly adopted or replaced before use:
 
 - An authenticated tenant member may create customers only within a tenant for which they have the create permission. The request's tenant identifier never grants access by itself.
 - A customer has a name and email. This example chooses unique canonicalized email within a tenant; the accepted contract must define normalization and validation exactly.
 - Successful creation returns the agreed `201` response; validation failures use the agreed `400`, missing/invalid credentials `401`, denied creation `403`, and the selected duplicate case `409`. Error-body details and any concealment policy are recorded separately in the contract.
-- Creation is atomic. No failed request may leave a customer or an unintended dependent record. Audit/security logs may record the denied attempt under the accepted telemetry policy.
+- Creation is atomic: validation/authorization rejection and a known pre-commit rollback leave no customer or dependent record. A lost response or connection during commit can leave an unknown outcome; it must not be treated as proof that nothing committed or blindly retried. This reference uses per-tenant email uniqueness and no automatic retry. Audit/security logs may record denied attempts under the accepted telemetry policy.
 
 Before a task is ready, the Planner must resolve those choices, record concrete fixtures/expected outputs and link the selected checks. An unknown required decision keeps the task in `draft`; the Implementer cannot invent it to make a test pass.
 

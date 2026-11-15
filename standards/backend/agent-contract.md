@@ -30,4 +30,4 @@ Provide task ID, source/base SHA, candidate SHA/artifact, changed boundaries/fil
 
 ## Repository maintenance versus application work
 
-For this standards repository, validate documents, templates, and diagrams. Do not claim Python/.NET/Go application tests passed when no backend exists. In an adopting backend, implement real `backend-verify` controls and demonstrate they reject the intended negative case before relying on them.
+For this repository, validate documents/templates and any changed diagrams, run the standard's own rejection tests, and run the affected [reference profiles](../../reference/README.md). Record exact local/CI evidence rather than inferring application results from documentation checks. In an adopting backend, bind real `backend-verify` controls to the new product and demonstrate relevant negative cases before relying on them.

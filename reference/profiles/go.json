@@ -1,0 +1,150 @@
+{
+  "backend_standard": "0.1",
+  "readiness": "ready",
+  "language": "go",
+  "toolchain": {
+    "runtime_version": "1.27.3",
+    "test_runner": "testing + race detector",
+    "tool_versions": {
+      "uv": "0.12.23",
+      "verification_python": "3.12.14",
+      "compiler_or_runtime": "1.27.3"
+    }
+  },
+  "framework": {
+    "name": "net/http",
+    "version": "1.27.3",
+    "validation_and_error_policy": "Strict create payload; safe RFC 9457 errors; reference/README.md",
+    "test_host_and_lifecycle": "Packaged process, loopback HTTP, bounded shutdown, real PostgreSQL"
+  },
+  "architecture": {
+    "style": "Single reference service with transport-independent domain validation",
+    "domain_logic_pattern": "Transaction Script; no speculative CQRS or generic repository",
+    "decision_document": "reference/README.md",
+    "module_boundaries": [
+      "HTTP authenticates and maps errors",
+      "Domain validates customer values without HTTP or database imports",
+      "Persistence uses parameters and an atomic customer/audit transaction"
+    ]
+  },
+  "interfaces": {
+    "http_api": true,
+    "contract_path": "reference/openapi.json",
+    "error_format": "RFC 9457 application/problem+json",
+    "compatibility_policy": "No unreviewed removal/type/requiredness change to accepted reference contract"
+  },
+  "data": {
+    "persistence": true,
+    "engine": "PostgreSQL",
+    "version": "18.7",
+    "migration_tool": "backend_standard.migrations; ordered SQL, checksums, advisory lock",
+    "transaction_policy": "Unique canonical email per tenant; customer and audit commit atomically; failed transaction leaves neither"
+  },
+  "security": {
+    "authentication": "Synthetic HS256 JWT fixture; issuer backend-reference; audience customers; expiration required; not a production identity-provider choice",
+    "authorization": "customers:read/write scopes and backend-checked tenant ownership",
+    "dependency_scanner": "govulncheck v1.9.0",
+    "blocking_policy": "Reject scanner failure, missing inventory, any reported vulnerability, or known secret pattern; no implicit exceptions"
+  },
+  "quality_targets": {
+    "request_limits": "8192-byte create body; names 1..100 Unicode scalars; email <=254 ASCII bytes; list limit 1..100",
+    "timeouts_and_retry_policy": "Database operation deadline 3 seconds; no automatic retry; functional timeout acceptance <6.5 seconds",
+    "observability": "Structured request events/correlation; no credentials or customer body in logs",
+    "performance_budget": "Reference functional deadlines/startup only; production throughput/load SLO is outside this reference scope"
+  },
+  "gates": {
+    "format": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "static_analysis": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "build_or_typecheck": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "unit": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "integration": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "contract": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "security": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "smoke": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ],
+    "backend_verify": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "go"
+    ]
+  },
+  "not_applicable": [],
+  "exceptions": [],
+  "execution_policy": {
+    "coding_task_context": "One bounded task per fresh implementation session",
+    "independent_review_context": true,
+    "workspace_isolation": "Separate task worktree/branch",
+    "dispatch_claim_policy": "External Coordinator exclusive claim required; not supplied by this reference runner",
+    "integration_target": "Reviewed PR integration candidate against main",
+    "required_ci_checks": [
+      "backend-tools",
+      "backend-go"
+    ],
+    "human_decision_boundaries": [
+      "Product intent and accepted contract changes",
+      "Baseline/check/exception changes",
+      "Production credentials and release approval"
+    ],
+    "max_parallel_tasks": 1,
+    "repair_budget": 2,
+    "model_routing": "No LLM is used by reference verification; agent runtime is a separate integration"
+  }
+}

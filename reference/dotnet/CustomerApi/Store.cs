@@ -3,6 +3,8 @@ using Npgsql;
 
 namespace CustomerApi;
 
+public sealed class DuplicateCustomer : Exception;
+
 public sealed record Customer(
     Guid Id,
     [property: JsonPropertyName("tenant_id")] Guid TenantId,
@@ -11,6 +13,12 @@ public sealed record Customer(
 
 public sealed class Store(NpgsqlDataSource source)
 {
+    public async Task Ready(CancellationToken ct)
+    {
+        await using var command = source.CreateCommand("SELECT 1");
+        await command.ExecuteScalarAsync(ct);
+    }
+
     public async Task<Customer> Create(Guid tenant, string name, string email, CancellationToken ct)
     {
         var values = Domain.Values(name, email);
@@ -32,14 +40,14 @@ public sealed class Store(NpgsqlDataSource source)
         }
         catch (PostgresException e) when (e.SqlState == "23505")
         {
-            throw new CustomerFailure(409);
+            throw new DuplicateCustomer();
         }
         return new Customer(id, tenant, values.Name, values.Email);
     }
 
     public async Task<List<Customer>> List(Guid tenant, int limit, CancellationToken ct)
     {
-        if (limit is < 1 or > 100) throw new CustomerFailure(400);
+        if (limit is < 1 or > 100) throw new InvalidInput();
         await using var command = source.CreateCommand("SELECT id,tenant_id,name,email FROM customers WHERE tenant_id=$1 ORDER BY id LIMIT $2");
         command.Parameters.Add(new NpgsqlParameter { Value = tenant });
         command.Parameters.Add(new NpgsqlParameter { Value = limit });

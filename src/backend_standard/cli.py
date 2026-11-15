@@ -5,7 +5,13 @@ import json
 import sys
 from pathlib import Path
 
-from backend_standard.gates import Rejected, document, profile_ready, verify_evidence
+from backend_standard.gates import (
+    Rejected,
+    document,
+    profile_ready,
+    task_ready,
+    verify_evidence,
+)
 
 
 def main() -> int:
@@ -14,6 +20,11 @@ def main() -> int:
     ready = sub.add_parser("profile")
     ready.add_argument("path", type=Path)
     ready.add_argument("--root", type=Path, default=Path.cwd())
+    task = sub.add_parser("task")
+    task.add_argument("path", type=Path)
+    task.add_argument("--profile", type=Path, required=True)
+    task.add_argument("--root", type=Path, default=Path.cwd())
+    task.add_argument("--completed-dependency", action="append", default=[])
     evidence = sub.add_parser("evidence")
     evidence.add_argument("path", type=Path)
     evidence.add_argument("--policy", type=Path, required=True)
@@ -24,6 +35,13 @@ def main() -> int:
     try:
         if args.command == "profile":
             profile_ready(document(args.path), args.root)
+        elif args.command == "task":
+            task_ready(
+                document(args.path),
+                document(args.profile),
+                args.root,
+                set(args.completed_dependency),
+            )
         else:
             verify_evidence(
                 document(args.policy),

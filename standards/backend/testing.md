@@ -38,7 +38,7 @@ Keep fast checks early. Place expensive race, performance, security, or mutation
 
 A project must implement `backend-verify` to run applicable checks, preserve their separate outcomes, and return non-zero for a required failure. A pipe, shell substitution, report parser, or continue-on-error setting must not hide an error. Inspect reports and executed counts because some runners/scanners return zero without establishing acceptance.
 
-Record command, exit code, executed/failed/skipped/flaky counts, source SHA, candidate/base identity, artifact digest where applicable, redacted environment/tool versions, report locations, and status. Do not trust an agent-authored success sentence as execution evidence. The future verifier must obtain trusted CI/runner results and match their identities.
+Record command, exit code, executed/failed/skipped/flaky counts, source SHA, candidate/base identity, artifact digest where applicable, redacted environment/tool versions, report locations, and status. Do not trust an agent-authored success sentence as execution evidence. The acceptance integration must obtain trusted CI/runner results and match their identities; the [provided validators](adoption.md#developer-delivery-and-independent-acceptance) cannot establish that provenance for arbitrary local files.
 
 A candidate change invalidates previous review/evidence as applicable. Integration against a changed base requires an updated integration candidate and corresponding checks. Required checks cannot disappear through relabeling, N/A declarations, or a weakened assertion.
 

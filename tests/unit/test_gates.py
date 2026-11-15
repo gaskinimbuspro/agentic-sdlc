@@ -144,3 +144,14 @@ def test_template_cannot_be_made_ready_by_changing_its_flag() -> None:
     forged["readiness"] = "ready"
     with pytest.raises(Rejected):
         profile_ready(forged, ROOT)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [("minimum_tests", 2), ("required_test_names", ["missing_authorization_case"])],
+)
+def test_nonempty_suite_cannot_hide_missing_required_cases(tmp_path, field, value):
+    policy, evidence = inputs(tmp_path)
+    policy["required_checks"]["unit"][field] = value
+    with pytest.raises(Rejected):
+        verify_evidence(policy, evidence, tmp_path, SHA, BASE)

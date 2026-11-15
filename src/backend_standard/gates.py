@@ -5,9 +5,13 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
+from xml.etree.ElementTree import ParseError
+
+from defusedxml import ElementTree as ET
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import ValidationError
 
 
 class Rejected(ValueError):
@@ -48,6 +52,11 @@ def confined(root: Path, relative: str) -> Path:
 
 def profile_ready(profile: dict[str, Any], root: Path) -> None:
     """Validate the existing profile shape and its actual decision/check bindings."""
+    schema = document(Path(__file__).parent / "schemas/profile.schema.json")
+    try:
+        Draft202012Validator(schema).validate(profile)
+    except ValidationError as error:
+        raise Rejected("Profile schema: " + ".".join(map(str, error.path))) from error
     require(profile.get("readiness") == "ready", "Profile is not ready")
     require(profile.get("backend_standard") == "0.1", "Unsupported standard version")
     language = profile.get("language")
@@ -161,7 +170,12 @@ def test_counts(path: Path, report_format: str) -> dict[str, int]:
         require(path.stat().st_size <= 20_000_000, "Report exceeds size limit")
         raw = path.read_text()
         require("<!DOCTYPE" not in raw and "<!ENTITY" not in raw, "DTD/ENTITY rejected")
-        tree = ET.fromstring(raw)
+        try:
+            tree = ET.fromstring(
+                raw, forbid_dtd=True, forbid_entities=True, forbid_external=True
+            )
+        except (ParseError, ValueError) as error:
+            raise Rejected("Invalid/unsafe XML report") from error
         if report_format == "junit":
             for suite in tree.iter():
                 if suite.tag.split("}")[-1] in {"testsuite", "testsuites"}:
@@ -193,6 +207,97 @@ def test_counts(path: Path, report_format: str) -> dict[str, int]:
         counts["skipped"] == 0, "Skipped tests require externally approved exceptions"
     )
     return counts
+
+
+def task_ready(
+    packet: dict[str, Any],
+    profile: dict[str, Any],
+    root: Path,
+    completed_dependencies: set[str],
+) -> None:
+    """Check ready-stage inputs; claiming/execution remains the Coordinator's job."""
+    profile_ready(profile, root)
+    require(packet.get("status") == "ready", "Task is not ready")
+    require(
+        packet.get("standard_version") == profile["backend_standard"],
+        "Standard mismatch",
+    )
+    require(packet.get("language_profile") == profile["language"], "Language mismatch")
+    for field in ("task_id", "goal", "repository"):
+        text(packet.get(field), field)
+    require(
+        bool(re.fullmatch(r"[0-9a-f]{40}", str(packet.get("base_sha")))),
+        "Base SHA required",
+    )
+    for field in (
+        "scope",
+        "non_goals",
+        "requirement_ids",
+        "test_case_ids",
+        "allowed_paths",
+        "decision_references",
+        "contract_references",
+    ):
+        values = packet.get(field)
+        if not isinstance(values, list) or not values:
+            raise Rejected(f"{field}: non-empty list required")
+        for value in values:
+            text(value, field)
+    require(
+        set(packet["test_case_ids"]) <= {f"TC{i:02}" for i in range(1, 15)},
+        "Unknown case family",
+    )
+    for field in ("decision_references", "contract_references"):
+        for reference in packet[field]:
+            confined(root, reference)
+    for relative in packet["allowed_paths"]:
+        require(
+            not Path(relative).is_absolute()
+            and (root / relative).resolve().is_relative_to(root.resolve()),
+            "Allowed path escapes workspace",
+        )
+    dependencies = packet.get("dependency_task_ids")
+    require(
+        isinstance(dependencies, list) and set(dependencies) <= completed_dependencies,
+        "Unfinished task dependencies",
+    )
+    criteria = packet.get("acceptance_criteria")
+    if not isinstance(criteria, list) or not criteria:
+        raise Rejected("Acceptance criteria required")
+    seen = set()
+    for criterion in criteria:
+        require(isinstance(criterion, dict), "Structured acceptance criterion required")
+        identifier = text(criterion.get("id"), "criterion id")
+        require(identifier not in seen, "Duplicate acceptance criterion")
+        seen.add(identifier)
+        text(criterion.get("expected"), "expected outcome")
+        require(
+            criterion.get("requirement_id") in packet["requirement_ids"],
+            "Orphan criterion",
+        )
+        require(
+            bool(criterion.get("case_ids"))
+            and set(criterion["case_ids"]) <= set(packet["test_case_ids"]),
+            "Unmapped acceptance cases",
+        )
+    require(
+        packet.get("required_commands") == profile["gates"],
+        "Task omitted or changed an approved check binding",
+    )
+    for name, command in packet["required_commands"].items():
+        require(command == profile["gates"].get(name), "Task changed an approved check")
+    require(bool(packet.get("required_evidence")), "Evidence plan missing")
+    budget = packet.get("budget", {})
+    for field in ("max_wall_time_minutes", "max_repair_attempts", "max_context_tokens"):
+        require(
+            type(budget.get(field)) is int and budget[field] > 0,
+            f"{field}: positive budget required",
+        )
+    require(
+        type(budget.get("max_cost")) in {int, float} and budget["max_cost"] > 0,
+        "Cost budget required",
+    )
+    require(budget.get("cost_currency") == "USD", "Explicit USD cost currency required")
 
 
 def verify_evidence(
@@ -238,7 +343,17 @@ def verify_evidence(
         digest = hashlib.sha256(path.read_bytes()).hexdigest()
         require(check.get("sha256") == digest, f"{name}: report digest mismatch")
         if expected_format != "log":
-            test_counts(path, expected_format)
+            counts = test_counts(path, expected_format)
+            require(
+                counts["executed"] >= wanted[name].get("minimum_tests", 1),
+                f"{name}: required test count not met",
+            )
+            required_names = wanted[name].get("required_test_names", [])
+            if required_names:
+                require(
+                    set(required_names) <= report_names(path, expected_format),
+                    f"{name}: missing required acceptance cases",
+                )
     require(not evidence.get("exceptions"), "Unverified exception record")
     review = evidence.get("review", {})
     require(review.get("reviewer") in policy.get("reviewers", []), "Untrusted reviewer")
@@ -248,3 +363,32 @@ def verify_evidence(
     require(review.get("candidate_sha") == candidate, "Stale review")
     require(review.get("blocking_findings") == 0, "Unresolved review findings")
     require(review.get("verdict") == "approved", "Independent approval required")
+
+
+def report_names(path: Path, report_format: str) -> set[str]:
+    """Stable case names are supplied by protected acceptance policy, not a worker."""
+    if report_format == "go-json":
+        events = [json.loads(line) for line in path.read_text().splitlines()]
+        return {
+            str(e["Test"])
+            for e in events
+            if e.get("Test") and e.get("Action") == "pass"
+        }
+    raw = path.read_text()
+    tree = ET.fromstring(
+        raw, forbid_dtd=True, forbid_entities=True, forbid_external=True
+    )
+    if report_format == "junit":
+        return {
+            n.attrib["name"]
+            for n in tree.iter()
+            if n.tag.split("}")[-1] == "testcase" and "name" in n.attrib
+        }
+    if report_format == "trx":
+        return {
+            n.attrib["testName"]
+            for n in tree.iter()
+            if n.tag.split("}")[-1] == "UnitTestResult"
+            and n.attrib.get("outcome") == "Passed"
+        }
+    raise Rejected("Unknown report format")

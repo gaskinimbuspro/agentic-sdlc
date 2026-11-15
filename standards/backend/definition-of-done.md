@@ -19,7 +19,7 @@ Use the [verification matrix](verification-matrix.md) to bind applicable B/T con
 
 ## Evidence requirements
 
-Use the [verification record template](templates/verification-record.template.json). The future verifier must read trusted runner/CI reports, validate required check names and counts, match candidate/base/artifact identity, and evaluate approved exceptions. A JSON file written by an agent is an index of evidence, not proof that commands ran.
+Use the [verification record template](templates/verification-record.template.json). Acceptance must read trusted runner/CI reports, validate required check names and counts, match candidate/base/artifact identity, and evaluate approved exceptions. The provided index validator checks supplied content against separate expected policy/identities; the operator must establish provenance and independent authority. A JSON file written by an agent is an index of evidence, not proof that commands ran.
 
 For each acceptance criterion, record case IDs, expected outcomes, test/report references, and result. Expected outcomes are derived from requirements before implementation where possible. A reviewer may add adversarial cases without rewriting product requirements to match the code.
 
@@ -29,4 +29,4 @@ An unavailable test database is blocked, not passed. Unsupported local race dete
 
 Task completion requires integration into the target defined by the project. A deployable artifact need not be deployed unless deployment is in scope. Release authorization and post-deployment checks remain separate controls.
 
-No mechanism in this repository currently evaluates these conditions automatically. The pilot must implement the verifier and demonstrate rejection of missing evidence, zero executed tests, failed checks, stale SHAs, and unresolved blocking findings.
+The [executable checks](adoption.md#developer-delivery-and-independent-acceptance) reject missing/zero tests, omitted required cases, failed checks, stale identities, invalid report hashes, self-review and unresolved findings in supplied records. Unit tests demonstrate those rejections. The CI reference runs actual applications and dependencies. These controls do not authenticate an untrusted caller or perform semantic review, integration, approval or release on their own; D01-D10 still require the configured trusted Coordinator/review/integration boundary.

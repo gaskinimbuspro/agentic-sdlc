@@ -12,6 +12,7 @@ static string Required(string key) => Environment.GetEnvironmentVariable(key) is
 static Task Problem(HttpContext context, int status)
 {
     context.Response.StatusCode = status;
+    if (status == 401) context.Response.Headers["WWW-Authenticate"] = "Bearer";
     context.Response.ContentType = "application/problem+json";
     return context.Response.WriteAsync(JsonSerializer.Serialize(new { type = "about:blank", title = "Request failed", status }));
 }
@@ -38,7 +39,7 @@ builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = 
 builder.Logging.ClearProviders();
 builder.Logging.AddJsonConsole();
 builder.Host.UseDefaultServiceProvider(options => { options.ValidateScopes = true; options.ValidateOnBuild = true; });
-builder.Services.AddSingleton(NpgsqlDataSource.Create(connection.ConnectionString));
+builder.Services.AddSingleton(_ => NpgsqlDataSource.Create(connection.ConnectionString));
 builder.Services.AddSingleton<Store>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -60,23 +61,27 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 app.Use(async (context, next) =>
 {
-    context.Response.Headers["X-Request-ID"] = Guid.NewGuid().ToString();
+    var requestId = Guid.NewGuid().ToString();
+    context.Response.Headers["X-Request-ID"] = requestId;
     using var deadline = CancellationTokenSource.CreateLinkedTokenSource(context.RequestAborted);
     deadline.CancelAfter(TimeSpan.FromSeconds(5));
     context.RequestAborted = deadline.Token;
     try { await next(context); }
+    catch (InvalidInput) { await Problem(context, 400); }
+    catch (DuplicateCustomer) { await Problem(context, 409); }
     catch (CustomerFailure e) { await Problem(context, e.Status); }
     catch (JsonException) { await Problem(context, 400); }
     catch (BadHttpRequestException e) { await Problem(context, e.StatusCode); }
     catch (Exception) { await Problem(context, 503); }
+    finally { app.Logger.LogInformation("Request {RequestId} completed {Status}", requestId, context.Response.StatusCode); }
 });
+app.UseStatusCodePages(status => Problem(status.HttpContext, status.HttpContext.Response.StatusCode));
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapGet("/health/live", () => new { status = "live" });
-app.MapGet("/health/ready", async (NpgsqlDataSource source, CancellationToken ct) =>
+app.MapGet("/health/ready", async (Store store, CancellationToken ct) =>
 {
-    await using var command = source.CreateCommand("SELECT 1");
-    await command.ExecuteScalarAsync(ct);
+    await store.Ready(ct);
     return new { status = "ready" };
 });
 var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
@@ -103,3 +108,8 @@ app.Run();
 
 public sealed record CreateRequest([property: JsonPropertyName("tenant_id")] Guid TenantId, string? Name, string? Email);
 public partial class Program;
+
+public sealed class CustomerFailure(int status) : Exception("Request failed")
+{
+    public int Status { get; } = status;
+}

@@ -1,0 +1,19 @@
+{
+  "format": "junit",
+  "minimum_tests": 38,
+  "required_test_names": [
+    "test_valid_create_and_contract",
+    "test_authentication[missing]",
+    "test_authentication[forged]",
+    "test_authorization[tenant]",
+    "test_authorization[role]",
+    "test_list_isolation",
+    "test_duplicate_race",
+    "test_atomicity_on_second_write_failure",
+    "test_upgrade_and_checksum_protection",
+    "test_failed_migration_is_atomic",
+    "test_dependency_timeout_rolls_back",
+    "test_liveness_does_not_depend_on_database",
+    "test_invalid_configuration_fails_startup"
+  ]
+}

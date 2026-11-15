@@ -2,10 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace CustomerApi;
 
-public sealed class CustomerFailure(int status) : Exception("Request failed")
-{
-    public int Status { get; } = status;
-}
+public sealed class InvalidInput : Exception;
 
 public static class Domain
 {
@@ -19,7 +16,7 @@ public static class Domain
         name = name?.Trim() ?? "";
         email = email?.Trim().ToLowerInvariant() ?? "";
         if (name.EnumerateRunes().Count() is < 1 or > 100 || email.Length > 254 || !Email.IsMatch(email))
-            throw new CustomerFailure(400);
+            throw new InvalidInput();
         return (name, email);
     }
 }

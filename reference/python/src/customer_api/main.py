@@ -6,14 +6,17 @@ import uuid
 from typing import Annotated, Any
 
 import jwt
-import psycopg
 from fastapi import Depends, FastAPI, Header, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from psycopg.rows import dict_row
+from fastapi.routing import APIRoute
 from pydantic import BaseModel, ConfigDict, Field
+from starlette.exceptions import HTTPException
+from starlette.middleware.base import RequestResponseEndpoint
+from starlette.responses import Response
+from starlette.routing import Match
 
-from customer_api.domain import customer_values
+from customer_api.store import DuplicateCustomer, StorageUnavailable, Store, StoreConfig
 
 
 def required(name: str) -> str:
@@ -26,7 +29,7 @@ def required(name: str) -> str:
 JWT_KEY = required("JWT_KEY")
 if len(JWT_KEY) < 32:
     raise RuntimeError("JWT_KEY must contain at least 32 characters")
-DB = {
+DB: StoreConfig = {
     "host": required("DB_HOST"),
     "port": required("DB_PORT"),
     "dbname": required("DB_NAME"),
@@ -35,6 +38,7 @@ DB = {
     "connect_timeout": 3,
     "options": "-c statement_timeout=3000",
 }
+storage = Store(DB)
 app = FastAPI(docs_url=None, redoc_url=None)
 
 
@@ -49,11 +53,30 @@ async def failure_handler(request: Request, exc: Failure) -> JSONResponse:
 
 
 def problem(status: int) -> JSONResponse:
-    return JSONResponse(
+    response = JSONResponse(
         {"type": "about:blank", "title": "Request failed", "status": status},
         status_code=status,
         media_type="application/problem+json",
     )
+    if status == 401:
+        response.headers["WWW-Authenticate"] = "Bearer"
+    return response
+
+
+@app.exception_handler(HTTPException)
+async def http_error(request: Request, exc: HTTPException) -> JSONResponse:
+    response = problem(exc.status_code)
+    response.headers.update(exc.headers or {})
+    if exc.status_code == 405:
+        methods: set[str] = set()
+        for route in app.routes:
+            if (
+                isinstance(route, APIRoute)
+                and route.matches(request.scope)[0] != Match.NONE
+            ):
+                methods.update(route.methods or set())
+        response.headers["Allow"] = ", ".join(sorted(methods))
+    return response
 
 
 @app.exception_handler(RequestValidationError)
@@ -64,7 +87,9 @@ async def invalid_handler(
 
 
 @app.middleware("http")
-async def request_boundary(request: Request, call_next: Any) -> Any:
+async def request_boundary(
+    request: Request, call_next: RequestResponseEndpoint
+) -> Response:
     request_id = str(uuid.uuid4())
     # Buffer only up to the documented 8 KiB limit, including chunked bodies.
     body = bytearray()
@@ -92,6 +117,7 @@ async def request_boundary(request: Request, call_next: Any) -> Any:
     return response
 
 
+# JWT claims are heterogeneous boundary data; used identity fields are checked below.
 def identity(authorization: Annotated[str | None, Header()] = None) -> dict[str, Any]:
     if not authorization or not authorization.startswith("Bearer "):
         raise Failure(401)
@@ -104,8 +130,12 @@ def identity(authorization: Annotated[str | None, Header()] = None) -> dict[str,
             audience="customers",
             options={"require": ["exp", "iss", "aud", "sub", "tenant_id", "scope"]},
         )
-        uuid.UUID(claims["tenant_id"])
-        if not isinstance(claims["scope"], str):
+        claims["tenant_id"] = str(uuid.UUID(claims["tenant_id"]))
+        if (
+            not isinstance(claims["scope"], str)
+            or not isinstance(claims["sub"], str)
+            or not claims["sub"]
+        ):
             raise ValueError("Invalid scope")
         return dict(claims)
     except (jwt.PyJWTError, ValueError, TypeError, KeyError) as exc:
@@ -129,12 +159,7 @@ def live() -> dict[str, str]:
 
 @app.get("/health/ready")
 def ready() -> JSONResponse:
-    try:
-        with psycopg.connect(**DB) as conn:  # type: ignore[arg-type]
-            conn.execute("SELECT 1")
-        return JSONResponse({"status": "ready"})
-    except psycopg.Error:
-        return problem(503)
+    return JSONResponse({"status": "ready"}) if storage.ready() else problem(503)
 
 
 @app.post("/customers", status_code=201)
@@ -145,29 +170,13 @@ def create(body: CreateCustomer, claims: Identity) -> dict[str, str]:
     ):
         raise Failure(403)
     try:
-        name, email = customer_values(body.name, body.email)
+        return storage.create(str(body.tenant_id), body.name, body.email)
     except ValueError as exc:
         raise Failure(400) from exc
-    customer_id = str(uuid.uuid4())
-    try:
-        with psycopg.connect(**DB) as conn:  # type: ignore[arg-type]
-            conn.execute(
-                "INSERT INTO customers VALUES (%s, %s, %s, %s)",
-                (customer_id, str(body.tenant_id), name, email),
-            )
-            conn.execute(
-                "INSERT INTO customer_audit (customer_id) VALUES (%s)", (customer_id,)
-            )
-    except psycopg.errors.UniqueViolation as exc:
+    except DuplicateCustomer as exc:
         raise Failure(409) from exc
-    except psycopg.Error as exc:
+    except StorageUnavailable as exc:
         raise Failure(503) from exc
-    return {
-        "id": customer_id,
-        "tenant_id": str(body.tenant_id),
-        "name": name,
-        "email": email,
-    }
 
 
 @app.get("/customers")
@@ -177,12 +186,6 @@ def customers(claims: Identity, limit: int = 20) -> list[dict[str, str]]:
     if not 1 <= limit <= 100:
         raise Failure(400)
     try:
-        with psycopg.connect(**DB, row_factory=dict_row) as conn:  # type: ignore[arg-type]
-            rows = conn.execute(
-                "SELECT id::text, tenant_id::text, name, email FROM customers "
-                "WHERE tenant_id = %s ORDER BY id LIMIT %s",
-                (claims["tenant_id"], limit),
-            ).fetchall()
-        return [dict(row) for row in rows]
-    except psycopg.Error as exc:
+        return storage.list(claims["tenant_id"], limit)
+    except StorageUnavailable as exc:
         raise Failure(503) from exc

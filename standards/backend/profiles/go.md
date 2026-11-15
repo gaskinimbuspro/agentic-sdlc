@@ -2,6 +2,8 @@
 
 Apply with [common](../common.md) and [testing](../testing.md) rules. Select a supported stable toolchain. Prefer the standard library unless a framework/DI dependency has a concrete justification.
 
+The executable [net/http binding](../../../reference/README.md) uses pinned Go, readonly modules, race detection, govulncheck, a compiled binary and real HTTP/PostgreSQL acceptance. The reference does not require a third-party HTTP framework.
+
 | ID | Rule | Verification |
 | --- | --- | --- |
 | GO01 | Require gofmt and clear package names. Verification must reject formatting differences rather than silently modifying files. | Check gofmt output and exit status |

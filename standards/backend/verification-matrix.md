@@ -1,6 +1,6 @@
 # Backend rule-to-verification matrix
 
-Status: specified, not implemented or pilot-verified. This document makes the existing backend v0.1 rules actionable; it does not release v1 or claim a running verifier. Every row below currently has specification evidence only in this repository.
+Status: rule/control specification with executable reference coverage. The [reference implementations and common acceptance suite](../../reference/README.md) exercise the selected HTTP/PostgreSQL bindings; [adoption](adoption.md) identifies input/evidence validation and the remaining external trust/dispatch boundary. A passing reference does not automatically validate every conditional feature or release a v1 standard.
 
 The requirements remain in [common rules](common.md) and [testing rules](testing.md). Their IDs and source attribution are unchanged. This matrix defines proposed verification bindings, owners, failure handling, and rejection examples. These bindings are our engineering policy; the cited authors do not collectively mandate this exact process.
 
@@ -25,7 +25,7 @@ The adopting project binds every applicable row to actual paths, pinned tools, c
 
 ## Common backend controls
 
-The rejection examples describe violations to demonstrate safely in a disposable test environment when implementing a new control, or when a critical invariant changes. They are not executed tests or an instruction to mutate every application on every PR. Preserve a failure-before/success-after result or an explained equivalent as required by T07. Never use production secrets or user data in these demonstrations.
+The rejection examples describe violations to demonstrate safely in a disposable test environment when implementing a new control, or when a critical invariant changes. Concrete reference/unit results are recorded separately; a matrix row alone is not execution evidence or an instruction to mutate every application on every PR. Preserve a failure-before/success-after result or an explained equivalent as required by T07. Never use production secrets or user data in these demonstrations.
 
 | Rule and applicability | Check and required evidence | Responsible roles and blocking gate | Example the control must reject | Basis |
 | --- | --- | --- | --- | --- |

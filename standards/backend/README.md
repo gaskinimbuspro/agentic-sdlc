@@ -19,6 +19,8 @@ See [delivery workflow](delivery-workflow.md) for ownership, task states, contex
 | [Common rules](common.md) | Architecture, interfaces, security, data, failure handling, and operations |
 | [Verification matrix](verification-matrix.md) | Applicability, check/evidence, owner, blocking gate, and rejection example for every common/testing rule |
 | [Baseline readiness](baseline-readiness.md) | Current gaps, ordered adoption steps, and a concrete requirements-to-evidence example |
+| [Adoption](adoption.md) | New-project entry point, executable validators, and operator trust prerequisites |
+| [Executable reference](../../reference/README.md) | Python/FastAPI, Go/net-http, and .NET/ASP.NET Core bindings with one real-PostgreSQL acceptance suite |
 | [Testing](testing.md) | Test responsibilities, gates, and evidence |
 | [Test case matrix](test-case-matrix.md) | Required scenario families and applicability |
 | [Definition of Done](definition-of-done.md) | Conditions for accepting a backend task |
@@ -43,12 +45,14 @@ Fowler's architecture/testing principles and language documentation are separate
 
 Complete the project profile, record architecture/API/data decisions, select applicable test cases, and bind commands to real paths and pinned tools. The generated project must provide a `backend-verify` entry point and required CI checks. Preserve each check's result and test count; prove new quality gates reject the relevant negative case.
 
-Use the [verification matrix](verification-matrix.md) to bind all applicable B/T rules and the selected language profile. Follow [baseline readiness](baseline-readiness.md) to distinguish specification, implementation and pilot evidence. The matrix itself is not a running control, and it does not advance this draft to v1.
+Use the [verification matrix](verification-matrix.md) to bind all applicable B/T rules and the selected language profile. Follow [adoption](adoption.md) and [baseline readiness](baseline-readiness.md) to distinguish specification, reference implementation, CI evidence and project-specific operational acceptance.
 
 The templates deliberately start incomplete. Changing `readiness` to `ready` is not evidence. A validation step must check the required decisions, commands, permissions, and test environment before dispatch.
 
 ## Implementation status
 
-This repository currently contains standards, workflow/role specifications, draft templates, research notes, and diagrams. It does not yet contain a backend application, an executing dispatcher, an evidence verifier, or a working backend CI pipeline. The next pilot must implement and exercise those controls against a real backend. Instructions alone cannot enforce access or repository protection.
+This repository contains the standard, workflow/role specifications, templates, and executable verification tools. The [reference](../../reference/README.md) binds Python/FastAPI, Go/net-http and .NET/ASP.NET Core to the same OpenAPI contract and real-PostgreSQL acceptance suite. The [CI workflow](../../.github/workflows/backend.yml) runs required format/static/type/build, security, unit and packaged-process acceptance checks and preserves individual outcomes. Readiness/evidence validators reject incomplete, failed, stale and insufficient inputs.
+
+These implementations do not authenticate arbitrary local evidence, configure branch protection, supply independent approval or run an agent dispatcher. Those trust/dispatch integrations are explicit [operator prerequisites](adoption.md#operator-prerequisites-for-unattended-use). The backend package remains under PR review; no deployment or v1 release is implied by green reference checks.
 
 Projects record their adopted standard version. Updates require a reviewed migration; editing this repository does not silently change active projects.

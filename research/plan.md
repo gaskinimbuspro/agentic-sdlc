@@ -2,6 +2,9 @@
 
 Select or adapt an agentic development method using primary sources and measured trials. Separate published guidance, vendor experience, and our policies. Reading documentation is not equivalent to proving runtime behavior.
 
+The [15 November primary-source review](2026-11-15-standards-and-agentic-delivery.md) records practitioner findings, pinned method documents, conflicting defaults, and the original gap assessment. The [backend adoption guide](../standards/backend/adoption.md) records the subsequent executable reference scope; agent-orchestrator selection remains separate.
+
+
 ## Priority order
 
 1. Establish backend rules from architecture/testing guidance and official language/security references.

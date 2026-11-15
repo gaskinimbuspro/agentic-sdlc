@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["backend_standard", "readiness", "language", "toolchain", "framework", "architecture", "interfaces", "data", "security", "quality_targets", "gates", "not_applicable", "exceptions", "execution_policy"],
+  "properties": {
+    "backend_standard": {"const": "0.1"}, "readiness": {"const": "ready"},
+    "language": {"enum": ["python", "dotnet", "go"]},
+    "toolchain": {"type": "object", "required": ["runtime_version", "test_runner", "tool_versions"], "properties": {"runtime_version": {"$ref": "#/$defs/text"}, "test_runner": {"$ref": "#/$defs/text"}, "tool_versions": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/text"}}}},
+    "framework": {"$ref": "#/$defs/textMap"},
+    "architecture": {"type": "object", "required": ["style", "domain_logic_pattern", "decision_document", "module_boundaries"], "properties": {"style": {"$ref": "#/$defs/text"}, "domain_logic_pattern": {"$ref": "#/$defs/text"}, "decision_document": {"$ref": "#/$defs/text"}, "module_boundaries": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}}}},
+    "interfaces": {"type": "object", "required": ["http_api", "contract_path", "error_format", "compatibility_policy"], "properties": {"http_api": {"type": "boolean"}, "contract_path": {"$ref": "#/$defs/text"}, "error_format": {"$ref": "#/$defs/text"}, "compatibility_policy": {"$ref": "#/$defs/text"}}},
+    "data": {"type": "object", "required": ["persistence", "engine", "version", "migration_tool", "transaction_policy"], "properties": {"persistence": {"type": "boolean"}, "engine": {"$ref": "#/$defs/text"}, "version": {"$ref": "#/$defs/text"}, "migration_tool": {"$ref": "#/$defs/text"}, "transaction_policy": {"$ref": "#/$defs/text"}}},
+    "security": {"$ref": "#/$defs/textMap"},
+    "quality_targets": {"$ref": "#/$defs/textMap"},
+    "gates": {"type": "object", "additionalProperties": {"$ref": "#/$defs/argv"}},
+    "not_applicable": {"type": "array", "items": {"type": "object", "required": ["rule_id", "reason", "reviewer"], "properties": {"rule_id": {"$ref": "#/$defs/text"}, "reason": {"$ref": "#/$defs/text"}, "reviewer": {"$ref": "#/$defs/text"}}}},
+    "exceptions": {"type": "array", "maxItems": 0},
+    "execution_policy": {"type": "object"}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "textMap": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/text"}},
+    "argv": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/text"}}
+  }
+}

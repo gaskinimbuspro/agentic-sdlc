@@ -27,7 +27,8 @@
     "max_wall_time_minutes": null,
     "max_repair_attempts": null,
     "max_context_tokens": null,
-    "max_cost": null
+    "max_cost": null,
+    "cost_currency": "USD"
   },
   "handoff": {
     "last_verified_sha": null,

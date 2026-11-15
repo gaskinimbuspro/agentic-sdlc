@@ -2,6 +2,8 @@
 
 Apply with [common](../common.md) and [testing](../testing.md) rules. Default tools are uv, Ruff, mypy, and pytest; pin their versions per project. This profile does not automatically select FastAPI, Django, or another web framework.
 
+An executable [FastAPI binding](../../../reference/README.md) now demonstrates this profile with locked dependencies, a built/installed wheel, real HTTP/PostgreSQL acceptance, and CI. It is a selected reference framework, not a mandatory choice for every Python backend.
+
 | ID | Rule | Verification |
 | --- | --- | --- |
 | PY01 | Base naming/readability on PEP 8. Use Ruff format/lint with this profile's 88-character width and explicit `E4,E7,E9,F,I,B,UP` lint selection. | Pinned formatter/linter and configuration |

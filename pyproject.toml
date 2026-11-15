@@ -2,17 +2,33 @@
 name = "backend-standard"
 version = "0.1.0"
 requires-python = ">=3.12"
-dependencies = ["jsonschema>=4.23,<5"]
+dependencies = [
+    "defusedxml==0.7.1",
+    "jsonschema>=4.23,<5",
+]
 
 [project.scripts]
 backend-standard = "backend_standard.cli:main"
+backend-verify = "backend_standard.runner:main"
 
 [build-system]
-requires = ["hatchling>=1.27,<2"]
+requires = ["hatchling==1.33.0"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = ["pytest>=8.3,<10", "ruff>=0.11,<1", "mypy>=1.15,<2", "types-jsonschema>=4.23", "httpx>=0.28,<1", "psycopg[binary]>=3.2,<4", "pip-audit>=2.8,<3", "build>=1.2,<2"]
+dev = [
+    "pytest>=8.3,<10",
+    "ruff>=0.11,<1",
+    "mypy>=1.15,<2",
+    "types-jsonschema>=4.23",
+    "httpx>=0.28,<1",
+    "psycopg[binary]>=3.2,<4",
+    "pip-audit>=2.8,<3",
+    "build>=1.2,<2",
+    "bandit>=1.8,<2",
+    "types-defusedxml>=0.7",
+    "hatchling==1.33.0",
+]
 
 [tool.ruff]
 line-length = 88
