@@ -18,7 +18,7 @@ static Task Problem(HttpContext context, int status)
 }
 static Guid Tenant(ClaimsPrincipal user, string scope)
 {
-    if (!Guid.TryParse(user.FindFirstValue("tenant_id"), out var tenant) ||
+    if (!Guid.TryParseExact(user.FindFirstValue("tenant_id"), "D", out var tenant) ||
         string.IsNullOrEmpty(user.FindFirstValue("sub")) || user.FindFirstValue("scope") is not { } scopes)
         throw new CustomerFailure(401);
     if (!scopes.Split(' ', StringSplitOptions.RemoveEmptyEntries).Contains(scope)) throw new CustomerFailure(403);
@@ -86,6 +86,7 @@ app.MapGet("/health/ready", async (Store store, CancellationToken ct) =>
 });
 var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
 {
+    PropertyNameCaseInsensitive = false,
     UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
     RespectRequiredConstructorParameters = true
 };
@@ -101,7 +102,7 @@ app.MapGet("/customers", async (HttpContext context, Store store, CancellationTo
 {
     var tenant = Tenant(context.User, "customers:read");
     var raw = context.Request.Query["limit"].ToString();
-    var limit = string.IsNullOrEmpty(raw) ? 20 : int.TryParse(raw, out var parsed) ? parsed : throw new CustomerFailure(400);
+    var limit = !context.Request.Query.ContainsKey("limit") ? 20 : int.TryParse(raw, out var parsed) ? parsed : throw new CustomerFailure(400);
     return await store.List(tenant, limit, ct);
 }).RequireAuthorization();
 app.Run();

@@ -1,6 +1,6 @@
 {
   "format": "junit",
-  "minimum_tests": 43,
+  "minimum_tests": 54,
   "required_test_names": [
     "test_valid_create_and_contract",
     "test_authentication[missing]",
@@ -19,6 +19,18 @@
     "test_migration_history_changes_are_rejected[backfilled]",
     "test_migration_history_changes_are_rejected[duplicate_version]",
     "test_migration_history_changes_are_rejected[empty]",
-    "test_migration_history_changes_are_rejected[missing_directory]"
+    "test_migration_history_changes_are_rejected[missing_directory]",
+    "test_json_property_names_are_case_sensitive[name]",
+    "test_json_property_names_are_case_sensitive[email]",
+    "test_json_property_names_are_case_sensitive[tenant_id]",
+    "test_invalid_tenant_claim_is_unauthorized[number]",
+    "test_invalid_tenant_claim_is_unauthorized[array]",
+    "test_invalid_tenant_claim_is_unauthorized[object]",
+    "test_invalid_tenant_claim_is_unauthorized[boolean]",
+    "test_invalid_tenant_claim_is_unauthorized[null]",
+    "test_invalid_tenant_claim_is_unauthorized[hyphenless-uuid]",
+    "test_invalid_input_has_no_side_effects[hyphenless-uuid]",
+    "test_query_limits[]",
+    "test_payload_limit"
   ]
 }

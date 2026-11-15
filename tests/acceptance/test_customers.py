@@ -94,6 +94,7 @@ def test_valid_create_and_contract(service, database):
         {"email": "x" * 255},
         {"extra": "forbidden"},
         {"tenant_id": "invalid"},
+        pytest.param({"tenant_id": TENANT_A.replace("-", "")}, id="hyphenless-uuid"),
     ],
 )
 def test_invalid_input_has_no_side_effects(service, database, change):
@@ -102,6 +103,40 @@ def test_invalid_input_has_no_side_effects(service, database, change):
     assert response.status_code == 400
     assert response.headers["content-type"].startswith("application/problem+json")
     assert response.json()["status"] == 400
+    assert rows(database) == rows(database, "customer_audit") == 0
+
+
+@pytest.mark.parametrize("field", ["name", "email", "tenant_id"])
+def test_json_property_names_are_case_sensitive(service, database, field):
+    url, key, _ = service
+    payload = body()
+    payload[field.upper()] = payload.pop(field)
+    response = httpx.post(url + "/customers", headers=token(key), json=payload)
+    assert response.status_code == 400
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert response.json()["status"] == 400
+    assert rows(database) == rows(database, "customer_audit") == 0
+
+
+@pytest.mark.parametrize(
+    "tenant",
+    [
+        pytest.param(123, id="number"),
+        pytest.param([], id="array"),
+        pytest.param({}, id="object"),
+        pytest.param(True, id="boolean"),
+        pytest.param(None, id="null"),
+        pytest.param(TENANT_A.replace("-", ""), id="hyphenless-uuid"),
+    ],
+)
+def test_invalid_tenant_claim_is_unauthorized(service, database, tenant):
+    url, key, _ = service
+    response = httpx.post(
+        url + "/customers", headers=token(key, tenant=tenant), json=body()
+    )
+    assert response.status_code == 401
+    assert response.headers["www-authenticate"] == "Bearer"
+    assert response.json()["status"] == 401
     assert rows(database) == rows(database, "customer_audit") == 0
 
 
@@ -187,7 +222,7 @@ def test_atomicity_on_second_write_failure(service, database):
     assert "synthetic failure" not in response.text
 
 
-@pytest.mark.parametrize("limit", ["0", "101", "invalid"])
+@pytest.mark.parametrize("limit", ["0", "101", "invalid", ""])
 def test_query_limits(service, limit):
     url, key, _ = service
     assert (
@@ -204,6 +239,13 @@ def test_payload_limit(service, database):
         url + "/customers", headers=token(key), json=body(name="x" * 9000)
     )
     assert response.status_code == 413
+    assert response.headers["content-type"].startswith("application/problem+json")
+    request_id = response.headers["X-Request-ID"]
+    assert uuid.UUID(request_id)
+    deadline = time.monotonic() + 2
+    while request_id not in service[2].read_text():
+        assert time.monotonic() < deadline, "Rejected request is missing correlated log"
+        time.sleep(0.01)
     assert rows(database) == 0
 
 

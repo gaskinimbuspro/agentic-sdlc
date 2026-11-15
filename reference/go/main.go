@@ -133,8 +133,8 @@ func routes(pool *pgxpool.Pool, key []byte) http.Handler {
 			Email    string `json:"email"`
 		}
 		decoder := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8192))
-		decoder.DisallowUnknownFields()
-		if err := decoder.Decode(&input); err != nil {
+		var fields map[string]json.RawMessage
+		if err := decoder.Decode(&fields); err != nil {
 			var size *http.MaxBytesError
 			if errors.As(err, &size) {
 				problem(w, 413)
@@ -144,6 +144,13 @@ func routes(pool *pgxpool.Pool, key []byte) http.Handler {
 			return
 		}
 		if err := decoder.Decode(new(any)); err != io.EOF {
+			problem(w, 400)
+			return
+		}
+		// Struct decoding accepts case-insensitive keys; the contract does not.
+		if len(fields) != 3 || fields["tenant_id"] == nil || fields["name"] == nil || fields["email"] == nil ||
+			json.Unmarshal(fields["tenant_id"], &input.TenantID) != nil ||
+			json.Unmarshal(fields["name"], &input.Name) != nil || json.Unmarshal(fields["email"], &input.Email) != nil {
 			problem(w, 400)
 			return
 		}
@@ -177,7 +184,8 @@ func routes(pool *pgxpool.Pool, key []byte) http.Handler {
 			return
 		}
 		limit := 20
-		if value := r.URL.Query().Get("limit"); value != "" {
+		if r.URL.Query().Has("limit") {
+			value := r.URL.Query().Get("limit")
 			parsed, err := strconv.Atoi(value)
 			if err != nil {
 				problem(w, 400)

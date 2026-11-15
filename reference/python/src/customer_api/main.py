@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import uuid
 from typing import Annotated, Any
 
@@ -10,7 +11,7 @@ from fastapi import Depends, FastAPI, Header, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.routing import APIRoute
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from starlette.exceptions import HTTPException
 from starlette.middleware.base import RequestResponseEndpoint
 from starlette.responses import Response
@@ -93,13 +94,16 @@ async def request_boundary(
     request_id = str(uuid.uuid4())
     # Buffer only up to the documented 8 KiB limit, including chunked bodies.
     body = bytearray()
-    async for chunk in request.stream():
-        body.extend(chunk)
-        if len(body) > 8192:
-            return problem(413)
-    request._body = bytes(body)
+    response: Response
     try:
-        response = await call_next(request)
+        async for chunk in request.stream():
+            body.extend(chunk)
+            if len(body) > 8192:
+                response = problem(413)
+                break
+        else:
+            request._body = bytes(body)
+            response = await call_next(request)
     except Exception:
         response = problem(500)
     response.headers["X-Request-ID"] = request_id
@@ -117,6 +121,15 @@ async def request_boundary(
     return response
 
 
+def tenant_uuid(value: object) -> uuid.UUID:
+    if not isinstance(value, str) or not re.fullmatch(
+        r"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+        value,
+    ):
+        raise ValueError("Invalid tenant UUID")
+    return uuid.UUID(value)
+
+
 # JWT claims are heterogeneous boundary data; used identity fields are checked below.
 def identity(authorization: Annotated[str | None, Header()] = None) -> dict[str, Any]:
     if not authorization or not authorization.startswith("Bearer "):
@@ -130,7 +143,7 @@ def identity(authorization: Annotated[str | None, Header()] = None) -> dict[str,
             audience="customers",
             options={"require": ["exp", "iss", "aud", "sub", "tenant_id", "scope"]},
         )
-        claims["tenant_id"] = str(uuid.UUID(claims["tenant_id"]))
+        claims["tenant_id"] = str(tenant_uuid(claims["tenant_id"]))
         if (
             not isinstance(claims["scope"], str)
             or not isinstance(claims["sub"], str)
@@ -147,6 +160,11 @@ class CreateCustomer(BaseModel):
     tenant_id: Annotated[uuid.UUID, Field(strict=False)]
     name: str
     email: str
+
+    @field_validator("tenant_id", mode="before")
+    @classmethod
+    def tenant_format(cls, value: object) -> uuid.UUID:
+        return tenant_uuid(value)
 
 
 Identity = Annotated[dict[str, Any], Depends(identity)]
