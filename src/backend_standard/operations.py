@@ -7,16 +7,81 @@ import re
 import sys
 from pathlib import Path
 from typing import Any
+from xml.etree.ElementTree import ParseError
+
+from defusedxml import ElementTree as ET
 
 from backend_standard.gates import (
     Rejected,
     confined,
     document,
-    report_names,
     require,
-    test_counts,
     text,
 )
+
+
+def smoke_names(raw: bytes, expected: dict[str, str]) -> set[str]:
+    try:
+        tree = ET.fromstring(
+            raw, forbid_dtd=True, forbid_entities=True, forbid_external=True
+        )
+    except (ParseError, ValueError) as error:
+        raise Rejected("Invalid or unsafe smoke report") from error
+    if tree.tag == "testsuite":
+        suites = [tree]
+    elif tree.tag == "testsuites":
+        suites = list(tree)
+    else:
+        raise Rejected("Invalid smoke report root")
+    require(
+        suites and all(suite.tag == "testsuite" for suite in suites),
+        "Invalid smoke suite layout",
+    )
+    require(
+        not any(
+            node.tag.split("}")[-1] in {"error", "failure", "skipped"}
+            for node in tree.iter()
+        ),
+        "Failed or skipped smoke case",
+    )
+    for summary in [tree] if tree.tag == "testsuite" else [tree, *suites]:
+        for field in ("failures", "errors", "skipped", "disabled"):
+            require(summary.get(field, "0") == "0", f"Smoke report declares {field}")
+    require(
+        not any(
+            node.tag.split("}")[-1].casefold()
+            in {"flakyerror", "flakyfailure", "rerunerror", "rerunfailure", "rerun"}
+            for node in tree.iter()
+        ),
+        "Flaky or rerun smoke case",
+    )
+    names: set[str] = set()
+    for suite in suites:
+        properties = suite.findall("properties")
+        require(len(properties) == 1, "Smoke suite requires one properties element")
+        for field in (
+            "environment",
+            "desired_revision",
+            "artifact_digest",
+            "rollout_id",
+        ):
+            values = [
+                prop.get("value")
+                for prop in properties[0].findall("property")
+                if prop.get("name") == field
+            ]
+            require(values == [expected[field]], f"Smoke suite: {field} mismatch")
+        for case in suite.findall("testcase"):
+            name = text(case.get("name"), "Smoke case name")
+            require(name not in names, "Duplicate smoke case name")
+            names.add(name)
+    require(
+        len(names)
+        == sum(node.tag.split("}")[-1] == "testcase" for node in tree.iter()),
+        "Smoke testcase outside its suite",
+    )
+    require(names, "Zero executed tests")
+    return names
 
 
 def verify_release(
@@ -75,11 +140,14 @@ def verify_release(
 
     smoke = evidence["smoke"]
     report = confined(root, text(smoke.get("report"), "Smoke report"))
-    actual_digest = "sha256:" + hashlib.sha256(report.read_bytes()).hexdigest()
+    with report.open("rb") as handle:
+        raw = handle.read(20_000_001)
+    require(len(raw) <= 20_000_000, "Smoke report exceeds size limit")
+    actual_digest = "sha256:" + hashlib.sha256(raw).hexdigest()
     require(smoke.get("report_digest") == actual_digest, "Smoke report digest mismatch")
-    counts = test_counts(report, "junit")
-    require(required_cases <= report_names(report, "junit"), "Missing smoke case")
-    return counts
+    names = smoke_names(raw, expected)
+    require(required_cases <= names, "Missing smoke case")
+    return {"executed": len(names), "failed": 0, "skipped": 0}
 
 
 def main() -> int:
