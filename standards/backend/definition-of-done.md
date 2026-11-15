@@ -2,6 +2,8 @@
 
 The Coordinator may mark an implementation task done only when all applicable conditions below are met for the exact integrated candidate. A narrative success claim, coverage percentage, or opened PR cannot substitute for evidence.
 
+Use the [verification matrix](verification-matrix.md) to bind applicable B/T controls to checks, trusted evidence and independent review. [Baseline readiness](baseline-readiness.md) records the remaining implementation/pilot gaps; the existence of this document or the matrix does not satisfy the conditions below.
+
 | ID | Required condition |
 | --- | --- |
 | D01 | Scope, requirement IDs, acceptance criteria, and applicable test cases are explicit and unchanged unless a reviewed requirement change exists. |

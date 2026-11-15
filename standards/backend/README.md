@@ -17,6 +17,8 @@ See [delivery workflow](delivery-workflow.md) for ownership, task states, contex
 | Document | Purpose |
 | --- | --- |
 | [Common rules](common.md) | Architecture, interfaces, security, data, failure handling, and operations |
+| [Verification matrix](verification-matrix.md) | Applicability, check/evidence, owner, blocking gate, and rejection example for every common/testing rule |
+| [Baseline readiness](baseline-readiness.md) | Current gaps, ordered adoption steps, and a concrete requirements-to-evidence example |
 | [Testing](testing.md) | Test responsibilities, gates, and evidence |
 | [Test case matrix](test-case-matrix.md) | Required scenario families and applicability |
 | [Definition of Done](definition-of-done.md) | Conditions for accepting a backend task |
@@ -40,6 +42,8 @@ Fowler's architecture/testing principles and language documentation are separate
 ## Adoption and enforcement
 
 Complete the project profile, record architecture/API/data decisions, select applicable test cases, and bind commands to real paths and pinned tools. The generated project must provide a `backend-verify` entry point and required CI checks. Preserve each check's result and test count; prove new quality gates reject the relevant negative case.
+
+Use the [verification matrix](verification-matrix.md) to bind all applicable B/T rules and the selected language profile. Follow [baseline readiness](baseline-readiness.md) to distinguish specification, implementation and pilot evidence. The matrix itself is not a running control, and it does not advance this draft to v1.
 
 The templates deliberately start incomplete. Changing `readiness` to `ready` is not evidence. A validation step must check the required decisions, commands, permissions, and test environment before dispatch.
 

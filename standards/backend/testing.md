@@ -19,6 +19,8 @@ Derive tests from acceptance criteria and actual risks. Do not mirror implementa
 
 Use the [test case matrix](test-case-matrix.md) to select scenarios and the [Definition of Done](definition-of-done.md) to decide completion. Testing responsibility stays with the Implementer even when an Independent Reviewer exists.
 
+The [verification matrix](verification-matrix.md#testing-and-evidence-controls) maps T01-T10 to concrete evidence obligations, gate ownership and rejection examples. Its applicability/exception rules prevent absent infrastructure or failing tests from being silently reclassified as N/A. The [worked acceptance design](baseline-readiness.md#worked-acceptance-design-create-a-customer) illustrates expected outputs and forbidden side effects before implementation.
+
 ## Gates
 
 | Gate | Owner | Exit condition |

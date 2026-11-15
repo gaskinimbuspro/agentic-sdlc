@@ -2,6 +2,8 @@
 
 Scope: HTTP APIs, workers, and services. HTTP, storage, messaging, and tenant-specific rules apply only where relevant. The verification column specifies checks to implement in each project; it does not claim those application checks already exist here.
 
+The [verification matrix](verification-matrix.md#common-backend-controls) expands B01-B18 into applicability, check/evidence, responsible gate, rejection examples and source links without changing their IDs or selecting a framework.
+
 ## Architecture basis
 
 Separate transport/presentation, business behavior, and data access responsibilities. Their physical representation depends on the language and problem; no fixed number of folders, projects, or services is required. [F01](sources.md#f01).
