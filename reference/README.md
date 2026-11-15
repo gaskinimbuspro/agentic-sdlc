@@ -20,7 +20,7 @@ This is a verification example for backend standard v0.1, not an application gen
 | Binding | Pinned inputs | Check entry point |
 | --- | --- | --- |
 | Python | Python 3.12.14, uv 0.12.23, FastAPI 0.163.1; runtime/dev dependencies in [uv.lock](python/uv.lock) | `uv run --no-sync python scripts/backend_verify.py python` |
-| Go | Go 1.27.3; app/scanner module versions in [go.mod](go/go.mod) and [go.sum](go/go.sum) | `uv run --no-sync python scripts/backend_verify.py go` |
+| Go | Go 1.27.4; app/scanner module versions in [go.mod](go/go.mod) and [go.sum](go/go.sum) | `uv run --no-sync python scripts/backend_verify.py go` |
 | .NET | SDK 10.0.404 without roll-forward; .NET runtime/auth package 10.0.15; NuGet lock files | `uv run --no-sync python scripts/backend_verify.py dotnet` |
 | Database | PostgreSQL 18.7 official image pinned by digest in the acceptance runner | Same acceptance runner for each language |
 

@@ -3,17 +3,17 @@
   "readiness": "ready",
   "language": "go",
   "toolchain": {
-    "runtime_version": "1.27.3",
+    "runtime_version": "1.27.4",
     "test_runner": "testing + race detector",
     "tool_versions": {
       "uv": "0.12.23",
       "verification_python": "3.12.14",
-      "compiler_or_runtime": "1.27.3"
+      "compiler_or_runtime": "1.27.4"
     }
   },
   "framework": {
     "name": "net/http",
-    "version": "1.27.3",
+    "version": "1.27.4",
     "validation_and_error_policy": "Strict create payload; safe RFC 9457 errors; reference/README.md",
     "test_host_and_lifecycle": "Packaged process, loopback HTTP, bounded shutdown, real PostgreSQL"
   },
