@@ -1,0 +1,144 @@
+:root {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #172b47;
+  background: #f2f6fb;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 52rem;
+  padding: 2rem;
+  margin: 3rem auto;
+  background: #fff;
+  border: 1px solid #c3d0e1;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+  line-height: 1.15;
+}
+
+.screen-header,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.screen-header {
+  justify-content: space-between;
+}
+
+a {
+  color: #174a85;
+  overflow-wrap: anywhere;
+}
+
+button,
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border: 1px solid #174a85;
+  border-radius: 0.3rem;
+  background: #174a85;
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid #b85000;
+  outline-offset: 3px;
+}
+
+table {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #c3d0e1;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+form {
+  max-width: 30rem;
+  margin-top: 1.5rem;
+}
+
+fieldset {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+input {
+  padding: 0.55rem;
+  margin-bottom: 0.6rem;
+  border: 1px solid #6c7b92;
+  border-radius: 0.25rem;
+  color: inherit;
+  font: inherit;
+}
+
+[role="alert"],
+.confirmed {
+  padding: 0.75rem;
+  border-left: 4px solid currentColor;
+  background: #f2f6fb;
+  overflow-wrap: anywhere;
+}
+
+[role="alert"] {
+  color: #80251f;
+}
+
+.confirmed {
+  color: #21633c;
+}
+
+.visually-hidden {
+  position: absolute;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 54rem) {
+  main {
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 30rem) {
+  main {
+    padding: 1rem;
+  }
+
+  .screen-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -20,8 +20,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("language", choices=["python", "go", "dotnet"])
     parser.add_argument("--external-database", action="store_true")
+    parser.add_argument("--browser", action="store_true")
     args = parser.parse_args()
-    artifacts = ROOT / "artifacts" / args.language
+    if args.browser and args.language != "python":
+        parser.error("The browser pilot uses the packaged Python reference")
+    artifacts = ROOT / "artifacts" / ("frontend" if args.browser else args.language)
     artifacts.mkdir(parents=True, exist_ok=True)
     env = dict(os.environ)
     container = None
@@ -98,12 +101,16 @@ def main() -> int:
                 "customer_api.serve",
             ]
         env["REFERENCE_COMMAND"] = json.dumps(commands[args.language])
+        frontend = "tests/acceptance/test_frontend.py"
+        suite = (
+            [frontend] if args.browser else ["tests/acceptance", "--ignore=" + frontend]
+        )
         return subprocess.run(
             [
                 sys.executable,
                 "-m",
                 "pytest",
-                "tests/acceptance",
+                *suite,
                 "--junitxml=" + str(artifacts / "acceptance.xml"),
             ],
             cwd=ROOT,

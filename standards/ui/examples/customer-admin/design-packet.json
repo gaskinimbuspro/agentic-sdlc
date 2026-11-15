@@ -115,7 +115,7 @@
         },
         "unconfirmed": {
           "kind": "designed",
-          "description": "Explain that the save outcome is unknown, retain safe input, block repeat submission and offer Back to customers to inspect the bounded list."
+          "description": "Explain that the save outcome is unknown, retain safe input, block repeat submission and offer Back to customers to inspect the bounded list. Keep the guard across history and reload until deliberate recovery or a definitive outcome."
         }
       }
     }
@@ -559,7 +559,7 @@
       ],
       "interaction_id": "SAVE",
       "outcome_id": "unavailable",
-      "expected": "For a 503 before or during commit, explain the uncertainty and offer recovery without another create request."
+      "expected": "For a 503 before or during commit, explain the uncertainty and offer recovery without another create request. Verify the guard after back, forward and reload."
     },
     {
       "id": "CASE-SAVE-no-response",

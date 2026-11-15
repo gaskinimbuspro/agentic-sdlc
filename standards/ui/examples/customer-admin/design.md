@@ -31,6 +31,8 @@ At a narrow viewport, fields/actions stack and list content remains usable witho
 
 On 201, show a confirmation based on the returned customer and refresh the ID-ordered, bounded list. Keep the confirmation visible during the refresh and through a recoverable list failure in the same session/tenant. The new row may fall outside the returned page. A 503 on create can originate from a database connection failure during commit. If the create request returns 503 or ends without an HTTP response, explain that it may already have committed, retain safe input and disable repeat submission from the unconfirmed state. Back to customers refreshes the list without sending another create request. Absence from the bounded list cannot establish whether the original request committed. Any stronger reconciliation needs a separately accepted API and transaction policy.
 
+Keep the unresolved-write guard across browser back, forward and reload within the session. A definitive response or deliberate Back to customers recovery clears the guard. The guard needs no customer or credential values.
+
 The browser must not receive an HMAC signing key or synthesize identity/tenant permissions. Session state and cache are cleared/revalidated on logout/tenant changes under the eventual accepted host binding. Listing is bounded by the existing API limit; this example does not imply unsupported cursor pagination or detail routes.
 
 ## Review and implementation evidence
