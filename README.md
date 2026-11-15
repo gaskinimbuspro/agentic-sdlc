@@ -6,6 +6,8 @@ The [backend standard v0.1](standards/backend/README.md) includes shared rules, 
 
 ## Where a new project starts
 
+Continuing this repository's work in a fresh conversation? Read the [backend/UI context handoff](docs/handoffs/2026-11-16-ui-standard.md) and current PR state first.
+
 Give the Coordinator a project brief plus working settings. The Backend Architect/Planner clarifies behavior, records decisions, prepares the project profile/test plan, and splits work. The Coordinator dispatches ready tasks. One Implementer owns a coding task; independent review and trusted CI evidence control completion.
 
 Start with [delivery workflow](standards/backend/delivery-workflow.md), [test case matrix](standards/backend/test-case-matrix.md), and [Definition of Done](standards/backend/definition-of-done.md).
