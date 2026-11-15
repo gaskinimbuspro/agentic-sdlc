@@ -13,7 +13,7 @@ The expected output is a candidate-bound review with blocking findings or an exp
 1. Read the current PR head, target base and tested merge candidate from GitHub. Do not reuse a prior run merely because its branch name matches.
 2. Verify that all four checks (`backend-tools`, `backend-python`, `backend-go`, `backend-dotnet`) passed for that head and the current integration candidate. Reports must identify the actual merge checkout with `dirty: false`.
 3. Read the per-profile `results.json`, logs, JUnit/TRX/Go reports and artifact identities from the linked CI run. The runner stops at the first failed dependency; omitted later checks cannot be interpreted as passed.
-4. For this reference revision, expect at least 73 tool tests, 6 Python unit tests, 1 parent Go table-driven unit test and 4 .NET unit tests, plus 54 HTTP/PostgreSQL acceptance cases per language. All mandatory cases in `reference/acceptance-policy.json` must be present. Zero/failed/skipped/interrupted results prevent acceptance; counts alone do not demonstrate meaningful coverage.
+4. For this reference revision, expect at least 73 tool tests, 6 Python unit tests, 1 parent Go table-driven unit test and 4 .NET unit tests, plus 55 HTTP/PostgreSQL acceptance cases per language. All mandatory cases in `reference/acceptance-policy.json` must be present. Zero/failed/skipped/interrupted results prevent acceptance; counts alone do not demonstrate meaningful coverage.
 5. Reproduce relevant cases in an isolated checkout using the pinned setup in the reference README. `uv run --no-sync backend-verify all` runs the same required commands; unavailable SDKs, Docker or scanners are blockers, not successful checks.
 
 ## Decisions and adversarial checks

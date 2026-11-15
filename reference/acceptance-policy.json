@@ -1,6 +1,6 @@
 {
   "format": "junit",
-  "minimum_tests": 54,
+  "minimum_tests": 55,
   "required_test_names": [
     "test_valid_create_and_contract",
     "test_authentication[missing]",
@@ -31,6 +31,7 @@
     "test_invalid_tenant_claim_is_unauthorized[hyphenless-uuid]",
     "test_invalid_input_has_no_side_effects[hyphenless-uuid]",
     "test_query_limits[]",
-    "test_payload_limit"
+    "test_payload_limit",
+    "test_invalid_tenant_claim_is_unauthorized[singleton-array]"
   ]
 }

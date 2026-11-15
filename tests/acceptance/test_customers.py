@@ -123,6 +123,7 @@ def test_json_property_names_are_case_sensitive(service, database, field):
     [
         pytest.param(123, id="number"),
         pytest.param([], id="array"),
+        pytest.param([TENANT_A], id="singleton-array"),
         pytest.param({}, id="object"),
         pytest.param(True, id="boolean"),
         pytest.param(None, id="null"),

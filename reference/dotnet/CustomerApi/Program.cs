@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using CustomerApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using Npgsql;
 
@@ -53,6 +54,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
     options.Events = new JwtBearerEvents
     {
+        OnTokenValidated = context =>
+        {
+            if (context.SecurityToken is not JsonWebToken validatedToken)
+            {
+                context.Fail("Invalid identity");
+                return Task.CompletedTask;
+            }
+            // ClaimsPrincipal can flatten JSON arrays; validate original claim types.
+            using var payload = JsonDocument.Parse(Base64UrlEncoder.DecodeBytes(validatedToken.EncodedPayload));
+            foreach (var name in new[] { "tenant_id", "sub", "scope" })
+            {
+                if (!payload.RootElement.TryGetProperty(name, out var claim) || claim.ValueKind != JsonValueKind.String)
+                    context.Fail("Invalid identity");
+            }
+            return Task.CompletedTask;
+        },
         OnChallenge = context => { context.HandleResponse(); return Problem(context.HttpContext, 401); },
         OnForbidden = context => Problem(context.HttpContext, 403)
     };
