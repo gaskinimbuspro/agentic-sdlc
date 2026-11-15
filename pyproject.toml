@@ -11,6 +11,7 @@ dependencies = [
 backend-standard = "backend_standard.cli:main"
 backend-verify = "backend_standard.runner:main"
 ui-standard = "backend_standard.ui:main"
+operations-standard = "backend_standard.operations:main"
 
 [build-system]
 requires = ["hatchling==1.33.0", "editables==0.5"]

@@ -97,12 +97,27 @@ def main():
     )
     if rows != [f"B{i:02}" for i in range(1, 19)] + [f"T{i:02}" for i in range(1, 11)]:
         failures.append("Incomplete matrix coverage")
+    operations_rules = 0
+    for filename, prefix in (
+        ("database.md", "DB"),
+        ("platform.md", "PL"),
+        ("security.md", "SEC"),
+    ):
+        found = re.findall(
+            rf"^\| ({prefix}\d{{2}}) \|",
+            (ROOT / "standards/operations" / filename).read_text(),
+            re.M,
+        )
+        operations_rules += len(found)
+        if found != [f"{prefix}{i:02}" for i in range(1, 9)]:
+            failures.append(f"Operations rule IDs changed: {filename}")
     print(
         json.dumps(
             {
                 "local_links": links,
                 "matrix_rules": len(rows),
                 "ui_rules": ui_rules,
+                "operations_rules": operations_rules,
                 "errors": failures,
             },
             indent=2,

@@ -43,3 +43,9 @@ The acceptance suite starts a built/installed wheel, Go binary or published .NET
 The operator must obtain evidence from an appropriately isolated trusted runner, protect acceptance policy/check changes and verify independent review/integration. See [adoption](../standards/backend/adoption.md).
 
 The standard's architecture gate protects the declared reference domain files against selected direct transport/data dependencies; it is not whole-program semantic analysis. New projects must bind their own module policy. The known-pattern secret scanner is a minimum control, not a guarantee of discovering every credential. Bandit blocks medium/high findings; dependency scanners reject all reported findings for this reference scope. These boundaries do not remove independent security/design review.
+
+## PostgreSQL restore drill
+
+Run `uv run --no-sync python scripts/postgres_restore.py` from the repository root with Docker available. The [dedicated CI workflow](../.github/workflows/recovery.yml) runs the same command against two disposable PostgreSQL 18.7 instances. It reports the checkout SHA, image identity, logical archive digest/size, elapsed times and observed checks. Customer, audit and migration-history values must match after restore, the original uniqueness constraint must reject a duplicate, and the corrupted archive must fail without leaving customer objects.
+
+The archive stays in memory and contains synthetic data. The report does not establish production RPO/RTO, cluster/global-object recovery, recovery after total host loss or point-in-time recovery. Use the [database operations standard](../standards/operations/database.md) to define the real service recovery procedure.
