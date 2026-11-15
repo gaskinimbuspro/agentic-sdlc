@@ -12,7 +12,7 @@ backend-standard = "backend_standard.cli:main"
 backend-verify = "backend_standard.runner:main"
 
 [build-system]
-requires = ["hatchling==1.33.0"]
+requires = ["hatchling==1.33.0", "editables==0.5"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
@@ -28,6 +28,7 @@ dev = [
     "bandit>=1.8,<2",
     "types-defusedxml>=0.7",
     "hatchling==1.33.0",
+    "editables==0.5",
 ]
 
 [tool.ruff]

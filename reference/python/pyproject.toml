@@ -5,7 +5,7 @@ requires-python = ">=3.12"
 dependencies = ["fastapi==0.163.1", "psycopg[binary]==3.3.9", "PyJWT==2.15.1", "uvicorn>=0.34,<1"]
 
 [build-system]
-requires = ["hatchling==1.33.0"]
+requires = ["hatchling==1.33.0", "editables==0.5"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
@@ -16,6 +16,7 @@ dev = [
     "mypy>=1.15,<2",
     "types-PyJWT",
     "hatchling==1.33.0",
+    "editables==0.5",
 ]
 
 [tool.hatch.build.targets.wheel]
