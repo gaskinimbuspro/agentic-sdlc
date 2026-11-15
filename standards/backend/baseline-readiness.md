@@ -1,6 +1,6 @@
 # Backend baseline readiness
 
-Status: implementation candidate under review. The standard now has executable reference bindings, input/evidence validation, real-database acceptance and CI definitions. Actual results belong to candidate-bound CI/runner reports, not this checklist. No deployment, independent approval or v1 release is established by this document.
+Status: v0.1 reference package integrated through independently reviewed [PR #6](https://github.com/gaskinimbuspro/agentic-sdlc/pull/6). The standard now has executable reference bindings, input/evidence validation, real-database acceptance and CI definitions. Actual results belong to candidate-bound CI/runner reports, not this checklist. The candidate-bound CI and independent review are recorded in that PR; no production deployment or v1 release is established by this checklist.
 
 ## What is complete at this stage
 

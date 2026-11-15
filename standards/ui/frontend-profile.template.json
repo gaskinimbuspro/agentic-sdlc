@@ -1,0 +1,61 @@
+{
+  "ui_standard": "0.1",
+  "readiness": "draft",
+  "language": null,
+  "framework": {
+    "name": null,
+    "version": null,
+    "rendering_and_routing_decision": null,
+    "server_client_boundary": null
+  },
+  "toolchain": {
+    "runtime_version": null,
+    "package_manager_version": null,
+    "lock_file": null,
+    "browser_versions": []
+  },
+  "paths": {
+    "app": null,
+    "components": null,
+    "unit": null,
+    "browser": null,
+    "design_packet": null
+  },
+  "configuration": {
+    "strict_type_checks": null,
+    "lint_policy": null,
+    "accessibility_scope_and_manual_owner": null,
+    "session_and_security_decision": null,
+    "api_contract": null,
+    "visual_baseline_review_authority": null,
+    "browser_device_matrix": [],
+    "performance_budgets_and_environment": null
+  },
+  "gates": {
+    "design": null,
+    "format": null,
+    "lint": null,
+    "types": null,
+    "security": null,
+    "build": null,
+    "unit": null,
+    "component": null,
+    "contract": null,
+    "browser": null,
+    "accessibility_automated": null,
+    "accessibility_manual": null,
+    "visual": null,
+    "performance": null,
+    "smoke": null
+  },
+  "execution_policy": {
+    "required_ci_checks": [],
+    "independent_review_authority": null,
+    "trusted_reports": null,
+    "integration_target": null,
+    "task_context_policy": "One bounded task per isolated implementation workspace/context",
+    "design_change_policy": null
+  },
+  "not_applicable": [],
+  "exceptions": []
+}

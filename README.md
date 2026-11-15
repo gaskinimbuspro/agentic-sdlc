@@ -2,7 +2,7 @@
 
 A reusable method for turning a project brief into requirements, architecture, bounded development tasks, and verified delivery.
 
-The current priority is the [backend standard v0.1](standards/backend/README.md): shared rules, Python/.NET/Go profiles, required test cases, completion criteria, and agent responsibilities. Implementation candidates now include a fail-closed input/evidence validator, reference HTTP backends, a common PostgreSQL acceptance suite, and CI check definitions. Validation and adoption status must be read from the actual reports; an executing agent dispatcher and external acceptance authority remain separate integrations.
+The [backend standard v0.1](standards/backend/README.md) includes shared rules, Python/.NET/Go reference bindings, real PostgreSQL acceptance tests and verification tools, integrated through independently reviewed [PR #6](https://github.com/gaskinimbuspro/agentic-sdlc/pull/6). The current focus is the [UI/UX standard](standards/ui/README.md): project journeys, screen/state/interaction design, accessibility, frontend readiness and acceptance. An executing agent dispatcher and protected project acceptance authority remain separate integrations.
 
 ## Where a new project starts
 
@@ -14,6 +14,7 @@ Start with [delivery workflow](standards/backend/delivery-workflow.md), [test ca
 
 - [Goals and requirements](docs/goals-and-requirements.md)
 - [Backend standard and language profiles](standards/backend/README.md)
+- [UI/UX standard and design readiness](standards/ui/README.md)
 - [Research plan](research/plan.md)
 - [Research sources](research/sources.md)
 - [Method comparison criteria](research/comparison-criteria.md)

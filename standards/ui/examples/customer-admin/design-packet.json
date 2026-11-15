@@ -1,0 +1,504 @@
+{
+  "ui_standard": "0.1",
+  "status": "reviewable",
+  "project": "Illustrative customer administration fragment",
+  "actors": [
+    "member"
+  ],
+  "requirements": [
+    {
+      "id": "R-UI-01",
+      "description": "List only current tenant customers with explicit query/data/access states."
+    },
+    {
+      "id": "R-UI-02",
+      "description": "Create a customer with validation, safe server outcomes and accepted list result."
+    },
+    {
+      "id": "R-UI-03",
+      "description": "Cancel creation without submitting or persisting effects."
+    }
+  ],
+  "design_document": "standards/ui/examples/customer-admin/design.md",
+  "visual_assets": [
+    "standards/ui/examples/customer-admin/wireframes.svg"
+  ],
+  "api_contract": "reference/openapi.json",
+  "design_system": {
+    "tokens_path": "standards/ui/examples/customer-admin/tokens.json",
+    "components_document": "standards/ui/examples/customer-admin/design.md"
+  },
+  "quality": {
+    "accessibility": "Assess the accepted scope against WCAG 2.2 AA with automated and qualified human evaluation.",
+    "browsers": [
+      "Chromium desktop",
+      "Firefox desktop",
+      "WebKit desktop and an agreed real mobile device scope before implementation"
+    ],
+    "responsive": "Plan 360px narrow and 1280px wide layouts, long content, keyboard and zoom evaluation; bind exact supported environments before coding.",
+    "performance": "Set reproducible bundle/lab budgets in the frontend profile; record field metrics separately when actual users exist.",
+    "session_and_privacy": "Use the accepted authenticated host boundary, never ship signing keys or log customer content; clear/revalidate cache on tenant/session changes.",
+    "localization": "English example copy; choose actual project locales/direction, formatting and time zones before affected implementation."
+  },
+  "screens": [
+    {
+      "id": "LIST",
+      "route": "/customers",
+      "actor_ids": [
+        "member"
+      ],
+      "states": {
+        "default": {
+          "kind": "designed",
+          "description": "Start the list request on entry; show the list heading and Add customer action."
+        },
+        "loading": {
+          "kind": "designed",
+          "description": "Expose loading status and keep layout stable while the list request is pending."
+        },
+        "empty": {
+          "kind": "designed",
+          "description": "Explain that the tenant has no customers; offer Add customer."
+        },
+        "error": {
+          "kind": "designed",
+          "description": "Explain a safe recoverable list error; allow a bounded explicit retry."
+        },
+        "success": {
+          "kind": "designed",
+          "description": "Render the current tenant customer list and accepted create confirmation where applicable."
+        },
+        "forbidden": {
+          "kind": "designed",
+          "description": "Explain access denial without revealing customer data."
+        },
+        "unauthenticated": {
+          "kind": "designed",
+          "description": "Explain expired/missing identity and direct the member back to the authenticated host boundary."
+        }
+      }
+    },
+    {
+      "id": "CREATE",
+      "route": "/customers/new",
+      "actor_ids": [
+        "member"
+      ],
+      "states": {
+        "default": {
+          "kind": "designed",
+          "description": "Show labeled name/email fields and Save customer/Cancel."
+        },
+        "loading": {
+          "kind": "designed",
+          "description": "Announce saving and prevent accidental duplicate submit."
+        },
+        "error": {
+          "kind": "designed",
+          "description": "Show safe field/global feedback, retain safe input and allow correction/cancel."
+        },
+        "forbidden": {
+          "kind": "designed",
+          "description": "Explain denied creation and stop submission without exposing other tenants."
+        },
+        "unauthenticated": {
+          "kind": "designed",
+          "description": "Explain session expiry and return through the accepted host session boundary."
+        },
+        "empty": {
+          "kind": "not_applicable",
+          "description": "Blank input is the default form state, not an empty query result."
+        },
+        "success": {
+          "kind": "not_applicable",
+          "description": "Successful creation navigates to LIST; no separate successful form screen is displayed."
+        }
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "LOAD",
+      "screen_id": "LIST",
+      "source_states": [
+        "default",
+        "success",
+        "empty",
+        "error"
+      ],
+      "label": "Load customers",
+      "event": "Enter the route or explicitly retry the list request.",
+      "kind": "request",
+      "pending_state": "loading",
+      "api": {
+        "method": "GET",
+        "path": "/customers"
+      },
+      "outcomes": [
+        {
+          "id": "loaded",
+          "screen_id": "LIST",
+          "state": "success",
+          "condition": "The authenticated tenant has customers.",
+          "http_status": "200"
+        },
+        {
+          "id": "empty",
+          "screen_id": "LIST",
+          "state": "empty",
+          "condition": "The authenticated tenant has no customers.",
+          "http_status": "200"
+        },
+        {
+          "id": "invalid",
+          "screen_id": "LIST",
+          "state": "error",
+          "condition": "The server rejects the list query; show safe recovery.",
+          "http_status": "400"
+        },
+        {
+          "id": "session",
+          "screen_id": "LIST",
+          "state": "unauthenticated",
+          "condition": "The server rejects identity.",
+          "http_status": "401"
+        },
+        {
+          "id": "denied",
+          "screen_id": "LIST",
+          "state": "forbidden",
+          "condition": "The server denies read permission.",
+          "http_status": "403"
+        },
+        {
+          "id": "unavailable",
+          "screen_id": "LIST",
+          "state": "error",
+          "condition": "The list dependency is unavailable.",
+          "http_status": "503"
+        }
+      ]
+    },
+    {
+      "id": "ADD",
+      "screen_id": "LIST",
+      "source_states": [
+        "default",
+        "success",
+        "empty"
+      ],
+      "label": "Add customer",
+      "event": "Activate the Add customer action.",
+      "kind": "navigate",
+      "pending_state": null,
+      "api": null,
+      "outcomes": [
+        {
+          "id": "form",
+          "screen_id": "CREATE",
+          "state": "default",
+          "condition": "Navigate to the blank create form.",
+          "http_status": null
+        }
+      ]
+    },
+    {
+      "id": "SAVE",
+      "screen_id": "CREATE",
+      "source_states": [
+        "default",
+        "error"
+      ],
+      "label": "Save customer",
+      "event": "Submit accepted labeled fields with the current authenticated tenant.",
+      "kind": "request",
+      "pending_state": "loading",
+      "api": {
+        "method": "POST",
+        "path": "/customers"
+      },
+      "outcomes": [
+        {
+          "id": "created",
+          "screen_id": "LIST",
+          "state": "success",
+          "condition": "A single accepted customer is created and visible after list refresh.",
+          "http_status": "201"
+        },
+        {
+          "id": "invalid",
+          "screen_id": "CREATE",
+          "state": "error",
+          "condition": "Associate server validation with correction; preserve safe input.",
+          "http_status": "400"
+        },
+        {
+          "id": "session",
+          "screen_id": "CREATE",
+          "state": "unauthenticated",
+          "condition": "Stop submission and explain session recovery.",
+          "http_status": "401"
+        },
+        {
+          "id": "denied",
+          "screen_id": "CREATE",
+          "state": "forbidden",
+          "condition": "Stop submission and explain denied creation.",
+          "http_status": "403"
+        },
+        {
+          "id": "duplicate",
+          "screen_id": "CREATE",
+          "state": "error",
+          "condition": "Explain canonical-email conflict without losing input.",
+          "http_status": "409"
+        },
+        {
+          "id": "oversized",
+          "screen_id": "CREATE",
+          "state": "error",
+          "condition": "Explain rejected size safely; no successful-save feedback.",
+          "http_status": "413"
+        },
+        {
+          "id": "unavailable",
+          "screen_id": "CREATE",
+          "state": "error",
+          "condition": "Explain safe failure; no blind automatic create retry.",
+          "http_status": "503"
+        }
+      ]
+    },
+    {
+      "id": "CANCEL",
+      "screen_id": "CREATE",
+      "source_states": [
+        "default",
+        "error"
+      ],
+      "label": "Cancel",
+      "event": "Activate Cancel before a request is in flight.",
+      "kind": "navigate",
+      "pending_state": null,
+      "api": null,
+      "outcomes": [
+        {
+          "id": "list",
+          "screen_id": "LIST",
+          "state": "default",
+          "condition": "Return to list without a create request or persisted effects.",
+          "http_status": null
+        }
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "id": "J-LIST",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "entry_screen": "LIST",
+      "entry_state": "default",
+      "steps": [
+        {
+          "interaction_id": "LOAD",
+          "outcome_id": "loaded"
+        }
+      ]
+    },
+    {
+      "id": "J-CREATE",
+      "requirement_ids": [
+        "R-UI-01",
+        "R-UI-02"
+      ],
+      "entry_screen": "LIST",
+      "entry_state": "default",
+      "steps": [
+        {
+          "interaction_id": "LOAD",
+          "outcome_id": "loaded"
+        },
+        {
+          "interaction_id": "ADD",
+          "outcome_id": "form"
+        },
+        {
+          "interaction_id": "SAVE",
+          "outcome_id": "created"
+        }
+      ]
+    },
+    {
+      "id": "J-CANCEL",
+      "requirement_ids": [
+        "R-UI-03"
+      ],
+      "entry_screen": "LIST",
+      "entry_state": "default",
+      "steps": [
+        {
+          "interaction_id": "ADD",
+          "outcome_id": "form"
+        },
+        {
+          "interaction_id": "CANCEL",
+          "outcome_id": "list"
+        }
+      ]
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "CASE-LOAD-loaded",
+      "family": "UC01",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "loaded",
+      "expected": "The authenticated tenant has customers."
+    },
+    {
+      "id": "CASE-LOAD-empty",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "empty",
+      "expected": "The authenticated tenant has no customers."
+    },
+    {
+      "id": "CASE-LOAD-invalid",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "invalid",
+      "expected": "The server rejects the list query; show safe recovery."
+    },
+    {
+      "id": "CASE-LOAD-session",
+      "family": "UC03",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "session",
+      "expected": "The server rejects identity."
+    },
+    {
+      "id": "CASE-LOAD-denied",
+      "family": "UC03",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "denied",
+      "expected": "The server denies read permission."
+    },
+    {
+      "id": "CASE-LOAD-unavailable",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "unavailable",
+      "expected": "The list dependency is unavailable."
+    },
+    {
+      "id": "CASE-ADD-form",
+      "family": "UC04",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "ADD",
+      "outcome_id": "form",
+      "expected": "Navigate to the blank create form."
+    },
+    {
+      "id": "CASE-SAVE-created",
+      "family": "UC01",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "created",
+      "expected": "A single accepted customer is created and visible after list refresh."
+    },
+    {
+      "id": "CASE-SAVE-invalid",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "invalid",
+      "expected": "Associate server validation with correction; preserve safe input."
+    },
+    {
+      "id": "CASE-SAVE-session",
+      "family": "UC03",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "session",
+      "expected": "Stop submission and explain session recovery."
+    },
+    {
+      "id": "CASE-SAVE-denied",
+      "family": "UC03",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "denied",
+      "expected": "Stop submission and explain denied creation."
+    },
+    {
+      "id": "CASE-SAVE-duplicate",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "duplicate",
+      "expected": "Explain canonical-email conflict without losing input."
+    },
+    {
+      "id": "CASE-SAVE-oversized",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "oversized",
+      "expected": "Explain rejected size safely; no successful-save feedback."
+    },
+    {
+      "id": "CASE-SAVE-unavailable",
+      "family": "UC05",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "unavailable",
+      "expected": "Explain safe failure; no blind automatic create retry."
+    },
+    {
+      "id": "CASE-CANCEL-list",
+      "family": "UC04",
+      "requirement_ids": [
+        "R-UI-03"
+      ],
+      "interaction_id": "CANCEL",
+      "outcome_id": "list",
+      "expected": "Return to list without a create request or persisted effects."
+    }
+  ]
+}
