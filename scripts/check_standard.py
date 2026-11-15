@@ -111,6 +111,13 @@ def main():
         operations_rules += len(found)
         if found != [f"{prefix}{i:02}" for i in range(1, 9)]:
             failures.append(f"Operations rule IDs changed: {filename}")
+    dispatch_rules = re.findall(
+        r"^\| (AD\d{2}) \|",
+        (ROOT / "standards/agent-delivery/README.md").read_text(),
+        re.M,
+    )
+    if dispatch_rules != [f"AD{i:02}" for i in range(1, 9)]:
+        failures.append("Agent delivery rule IDs changed")
     print(
         json.dumps(
             {
@@ -118,6 +125,7 @@ def main():
                 "matrix_rules": len(rows),
                 "ui_rules": ui_rules,
                 "operations_rules": operations_rules,
+                "agent_delivery_rules": len(dispatch_rules),
                 "errors": failures,
             },
             indent=2,

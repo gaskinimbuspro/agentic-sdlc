@@ -18,6 +18,8 @@ The [15 November primary-source review](2026-11-15-standards-and-agentic-deliver
 
 ## Shared comparison example
 
+Use the [shared customer brief](customer-brief.md) and [pinned method comparison](method-comparison.md) as trial inputs.
+
 Prepare a small customer-management API and administrative UI brief without preselecting a framework or service topology. Define users, authorization, data validation, error behavior, and operational expectations. Resolve actual product decisions rather than letting examples silently become requirements.
 
 ## Source records
