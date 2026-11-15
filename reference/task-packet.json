@@ -1,0 +1,156 @@
+{
+  "status": "ready",
+  "task_id": "REFERENCE-CREATE-01",
+  "role": "implementer",
+  "standard_version": "0.1",
+  "language_profile": "python",
+  "goal": "Implement tenant-scoped atomic customer creation against the accepted reference contract",
+  "scope": [
+    "Create customer and transaction audit",
+    "Relevant API and real-database acceptance"
+  ],
+  "non_goals": [
+    "Production IAM provider",
+    "UI and Kubernetes deployment"
+  ],
+  "requirement_ids": [
+    "REF-CREATE",
+    "REF-ISOLATION"
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "requirement_id": "REF-CREATE",
+      "case_ids": [
+        "TC01",
+        "TC06"
+      ],
+      "expected": "201 creates exactly one customer and audit; a failed second write rolls both back"
+    },
+    {
+      "id": "AC-02",
+      "requirement_id": "REF-ISOLATION",
+      "case_ids": [
+        "TC03",
+        "TC04"
+      ],
+      "expected": "Anonymous and cross-tenant creates are denied without writes"
+    }
+  ],
+  "test_case_ids": [
+    "TC01",
+    "TC03",
+    "TC04",
+    "TC06"
+  ],
+  "decision_references": [
+    "reference/README.md"
+  ],
+  "contract_references": [
+    "reference/openapi.json"
+  ],
+  "dependency_task_ids": [],
+  "repository": "gaskinimbuspro/agentic-sdlc",
+  "base_sha": "8f676d5e8b1fb24548e7c8d70eb85827f826e32d",
+  "candidate_sha": null,
+  "allowed_paths": [
+    "reference/python",
+    "reference/migrations",
+    "tests/acceptance"
+  ],
+  "workspace": null,
+  "branch": null,
+  "implementation_owner": null,
+  "claim_id": null,
+  "required_commands": {
+    "format": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "static_analysis": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "build_or_typecheck": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "unit": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "integration": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "contract": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "security": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "smoke": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ],
+    "backend_verify": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/backend_verify.py",
+      "python"
+    ]
+  },
+  "required_evidence": [
+    "Candidate-bound local/CI results and actual test counts",
+    "Independent review and integrated-candidate verification"
+  ],
+  "budget": {
+    "max_wall_time_minutes": 20,
+    "max_repair_attempts": 2,
+    "max_context_tokens": 16384,
+    "max_cost": 5,
+    "cost_currency": "USD"
+  },
+  "handoff": {
+    "last_verified_sha": null,
+    "completed": [],
+    "open_findings": [],
+    "next_action": null
+  }
+}

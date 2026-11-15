@@ -1,0 +1,39 @@
+{
+  "status": "draft",
+  "task_id": null,
+  "role": "implementer",
+  "standard_version": "0.1",
+  "language_profile": null,
+  "goal": null,
+  "scope": [],
+  "non_goals": [],
+  "requirement_ids": [],
+  "acceptance_criteria": [],
+  "test_case_ids": [],
+  "decision_references": [],
+  "contract_references": [],
+  "dependency_task_ids": [],
+  "repository": null,
+  "base_sha": null,
+  "candidate_sha": null,
+  "allowed_paths": [],
+  "workspace": null,
+  "branch": null,
+  "implementation_owner": null,
+  "claim_id": null,
+  "required_commands": {},
+  "required_evidence": [],
+  "budget": {
+    "max_wall_time_minutes": null,
+    "max_repair_attempts": null,
+    "max_context_tokens": null,
+    "max_cost": null,
+    "cost_currency": "USD"
+  },
+  "handoff": {
+    "last_verified_sha": null,
+    "completed": [],
+    "open_findings": [],
+    "next_action": null
+  }
+}

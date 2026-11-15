@@ -1,0 +1,72 @@
+{
+  "backend_standard": "0.1",
+  "readiness": "draft",
+  "language": null,
+  "toolchain": {
+    "runtime_version": null,
+    "test_runner": null,
+    "tool_versions": {}
+  },
+  "framework": {
+    "name": null,
+    "version": null,
+    "validation_and_error_policy": null,
+    "test_host_and_lifecycle": null
+  },
+  "architecture": {
+    "style": null,
+    "domain_logic_pattern": null,
+    "decision_document": null,
+    "module_boundaries": []
+  },
+  "interfaces": {
+    "http_api": null,
+    "contract_path": null,
+    "error_format": null,
+    "compatibility_policy": null
+  },
+  "data": {
+    "persistence": null,
+    "engine": null,
+    "version": null,
+    "migration_tool": null,
+    "transaction_policy": null
+  },
+  "security": {
+    "authentication": null,
+    "authorization": null,
+    "dependency_scanner": null,
+    "blocking_policy": null
+  },
+  "quality_targets": {
+    "request_limits": null,
+    "timeouts_and_retry_policy": null,
+    "observability": null,
+    "performance_budget": null
+  },
+  "gates": {
+    "format": null,
+    "static_analysis": null,
+    "build_or_typecheck": null,
+    "unit": null,
+    "integration": null,
+    "contract": null,
+    "security": null,
+    "smoke": null,
+    "backend_verify": null
+  },
+  "not_applicable": [],
+  "exceptions": [],
+  "execution_policy": {
+    "coding_task_context": "one scoped task per implementation session",
+    "independent_review_context": true,
+    "workspace_isolation": "worktree per active implementation task",
+    "dispatch_claim_policy": null,
+    "integration_target": null,
+    "required_ci_checks": [],
+    "human_decision_boundaries": [],
+    "max_parallel_tasks": null,
+    "repair_budget": null,
+    "model_routing": null
+  }
+}
