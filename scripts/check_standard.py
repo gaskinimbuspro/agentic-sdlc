@@ -75,6 +75,21 @@ def main():
         )
         if found != [f"{prefix}{i:02}" for i in range(1, count + 1)]:
             failures.append(f"Rule IDs changed: {filename}")
+    ui_rules = 0
+    for filename, prefix, count in (
+        ("common.md", "U", 16),
+        ("testing.md", "UT", 10),
+        ("test-case-matrix.md", "UC", 12),
+        ("definition-of-done.md", "UD", 10),
+    ):
+        found = re.findall(
+            rf"^\| ({prefix}\d{{2}}) \|",
+            (ROOT / "standards/ui" / filename).read_text(),
+            re.M,
+        )
+        ui_rules += len(found)
+        if found != [f"{prefix}{i:02}" for i in range(1, count + 1)]:
+            failures.append(f"UI rule IDs changed: {filename}")
     rows = re.findall(
         r"^\| ((?:B|T)\d{2}):",
         (ROOT / "standards/backend/verification-matrix.md").read_text(),
@@ -84,7 +99,12 @@ def main():
         failures.append("Incomplete matrix coverage")
     print(
         json.dumps(
-            {"local_links": links, "matrix_rules": len(rows), "errors": failures},
+            {
+                "local_links": links,
+                "matrix_rules": len(rows),
+                "ui_rules": ui_rules,
+                "errors": failures,
+            },
             indent=2,
         )
     )

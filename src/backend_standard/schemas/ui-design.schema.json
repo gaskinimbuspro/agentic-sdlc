@@ -1,0 +1,461 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ui_standard",
+    "status",
+    "project",
+    "actors",
+    "requirements",
+    "design_document",
+    "visual_assets",
+    "api_contract",
+    "design_system",
+    "quality",
+    "screens",
+    "interactions",
+    "journeys",
+    "test_cases"
+  ],
+  "properties": {
+    "ui_standard": {
+      "const": "0.1"
+    },
+    "status": {
+      "const": "reviewable"
+    },
+    "project": {
+      "type": "string",
+      "minLength": 1
+    },
+    "actors": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "design_document": {
+      "type": "string",
+      "minLength": 1
+    },
+    "visual_assets": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "api_contract": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "design_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tokens_path",
+        "components_document"
+      ],
+      "properties": {
+        "tokens_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "components_document": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accessibility",
+        "browsers",
+        "responsive",
+        "performance",
+        "session_and_privacy",
+        "localization"
+      ],
+      "properties": {
+        "accessibility": {
+          "type": "string",
+          "minLength": 1
+        },
+        "browsers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "responsive": {
+          "type": "string",
+          "minLength": 1
+        },
+        "performance": {
+          "type": "string",
+          "minLength": 1
+        },
+        "session_and_privacy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "localization": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "route",
+          "actor_ids",
+          "states"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "route": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actor_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "states": {
+            "type": "object",
+            "required": [
+              "default",
+              "loading",
+              "empty",
+              "error",
+              "success",
+              "forbidden",
+              "unauthenticated"
+            ],
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "description"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "designed",
+                    "not_applicable"
+                  ]
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "screen_id",
+          "source_states",
+          "label",
+          "event",
+          "kind",
+          "pending_state",
+          "api",
+          "outcomes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "screen_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_states": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "event": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "navigate",
+              "request",
+              "local"
+            ]
+          },
+          "pending_state": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "api": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "method",
+                  "path"
+                ],
+                "properties": {
+                  "method": {
+                    "enum": [
+                      "GET",
+                      "POST",
+                      "PUT",
+                      "PATCH",
+                      "DELETE",
+                      "HEAD",
+                      "OPTIONS"
+                    ]
+                  },
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "outcomes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "screen_id",
+                "state",
+                "condition",
+                "http_status"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "screen_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "state": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "condition": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "http_status": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "journeys": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "requirement_ids",
+          "entry_screen",
+          "entry_state",
+          "steps"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirement_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "entry_screen": {
+            "type": "string",
+            "minLength": 1
+          },
+          "entry_state": {
+            "type": "string",
+            "minLength": 1
+          },
+          "steps": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "interaction_id",
+                "outcome_id"
+              ],
+              "properties": {
+                "interaction_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "test_cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "family",
+          "requirement_ids",
+          "interaction_id",
+          "outcome_id",
+          "expected"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "family": {
+            "enum": [
+              "UC01",
+              "UC02",
+              "UC03",
+              "UC04",
+              "UC05",
+              "UC06",
+              "UC07",
+              "UC08",
+              "UC09",
+              "UC10",
+              "UC11",
+              "UC12"
+            ]
+          },
+          "requirement_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "interaction_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "outcome_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

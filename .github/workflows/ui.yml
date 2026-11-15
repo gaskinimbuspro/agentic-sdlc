@@ -1,0 +1,56 @@
+name: UI design and installed artifact verification
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ui-design-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  design:
+    name: ui-design-tools
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.12.23'
+          python-version: '3.12.14'
+      - run: |
+          uv sync --locked --group dev --no-install-project
+          uv sync --locked --group dev --no-build-isolation
+          uv build --wheel --no-build-isolation --out-dir artifacts/ui/dist
+          uv export --locked --no-dev --no-emit-project --format requirements-txt --output-file artifacts/ui/requirements.txt
+          uv venv artifacts/ui/package-venv
+          uv pip sync --python artifacts/ui/package-venv/bin/python --require-hashes artifacts/ui/requirements.txt
+          uv pip install --python artifacts/ui/package-venv/bin/python --no-deps artifacts/ui/dist/backend_standard-0.1.0-py3-none-any.whl
+          artifacts/ui/package-venv/bin/ui-standard design standards/ui/examples/customer-admin/design-packet.json --root .
+      - name: Require the installed tool to reject the incomplete template
+        run: |
+          artifacts/ui/package-venv/bin/python - <<'PY'
+          import json, subprocess, sys
+          from pathlib import Path
+          import backend_standard.ui as ui
+          if not Path(ui.__file__).resolve().is_relative_to(Path(sys.prefix).resolve()):
+              raise SystemExit('Validator was not imported from the installed wheel environment')
+          result = subprocess.run([
+              'artifacts/ui/package-venv/bin/ui-standard', 'design',
+              'standards/ui/design-packet.template.json', '--root', '.'
+          ], capture_output=True, text=True)
+          if result.returncode != 1 or json.loads(result.stderr)['status'] != 'blocked':
+              raise SystemExit('Incomplete design template was not correctly rejected')
+          print('Installed artifact correctly rejects the incomplete design template')
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ui-design-${{ github.sha }}
+          path: |
+            artifacts/ui/dist
+            artifacts/ui/requirements.txt
+          retention-days: 30
+          if-no-files-found: error

@@ -11,7 +11,7 @@
     "issue_number": 2,
     "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/2",
     "title": "Compare BMad Method, AWS AI-DLC, and Spec Kit",
-    "body": "## Goal\nEvaluate existing methods against requirements R01–R14.\n\n## Dependency\nRES-001.\n\n## Acceptance criteria\n- Record each method's release or commit identity.\n- Answer research/comparison-criteria.md against the same example.\n- Distinguish built-in support, required integrations, and unverified claims.\n- Compare responsibilities, artifacts, human decisions, and process cost.\n- Do not treat untested framework claims as measured results.\n\n## Output\nA sourced comparison and justified candidates; implementation selection remains open.\n"
+    "body": "## Goal\nEvaluate existing methods against requirements R01\u2013R14.\n\n## Dependency\nRES-001.\n\n## Acceptance criteria\n- Record each method's release or commit identity.\n- Answer research/comparison-criteria.md against the same example.\n- Distinguish built-in support, required integrations, and unverified claims.\n- Compare responsibilities, artifacts, human decisions, and process cost.\n- Do not treat untested framework claims as measured results.\n\n## Output\nA sourced comparison and justified candidates; implementation selection remains open.\n"
   },
   {
     "key": "RES-003",
@@ -33,5 +33,12 @@
     "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/5",
     "title": "Design GitHub repository provisioning and task dispatch contracts",
     "body": "## Goal\nDefine how a new project brief becomes the correct repository and bounded tasks.\n\n## Dependencies\nRES-001 and findings from RES-002.\n\n## Current draft\nBackend delivery workflow and task packet template are in PR #6. No dispatcher or repository provisioning automation is running.\n\n## Acceptance criteria\n- Define owner/organization, naming, visibility, and repository strategy inputs.\n- Link requirements, decisions, dependencies, acceptance cases, and evidence in task packets.\n- Distinguish Planner decomposition from Coordinator assignment and state evaluation.\n- Define authoritative task state, exclusive claims, retries, expiry, and recovery.\n- Prevent duplicate repository/issue/PR creation on retries.\n- Specify scoped task contexts, durable handoffs, budgets, and safe parallelism.\n- Verify tool capabilities and account permissions separately.\n- Validate the contract in a pilot rather than equating a prompt with enforcement.\n\n## Output\nA repository provisioning and task-management contract with demonstrated controls.\n"
+  },
+  {
+    "key": "UI-001",
+    "issue_number": 8,
+    "issue_url": "https://github.com/gaskinimbuspro/agentic-sdlc/issues/8",
+    "title": "UI/UX standard v0.1: design readiness, frontend delivery and verification",
+    "body": "Define source-based UI/UX obligations, design packet/frontend profile templates, delivery/test/Done rules and structural validation against the customer API. Prove rejection of incomplete/inconsistent design inputs and exercise the installed package. This task does not claim a running frontend or accessibility certification. GitHub issue #8 owns current acceptance/status."
   }
 ]
