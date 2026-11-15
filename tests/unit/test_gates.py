@@ -69,6 +69,9 @@ def test_accepts_valid_index(tmp_path: Path) -> None:
         "exception",
         "path_escape",
         "blocked_check",
+        "missing_owner",
+        "empty_owner",
+        "invalid_findings_count",
     ],
 )
 def test_rejects_false_completion(tmp_path: Path, failure: str) -> None:
@@ -104,6 +107,12 @@ def test_rejects_false_completion(tmp_path: Path, failure: str) -> None:
             evidence["checks"][0]["report"] = "../unit.xml"
         case "blocked_check":
             evidence["checks"][0]["status"] = "blocked"
+        case "missing_owner":
+            evidence.pop("implementation_owner")
+        case "empty_owner":
+            evidence["implementation_owner"] = ""
+        case "invalid_findings_count":
+            evidence["review"]["blocking_findings"] = False
     with pytest.raises(Rejected):
         verify_evidence(policy, evidence, tmp_path, SHA, BASE)
 
@@ -132,6 +141,78 @@ def test_trx_and_go_formats(tmp_path: Path) -> None:
     assert parse_counts(report, "trx")["executed"] == 1
     report.write_text(json.dumps({"Action": "pass", "Test": "TestInvariant"}) + "\n")
     assert parse_counts(report, "go-json")["executed"] == 1
+
+
+@pytest.mark.parametrize("outcome", ["Failed", "Aborted", "Error", "Timeout"])
+def test_trx_run_failure_cannot_hide_behind_passed_cases(tmp_path, outcome):
+    report = tmp_path / "unit.trx"
+    report.write_text(
+        '<TestRun xmlns="urn:test"><Results><UnitTestResult outcome="Passed"/>'
+        f'</Results><ResultSummary outcome="{outcome}"/></TestRun>'
+    )
+    with pytest.raises(Rejected):
+        parse_counts(report, "trx")
+
+
+@pytest.mark.parametrize(
+    "counter", ["failed", "error", "timeout", "aborted", "notExecuted"]
+)
+def test_trx_failed_counters_cannot_hide_behind_passed_cases(tmp_path, counter):
+    report = tmp_path / "unit.trx"
+    report.write_text(
+        '<TestRun><Results><UnitTestResult outcome="Passed"/></Results>'
+        f'<ResultSummary outcome="Completed"><Counters {counter}="1"/>'
+        "</ResultSummary></TestRun>"
+    )
+    with pytest.raises(Rejected):
+        parse_counts(report, "trx")
+
+
+@pytest.mark.parametrize("tag", ["error", "failure", "skipped"])
+def test_junit_suite_errors_cannot_hide_behind_passed_cases(tmp_path, tag):
+    report = tmp_path / "unit.xml"
+    report.write_text(f'<testsuite><testcase name="valid"/><{tag}/></testsuite>')
+    with pytest.raises(Rejected):
+        parse_counts(report, "junit")
+
+
+@pytest.mark.parametrize(
+    "kind", ["unfinished_test", "unfinished_package", "duplicate_result"]
+)
+def test_go_incomplete_or_duplicate_results_cannot_pass(tmp_path, kind):
+    events = [{"Action": "pass", "Package": "example", "Test": "TestComplete"}]
+    if kind == "unfinished_test":
+        events.append({"Action": "run", "Package": "example", "Test": "TestAbandoned"})
+    elif kind == "unfinished_package":
+        events.insert(0, {"Action": "start", "Package": "example"})
+    else:
+        events *= 2
+    report = tmp_path / "go.json"
+    report.write_text("\n".join(map(json.dumps, events)))
+    with pytest.raises(Rejected):
+        parse_counts(report, "go-json")
+
+
+def test_go_complete_run_and_successful_trx_summary_are_accepted(tmp_path):
+    report = tmp_path / "report"
+    report.write_text(
+        "\n".join(
+            json.dumps(event)
+            for event in [
+                {"Action": "start", "Package": "example"},
+                {"Action": "run", "Package": "example", "Test": "TestInvariant"},
+                {"Action": "pass", "Package": "example", "Test": "TestInvariant"},
+                {"Action": "pass", "Package": "example"},
+            ]
+        )
+    )
+    assert parse_counts(report, "go-json") == {"executed": 1, "failed": 0, "skipped": 0}
+    report.write_text(
+        '<TestRun><Results><UnitTestResult outcome="Passed"/></Results>'
+        '<ResultSummary outcome="Completed"><Counters failed="0" error="0"/>'
+        "</ResultSummary></TestRun>"
+    )
+    assert parse_counts(report, "trx") == {"executed": 1, "failed": 0, "skipped": 0}
 
 
 def test_template_cannot_be_made_ready_by_changing_its_flag() -> None:

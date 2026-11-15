@@ -8,7 +8,7 @@ Status: implementation candidate under review. The standard now has executable r
 - The [verification matrix](verification-matrix.md) now maps all 28 common/testing rules to applicability, methods/evidence, responsible roles, blocking gates, rejection examples and existing source references.
 - The [delivery workflow](delivery-workflow.md) and [agent contract](agent-contract.md) specify proposed decomposition, dispatch, isolated implementation, independent review and evidence ownership.
 
-The [reference](../../reference/README.md) adds complete example profiles, real applications and executable checks. The [adoption guide](adoption.md) explains how those controls fit a new project and where independent/trusted infrastructure is still required.
+The [reference](../../reference/README.md) adds complete example profiles, real applications and executable checks. The [adoption guide](adoption.md) explains how those controls fit a new project and where independent/trusted infrastructure is still required. The [review handoff](review-handoff.md) identifies the evidence and independent acceptance work needed before integration/release.
 
 ## The next work, in order
 

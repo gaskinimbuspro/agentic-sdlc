@@ -159,13 +159,30 @@ def test_counts(path: Path, report_format: str) -> dict[str, int]:
     """Count executed cases rather than trusting an exit status or root total."""
     counts = {"executed": 0, "failed": 0, "skipped": 0}
     if report_format == "go-json":
+        running_tests: set[tuple[str, str]] = set()
+        running_packages: set[str] = set()
+        finished_tests: set[tuple[str, str]] = set()
         for line in path.read_text().splitlines():
             event = json.loads(line)
-            require(event.get("Action") != "fail", "Go test/package failed")
+            require(isinstance(event, dict), "Invalid Go test event")
+            action = event.get("Action")
+            require(action not in {"fail", "build-fail"}, "Go test/package failed")
+            package = str(event.get("Package", ""))
+            identity = (package, str(event.get("Test", "")))
+            if action == "start":
+                running_packages.add(package)
+            if event.get("Test") and action == "run":
+                running_tests.add(identity)
             if event.get("Test") and event.get("Action") in {"pass", "fail", "skip"}:
+                require(identity not in finished_tests, "Duplicate Go test result")
+                finished_tests.add(identity)
+                running_tests.discard(identity)
                 action = event["Action"]
                 counts["skipped" if action == "skip" else "executed"] += 1
                 counts["failed"] += action == "fail"
+            elif not event.get("Test") and action in {"pass", "skip"}:
+                running_packages.discard(package)
+        require(not running_tests and not running_packages, "Incomplete Go test run")
     else:
         require(path.stat().st_size <= 20_000_000, "Report exceeds size limit")
         raw = path.read_text()
@@ -177,8 +194,19 @@ def test_counts(path: Path, report_format: str) -> dict[str, int]:
         except (ParseError, ValueError) as error:
             raise Rejected("Invalid/unsafe XML report") from error
         if report_format == "junit":
+            require(
+                tree.tag.split("}")[-1] in {"testsuite", "testsuites"},
+                "Invalid JUnit root",
+            )
             for suite in tree.iter():
                 if suite.tag.split("}")[-1] in {"testsuite", "testsuites"}:
+                    require(
+                        not any(
+                            n.tag.split("}")[-1] in {"error", "failure", "skipped"}
+                            for n in suite
+                        ),
+                        "JUnit suite-level failure or skip",
+                    )
                     for field in ("failures", "errors", "skipped", "disabled"):
                         require(
                             int(suite.attrib.get(field, "0")) == 0,
@@ -190,6 +218,30 @@ def test_counts(path: Path, report_format: str) -> dict[str, int]:
                 counts["skipped" if "skipped" in tags else "executed"] += 1
                 counts["failed"] += bool(tags & {"failure", "error"})
         elif report_format == "trx":
+            require(tree.tag.split("}")[-1] == "TestRun", "Invalid TRX root")
+            for summary in tree.iter():
+                tag = summary.tag.split("}")[-1]
+                if tag == "ResultSummary":
+                    require(
+                        summary.attrib.get("outcome") in {"Passed", "Completed"},
+                        "TRX run did not complete successfully",
+                    )
+                elif tag == "Counters":
+                    for field in (
+                        "failed",
+                        "error",
+                        "timeout",
+                        "aborted",
+                        "notExecuted",
+                        "disconnected",
+                        "inProgress",
+                        "pending",
+                        "inconclusive",
+                    ):
+                        require(
+                            int(summary.attrib.get(field, "0")) == 0,
+                            f"TRX reports {field}",
+                        )
             cases = [n for n in tree.iter() if n.tag.split("}")[-1] == "UnitTestResult"]
             for case in cases:
                 outcome = case.attrib.get("outcome")
@@ -355,13 +407,16 @@ def verify_evidence(
                     f"{name}: missing required acceptance cases",
                 )
     require(not evidence.get("exceptions"), "Unverified exception record")
+    owner = text(evidence.get("implementation_owner"), "Implementation owner")
     review = evidence.get("review", {})
     require(review.get("reviewer") in policy.get("reviewers", []), "Untrusted reviewer")
-    require(
-        review.get("reviewer") != evidence.get("implementation_owner"), "Self-review"
-    )
+    require(review.get("reviewer") != owner, "Self-review")
     require(review.get("candidate_sha") == candidate, "Stale review")
-    require(review.get("blocking_findings") == 0, "Unresolved review findings")
+    require(
+        type(review.get("blocking_findings")) is int
+        and review["blocking_findings"] == 0,
+        "Unresolved/invalid review findings",
+    )
     require(review.get("verdict") == "approved", "Independent approval required")
 
 

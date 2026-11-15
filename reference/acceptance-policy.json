@@ -1,6 +1,6 @@
 {
   "format": "junit",
-  "minimum_tests": 38,
+  "minimum_tests": 43,
   "required_test_names": [
     "test_valid_create_and_contract",
     "test_authentication[missing]",
@@ -14,6 +14,11 @@
     "test_failed_migration_is_atomic",
     "test_dependency_timeout_rolls_back",
     "test_liveness_does_not_depend_on_database",
-    "test_invalid_configuration_fails_startup"
+    "test_invalid_configuration_fails_startup",
+    "test_migration_history_changes_are_rejected[deleted]",
+    "test_migration_history_changes_are_rejected[backfilled]",
+    "test_migration_history_changes_are_rejected[duplicate_version]",
+    "test_migration_history_changes_are_rejected[empty]",
+    "test_migration_history_changes_are_rejected[missing_directory]"
   ]
 }

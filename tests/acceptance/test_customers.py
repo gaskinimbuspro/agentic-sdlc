@@ -313,6 +313,69 @@ def test_failed_migration_is_atomic(database, tmp_path):
             )
 
 
+@pytest.mark.parametrize(
+    "change",
+    ["deleted", "backfilled", "duplicate_version", "empty", "missing_directory"],
+)
+def test_migration_history_changes_are_rejected(database, tmp_path, change):
+    from psycopg import sql
+
+    config, _ = database
+    schema = "history_" + uuid.uuid4().hex
+    first = tmp_path / "001_first.sql"
+    first.write_text("CREATE TABLE history_first(id int);")
+    third = tmp_path / "003_third.sql"
+    third.write_text("CREATE TABLE history_third(id int);")
+    with psycopg.connect(**config, autocommit=True) as conn:
+        conn.execute(sql.SQL("CREATE SCHEMA {}").format(sql.Identifier(schema)))
+        conn.execute(sql.SQL("SET search_path TO {}").format(sql.Identifier(schema)))
+        try:
+            migrate(conn, tmp_path)
+            before = conn.execute(
+                "SELECT name,sha256 FROM schema_migrations ORDER BY name"
+            ).fetchall()
+            directory = tmp_path
+            if change == "deleted":
+                first.unlink()
+            elif change == "backfilled":
+                (tmp_path / "002_backfilled.sql").write_text(
+                    "CREATE TABLE forbidden_history(id int);"
+                )
+            elif change == "duplicate_version":
+                (tmp_path / "003_duplicate.sql").write_text(
+                    "CREATE TABLE forbidden_history(id int);"
+                )
+            elif change == "empty":
+                first.unlink()
+                third.unlink()
+            else:
+                directory = tmp_path / "missing"
+            with pytest.raises(ValueError):
+                migrate(conn, directory)
+            assert (
+                conn.execute(
+                    "SELECT name,sha256 FROM schema_migrations ORDER BY name"
+                ).fetchall()
+                == before
+            )
+            assert (
+                conn.execute("SELECT to_regclass('forbidden_history')").fetchone()[0]
+                is None
+            )
+            assert (
+                conn.execute("SELECT to_regclass('history_first')").fetchone()[0]
+                is not None
+            )
+            assert (
+                conn.execute("SELECT to_regclass('history_third')").fetchone()[0]
+                is not None
+            )
+        finally:
+            conn.execute(
+                sql.SQL("DROP SCHEMA {} CASCADE").format(sql.Identifier(schema))
+            )
+
+
 def test_dependency_timeout_rolls_back(service, database):
     url, key, _ = service
     config, _ = database

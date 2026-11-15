@@ -20,6 +20,7 @@ See [delivery workflow](delivery-workflow.md) for ownership, task states, contex
 | [Verification matrix](verification-matrix.md) | Applicability, check/evidence, owner, blocking gate, and rejection example for every common/testing rule |
 | [Baseline readiness](baseline-readiness.md) | Current gaps, ordered adoption steps, and a concrete requirements-to-evidence example |
 | [Adoption](adoption.md) | New-project entry point, executable validators, and operator trust prerequisites |
+| [Review handoff](review-handoff.md) | Candidate-bound independent review inputs, adversarial checks and expected evidence |
 | [Executable reference](../../reference/README.md) | Python/FastAPI, Go/net-http, and .NET/ASP.NET Core bindings with one real-PostgreSQL acceptance suite |
 | [Testing](testing.md) | Test responsibilities, gates, and evidence |
 | [Test case matrix](test-case-matrix.md) | Required scenario families and applicability |
