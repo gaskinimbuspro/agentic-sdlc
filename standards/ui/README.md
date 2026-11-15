@@ -34,6 +34,8 @@ Our accessibility baseline is WCAG 2.2 AA for the defined product scope, with hu
 
 `ui-standard design <packet.json> --root <repository>` checks schema, reference integrity, route/ID uniqueness, journey connectivity, screen/state decisions, interaction destinations, API-response mappings and acceptance-case coverage. It rejects incomplete templates. It does not evaluate aesthetics/usability, authenticate approvals, run a browser or grant dispatch/release authority.
 
+For request interactions, map every response key in the bound OpenAPI operation and use `http_status: null` for outcomes without an HTTP response, such as an interrupted connection. Every outcome needs an acceptance case tied to a requirement from a journey using that interaction.
+
 The example is a reviewable design specification, not a running frontend. This change does not claim UI component, browser, visual, accessibility or performance tests have executed. Bind and exercise an actual frontend profile before accepting an implementation; preserve that distinction in task/PR evidence.
 
 Polymet, Figma or another design tool can contribute drafts after deliberate selection. No paid account, external service or subscription is required by this baseline. Keep editable, exportable, version-bound designs in an accessible project location. Verify export rights, privacy, code quality and costs before adopting a vendor; no vendor trial is claimed here.

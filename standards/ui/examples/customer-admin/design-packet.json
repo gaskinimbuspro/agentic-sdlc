@@ -12,7 +12,7 @@
     },
     {
       "id": "R-UI-02",
-      "description": "Create a customer with validation, safe server outcomes and accepted list result."
+      "description": "Create a customer with validation, explicit failure recovery and a visible creation confirmation."
     },
     {
       "id": "R-UI-03",
@@ -50,7 +50,7 @@
       "states": {
         "default": {
           "kind": "designed",
-          "description": "Start the list request on entry; show the list heading and Add customer action."
+          "description": "Start the list request on entry; show the heading, Add customer action and any confirmed create feedback."
         },
         "loading": {
           "kind": "designed",
@@ -66,7 +66,7 @@
         },
         "success": {
           "kind": "designed",
-          "description": "Render the current tenant customer list and accepted create confirmation where applicable."
+          "description": "Render the bounded current-tenant customer list."
         },
         "forbidden": {
           "kind": "designed",
@@ -112,6 +112,10 @@
         "success": {
           "kind": "not_applicable",
           "description": "Successful creation navigates to LIST; no separate successful form screen is displayed."
+        },
+        "unconfirmed": {
+          "kind": "designed",
+          "description": "Explain that the save outcome is unknown, retain safe input, block repeat submission and offer Back to customers to inspect the bounded list."
         }
       }
     }
@@ -176,6 +180,13 @@
           "state": "error",
           "condition": "The list dependency is unavailable.",
           "http_status": "503"
+        },
+        {
+          "id": "no-response",
+          "screen_id": "LIST",
+          "state": "error",
+          "condition": "The list request ends without an HTTP response; offer a bounded explicit retry.",
+          "http_status": null
         }
       ]
     },
@@ -221,8 +232,8 @@
         {
           "id": "created",
           "screen_id": "LIST",
-          "state": "success",
-          "condition": "A single accepted customer is created and visible after list refresh.",
+          "state": "default",
+          "condition": "Confirm creation using the returned customer and refresh the bounded list; the created row may fall outside the returned page.",
           "http_status": "201"
         },
         {
@@ -266,6 +277,13 @@
           "state": "error",
           "condition": "Explain safe failure; no blind automatic create retry.",
           "http_status": "503"
+        },
+        {
+          "id": "no-response",
+          "screen_id": "CREATE",
+          "state": "unconfirmed",
+          "condition": "The save ends without an HTTP response, so creation may already have committed.",
+          "http_status": null
         }
       ]
     },
@@ -287,6 +305,27 @@
           "screen_id": "LIST",
           "state": "default",
           "condition": "Return to list without a create request or persisted effects.",
+          "http_status": null
+        }
+      ]
+    },
+    {
+      "id": "RETURN",
+      "screen_id": "CREATE",
+      "source_states": [
+        "unconfirmed"
+      ],
+      "label": "Back to customers",
+      "event": "Return to the list after an unconfirmed save.",
+      "kind": "navigate",
+      "pending_state": null,
+      "api": null,
+      "outcomes": [
+        {
+          "id": "list",
+          "screen_id": "LIST",
+          "state": "default",
+          "condition": "Refresh the bounded list without sending another create request.",
           "http_status": null
         }
       ]
@@ -344,6 +383,28 @@
         },
         {
           "interaction_id": "CANCEL",
+          "outcome_id": "list"
+        }
+      ]
+    },
+    {
+      "id": "J-CREATE-UNCONFIRMED",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "entry_screen": "LIST",
+      "entry_state": "default",
+      "steps": [
+        {
+          "interaction_id": "ADD",
+          "outcome_id": "form"
+        },
+        {
+          "interaction_id": "SAVE",
+          "outcome_id": "no-response"
+        },
+        {
+          "interaction_id": "RETURN",
           "outcome_id": "list"
         }
       ]
@@ -411,6 +472,16 @@
       "expected": "The list dependency is unavailable."
     },
     {
+      "id": "CASE-LOAD-no-response",
+      "family": "UC10",
+      "requirement_ids": [
+        "R-UI-01"
+      ],
+      "interaction_id": "LOAD",
+      "outcome_id": "no-response",
+      "expected": "Show recoverable list failure and offer explicit retry without showing stale customer data."
+    },
+    {
       "id": "CASE-ADD-form",
       "family": "UC04",
       "requirement_ids": [
@@ -428,7 +499,7 @@
       ],
       "interaction_id": "SAVE",
       "outcome_id": "created",
-      "expected": "A single accepted customer is created and visible after list refresh."
+      "expected": "The confirmation identifies the returned customer even when the bounded list omits the new row. One customer and its audit record persist."
     },
     {
       "id": "CASE-SAVE-invalid",
@@ -491,6 +562,16 @@
       "expected": "Explain safe failure; no blind automatic create retry."
     },
     {
+      "id": "CASE-SAVE-no-response",
+      "family": "UC10",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "SAVE",
+      "outcome_id": "no-response",
+      "expected": "For both a pre-commit interruption and a lost response after commit, explain the uncertainty, retain safe input and prevent another create request from this state."
+    },
+    {
       "id": "CASE-CANCEL-list",
       "family": "UC04",
       "requirement_ids": [
@@ -499,6 +580,16 @@
       "interaction_id": "CANCEL",
       "outcome_id": "list",
       "expected": "Return to list without a create request or persisted effects."
+    },
+    {
+      "id": "CASE-RETURN-list",
+      "family": "UC04",
+      "requirement_ids": [
+        "R-UI-02"
+      ],
+      "interaction_id": "RETURN",
+      "outcome_id": "list",
+      "expected": "Refresh the tenant list without another create request. Absence from the bounded list does not establish that the save failed."
     }
   ]
 }

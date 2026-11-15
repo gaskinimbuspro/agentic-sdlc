@@ -1,5 +1,6 @@
 import copy
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -27,6 +28,7 @@ def test_example_is_reviewable_not_approved():
         "inapplicable_destination",
         "unknown_destination",
         "missing_api_response",
+        "missing_transport_outcome",
         "unknown_api",
         "missing_case",
         "orphan_requirement",
@@ -39,6 +41,7 @@ def test_example_is_reviewable_not_approved():
         "unused_interaction",
         "duplicate_case",
         "api_on_navigation",
+        "unrelated_test_requirements",
     ],
 )
 def test_rejects_incomplete_or_inconsistent_design(failure):
@@ -59,7 +62,14 @@ def test_rejects_incomplete_or_inconsistent_design(failure):
         case "unknown_destination":
             packet["interactions"][1]["outcomes"][0]["screen_id"] = "UNKNOWN"
         case "missing_api_response":
+            packet["interactions"][0]["outcomes"].pop(-2)
+        case "missing_transport_outcome":
             packet["interactions"][0]["outcomes"].pop()
+            packet["test_cases"] = [
+                case
+                for case in packet["test_cases"]
+                if case["id"] != "CASE-LOAD-no-response"
+            ]
         case "unknown_api":
             packet["interactions"][0]["api"]["path"] = "/not-in-contract"
         case "missing_case":
@@ -93,8 +103,66 @@ def test_rejects_incomplete_or_inconsistent_design(failure):
             packet["test_cases"].append(copy.deepcopy(packet["test_cases"][0]))
         case "api_on_navigation":
             packet["interactions"][1]["api"] = {"method": "GET", "path": "/customers"}
-    with pytest.raises(Rejected):
+        case "unrelated_test_requirements":
+            cancel = next(
+                case
+                for case in packet["test_cases"]
+                if case["id"] == "CASE-CANCEL-list"
+            )
+            packet["test_cases"][0]["requirement_ids"] = ["R-UI-03"]
+            cancel["requirement_ids"] = ["R-UI-01"]
+    reason = {
+        "missing_transport_outcome": "no outcome without an HTTP response",
+        "unrelated_test_requirements": "Test requirement is unrelated",
+    }.get(failure)
+    with pytest.raises(Rejected, match=reason):
         validate_design(packet, ROOT)
+
+
+@pytest.mark.parametrize(
+    ("malformed", "reason"),
+    [
+        ("paths", "paths object"),
+        ("path_item", "API path missing or invalid"),
+        ("response_array", "responses must be an object"),
+        ("response_value", "valid response entries"),
+    ],
+)
+def test_rejects_malformed_contract_with_blocked_cli(
+    malformed, reason, tmp_path, monkeypatch, capsys
+):
+    packet = json.loads(EXAMPLE.read_text())
+    api = json.loads((ROOT / packet["api_contract"]).read_text())
+    example_dir = EXAMPLE.parent.relative_to(ROOT)
+    shutil.copytree(ROOT / example_dir, tmp_path / example_dir)
+    packet["api_contract"] = "contract.json"
+    match malformed:
+        case "paths":
+            api["paths"] = None
+        case "path_item":
+            api["paths"]["/customers"] = []
+        case "response_array":
+            operation = api["paths"]["/customers"]["get"]
+            operation["responses"] = list(operation["responses"])
+        case "response_value":
+            api["paths"]["/customers"]["get"]["responses"]["200"] = "invalid"
+    (tmp_path / "contract.json").write_text(json.dumps(api))
+    (tmp_path / "packet.json").write_text(json.dumps(packet))
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "ui-standard",
+            "design",
+            str(tmp_path / "packet.json"),
+            "--root",
+            str(tmp_path),
+        ],
+    )
+    assert main() == 1
+    result = json.loads(capsys.readouterr().err)
+    assert result["status"] == "blocked"
+    assert reason in result["reason"]
 
 
 @pytest.mark.parametrize("change_flag", [False, True])

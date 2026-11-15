@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
+from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +20,34 @@ def indexed(items: list[dict[str, Any]], label: str) -> dict[str, dict[str, Any]
     result = {item["id"]: item for item in items}
     require(len(result) == len(items), f"Duplicate {label} ID")
     return result
+
+
+def response_keys(api: dict[str, Any], binding: dict[str, str]) -> set[str]:
+    paths = api.get("paths")
+    if not isinstance(paths, dict):
+        raise Rejected("API contract must declare a paths object")
+    path = paths.get(binding["path"])
+    if not isinstance(path, dict):
+        raise Rejected("API path missing or invalid in contract")
+    operation = path.get(binding["method"].lower())
+    if not isinstance(operation, dict):
+        raise Rejected("API operation missing from contract")
+    responses = operation.get("responses")
+    if not isinstance(responses, dict):
+        raise Rejected("API responses must be an object")
+    entries = {
+        key: value for key, value in responses.items() if not key.startswith("x-")
+    }
+    require(
+        entries
+        and all(
+            re.fullmatch(r"default|[1-5](?:[0-9]{2}|XX)", key)
+            and isinstance(value, dict)
+            for key, value in entries.items()
+        ),
+        "API contract must declare valid response entries",
+    )
+    return set(entries)
 
 
 def validate_design(packet: dict[str, Any], root: Path) -> None:
@@ -88,20 +118,13 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
         if interaction["kind"] == "request":
             require(interaction["api"] is not None, "Request API binding missing")
             destination(interaction["screen_id"], interaction["pending_state"])
-            operation = (
-                api.get("paths", {})
-                .get(interaction["api"]["path"], {})
-                .get(interaction["api"]["method"].lower())
-            )
+            contract_keys = response_keys(api, interaction["api"])
+            statuses = {outcome["http_status"] for outcome in own_outcomes.values()}
             require(
-                isinstance(operation, dict) and operation.get("responses"),
-                "API operation missing from contract",
-            )
-            require(
-                {outcome["http_status"] for outcome in own_outcomes.values()}
-                == set(operation["responses"]),
+                statuses - {None} == contract_keys,
                 "API response mapping is incomplete or unexpected",
             )
+            require(None in statuses, "Request has no outcome without an HTTP response")
         else:
             require(
                 interaction["api"] is None and interaction["pending_state"] is None,
@@ -114,13 +137,15 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
                 "Non-request action declares HTTP status",
             )
 
-    used_interactions, used_requirements, visited = set(), set(), set()
+    interaction_requirements: defaultdict[str, set[str]] = defaultdict(set)
+    used_requirements, visited = set(), set()
     for journey in journeys.values():
+        journey_requirements = set(journey["requirement_ids"])
         require(
-            set(journey["requirement_ids"]) <= set(requirements),
+            journey_requirements <= set(requirements),
             "Unknown journey requirement",
         )
-        used_requirements.update(journey["requirement_ids"])
+        used_requirements.update(journey_requirements)
         current = (journey["entry_screen"], journey["entry_state"])
         destination(*current)
         visited.add(current[0])
@@ -138,10 +163,13 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
             require(key in outcomes, "Unknown journey outcome")
             outcome = outcomes[key]
             current = (outcome["screen_id"], outcome["state"])
-            used_interactions.add(step["interaction_id"])
+            interaction_requirements[step["interaction_id"]].update(
+                journey_requirements
+            )
             visited.add(current[0])
     require(
-        used_interactions == set(interactions), "An interaction has no declared journey"
+        interaction_requirements.keys() == interactions.keys(),
+        "An interaction has no declared journey",
     )
     require(used_requirements == set(requirements), "A requirement has no journey")
     # Error alternatives must also reference declared screens; all screens must
@@ -150,13 +178,14 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
     require(visited == set(screens), "A screen is unreachable from declared journeys")
     covered, tested_requirements = set(), set()
     for case in cases.values():
-        require(
-            set(case["requirement_ids"]) <= set(requirements),
-            "Unknown test requirement",
-        )
-        tested_requirements.update(case["requirement_ids"])
         key = (case["interaction_id"], case["outcome_id"])
         require(key in outcomes, "Test references unknown interaction/outcome")
+        case_requirements = set(case["requirement_ids"])
+        require(
+            case_requirements <= interaction_requirements[case["interaction_id"]],
+            "Test requirement is unrelated to the interaction's journeys",
+        )
+        tested_requirements.update(case_requirements)
         covered.add(key)
     require(covered == set(outcomes), "An interaction outcome has no acceptance case")
     require(
