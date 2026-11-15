@@ -25,7 +25,7 @@ def smoke_names(raw: bytes, expected: dict[str, str]) -> set[str]:
         tree = ET.fromstring(
             raw, forbid_dtd=True, forbid_entities=True, forbid_external=True
         )
-    except (ParseError, ValueError) as error:
+    except (ParseError, ValueError, LookupError) as error:
         raise Rejected("Invalid or unsafe smoke report") from error
     if tree.tag == "testsuite":
         suites = [tree]

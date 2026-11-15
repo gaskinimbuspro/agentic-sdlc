@@ -147,3 +147,12 @@ def test_rejects_stale_rollout_identified_in_report(release_records):
     )
     with pytest.raises(Rejected, match="Smoke suite: rollout_id mismatch"):
         verify_release(policy, evidence, root)
+
+
+def test_unknown_xml_encoding_fails_cleanly(release_records):
+    policy, evidence, root = release_records
+    raw = b'<?xml version="1.0" encoding="invalid-smoke-encoding"?><testsuite/>'
+    (root / "smoke.xml").write_bytes(raw)
+    evidence["smoke"]["report_digest"] = "sha256:" + hashlib.sha256(raw).hexdigest()
+    with pytest.raises(Rejected, match="Invalid or unsafe smoke report"):
+        verify_release(policy, evidence, root)
