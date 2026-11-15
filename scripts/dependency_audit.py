@@ -90,6 +90,9 @@ if language == "go":
         value, end = decoder.raw_decode(content.lstrip())
         events.append(value)
         content = content.lstrip()[end:]
+    for event in events:
+        if event.get("finding"):
+            print(json.dumps({"vulnerability_finding": event["finding"]}), flush=True)
     reject_findings(events, language)
 else:
     reject_findings(json.loads(report.read_text()), language)

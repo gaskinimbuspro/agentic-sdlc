@@ -410,6 +410,10 @@ def main() -> int:
                 if record["status"] == "passed":
                     record["artifact_digest"] = "sha256:" + digest.hexdigest()
             print(f"{language}/{name}: {record['status']}", flush=True)
+            if "counts" in record:
+                print(
+                    json.dumps({"check": name, "counts": record["counts"]}), flush=True
+                )
             if record["status"] != "passed":
                 print(log.read_text()[-5000:], flush=True)
                 failed = True
@@ -425,6 +429,17 @@ def main() -> int:
             else "blocked",
         }
         (directory / "results.json").write_text(json.dumps(index, indent=2) + "\n")
+        print(
+            json.dumps(
+                {
+                    "profile": language,
+                    "candidate_sha": sha,
+                    "dirty": dirty,
+                    "status": index["status"],
+                }
+            ),
+            flush=True,
+        )
     return int(failed)
 
 
