@@ -1,0 +1,84 @@
+{
+  "ui_standard": "0.1",
+  "readiness": "draft",
+  "language": "TypeScript 6.0.3 with strict types",
+  "framework": {
+    "name": "React with Vite",
+    "version": "React 19.3.1 and Vite 8.3.8",
+    "rendering_and_routing_decision": "Client-rendered two-route fixture with explicit browser history and focus",
+    "server_client_boundary": "Loopback preview injects synthetic authorization; Python API enforces tenant and permissions"
+  },
+  "toolchain": {
+    "runtime_version": "Node.js 24.22.3",
+    "package_manager_version": "npm 11.19.1",
+    "lock_file": "reference/frontend/package-lock.json",
+    "browser_versions": [
+      "Chromium, Firefox and WebKit bundled with Playwright 1.65.1"
+    ]
+  },
+  "paths": {
+    "app": "reference/frontend/src",
+    "components": "reference/frontend/src/App.tsx",
+    "unit": "reference/frontend/tests/form.unit.tsx",
+    "browser": "reference/frontend/tests/customer.browser.ts",
+    "design_packet": "standards/ui/examples/customer-admin/design-packet.json"
+  },
+  "configuration": {
+    "strict_type_checks": "npm run types from reference/frontend",
+    "lint_policy": "ESLint and TypeScript ESLint recommended rules",
+    "accessibility_scope_and_manual_owner": "Selected automated WCAG 2.2 AA checks and keyboard coverage; qualified manual owner and full scope pending adoption",
+    "session_and_security_decision": "Synthetic, short-lived same-origin preview fixture; production host integration pending",
+    "api_contract": "reference/openapi.json",
+    "visual_baseline_review_authority": null,
+    "browser_device_matrix": [
+      "Desktop Chromium",
+      "Desktop Firefox",
+      "Desktop WebKit",
+      "360px form layout in each engine"
+    ],
+    "performance_budgets_and_environment": "120 KiB aggregate compressed JavaScript and CSS. Browser interaction and field objectives pending."
+  },
+  "gates": {
+    "design": [
+      "ui-standard",
+      "design",
+      "standards/ui/examples/customer-admin/design-packet.json"
+    ],
+    "format": ["npm", "run", "format"],
+    "lint": ["npm", "run", "lint"],
+    "types": ["npm", "run", "types"],
+    "security": ["npm", "run", "security"],
+    "build": ["npm", "run", "build"],
+    "unit": ["npm", "run", "test"],
+    "component": ["npm", "run", "test"],
+    "contract": [
+      "uv",
+      "run",
+      "--no-sync",
+      "python",
+      "scripts/reference_acceptance.py",
+      "python",
+      "--browser"
+    ],
+    "browser": ["npm", "run", "browser"],
+    "accessibility_automated": ["npm", "run", "browser"],
+    "accessibility_manual": null,
+    "visual": null,
+    "performance": ["npm", "run", "budget"],
+    "smoke": null
+  },
+  "execution_policy": {
+    "required_ci_checks": [
+      "frontend-reference",
+      "backend-python",
+      "ui-design-tools"
+    ],
+    "independent_review_authority": "Separate candidate reviewer for the reference PR",
+    "trusted_reports": "Candidate-bound GitHub Actions logs and frontend artifacts",
+    "integration_target": "agentic-sdlc main",
+    "task_context_policy": "One bounded task per isolated implementation workspace/context",
+    "design_change_policy": "Record and review behavioral changes before updating the authoritative design packet"
+  },
+  "not_applicable": [],
+  "exceptions": []
+}

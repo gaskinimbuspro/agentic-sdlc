@@ -1,0 +1,60 @@
+name: Frontend reference verification
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: frontend-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  frontend:
+    name: frontend-reference
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: 'reference/frontend/.nvmrc'
+          cache: npm
+          cache-dependency-path: 'reference/frontend/package-lock.json'
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.12.23'
+          python-version: '3.12.14'
+      - name: Verify and build frontend artifact
+        working-directory: reference/frontend
+        run: |
+          test "$(node --version)" = v24.22.3
+          test "$(npm --version)" = 11.19.1
+          npm ci
+          npm run format
+          npm run lint
+          npm run types
+          npm run test -- --reporter=junit --outputFile=test-results/components.xml
+          npm run security
+          npm run build
+          npm run budget | tee test-results/budget.log
+          npm exec -- playwright install --with-deps chromium firefox webkit
+      - name: Start packaged backend and run the browser pilot
+        run: |
+          uv sync --locked --group dev --no-install-project
+          uv sync --locked --group dev --no-build-isolation
+          uv sync --project reference/python --locked --group dev --no-install-project
+          uv sync --project reference/python --locked --group dev --no-build-isolation
+          uv build reference/python --wheel --no-build-isolation --out-dir "$GITHUB_WORKSPACE/artifacts/frontend/python"
+          uv pip install --python reference/python/.venv/bin/python --no-deps --force-reinstall artifacts/frontend/python/*.whl
+          uv run --no-sync python scripts/reference_acceptance.py python --browser
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: frontend-reference-${{ github.sha }}
+          path: |
+            artifacts/frontend/acceptance.xml
+            reference/frontend/test-results/
+          retention-days: 30
+          if-no-files-found: error
