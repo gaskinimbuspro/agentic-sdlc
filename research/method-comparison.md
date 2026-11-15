@@ -8,7 +8,7 @@ Use the [shared customer directory brief](customer-brief.md) and the [comparison
 | --- | --- | --- |
 | BMad Method stable | `bab9082c3e884e0d72c759bcd1a6d90bcc01be84` | [Readiness reference](https://github.com/bmad-code-org/BMAD-METHOD/blob/bab9082c3e884e0d72c759bcd1a6d90bcc01be84/src/bmm-skills/plan/bmad-sprint-planning/references/readiness-gate.md) |
 | AWS AI-DLC | `8c4f79b4b77c5a64738b01b350be2bf72c357dae` | [Lifecycle](https://github.com/awslabs/aidlc-workflows/blob/8c4f79b4b77c5a64738b01b350be2bf72c357dae/docs/guide/04-phases-and-stages.md), [state and audit](https://github.com/awslabs/aidlc-workflows/blob/8c4f79b4b77c5a64738b01b350be2bf72c357dae/docs/guide/10-state-and-audit.md) |
-| GitHub Spec Kit | `2ee2b1e8005905db05f5717300a469b3068b908f` | [Task template](https://github.com/github/spec-kit/blob/2ee2b1e8005905db05f5717300a469b3068b908f/templates/tasks-template.md), [analysis](https://github.com/github/spec-kit/blob/2ee2b1e8005905db05f5717300a469b3068b908f/templates/commands/analyze.md), [living workflow documentation](https://github.github.io/spec-kit/workflows/overview.html) |
+| GitHub Spec Kit | `2ee2b1e8005905db05f5717300a469b3068b908f` | [Task template](https://github.com/github/spec-kit/blob/2ee2b1e8005905db05f5717300a469b3068b908f/templates/tasks-template.md), [analysis](https://github.com/github/spec-kit/blob/2ee2b1e8005905db05f5717300a469b3068b908f/templates/commands/analyze.md), [workflow documentation](https://github.com/github/spec-kit/blob/2ee2b1e8005905db05f5717300a469b3068b908f/docs/workflows/overview.md) |
 
 ## Same-brief mapping
 

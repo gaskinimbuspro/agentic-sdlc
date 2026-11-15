@@ -65,6 +65,30 @@ def test_candidate_is_staged_and_cannot_be_replaced(tmp_path, clocks):
         ledger.claim("task-01", "bob", "second")
 
 
+def test_expired_claim_stays_fenced_after_clock_rollback_and_restart(tmp_path, clocks):
+    ledger = setup_ledger(tmp_path, clocks)
+    lease = ledger.claim("task-01", "alice", "first")
+    clocks[0] = lease.expires_at
+    with pytest.raises(Rejected, match="Stale or expired"):
+        ledger.submit("task-01", lease.token, "b" * 40)
+    clocks[0] -= 1
+    restarted = DispatchLedger(ledger.path, clock=lambda: clocks[0])
+    with pytest.raises(Rejected, match="clock moved backward"):
+        restarted.submit("task-01", lease.token, "b" * 40)
+    clocks[0] = lease.expires_at
+    assert restarted.claim("task-01", "bob", "second").attempt == 2
+
+
+@pytest.mark.parametrize("bad_clock", [float("inf"), float("-inf"), float("nan")])
+def test_nonfinite_clock_cannot_create_or_poison_a_lease(tmp_path, clocks, bad_clock):
+    ledger = setup_ledger(tmp_path, clocks)
+    clocks[0] = bad_clock
+    with pytest.raises(Rejected, match="Invalid lease clock"):
+        ledger.claim("task-01", "alice", "first")
+    clocks[0] = 1000
+    assert ledger.claim("task-01", "alice", "first").attempt == 1
+
+
 def test_ready_packet_cannot_be_replaced(tmp_path, clocks):
     ledger = setup_ledger(tmp_path, clocks)
     ledger.register("task-01", "a" * 64, attempt_budget=2, lease_seconds=20)

@@ -1,5 +1,6 @@
 """Single-host reference for exclusive task attempts and external operation intents."""
 
+import math
 import re
 import secrets
 import sqlite3
@@ -68,6 +69,14 @@ class DispatchLedger:
                 )
                 """
             )
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS lease_clock (
+                    only_row INTEGER PRIMARY KEY CHECK (only_row = 1),
+                    high_water REAL NOT NULL
+                )
+                """
+            )
 
     @contextmanager
     def _transaction(self) -> Iterator[sqlite3.Connection]:
@@ -81,6 +90,37 @@ class DispatchLedger:
         finally:
             connection.close()
 
+    @contextmanager
+    def _lease_transaction(self) -> Iterator[tuple[sqlite3.Connection, float]]:
+        rejection = None
+        with self._transaction() as connection:
+            now = self.clock()
+            require(math.isfinite(now), "Invalid lease clock sample")
+            previous = connection.execute(
+                "SELECT high_water FROM lease_clock"
+            ).fetchone()
+            require(
+                previous is None or now >= previous["high_water"],
+                "Lease clock moved backward",
+            )
+            connection.execute(
+                """
+                INSERT INTO lease_clock VALUES (1, ?)
+                ON CONFLICT (only_row) DO UPDATE SET high_water = excluded.high_water
+                """,
+                (now,),
+            )
+            connection.execute("SAVEPOINT lease_operation")
+            try:
+                yield connection, now
+            except Rejected as error:
+                # Preserve the time observation even when an expired lease was rejected.
+                connection.execute("ROLLBACK TO lease_operation")
+                rejection = error
+            connection.execute("RELEASE lease_operation")
+        if rejection is not None:
+            raise rejection
+
     def register(
         self, task: str, packet_digest: str, attempt_budget: int, lease_seconds: int
     ) -> None:
@@ -90,7 +130,7 @@ class DispatchLedger:
         )
         for value in (attempt_budget, lease_seconds):
             require(
-                type(value) is int and value > 0,
+                type(value) is int and 0 < value <= (1 << 63) - 1,
                 "Positive attempt and lease budgets required",
             )
         with self._transaction() as connection:
@@ -111,8 +151,7 @@ class DispatchLedger:
         """Retries using the same request return the same still-active claim."""
         text(worker, "Worker ID")
         text(request, "Claim request ID")
-        with self._transaction() as connection:
-            now = self.clock()
+        with self._lease_transaction() as (connection, now):
             task_row = connection.execute(
                 "SELECT * FROM tasks WHERE id = ?", (task,)
             ).fetchone()
@@ -139,12 +178,11 @@ class DispatchLedger:
             require(expired_request is None, "Claim request has expired")
             attempt = 1 if current is None else current["attempt"] + 1
             require(attempt <= task_row["attempt_budget"], "Attempt budget exhausted")
-            result = Claim(
-                worker,
-                attempt,
-                secrets.token_urlsafe(32),
-                now + task_row["lease_seconds"],
+            expires_at = now + task_row["lease_seconds"]
+            require(
+                math.isfinite(expires_at) and expires_at > now, "Invalid lease deadline"
             )
+            result = Claim(worker, attempt, secrets.token_urlsafe(32), expires_at)
             connection.execute(
                 "INSERT INTO attempts VALUES (?, ?, ?, ?, ?, ?)",
                 (task, attempt, request, worker, result.token, result.expires_at),
@@ -154,8 +192,7 @@ class DispatchLedger:
     def submit(self, task: str, token: str, candidate_sha: str) -> None:
         """Stage exactly one candidate from the current owner for trusted review."""
         require(re.fullmatch(r"[0-9a-f]{40}", candidate_sha), "Invalid candidate SHA")
-        with self._transaction() as connection:
-            now = self.clock()
+        with self._lease_transaction() as (connection, now):
             current = connection.execute(
                 "SELECT token, expires FROM attempts WHERE task = ? ORDER BY attempt DESC LIMIT 1",
                 (task,),
