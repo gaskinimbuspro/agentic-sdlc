@@ -9,6 +9,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
+from urllib.parse import unquote
 
 from jsonschema import Draft202012Validator
 from jsonschema.exceptions import ValidationError
@@ -90,7 +91,11 @@ def validate_design(packet: dict[str, Any], root: Path) -> None:
         require(
             route.startswith("/")
             and not route.startswith("//")
-            and not any(c in route for c in "?#\\"),
+            and not any(c in route for c in "?#\\")
+            and not re.search(r"[\x00-\x20\x7f]", route)
+            and not any(
+                unquote(segment) in {".", ".."} for segment in route.split("/")
+            ),
             "Expected an application route path",
         )
 

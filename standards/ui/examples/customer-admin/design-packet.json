@@ -274,8 +274,8 @@
         {
           "id": "unavailable",
           "screen_id": "CREATE",
-          "state": "error",
-          "condition": "Explain safe failure; no blind automatic create retry.",
+          "state": "unconfirmed",
+          "condition": "A storage failure can occur during commit. The save outcome is unknown; prevent repeat submission.",
           "http_status": "503"
         },
         {
@@ -559,7 +559,7 @@
       ],
       "interaction_id": "SAVE",
       "outcome_id": "unavailable",
-      "expected": "Explain safe failure; no blind automatic create retry."
+      "expected": "For a 503 before or during commit, explain the uncertainty and offer recovery without another create request."
     },
     {
       "id": "CASE-SAVE-no-response",

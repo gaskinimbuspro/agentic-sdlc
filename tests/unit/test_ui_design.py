@@ -17,6 +17,14 @@ def test_example_is_reviewable_not_approved():
     validate_design(json.loads(EXAMPLE.read_text()), ROOT)
 
 
+@pytest.mark.parametrize("route", ["/x/../customers", "/%2e/customers", "/cus\ttomers"])
+def test_rejects_browser_normalized_route_alias(route):
+    packet = json.loads(EXAMPLE.read_text())
+    packet["screens"][1]["route"] = route
+    with pytest.raises(Rejected, match="Expected an application route path"):
+        validate_design(packet, ROOT)
+
+
 @pytest.mark.parametrize(
     "failure",
     [
