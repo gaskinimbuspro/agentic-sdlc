@@ -18,6 +18,7 @@ Start with [delivery workflow](standards/backend/delivery-workflow.md), [test ca
 - [Backend standard and language profiles](standards/backend/README.md)
 - [UI/UX standard and design readiness](standards/ui/README.md)
 - [Database, platform/GitOps and security standards](standards/operations/README.md)
+- [Production adoption profiles and evidence](standards/adoption/README.md)
 - [Agent delivery and GitHub provisioning](standards/agent-delivery/README.md)
 - [Customer-admin frontend reference and browser checks](reference/frontend/README.md)
 - [Research plan](research/plan.md)

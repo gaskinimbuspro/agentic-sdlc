@@ -30,6 +30,8 @@ Reuse U01–U16, UT01–UT10, UC01–UC12 and UD01–UD10. Each project supplies
 
 Our accessibility baseline is WCAG 2.2 AA for the defined product scope, with human evaluation as well as automated checks. This is our chosen baseline, not a claim that a screenshot, scanner or design packet establishes WCAG conformance. Legal and contractual requirements must be determined for the project.
 
+Use the [manual accessibility and visual adoption profile](../adoption/accessibility.md) for evaluator assignments, candidate evidence and baseline approval.
+
 ## Executable scope
 
 `ui-standard design <packet.json> --root <repository>` checks schema, reference integrity, route/ID uniqueness, journey connectivity, screen/state decisions, interaction destinations, API-response mappings and acceptance-case coverage. It rejects incomplete templates. It does not evaluate aesthetics/usability, authenticate approvals, run a browser or grant dispatch/release authority.

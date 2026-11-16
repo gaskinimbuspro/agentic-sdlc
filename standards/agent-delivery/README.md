@@ -21,6 +21,8 @@ Adopt this standard with the [backend task and evidence contract](../backend/ado
 4. Trusted CI tests the current integration candidate. A separate reviewer inspects the same candidate against the requirement and case IDs. A rejected candidate enters deliberate bounded repair; a new source or base forces renewed evidence. The [backend evidence verifier](../backend/adoption.md#developer-delivery-and-independent-acceptance) checks records under protected policy.
 5. After authorized integration, compare the integrated tree and rerun required checks on the target branch. Release additionally requires [observed environment evidence](../operations/platform.md#release-evidence-verification). Only then transition the applicable scope to Done.
 
+The [GitHub App adoption profile](../adoption/github.md) defines webhook, installation, replay and live reconciliation tests.
+
 ## GitHub operation contract
 
 Use one configured GitHub host and authorized installation or account for each control lane. Workers receive scoped checkout/diff capabilities and the minimum write access for their branch. Keep create/admin/merge authority in the Coordinator or release lane. Verify the chosen tool, token type, owner, scopes, repository tenancy and branch policy with actual provider receipts before activating the lane.

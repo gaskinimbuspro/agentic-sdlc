@@ -11,6 +11,7 @@ from xml.etree.ElementTree import ParseError
 
 from defusedxml import ElementTree as ET
 
+from backend_standard.adoption import read_adoption_record, verify_adoption
 from backend_standard.gates import (
     Rejected,
     confined,
@@ -153,21 +154,28 @@ def verify_release(
 def main() -> int:
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="command", required=True)
-    release = sub.add_parser("release")
-    release.add_argument("evidence", type=Path)
-    release.add_argument("--policy", type=Path, required=True)
-    release.add_argument("--reports", type=Path, required=True)
+    for command in ("release", "adoption"):
+        gate = sub.add_parser(command)
+        gate.add_argument("evidence", type=Path)
+        gate.add_argument("--policy", type=Path, required=True)
+        gate.add_argument("--reports", type=Path, required=True)
     args = parser.parse_args()
+    result: dict[str, list[str] | dict[str, int]]
     try:
-        counts = verify_release(
-            document(args.policy), document(args.evidence), args.reports
-        )
+        if args.command == "adoption":
+            profiles = verify_adoption(
+                read_adoption_record(args.policy),
+                read_adoption_record(args.evidence),
+                args.reports,
+            )
+            result = {"profiles": profiles}
+        else:
+            counts = verify_release(
+                document(args.policy), document(args.evidence), args.reports
+            )
+            result = {"smoke": counts}
     except (OSError, ValueError) as error:
         print(json.dumps({"status": "blocked", "reason": str(error)}), file=sys.stderr)
         return 1
-    print(
-        json.dumps(
-            {"status": "consistent", "scope": "supplied records", "smoke": counts}
-        )
-    )
+    print(json.dumps({"status": "consistent", "scope": "supplied records", **result}))
     return 0
