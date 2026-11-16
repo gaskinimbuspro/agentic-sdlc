@@ -1,6 +1,14 @@
 # Process and architecture diagrams
 
-These views make the proposed method discussable. All are **draft v0.1**. They do not claim an implemented dispatcher, a fixed model/agent count, or a finalized application topology.
+View 04 traces the end-to-end architecture against the current reference baseline. Views 01–03 preserve the earlier design sketches.
+
+## End-to-end delivery architecture
+
+Follow the solid arrows from the product brief through scoped implementation, parallel CI and independent review, and authorized source integration. The amber boundary marks the production adoption profiles and their required target evidence. Trace the staged customer request through React, the gateway and FastAPI, and PostgreSQL. The Hetzner pilot returns measured operating evidence to the release decision.
+
+![Agentic SDLC end-to-end delivery architecture](04-end-to-end-delivery-architecture.png)
+
+[Editable SVG](04-end-to-end-delivery-architecture.svg) · [PNG](04-end-to-end-delivery-architecture.png) · [Production adoption profiles](../../standards/adoption/README.md)
 
 ## Development process
 
@@ -28,7 +36,15 @@ The view separates UI, API, business behavior, and data/integration responsibili
 
 ## Edit and regenerate
 
-SVG files are editable vectors. The repeatable source is [render_diagrams.py](../../scripts/render_diagrams.py). Carry direct SVG/PNG edits back into the generator if they must survive regeneration.
+SVG files are editable vectors. Edit [render_delivery_architecture.py](../../scripts/render_delivery_architecture.py) for view 04. It uses Python 3.10+, CairoSVG, Cairo, Pillow and Fontconfig with Arial or a metric-compatible font. On macOS with Homebrew Cairo, set `DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib` if the loader cannot find Cairo.
+
+```sh
+python scripts/render_delivery_architecture.py
+```
+
+The view 04 PNG is 2400 pixels wide. The generator uses local assets and embeds the [vendor logo notices](assets/vendors/README.md) and [Lucide license](assets/lucide/README.md) in the exports.
+
+The design sketches use [render_diagrams.py](../../scripts/render_diagrams.py).
 
 Requires Python 3.10+, Pillow, Inkscape, and DejaVu Sans fonts. From the repository root:
 

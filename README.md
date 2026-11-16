@@ -19,13 +19,14 @@ Start with [delivery workflow](standards/backend/delivery-workflow.md), [test ca
 - [UI/UX standard and design readiness](standards/ui/README.md)
 - [Database, platform/GitOps and security standards](standards/operations/README.md)
 - [Production adoption profiles and evidence](standards/adoption/README.md)
+- [End-to-end delivery architecture](docs/diagrams/README.md#end-to-end-delivery-architecture)
 - [Agent delivery and GitHub provisioning](standards/agent-delivery/README.md)
 - [Customer-admin frontend reference and browser checks](reference/frontend/README.md)
 - [Research plan](research/plan.md)
 - [Research sources](research/sources.md)
 - [Method comparison criteria](research/comparison-criteria.md)
 - [Research tasks and GitHub links](research/backlog.json)
-- [Draft process and architecture diagrams](docs/diagrams/README.md)
+- [Earlier process and architecture sketches](docs/diagrams/README.md#development-process)
 
 ![Backend agent responsibilities](docs/diagrams/02-agent-structure.png)
 
