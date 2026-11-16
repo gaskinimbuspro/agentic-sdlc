@@ -10,11 +10,11 @@ Define maximum convergence time, soak/traffic thresholds, alert owners and stop 
 
 | Case | Action and required evidence |
 | --- | --- |
-| GO01 | Promote the same tested digest to the isolated target. Record protected provenance, desired source revision and effective runtime image identity. |
-| GO02 | Cause an authorized drift and demonstrate reconciliation within the bound. Verify desired/observed revision and capture the event and duration. |
-| GO03 | Introduce a broken dependency or unhealthy rollout. Observe alerting and verify that no promotion occurs. |
-| GO04 | Reject stale or wrong-target observation, changed digest and absent/failed smoke. Preserve the gate outputs. |
-| GO05 | Revert a failing application rollout while honoring schema compatibility. Verify the recovered image and actual critical journey. |
-| GO06 | Exercise an unprivileged change and a forbidden cross-namespace action against the approved access policy. Verify the controller and secret roles are scoped. |
+| GT01 | Promote the same tested digest to the isolated target. Record protected provenance, desired source revision and effective runtime image identity. |
+| GT02 | Cause an authorized drift and demonstrate reconciliation within the bound. Verify desired/observed revision and capture the event and duration. |
+| GT03 | Introduce a broken dependency or unhealthy rollout. Observe alerting and verify that no promotion occurs. |
+| GT04 | Reject stale or wrong-target observation, changed digest and absent/failed smoke. Preserve the gate outputs. |
+| GT05 | Revert a failing application rollout while honoring schema compatibility. Verify the recovered image and actual critical journey. |
+| GT06 | Exercise an unprivileged change and a forbidden cross-namespace action against the approved access policy. Verify the controller and secret roles are scoped. |
 
 Primary sources. [OpenGitOps principles](https://opengitops.dev/) · [Flux Kustomization specification](https://fluxcd.io/flux/components/kustomize/kustomizations/)

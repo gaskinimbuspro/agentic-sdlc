@@ -75,6 +75,6 @@ Measure accepted-task duration, repair rounds, human interventions, escaped defe
 
 Python, .NET and Go drafts each need their own framework binding and verification. Success in one profile does not validate the others. Additional languages require a reviewed profile rather than agent-selected conventions.
 
-Data/security requirements needed for backend acceptance are included now. A complete database operations standard, UI/UX standard and platform/GitOps standard remain separate work. Their selected contracts must be consistent with the backend, especially authorization, data migration, artifact identity, deployment compatibility and recovery.
+Data/security requirements needed for backend acceptance are included now. The [database, platform and security](../operations/README.md) and [UI/UX](../ui/README.md) standards are separate documents. Their selected contracts must be consistent with the backend, especially authorization, data migration, artifact identity, deployment compatibility and recovery.
 
 Selecting AWS AI-DLC, Spec Kit, BMad or OpenHands does not complete these controls. Evaluate reusable execution mechanisms against the same baseline and acceptance cases before selecting or building workflow ownership. Planning-only review remains separate from installation or runtime trials.

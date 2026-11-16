@@ -18,7 +18,7 @@ def _case_ids(prefix: str, count: int) -> set[str]:
 
 PROFILE_CASES = {
     "identity": _case_ids("ID", 6),
-    "gitops": _case_ids("GO", 6),
+    "gitops": _case_ids("GT", 6),
     "github": _case_ids("GH", 6),
     "accessibility": _case_ids("AX", 6),
     "remote": _case_ids("O", 12) | _case_ids("RP", 6),

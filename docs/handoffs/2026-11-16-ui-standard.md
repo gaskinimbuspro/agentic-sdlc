@@ -1,5 +1,7 @@
 # Context handoff — backend integration and UI standards
 
+> Historical record. UI PR #9 and the later operations, agent-delivery, frontend-reference and adoption PRs #10–#13 have since merged. Read the [README](../../README.md) and current GitHub state for present status; the text below is preserved as written.
+
 Recorded 16 November 2026, Europe/Istanbul. This is durable continuation context, not a release or review approval. Read current GitHub state before acting; the evidence identities below are historical and must not be relabeled for a newer commit.
 
 ## User intent and communication

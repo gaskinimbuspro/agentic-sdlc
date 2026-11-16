@@ -51,6 +51,14 @@ def test_accepts_valid_index(tmp_path: Path) -> None:
     verify_evidence(policy, evidence, tmp_path, SHA, BASE)
 
 
+@pytest.mark.parametrize("field", ["checks", "review"])
+def test_malformed_records_are_rejected_not_crashed(tmp_path: Path, field: str) -> None:
+    policy, evidence = inputs(tmp_path)
+    evidence[field] = ["unit"] if field == "checks" else "approved"
+    with pytest.raises(Rejected):
+        verify_evidence(policy, evidence, tmp_path, SHA, BASE)
+
+
 @pytest.mark.parametrize(
     "failure",
     [

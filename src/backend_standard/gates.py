@@ -378,6 +378,10 @@ def verify_evidence(
         raise Rejected("Required checks not configured")
     checks = evidence.get("checks", [])
     require(isinstance(checks, list), "Check results must be a list")
+    require(
+        all(isinstance(check, dict) for check in checks),
+        "Each check result must be an object",
+    )
     names = [c.get("name") for c in checks]
     require(len(set(names)) == len(names), "Duplicate check result")
     require(set(names) == set(wanted), "Missing or unexpected required check")
@@ -409,6 +413,7 @@ def verify_evidence(
     require(not evidence.get("exceptions"), "Unverified exception record")
     owner = text(evidence.get("implementation_owner"), "Implementation owner")
     review = evidence.get("review", {})
+    require(isinstance(review, dict), "Review record must be an object")
     require(review.get("reviewer") in policy.get("reviewers", []), "Untrusted reviewer")
     require(review.get("reviewer") != owner, "Self-review")
     require(review.get("candidate_sha") == candidate, "Stale review")

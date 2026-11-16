@@ -33,6 +33,6 @@ These are example cases, not requirements automatically imposed on every product
 
 ## Test portfolio
 
-Use focused unit tests for business behavior, real-boundary integration tests for data/dependencies, contract tests for agreements, and a small set of critical packaged-artifact journeys. Backend end-to-end journeys do not require a UI. Smoke is an early health check after packaging/deployment; it does not replace business acceptance. UI testing belongs to the later UI standard.
+Use focused unit tests for business behavior, real-boundary integration tests for data/dependencies, contract tests for agreements, and a small set of critical packaged-artifact journeys. Backend end-to-end journeys do not require a UI. Smoke is an early health check after packaging/deployment; it does not replace business acceptance. UI testing belongs to the [UI standard](../ui/testing.md).
 
 Map each acceptance criterion to cases and actual tests. Do not force a fixed unit/integration/E2E percentage or treat high coverage as proof. [F06](sources.md#f06).
