@@ -65,3 +65,19 @@ Testing Library, [Guiding Principles](https://testing-library.com/docs/guiding-p
 ## SUI16
 
 Microsoft Playwright, [Accessibility testing](https://playwright.dev/docs/accessibility-testing). Automated axe integration detects a subset of issues; combine it with manual assessment and inclusive user testing. The initially attempted `/docs/test-accessibility` path was unavailable; this is the inspected canonical page. No axe/Playwright application run is claimed in this standards change.
+
+## Additions of 16 November 2026
+
+Identified through search summaries on 16 November 2026. The network policy of the authoring session blocked these sites, so **the pages themselves were not opened in that session**. Inspect each page before a compliance or attribution claim relies on it. SUI01–SUI16 above were inspected earlier and are unchanged.
+
+## SUI17
+
+Design Tokens Community Group, [Design Tokens Format Module](https://www.designtokens.org/tr/drafts/format/). A vendor-neutral JSON format for exchanging design tokens between tools. Its publication status must be checked before adoption. The example `tokens.json` in this repository does not claim to follow it.
+
+## SUI18
+
+European Union, [Directive (EU) 2019/882, European Accessibility Act](https://eur-lex.europa.eu/eli/dir/2019/882/oj), and ETSI [EN 301 549](https://www.etsi.org/human-factors-accessibility/en-301-549-v3-the-harmonized-european-standard-for-ict-accessibility). Legal accessibility obligations for certain products and services in the EU and the harmonised ICT accessibility standard. Whether they apply is a legal determination for the project.
+
+## SUI19
+
+W3C Internationalization Activity, [Localization vs. Internationalization](https://www.w3.org/International/questions/qa-i18n). Designing so that content can be adapted to languages, scripts and regions, including text direction. Informs the language and direction decision.

@@ -32,6 +32,15 @@ Our accessibility baseline is WCAG 2.2 AA for the defined product scope, with hu
 
 Use the [manual accessibility and visual adoption profile](../adoption/accessibility.md) for evaluator assignments, candidate evidence and baseline approval.
 
+## Additional project decisions to record
+
+Record these with the design packet before affected work is ready. They add no U rule; they make existing [U04, U06, U09 and U12](common.md) decisions explicit.
+
+- Token format and source of truth for design tokens, and how tools exchange them. [SUI17](sources.md#sui17).
+- Legal accessibility scope: which regulation or contract applies, determined by the project's accountable owner. [SUI18](sources.md#sui18).
+- Supported languages, scripts and text direction, and whether content must be translatable. [SUI19](sources.md#sui19).
+- Consent, cookies and client-side storage of personal data, consistent with [personal data controls](../operations/privacy.md).
+
 ## Executable scope
 
 `ui-standard design <packet.json> --root <repository>` checks schema, reference integrity, route/ID uniqueness, journey connectivity, screen/state decisions, interaction destinations, API-response mappings and acceptance-case coverage. It rejects incomplete templates. It does not evaluate aesthetics/usability, authenticate approvals, run a browser or grant dispatch/release authority.

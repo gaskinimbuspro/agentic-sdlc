@@ -118,6 +118,35 @@ def main():
     )
     if dispatch_rules != [f"AD{i:02}" for i in range(1, 9)]:
         failures.append("Agent delivery rule IDs changed")
+    added_rules = 0
+    for filename, prefix, count in (
+        ("planning/requirements.md", "RQ", 6),
+        ("planning/architecture.md", "AR", 5),
+        ("agent-delivery/security.md", "AS", 8),
+        ("agent-delivery/integration.md", "IN", 5),
+        ("agent-delivery/measurement.md", "ME", 6),
+        ("operations/reliability.md", "RL", 6),
+        ("operations/privacy.md", "PV", 5),
+        ("adoption/gitops.md", "GT", 6),
+    ):
+        found = re.findall(
+            rf"^\| ({prefix}\d{{2}}) \|",
+            (ROOT / "standards" / filename).read_text(),
+            re.M,
+        )
+        added_rules += len(found)
+        if found != [f"{prefix}{i:02}" for i in range(1, count + 1)]:
+            failures.append(f"Rule IDs changed: {filename}")
+    defined = collections.defaultdict(set)
+    for name in names:
+        if name.startswith("standards/") and name.endswith(".md"):
+            for rule in re.findall(
+                r"^\| ([A-Z]+\d{2}) \|", (ROOT / name).read_text(), re.M
+            ):
+                defined[rule].add(name)
+    for rule, files in sorted(defined.items()):
+        if len(files) > 1:
+            failures.append(f"Rule ID {rule} defined in: {', '.join(sorted(files))}")
     print(
         json.dumps(
             {
@@ -126,6 +155,8 @@ def main():
                 "ui_rules": ui_rules,
                 "operations_rules": operations_rules,
                 "agent_delivery_rules": len(dispatch_rules),
+                "planning_security_reliability_rules": added_rules,
+                "unique_rule_ids": len(defined),
                 "errors": failures,
             },
             indent=2,

@@ -1,0 +1,16 @@
+# Reliability, telemetry and progressive delivery
+
+These controls are our policy, informed by the [reliability sources](sources.md#reliability-and-delivery). They make [B10, B11, B13 and B16](../backend/common.md) and [PL05–PL07](platform.md) concrete for a service that runs in a managed environment. Apply the rows the service's risks need and record the others as not applicable with a reason.
+
+| ID | Required control | Owner and acceptance evidence |
+| --- | --- | --- |
+| RL01 | Define service level indicators and objectives for the user-visible behavior that matters, with measurement window and source. State what happens when the objective is missed, including whether feature work pauses. | Service owner and human approve objectives; operations shows the indicator is measured from real traffic or a declared probe. Reject an objective with no measurement or no consequence. |
+| RL02 | Protect the service and its dependencies from overload: bounded concurrency and queues, timeouts on every outbound call, isolation so one failing dependency cannot exhaust shared resources, a breaker or equivalent that stops calling a failing dependency, and rate limits at the entry boundary. | Engineering runs a controlled dependency failure and an overload case and records the observed behavior. Reject unbounded queues, retries without a budget and a slow dependency that blocks unrelated requests. |
+| RL03 | Emit logs, metrics and traces through one vendor-neutral instrumentation standard selected for the project, with request or job correlation across service boundaries. Keep credentials and personal data out of telemetry. | CI or a staging check inspects emitted signals for a controlled success and failure. Reject telemetry that cannot connect a user-visible failure to its cause. |
+| RL04 | Read configuration from the environment, validated at startup. Write logs as an event stream to standard output. Keep processes stateless and disposable, with fast startup and graceful shutdown. Build one artifact for every environment. | Packaged-artifact tests cover invalid configuration, shutdown and restart. Reject environment-specific builds and configuration baked into the artifact. |
+| RL05 | Roll out to a small share of traffic or instances first. Define the health and error thresholds, the observation time and the automatic stop or rollback before the rollout begins. | Release owner records thresholds and exercises a failing rollout that stops without human action. Reject a full rollout whose only gate is a passing readiness probe. |
+| RL06 | Produce a software bill of materials in a standard format for each released artifact, and sign the artifact and its provenance with a verifiable identity. Verify the signature and provenance before promotion. | Release CI preserves the bill of materials and verification output; the release gate rejects an unsigned or wrongly signed artifact. Extends [SEC03 and SEC05](security.md). |
+
+## Scope
+
+The breaker, bulkhead, rate-limit and backpressure mechanisms in RL02 are options selected against the service's dependencies, not a mandatory set for every service. A small internal tool with no remote dependency may record most of RL02 and RL05 as not applicable. The reference applications implement timeouts and readiness only; none of RL01–RL06 is exercised by this repository.

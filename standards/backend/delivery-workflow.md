@@ -22,7 +22,7 @@ Roles are model-independent. CI is deterministic infrastructure, not an LLM revi
 
 ## Planning before dispatch
 
-The Planner produces requirements with stable IDs, architecture decisions including trade-offs, contracts, a completed project profile, and a test plan. It then breaks features into small vertical slices that each include relevant implementation and tests. Do not create a coding task that omits developer testing because a later QA task exists.
+Write requirements and architecture records under the [planning standard](../planning/README.md). The Planner produces requirements with stable IDs, architecture decisions including trade-offs, contracts, a completed project profile, and a test plan. It then breaks features into small vertical slices that each include relevant implementation and tests. Do not create a coding task that omits developer testing because a later QA task exists.
 
 A task must have one clear outcome, scope/non-goals, acceptance criteria, applicable case IDs, dependencies, allowed change boundaries, actual commands, expected evidence, and a bounded execution budget. Split a task if it spans unrelated outcomes or cannot be independently verified. Keep genuinely atomic contract/schema changes together instead of splitting only to make tickets smaller.
 

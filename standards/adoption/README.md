@@ -1,6 +1,6 @@
 # Production adoption standard v0.1
 
-Apply the [backend](../backend/README.md), [UI](../ui/README.md), [operations](../operations/README.md) and [agent delivery](../agent-delivery/README.md) standards first. The profiles below define the additional decisions, rejection cases and environment evidence needed before production adoption.
+Apply the [planning](../planning/README.md), [backend](../backend/README.md), [UI](../ui/README.md), [operations](../operations/README.md) and [agent delivery](../agent-delivery/README.md) standards first. The profiles below define the additional decisions, rejection cases and environment evidence needed before production adoption.
 
 | Profile ID | Binding | Prerequisite for acceptance |
 | --- | --- | --- |

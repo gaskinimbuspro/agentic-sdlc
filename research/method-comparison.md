@@ -24,3 +24,7 @@ Use the [shared customer directory brief](customer-brief.md) and the [comparison
 Use BMad's readiness rubric as a comparison input. Test Spec Kit for artifact-oriented planning and AI-DLC for stateful coordination using the same synthetic cases and one authorized integration lane. Keep one authoritative task ledger during trials. The local [reference ledger](../standards/agent-delivery/README.md#executable-reference) tests control semantics for comparison. It does not select a production framework.
 
 Record blind requirements-based review, real test/report identity, wall time by phase, total cost/tokens, repair rounds, human interventions and escaped defects for each trial. R01–R14 coverage remains unmeasured where the evidence is documentation only.
+
+## Candidates not yet inspected
+
+Kiro and OpenSpec are specification-driven tools that were not part of this comparison. OpenHands is an agent runtime rather than a planning method and was not evaluated here either. No claim about their behavior is made. Inspect a pinned version of each against the same brief before considering adoption.

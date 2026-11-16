@@ -7,6 +7,8 @@ Adopt this standard alongside the [backend](../backend/README.md) and [UI](../ui
 | Database operations | [Database lifecycle and PostgreSQL profile](database.md) | Versioned migration history, engine constraints, real HTTP/PostgreSQL acceptance and an isolated logical restore drill |
 | Platform and GitOps | [Platform delivery and recovery](platform.md) | Artifact identity, promotion/reconciliation decisions, observed revision and smoke evidence |
 | Security | [Security and supply chain](security.md) | Threat/risk decisions, dependency and secret checks, provenance verification, isolation and negative tests |
+| Reliability | [Reliability, telemetry and progressive delivery](reliability.md) | Specified controls RL01–RL06; not exercised by the reference |
+| Personal data and AI use | [Personal data and AI use](privacy.md) | Specified controls PV01–PV05; legal applicability is a project determination |
 | Sources | [Primary-source ledger](sources.md) | Version, applicability and limits of each cited reference |
 
 Use the [production adoption profiles](../adoption/README.md) for environment-specific identity, GitOps and remote acceptance.

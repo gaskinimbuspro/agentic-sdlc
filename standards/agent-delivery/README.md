@@ -13,6 +13,15 @@ Adopt this standard with the [backend task and evidence contract](../backend/ado
 | AD07 | Bound lease duration, task attempts, repair cost and total elapsed time. Cancellation/expiry fences agent submissions. Only the Coordinator advances or reopens the task using trusted receipts and audit events. | Coordinator exercises concurrent expiry/recovery, exhausted budget, missing handoff and failure of external state publication. |
 | AD08 | Approve integration and release at their respective stages. Measure queue, implementation, local test, CI, review, integration, smoke and external wait separately. | Coordinator records verified integration and applicable target checks, phase timing, cost, rework and escaped defects. |
 
+## Related controls
+
+| Document | Purpose |
+| --- | --- |
+| [Agent execution security](security.md) | AS01–AS08: untrusted content, tool and network limits, credentials, dependencies, approvals, audit and model identity |
+| [Branching and integration](integration.md) | IN01–IN05: short-lived task branches, releasable integration branch, toggles and task size |
+| [Measurement and learning](measurement.md) | ME01–ME06: delivery and agent metrics, baselines, re-evaluation and the correction-to-standard loop |
+| [Sources](sources.md) | References for these controls and the limits of their inspection |
+
 ## Readiness, ownership and integration
 
 1. The Planner produces the ready packet using the adopted version and records unresolved inputs in draft state. The Coordinator resolves trusted dependency status, validates the packet and profile, and binds the ready packet digest before any claim.

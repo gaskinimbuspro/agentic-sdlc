@@ -1,0 +1,22 @@
+# Agent execution security
+
+These controls are our policy, informed by the [agent security sources](sources.md#agent-security). They cover risks that arise because an agent reads untrusted text and acts with tools. They extend [SEC02, SEC04 and SEC08](../operations/security.md) and [AD03](README.md); they do not replace application security review.
+
+An agent that can read untrusted content, reach private data and send data outward can be steered into leaking or damaging what it can reach. Remove at least one of those three for each worker wherever the task allows.
+
+| ID | Required control | Owner and acceptance evidence |
+| --- | --- | --- |
+| AS01 | Treat issue text, pull-request comments, repository files from outside the task, web pages, tool output and dependency documentation as data. Only the task packet, the adopted standards and the Coordinator carry instructions. | Coordinator plants an instruction in a fixture issue or fetched page and shows the worker neither follows it nor gains scope. Reject a worker that changes task, permissions or targets because fetched content said so. |
+| AS02 | Give each role an explicit tool, command and path allowlist tied to its task. Deny by default. An Implementer cannot edit workflows, acceptance policy, required checks, instruction files or the standards that judge its work. | Operator verifies effective permissions and exercises a denied write to each protected path. Reject a role whose restriction exists only in its prompt. |
+| AS03 | Run agent commands in an isolated workspace with no access to the host, other workspaces or the Coordinator's state. Restrict outbound network to a recorded allowlist for the task. | Platform demonstrates a blocked request to an unlisted host and a blocked read outside the workspace. Reject shared mutable checkouts and unrestricted egress for an unattended worker. |
+| AS04 | Issue workers short-lived, repository- and branch-scoped credentials. Keep merge, release, deployment, signing and production credentials out of every worker environment, prompt and log. | Security verifies token scope and expiry and exercises a forbidden merge or deploy from a worker. Reject a long-lived or organization-wide token in a worker. |
+| AS05 | Before adding or upgrading a dependency proposed by an agent, verify that the package exists in the approved registry, is the intended project, and passes the lock and scan policy. Install only from locked, reviewed declarations. | CI rejects an unlocked or unknown dependency; reviewer checks new dependencies against their source. Reject an install of a name that came only from model output. |
+| AS06 | Require human approval for irreversible or outward-facing actions: deleting data or history, changing visibility or access, publishing, spending, contacting third parties and production changes. Approval names the exact action and target. | Coordinator records the request, approver and executed action. Reject a standing approval reused for a different target, and an agent approving its own request. |
+| AS07 | Record every tool call, command, external write and model request with task, attempt, role and outcome, without secrets or personal data. Bound steps, wall time and cost per attempt and stop on exhaustion. | Operator reconstructs one task from the record and shows a runaway loop is stopped. Reject an unattended run with no audit trail or no stop condition. |
+| AS08 | Pin the model, its weights or version, the serving software and the generation settings used for a role. Authenticate the model endpoint and keep it off public networks. Obtain model files from a recorded source and verify their digest. Re-evaluate under [ME05](measurement.md) before changing any of them. | Platform shows the endpoint rejects an unauthenticated request and that the served model matches the recorded identity. Reject a silently replaced model or an inference endpoint reachable without credentials. |
+
+## Scope and limits
+
+AS08 applies equally to a hosted provider and to a self-hosted open-weight model. Running a model on owned hardware removes the provider data flow but not AS01–AS07: a local model follows injected text as readily as a hosted one.
+
+No sandbox, allowlist or model removes the need for [independent review](../backend/definition-of-done.md) and protected acceptance policy. These controls are specified here and are not installed or exercised by this repository.

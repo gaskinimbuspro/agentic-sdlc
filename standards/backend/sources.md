@@ -46,6 +46,10 @@ Simon Brown, [Modular Monolith](https://simonbrown.je/modular-monolith/). Discus
 
 Mark Richards, [Lesson 157: Architecture Decision Records](https://www.developertoarchitect.com/lessons/lesson157.html). The public lesson summary discusses documenting architectural justification and trade-offs. Only that text was inspected; no claim of reviewing the video or books is made.
 
+## A04
+
+Michael Nygard, [Documenting Architecture Decisions](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions). The original short decision-record format. Added 16 November 2026 from search summaries; the page was not opened in the authoring session and must be inspected before attribution relies on it. See the [planning sources](../planning/sources.md#architecture).
+
 ## A03
 
 Kent Beck; Martin Fowler, [Test Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html). Fowler describes Beck’s test-first feedback cycle. TDD is recommended where useful; the standard requires meaningful tests without claiming every test must be written first. Beck’s own [site](https://kentbeck.com/) provides author context.
