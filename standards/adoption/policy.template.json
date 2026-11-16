@@ -1,0 +1,12 @@
+{
+  "candidate_sha": null,
+  "environment": null,
+  "run_id": null,
+  "profiles": {
+    "identity": null,
+    "gitops": null,
+    "github": null,
+    "accessibility": null,
+    "remote": null
+  }
+}

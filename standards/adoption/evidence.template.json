@@ -1,0 +1,9 @@
+{
+  "reports": {
+    "identity": {"report": null, "sha256": null},
+    "gitops": {"report": null, "sha256": null},
+    "github": {"report": null, "sha256": null},
+    "accessibility": {"report": null, "sha256": null},
+    "remote": {"report": null, "sha256": null}
+  }
+}
