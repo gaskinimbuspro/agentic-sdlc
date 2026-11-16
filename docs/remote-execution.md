@@ -46,8 +46,10 @@ The remote adoption report contains O01–O12 and RP01–RP06.
 
 ## Soak record
 
-Put a `soak` object in the protected remote report. Use integer Unix seconds in UTC for `started_at`, `ended_at` and each `samples[].at`. Include both endpoints in order. An elapsed duration of at least 86,400 seconds and positive gaps of at most 300 seconds are this reference profile's coverage requirements. The project can choose stricter thresholds and a shorter sampling interval.
+Approve a `remote_window` in the protected policy before starting. Set `not_before` and `not_after` to the bounds of the approved run in integer Unix seconds in UTC and set positive `minimum_idle_seconds` and `minimum_workload_seconds`. Allow enough time for observing the measured window and sampling cadence inside the approved bounds.
 
-Each sample records `activity` of `idle` or `workload`, a `service` result of `healthy` for the qualifying window, and `pressure` containing numeric `cpu_some_pct`, `memory_some_pct` and `io_some_pct` (0–100). Use the same documented window and scope for pressure measurements. The gate checks time coverage and types. Preserve raw observations or a protected reference for each case and review resource objectives separately.
+Put a `soak` object in the protected remote report. Use actual UTC Unix seconds for `started_at`, `ended_at` and each `samples[].at`, with both endpoints in order. The measured window must finish by the verifier's clock, fit inside the approved run and span at least 86,400 seconds. The reference profile allows positive gaps of at most 300 seconds.
+
+Each sample records `activity` of `idle` or `workload`, a `service` result of `healthy` for the qualifying window, and `pressure` containing numeric `cpu_some_pct`, `memory_some_pct` and `io_some_pct` (0–100). Demonstrate each required activity duration with consecutive samples of that activity. A single observation supplies no duration. Use the same documented window and scope for pressure measurements. Preserve raw observations or a protected reference for each case and review resource objectives separately.
 
 Primary sources. [Linux pressure stall information](https://docs.kernel.org/accounting/psi.html) · [Hetzner backups and snapshots](https://docs.hetzner.com/cloud/servers/backups-snapshots/overview/) · [PostgreSQL backup and restore](https://www.postgresql.org/docs/18/backup.html)

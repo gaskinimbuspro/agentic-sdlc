@@ -39,6 +39,12 @@ def records():
         for profile, cases in PROFILE_CASES.items()
     }
     start = 1_700_000_000
+    policy["remote_window"] = {
+        "not_before": start - 30,
+        "not_after": start + 86_430,
+        "minimum_idle_seconds": 600,
+        "minimum_workload_seconds": 600,
+    }
     reports["remote"]["soak"] = {
         "started_at": start,
         "ended_at": start + 86_400,
@@ -143,11 +149,14 @@ def test_adoption_rejects_conflicting_or_altered_files(records, tmp_path):
         ("gap", "gap limit"),
         ("duplicate", "gap limit"),
         ("missing_boundary", "end at the window boundary"),
-        ("only_idle", "idle and workload"),
+        ("only_idle", "workload period below"),
+        ("singleton_workload", "workload period below"),
         ("unhealthy", "Unhealthy soak sample"),
         ("nonnumeric", "Invalid soak pressure"),
         ("nonfinite", "Invalid soak pressure"),
         ("bad_time", "positive integer Unix seconds"),
+        ("stale_window", "outside the approved run window"),
+        ("future_window", "future observations"),
     ],
 )
 def test_adoption_checks_actual_soak_samples(records, tmp_path, mutation, reason):
@@ -167,6 +176,9 @@ def test_adoption_checks_actual_soak_samples(records, tmp_path, mutation, reason
         case "only_idle":
             for sample in samples:
                 sample["activity"] = "idle"
+        case "singleton_workload":
+            for sample in samples[:-1]:
+                sample["activity"] = "idle"
         case "unhealthy":
             samples[10]["service"] = "unhealthy"
         case "nonnumeric":
@@ -175,6 +187,15 @@ def test_adoption_checks_actual_soak_samples(records, tmp_path, mutation, reason
             samples[10]["pressure"]["cpu_some_pct"] = float("inf")
         case "bad_time":
             samples[10]["at"] = 1.5
+        case "stale_window" | "future_window":
+            shift = -90_000_000 if mutation == "stale_window" else 4_000_000_000
+            for field in ("started_at", "ended_at"):
+                soak[field] += shift
+            for sample in samples:
+                sample["at"] += shift
+            if mutation == "future_window":
+                for field in ("not_before", "not_after"):
+                    policy["remote_window"][field] += shift
     with pytest.raises(Rejected, match=reason):
         verify_adoption(policy, write_reports(tmp_path, reports), tmp_path)
 

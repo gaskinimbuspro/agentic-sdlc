@@ -3,6 +3,7 @@
 import hashlib
 import json
 import re
+import time
 from pathlib import Path
 from typing import Any
 
@@ -56,17 +57,27 @@ def _timestamp(value: object) -> int:
     return value
 
 
-def _verify_soak(value: object) -> None:
+def _verify_soak(value: object, approved: object) -> None:
+    window = _object(approved, "Approved remote window")
+    not_before = _timestamp(window.get("not_before"))
+    not_after = _timestamp(window.get("not_after"))
     soak = _object(value, "Soak")
     start = _timestamp(soak.get("started_at"))
     end = _timestamp(soak.get("ended_at"))
+    require(
+        not_before <= start < end <= not_after,
+        "Soak falls outside the approved run window",
+    )
+    require(end <= time.time(), "Soak contains future observations")
     require(end - start >= 86_400, "Soak must span at least 24 hours")
     samples = soak.get("samples")
     if not isinstance(samples, list) or not samples:
         raise Rejected("Soak samples required")
 
     previous = None
-    activities: set[str] = set()
+    previous_activity = None
+    period_start = start
+    durations = {"idle": 0, "workload": 0}
     for raw in samples:
         sample = _object(raw, "Soak sample")
         at = _timestamp(sample.get("at"))
@@ -79,10 +90,14 @@ def _verify_soak(value: object) -> None:
                 0 < at - previous <= 300,
                 "Soak samples are unordered or exceed the gap limit",
             )
-        previous = at
         activity = text(sample.get("activity"), "Soak activity")
-        require(activity in {"idle", "workload"}, "Unknown soak activity")
-        activities.add(activity)
+        require(activity in durations, "Unknown soak activity")
+        if activity == previous_activity:
+            durations[activity] = max(durations[activity], at - period_start)
+        else:
+            period_start = at
+        previous = at
+        previous_activity = activity
         require(sample.get("service") == "healthy", "Unhealthy soak sample")
         pressure = _object(sample.get("pressure"), "Soak pressure")
         for field in ("cpu_some_pct", "memory_some_pct", "io_some_pct"):
@@ -94,9 +109,13 @@ def _verify_soak(value: object) -> None:
                 f"Invalid soak pressure: {field}",
             )
     require(previous == end, "Soak sample coverage must end at the window boundary")
-    require(
-        activities == {"idle", "workload"}, "Soak needs idle and workload observations"
-    )
+    for activity, duration in durations.items():
+        minimum = window.get(f"minimum_{activity}_seconds")
+        if type(minimum) is not int or minimum <= 0:
+            raise Rejected(f"Approved {activity} minimum must be a positive integer")
+        require(
+            duration >= minimum, f"Soak {activity} period below the approved minimum"
+        )
 
 
 def _verify_profile(
@@ -125,8 +144,6 @@ def _verify_profile(
         text(case.get("observation"), f"{profile}: case {case_id} observation")
         seen.add(case_id)
     require(seen == PROFILE_CASES[profile], f"{profile}: missing or unknown cases")
-    if profile == "remote":
-        _verify_soak(report.get("soak"))
 
 
 def verify_adoption(
@@ -159,5 +176,8 @@ def verify_adoption(
             re.fullmatch(r"sha256:[0-9a-f]{64}", digest),
             "Invalid adoption report digest",
         )
-        _verify_profile(profile, read_adoption_record(path, digest), expected, reviewer)
+        report = read_adoption_record(path, digest)
+        _verify_profile(profile, report, expected, reviewer)
+        if profile == "remote":
+            _verify_soak(report.get("soak"), policy.get("remote_window"))
     return sorted(profiles)

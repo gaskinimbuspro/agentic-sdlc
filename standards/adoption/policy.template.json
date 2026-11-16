@@ -2,6 +2,12 @@
   "candidate_sha": null,
   "environment": null,
   "run_id": null,
+  "remote_window": {
+    "not_before": null,
+    "not_after": null,
+    "minimum_idle_seconds": null,
+    "minimum_workload_seconds": null
+  },
   "profiles": {
     "identity": null,
     "gitops": null,
