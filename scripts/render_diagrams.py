@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Render the proposed SDLC views as standalone SVG and PNG files.
 
-Requires Python, Pillow and Inkscape. Assets are local; rendering uses no network.
+Requires Python, Pillow and either Inkscape or a Playwright Chromium. Assets are
+local; rendering uses no network. Pass diagram numbers to render a subset.
 """
 from __future__ import annotations
 
@@ -9,7 +10,9 @@ from html import escape
 from pathlib import Path
 import os
 import re
+import shutil
 import subprocess
+import sys
 
 from PIL import Image, ImageFont, PngImagePlugin
 
@@ -17,6 +20,24 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs/diagrams"
 ASSETS = OUT / "assets/lucide"
 LICENSE = (ASSETS / "LICENSE").read_text()
+BRANDS = OUT / "assets/simple-icons"
+BRAND_COLORS = {
+    "ansible": "#EE0000", "claude": "#D97757", "docker": "#2496ED", "github": "#181717",
+    "githubactions": "#2088FF", "hetzner": "#D50C2D", "kubernetes": "#326CE5",
+    "nvidia": "#76B900", "terraform": "#844FBA",
+}
+TINTS = {"#2563EB": "#EDF3FF", "#087F8C": "#E3F4F5", "#7756C8": "#F1ECFB", "#A76608": "#FFF2D9"}
+RASTERIZE = """
+const { chromium } = require('playwright');
+(async () => {
+  const [svg, png, height] = process.argv.slice(1);
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 1800, height: Number(height) } });
+  await page.goto('file://' + svg);
+  await page.screenshot({ path: png });
+  await browser.close();
+})();
+"""
 BLUE, TEAL, PURPLE, AMBER = "#2563EB", "#087F8C", "#7756C8", "#A76608"
 INK, MUTED, BORDER = "#13243C", "#52647C", "#D9E2EF"
 
@@ -86,6 +107,49 @@ class Canvas:
                           f'fill="none" stroke="{color}" stroke-width="1.8" stroke-linecap="round" '
                           f'stroke-linejoin="round">{inner}</svg>')
 
+    def brand(self, x, y, name, size=30, color=None):
+        raw = (BRANDS / f"{name}.svg").read_text()
+        path = re.search(r'<path d="([^"]+)"', raw).group(1)
+        self.parts.append(f'<svg x="{x}" y="{y}" width="{size}" height="{size}" viewBox="0 0 24 24" '
+                          f'fill="{color or BRAND_COLORS[name]}"><path d="{path}"/></svg>')
+
+    def mark(self, x, y, name, color=BLUE, size=30):
+        """Draw a product mark when one exists, otherwise a generic icon."""
+        if (BRANDS / f"{name}.svg").exists():
+            self.brand(x, y, name, size)
+        else:
+            self.icon(x, y, name, color, size)
+
+    def node(self, x, y, w, h, title, sub, icon, color=BLUE, title_size=21):
+        """Compact card: one icon, a short title and at most one short line."""
+        self.rect(x, y, w, h, "#FFFFFF", BORDER, shadow=True)
+        branded = (BRANDS / f"{icon}.svg").exists()
+        self.rect(x + 18, y + (h - 58) / 2, 58, 58, "#F3F5F9" if branded else TINTS[color], radius=14)
+        self.mark(x + 30, y + (h - 34) / 2, icon, color, 34)
+        assert measure(title, title_size, True) < w - 110, title
+        assert measure(sub, 15) < w - 110, sub
+        self.text(x + 94, y + h / 2 - (2 if sub else -7), title, title_size, INK, bold=True)
+        if sub:
+            self.text(x + 94, y + h / 2 + 22, sub, 15, MUTED)
+
+    def badge(self, x, y, number, color=INK):
+        self.parts.append(f'<circle cx="{x}" cy="{y}" r="15" fill="{color}" stroke="#FFFFFF" stroke-width="2.5"/>')
+        self.text(x, y + 5, str(number), 14, "#FFFFFF", bold=True, anchor="middle")
+
+    def pill(self, x, y, value, color=BLUE, size=14):
+        """Centered rounded label; x is the horizontal center."""
+        width = measure(value, size, True) + 28
+        self.rect(x - width / 2, y, width, size + 16, TINTS[color], color, radius=(size + 16) / 2)
+        self.text(x, y + size + 5, value, size, color, bold=True, anchor="middle")
+
+    def zone(self, x, y, w, h, name, icon=None, color=BLUE):
+        self.rect(x, y, w, h, "#EAF1FE", "#B8C9E8", dash=True)
+        offset = 26
+        if icon:
+            self.mark(x + 24, y + 18, icon, color, 24)
+            offset = 60
+        self.text(x + offset, y + 36, name, 14, color, bold=True)
+
     def card(self, x, y, w, h, title, lines, icon, kicker, color=BLUE, tint="#EDF3FF", body_size=17):
         self.rect(x, y, w, h, "#FFFFFF", BORDER, shadow=True)
         self.rect(x + 20, y + 20, 49, 49, tint, radius=13)
@@ -99,24 +163,31 @@ class Canvas:
         for n, line in enumerate(wrapped):
             self.text(x + 22, y + 96 + n * 25, line, body_size, MUTED)
 
-    def arrow(self, path, name="blue", dash=False, width=2.4, end=True):
+    def arrow(self, path, name="blue", dash=False, width=2.4, end=True, start=False):
         colors = {"blue": BLUE, "teal": TEAL, "purple": PURPLE, "gray": "#8292A8", "amber": AMBER}
         dash_attr = 'stroke-dasharray="7 6"' if dash else ''
         marker_attr = f'marker-end="url(#{name})"' if end else ''
+        if start:
+            marker_attr += f' marker-start="url(#{name})"'
         self.parts.append(f'<path d="{path}" fill="none" stroke="{colors[name]}" stroke-width="{width}" '
                           f'stroke-linecap="round" stroke-linejoin="round" '
                           f'{dash_attr} {marker_attr}/>')
 
-    def label(self, x, y, value, color=MUTED, size=14):
+    def label(self, x, y, value, color=MUTED, size=14, fill="#F4F7FC"):
         width = measure(value, size) + 20
-        self.rect(x - width / 2, y - size, width, size + 10, "#F4F7FC", radius=5)
+        self.rect(x - width / 2, y - size, width, size + 10, fill, radius=5)
         self.text(x, y + 2, value, size, color, anchor="middle")
 
-    def footer(self, number, note):
+    def footer(self, number, note, brands=False):
         y = self.height - 64
         self.arrow(f"M64 {y} H1736", "gray", width=.6, end=False)
         self.text(64, y + 29, note, 14, MUTED)
-        self.text(64, y + 49, "Icons: Lucide / Feather · ISC / MIT · Source and licenses in the repository", 11, MUTED)
+        credit = "Icons: Lucide / Feather · ISC / MIT · Source and licenses in the repository"
+        if brands:
+            self.licenses = LICENSE + "\n\n" + (BRANDS / "LICENSE.md").read_text()
+            credit = ("Icons: Lucide / Feather (ISC / MIT) · Simple Icons (CC0) · "
+                      "Product marks identify products and belong to their owners")
+        self.text(64, y + 49, credit, 11, MUTED)
         self.text(1736, y + 30, f"AGENTIC SDLC  /  {number}", 13, MUTED, bold=True, anchor="end")
 
     def save(self, name):
@@ -125,12 +196,16 @@ class Canvas:
         png = OUT / f"{name}.png"
         svg.write_text("\n".join(self.parts) + "\n")
         env = dict(os.environ, XDG_CACHE_HOME="/tmp/agentic-sdlc-diagram-cache")
-        subprocess.run(["inkscape", str(svg), "--export-type=png", "--export-width=1800", f"--export-filename={png}"],
-                       check=True, env=env, capture_output=True)
+        if shutil.which("inkscape"):
+            subprocess.run(["inkscape", str(svg), "--export-type=png", "--export-width=1800",
+                            f"--export-filename={png}"], check=True, env=env, capture_output=True)
+        else:
+            subprocess.run(["node", "-e", RASTERIZE, str(svg), str(png), str(self.height)],
+                           check=True, env=env, capture_output=True)
         with Image.open(png) as image:
             info = PngImagePlugin.PngInfo()
             info.add_text("Description", "Agentic SDLC draft architecture v0.1")
-            info.add_text("Icon licenses", LICENSE)
+            info.add_text("Icon licenses", getattr(self, "licenses", LICENSE))
             image.convert("RGB").save(png, optimize=True, pnginfo=info)
         print(f"{name}: SVG + PNG")
 
@@ -246,8 +321,172 @@ def application():
     c.save("03-project-architecture")
 
 
+def system_map():
+    c = Canvas("How the system works", "Proposed target · who decides, who builds, who checks", 1100)
+    c.node(90, 190, 400, 106, "You", "Idea · decisions · approval", "user-round", AMBER)
+    c.node(700, 190, 400, 106, "Claude", "Architect · reviewer", "claude")
+    c.node(1310, 190, 400, 106, "GitHub", "Repo · issues · CI", "github")
+    c.node(700, 410, 400, 110, "Coordinator", "Assigns · checks gates", "workflow", BLUE)
+    c.zone(64, 640, 1672, 260, "YOUR SERVERS", "server")
+    c.arrow("M490 243 H695", "amber")
+    c.arrow("M1100 243 H1305")
+    c.arrow("M1420 296 V465 H1105")
+    c.arrow("M900 520 V745")
+    c.arrow("M700 805 H535", "purple", start=True)
+    c.arrow("M1000 750 V590 H1600 V301", "teal")
+    c.arrow("M1100 805 H1265", "teal")
+    c.arrow("M900 410 V301", "purple", start=True)
+    c.arrow("M700 465 H290 V301", "amber")
+    c.node(130, 750, 400, 110, "Open model", "GPU server", "cpu", PURPLE)
+    c.node(700, 750, 400, 110, "Coding agents", "One task each", "bot", TEAL)
+    c.node(1270, 750, 400, 110, "Test cluster", "Preview · smoke", "kubernetes")
+    steps = [
+        (592, 243, 592, 216, "idea", AMBER), (1202, 243, 1202, 216, "plan · tasks", BLUE),
+        (1420, 380, 1262, 448, "tasks · evidence", BLUE), (900, 580, 828, 585, "one task", BLUE),
+        (617, 805, 617, 778, "prompts", PURPLE), (1300, 590, 1300, 563, "pull request", TEAL),
+        (1182, 805, 1182, 778, "preview", TEAL), (900, 355, 968, 360, "review", PURPLE),
+        (495, 465, 495, 438, "accept · blocked", AMBER),
+    ]
+    for number, (bx, by, lx, ly, name, color) in enumerate(steps, 1):
+        inside = ly > 640
+        c.label(lx, ly, name, color, 14, "#EAF1FE" if inside else "#F4F7FC")
+        c.badge(bx, by, number)
+    c.rect(64, 930, 1672, 62, "#FFFFFF", BORDER, radius=14)
+    names = ["Idea", "Plan", "Ready task", "Assign", "Generate", "Pull request", "Preview", "Review", "Accept"]
+    for number, name in enumerate(names, 1):
+        x = 110 + (number - 1) * 182
+        c.badge(x, 961, number)
+        c.text(x + 25, 967, name, 16, INK, bold=True)
+    c.footer("04", "Proposed target architecture; not a running system.", brands=True)
+    c.save("04-system-map")
+
+
+def lifecycle():
+    c = Canvas("Who does what", "Proposed lifecycle · owner, output and gate for every stage", 900)
+    stages = [
+        ("Discover", "lightbulb", AMBER, [("user-round", "You"), ("claude", "Claude")], ["Brief"], "Scope agreed"),
+        ("Specify", "list-checks", BLUE, [("claude", "Claude"), ("user-round", "You")], ["Requirements", "+ examples"], "RQ rules"),
+        ("Design", "pencil-ruler", PURPLE, [("claude", "Claude"), ("user-round", "You")], ["Architecture", "+ UI packet"], "AR · U rules"),
+        ("Plan", "square-kanban", PURPLE, [("claude", "Claude")], ["Issues", "+ sub-issues"], "G0 Ready"),
+        ("Build", "code-xml", TEAL, [("bot", "Agents"), ("workflow", "Coordinator")], ["Code + tests"], "G1 Local"),
+        ("Verify", "shield-check", TEAL, [("githubactions", "CI"), ("claude", "Claude")], ["Evidence", "+ verdict"], "G2 · G3"),
+        ("Release", "rocket", BLUE, [("user-round", "You"), ("workflow", "Coordinator")], ["Running", "version"], "G4 · G5"),
+    ]
+    for y, name in [(250, "STAGE"), (395, "WHO"), (515, "OUTPUT"), (608, "GATE")]:
+        c.text(64, y, name, 13, MUTED, bold=True)
+    for n, (title, icon, color, owners, output, gate) in enumerate(stages):
+        x = 190 + n * 222
+        mid = x + 104
+        c.rect(x, 185, 208, 125, "#FFFFFF", BORDER, shadow=True)
+        c.rect(mid - 29, 200, 58, 58, TINTS[color], radius=14)
+        c.icon(mid - 17, 212, icon, color, 34)
+        c.text(mid, 292, title, 20, INK, bold=True, anchor="middle")
+        if n < len(stages) - 1:
+            c.arrow(f"M{x + 209} 247 H{x + 221}", "gray", width=2)
+        c.rect(x, 335, 208, 110, "#FFFFFF", BORDER, radius=14)
+        for k, (owner_icon, owner) in enumerate(owners):
+            ox = mid + (k - (len(owners) - 1) / 2) * 96
+            owner_color = AMBER if owner == "You" else TEAL if owner == "Agents" else BLUE
+            c.mark(ox - 16, 352, owner_icon, owner_color, 32)
+            assert measure(owner, 14) < 94, owner
+            c.text(ox, 412, owner, 14, INK, anchor="middle")
+        c.rect(x, 470, 208, 78, "#EEF2F8", radius=14)
+        for k, line in enumerate(output):
+            assert measure(line, 16, True) < 196, line
+            c.text(mid, 516 + (k - (len(output) - 1) / 2) * 22, line, 16, INK, bold=True, anchor="middle")
+        c.pill(mid, 588, gate, color)
+    c.arrow("M1404 630 V690 H1182 V630", "gray", dash=True)
+    c.label(1293, 690, "repair", size=14)
+    c.arrow("M1626 630 V745 H294 V630", "gray", dash=True)
+    c.label(960, 745, "lessons become standard changes", size=14)
+    c.footer("05", "You approve scope, requirements, design and release. Gates block the next stage until they pass.", brands=True)
+    c.save("05-who-does-what")
+
+
+def placement():
+    c = Canvas("Where it runs", "Proposed placement · three places, each with its own credentials", 1090)
+    c.node(90, 185, 380, 100, "You", "Laptop · browser", "user-round", AMBER)
+    c.node(710, 185, 380, 100, "Claude", "Called on demand", "claude")
+    c.node(1330, 185, 380, 100, "GitHub", "Repo · issues · CI", "github")
+    c.arrow("M470 235 H705", "amber")
+    c.arrow("M1090 235 H1325")
+    c.zone(64, 380, 1026, 470, "WORK SERVER  ·  no GPU", "server")
+    c.zone(1150, 380, 586, 470, "GPU SERVER", "nvidia")
+    c.arrow("M360 460 V330 H800 V290", "purple")
+    c.label(580, 330, "plan · review", PURPLE)
+    c.arrow("M640 446 V352 H1520 V290", "teal")
+    c.label(1150, 352, "scoped token", TEAL)
+    c.icon(1056, 340, "lock", TEAL, 22)
+    c.arrow("M400 515 H425")
+    c.arrow("M724 515 H755", "teal")
+    c.arrow("M250 570 V635", "gray")
+    c.arrow("M910 570 V635", "gray")
+    c.arrow("M580 756 V800 H1440 V756", "purple", start=True)
+    c.label(1120, 800, "private network", PURPLE, fill="#EAF1FE")
+    c.icon(1020, 789, "lock", PURPLE, 22)
+    c.arrow("M1440 570 V640", "gray", end=False)
+    c.node(100, 460, 300, 110, "Coordinator", "Assigns tasks", "workflow", BLUE, 19)
+    c.rect(442, 448, 280, 110, "#FFFFFF", BORDER)
+    c.rect(436, 454, 280, 110, "#FFFFFF", BORDER)
+    c.node(430, 460, 280, 110, "Sandboxes", "1 task = 1 box", "docker", TEAL, 19)
+    c.node(760, 460, 300, 110, "Test cluster", "kind", "kubernetes", BLUE, 19)
+    c.node(100, 640, 300, 110, "Task ledger", "Claims · attempts", "database", BLUE, 19)
+    c.node(430, 640, 300, 110, "Coding agents", "Run in sandboxes", "bot", TEAL, 19)
+    c.node(760, 640, 300, 110, "Preview apps", "Per pull request", "globe", BLUE, 19)
+    c.arrow("M570 640 V572", "gray", end=False)
+    c.node(1190, 460, 506, 110, "Model weights", "Pinned version", "hard-drive", PURPLE)
+    c.node(1190, 640, 506, 110, "Model server", "Serves the open model", "cpu", PURPLE)
+    c.rect(64, 885, 1672, 90, "#FFFFFF", BORDER, radius=15)
+    c.text(86, 912, "BUILT AND REBUILT FROM CODE", 13, MUTED, bold=True)
+    for x, name, icon in [(86, "Terraform", "terraform"), (420, "Ansible", "ansible"), (720, "Docker", "docker"),
+                          (1010, "Kubernetes", "kubernetes"), (1340, "Hetzner (candidate)", "hetzner")]:
+        c.brand(x, 928, icon, 28)
+        c.text(x + 42, 949, name, 18, INK)
+    c.footer("06", "Proposed placement; no server has been ordered or installed. Provider and tools are candidates.", brands=True)
+    c.save("06-where-it-runs")
+
+
+def project_start():
+    c = Canvas("How a project starts", "Proposed sequence · from an idea to the first accepted change", 1010)
+    steps = [
+        ("Idea", "You", "lightbulb", AMBER),
+        ("Discovery talk", "You + Claude", "messages-square", AMBER),
+        ("Requirements", "Claude writes · you approve", "list-checks", BLUE),
+        ("Design", "Architecture + UI packet", "pencil-ruler", PURPLE),
+        ("Repo + issues", "Coordinator creates", "github", BLUE),
+        ("Environment", "Sandbox · preview", "container", BLUE),
+        ("First task", "Agent builds · CI checks", "bot", TEAL),
+        ("Accepted", "Claude reviews · you accept", "circle-check", TEAL),
+    ]
+    spots = [(64 + k * 424, 200) for k in range(4)] + [(64 + k * 424, 430) for k in range(3, -1, -1)]
+    for number, ((x, y), (title, sub, icon, color)) in enumerate(zip(spots, steps), 1):
+        c.node(x, y, 400, 120, title, sub, icon, color)
+        c.badge(x + 8, y + 8, number)
+    for k in range(3):
+        c.arrow(f"M{464 + k * 424} 260 H{483 + k * 424}", "gray")
+        c.arrow(f"M{1336 - k * 424} 490 H{1317 - k * 424}", "gray")
+    c.arrow("M1536 320 V425", "gray")
+    for x, y in [(1260, 200), (1684, 200), (464, 430)]:
+        c.pill(x - 62, y - 15, "you approve", AMBER, 12)
+    c.rect(64, 620, 1672, 250, "#FFFFFF", BORDER, radius=18)
+    c.brand(90, 645, "github", 26)
+    c.text(128, 665, "HOW TASKS ARE STORED", 14, BLUE, bold=True)
+    tree = [
+        (120, "Journey", "What the user achieves", "route", AMBER),
+        (660, "Task", "One slice + its tests", "square-kanban", BLUE),
+        (1200, "Sub-task", "Only when needed", "list-checks", TEAL),
+    ]
+    for x, title, sub, icon, color in tree:
+        c.node(x, 710, 440, 110, title, sub, icon, color)
+    c.arrow("M560 765 H655", "gray")
+    c.arrow("M1100 765 H1195", "gray")
+    c.footer("07", "Every task carries its own tests. A task with an open decision is not dispatched.", brands=True)
+    c.save("07-project-start")
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    process()
-    agents()
-    application()
+    views = {"01": process, "02": agents, "03": application, "04": system_map,
+             "05": lifecycle, "06": placement, "07": project_start}
+    for number in sys.argv[1:] or views:
+        views[number]()

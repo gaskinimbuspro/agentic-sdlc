@@ -15,6 +15,7 @@ Start with the [planning standard](standards/planning/README.md), then [delivery
 ## Repository map
 
 - [Goals and requirements](docs/goals-and-requirements.md)
+- [Target architecture: who does what, where it runs, how a project starts](docs/architecture/README.md)
 - [Planning: requirements and architecture records](standards/planning/README.md)
 - [Backend standard and language profiles](standards/backend/README.md)
 - [UI/UX standard and design readiness](standards/ui/README.md)
@@ -28,7 +29,7 @@ Start with the [planning standard](standards/planning/README.md), then [delivery
 - [Research tasks and GitHub links](research/backlog.json)
 - [Draft process and architecture diagrams](docs/diagrams/README.md)
 
-![Backend agent responsibilities](docs/diagrams/02-agent-structure.png)
+![How the system works](docs/diagrams/04-system-map.png)
 
 ## Working method
 

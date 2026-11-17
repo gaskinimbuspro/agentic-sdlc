@@ -27,7 +27,7 @@ A brief may describe an API, web application, or several services. The method id
 
 ## Diagram outputs
 
-The [three draft views](diagrams/README.md) cover delivery flow, agent responsibilities, and an illustrative project architecture. Maintain readable labels, consistent colors, explicit arrows/boundaries, source/license attribution, SVG, PNG, and the editable generator. Draft views do not claim a running system or finalized topology.
+The [draft views](diagrams/README.md) cover the system map, lifecycle ownership, placement, project start, delivery flow, backend roles, and an illustrative project architecture. The [target architecture](architecture/README.md) explains them. Maintain readable labels, consistent colors, explicit arrows/boundaries, source/license attribution, SVG, PNG, and the editable generator. Draft views do not claim a running system or finalized topology.
 
 ## Current settings and scope
 

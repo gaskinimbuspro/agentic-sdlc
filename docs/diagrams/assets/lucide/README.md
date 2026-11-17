@@ -9,3 +9,5 @@ Retrieved: 14 November 2026.
 This directory contains the SVG icons used by the diagrams. The generator applies color/size. GitHub is represented by a git-branch symbol.
 
 [LICENSE](LICENSE) preserves the Lucide ISC notice and MIT notice for Feather-derived icons. The standalone diagrams also retain these notices in their metadata.
+
+Added 17 November 2026 from the npm package `lucide-static` version 1.74.0 (ISC): `bot`, `circle-check`, `container`, `cpu`, `globe`, `hard-drive`, `lightbulb`, `lock`, `messages-square`, `pencil-ruler`, `route`, `square-kanban`. The package's license comment was removed from each file; the notice in [LICENSE](LICENSE) covers them. The earlier icons remain at the pinned commit above.

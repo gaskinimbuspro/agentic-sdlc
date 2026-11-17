@@ -2,6 +2,26 @@
 
 These views make the proposed method discussable. All are **draft v0.1**. They do not claim an implemented dispatcher, a fixed model/agent count, or a finalized application topology.
 
+## Target architecture views
+
+These four views accompany the [target architecture](../architecture/README.md). Each card carries one icon, a short title and at most one short line; the explanation lives in that document.
+
+![How the system works](04-system-map.png)
+
+[SVG](04-system-map.svg) · [PNG](04-system-map.png)
+
+![Who does what](05-who-does-what.png)
+
+[SVG](05-who-does-what.svg) · [PNG](05-who-does-what.png)
+
+![Where it runs](06-where-it-runs.png)
+
+[SVG](06-where-it-runs.svg) · [PNG](06-where-it-runs.png)
+
+![How a project starts](07-project-start.png)
+
+[SVG](07-project-start.svg) · [PNG](07-project-start.png)
+
 ## Development process
 
 The view covers brief, requirements, architecture, repository/tasks, implementation/verification, and delivery. Dashed arrows represent findings returning to planning. Human direction applies throughout.
@@ -30,10 +50,13 @@ The view separates UI, API, business behavior, and data/integration responsibili
 
 SVG files are editable vectors. The repeatable source is [render_diagrams.py](../../scripts/render_diagrams.py). Carry direct SVG/PNG edits back into the generator if they must survive regeneration.
 
-Requires Python 3.10+, Pillow, Inkscape, and DejaVu Sans fonts. From the repository root:
+Requires Python 3.10+, Pillow, DejaVu Sans fonts, and either Inkscape or Node with a Playwright Chromium. From the repository root:
 
 ```sh
-python scripts/render_diagrams.py
+python scripts/render_diagrams.py          # all views
+python scripts/render_diagrams.py 04 06    # selected views
 ```
 
-Rendering uses local assets and no network. The generator checks card text widths. PNGs are 1800 pixels wide; use SVG for scaling. [Icon provenance and licenses](assets/lucide/README.md) are recorded, including notices in SVG/PNG metadata.
+Rendering uses local assets and no network. The generator checks card text widths. PNGs are 1800 pixels wide; use SVG for scaling. Views 01–03 were rendered with Inkscape. Views 04–07 were rendered with the Chromium fallback because Inkscape was unavailable in the authoring environment; rerendering 01–03 with a different rasterizer can change their pixels.
+
+Generic icons come from [Lucide](assets/lucide/README.md). Product marks in views 04–07 come from [Simple Icons](assets/simple-icons/README.md) and are used only to identify the products they name. Provenance and license notices are recorded in both directories and in the PNG metadata.
