@@ -24,9 +24,11 @@ BRANDS = OUT / "assets/simple-icons"
 BRAND_COLORS = {
     "ansible": "#EE0000", "claude": "#D97757", "docker": "#2496ED", "github": "#181717",
     "githubactions": "#2088FF", "hetzner": "#D50C2D", "kubernetes": "#326CE5",
-    "nvidia": "#76B900", "terraform": "#844FBA",
+    "nvidia": "#76B900", "terraform": "#844FBA", "forgejo": "#FB923C", "vllm": "#30A2FF",
 }
-TINTS = {"#2563EB": "#EDF3FF", "#087F8C": "#E3F4F5", "#7756C8": "#F1ECFB", "#A76608": "#FFF2D9"}
+SLATE = "#52647C"
+TINTS = {"#2563EB": "#EDF3FF", "#087F8C": "#E3F4F5", "#7756C8": "#F1ECFB", "#A76608": "#FFF2D9",
+         SLATE: "#EEF2F8"}
 RASTERIZE = """
 const { chromium } = require('playwright');
 (async () => {
@@ -40,6 +42,17 @@ const { chromium } = require('playwright');
 """
 BLUE, TEAL, PURPLE, AMBER = "#2563EB", "#087F8C", "#7756C8", "#A76608"
 INK, MUTED, BORDER = "#13243C", "#52647C", "#D9E2EF"
+# The cast: name, role, what it runs as, Lucide icon, color. Keep in step with docs/architecture/cast.md.
+CAST = {
+    "gokhan": ("Gökhan", "PRODUCT OWNER", "Decides · approves · merges", "user-round", AMBER),
+    "atlas": ("Atlas", "ARCHITECT", "Claude", "pencil-ruler", PURPLE),
+    "argus": ("Argus", "REVIEWER", "Claude · separate session", "eye", PURPLE),
+    "iris": ("Iris", "COORDINATOR", "Python program · not a model", "workflow", BLUE),
+    "daedalus": ("Daedalus", "BUILDER", "Qwen Code + Qwen model", "hammer", TEAL),
+    "cerberus": ("Cerberus", "CI GATE", "Woodpecker", "shield-check", TEAL),
+    "pythia": ("Pythia", "MODEL SERVER", "vLLM · RunPod", "cpu", PURPLE),
+    "echo": ("Echo", "MIRROR", "Forgejo push mirror", "copy", "#52647C"),
+}
 
 
 def measure(value: str, size: int, bold: bool = False) -> float:
@@ -131,6 +144,26 @@ class Canvas:
         self.text(x + 94, y + h / 2 - (2 if sub else -7), title, title_size, INK, bold=True)
         if sub:
             self.text(x + 94, y + h / 2 + 22, sub, 15, MUTED)
+
+    def character(self, x, y, w, h, key, sub=None):
+        """A cast member: role kicker, character name and what it runs as."""
+        name, role, runs, icon, color = CAST[key]
+        sub = runs if sub is None else sub
+        self.rect(x, y, w, h, "#FFFFFF", BORDER, shadow=True)
+        self.rect(x + 18, y + (h - 58) / 2, 58, 58, TINTS[color], radius=14)
+        self.icon(x + 30, y + (h - 34) / 2, icon, color, 34)
+        for value, size, bold in ((role, 12, True), (name, 21, True), (sub, 15, False)):
+            assert measure(value, size, bold) < w - 108, value
+        self.text(x + 94, y + h / 2 - 22, role, 12, color, bold=True)
+        self.text(x + 94, y + h / 2 + 4, name, 21, INK, bold=True)
+        self.text(x + 94, y + h / 2 + 27, sub, 15, MUTED)
+
+    def avatar(self, cx, y, key, size=32, label=True):
+        """Small icon with the character name underneath, centered on cx."""
+        name, _, _, icon, color = CAST[key]
+        self.icon(cx - size / 2, y, icon, color, size)
+        if label:
+            self.text(cx, y + size + 26, name, 14, INK, anchor="middle")
 
     def badge(self, x, y, number, color=INK):
         self.parts.append(f'<circle cx="{x}" cy="{y}" r="15" fill="{color}" stroke="#FFFFFF" stroke-width="2.5"/>')
@@ -322,55 +355,65 @@ def application():
 
 
 def system_map():
-    c = Canvas("How the system works", "Proposed target · who decides, who builds, who checks", 1100)
-    c.node(90, 190, 400, 106, "You", "Idea · decisions · approval", "user-round", AMBER)
-    c.node(700, 190, 400, 106, "Claude", "Architect · reviewer", "claude")
-    c.node(1310, 190, 400, 106, "GitHub", "Repo · issues · CI", "github")
-    c.node(700, 410, 400, 110, "Coordinator", "Assigns · checks gates", "workflow", BLUE)
-    c.zone(64, 640, 1672, 260, "YOUR SERVERS", "server")
-    c.arrow("M490 243 H695", "amber")
-    c.arrow("M1100 243 H1305")
-    c.arrow("M1420 296 V465 H1105")
-    c.arrow("M900 520 V745")
-    c.arrow("M700 805 H535", "purple", start=True)
-    c.arrow("M1000 750 V590 H1600 V301", "teal")
-    c.arrow("M1100 805 H1265", "teal")
-    c.arrow("M900 410 V301", "purple", start=True)
-    c.arrow("M700 465 H290 V301", "amber")
-    c.node(130, 750, 400, 110, "Open model", "GPU server", "cpu", PURPLE)
-    c.node(700, 750, 400, 110, "Coding agents", "One task each", "bot", TEAL)
-    c.node(1270, 750, 400, 110, "Test cluster", "Preview · smoke", "kubernetes")
+    c = Canvas("How the system works", "Proposed target · who decides, who builds, who checks", 1150)
+    c.character(64, 180, 380, 104, "gokhan")
+    c.character(520, 180, 380, 104, "atlas")
+    c.character(976, 180, 380, 104, "argus")
+    c.zone(64, 360, 1240, 450, "WORK SERVER  ·  your machine", "server")
+    c.zone(1330, 360, 406, 450, "GPU SERVER", "nvidia")
+    c.character(100, 420, 300, 104, "cerberus")
+    c.node(480, 420, 340, 104, "Forge", "Forgejo · repo · issues · PRs", "forgejo", BLUE)
+    c.character(940, 420, 320, 104, "iris", "Python program")
+    c.character(100, 640, 300, 104, "echo")
+    c.node(480, 640, 340, 104, "Preview", "kind · per branch", "kubernetes", BLUE)
+    c.character(940, 640, 320, 104, "daedalus")
+    c.character(1356, 640, 354, 104, "pythia")
+    c.node(100, 860, 300, 90, "GitHub", "Code copy only", "github", BLUE, 19)
+    c.text(440, 912, "The standards repository lives on GitHub. Projects only mirror their code there.", 15, MUTED)
+    c.arrow("M444 232 H515", "amber")
+    c.arrow("M640 284 V415", "purple")
+    c.arrow("M820 455 H935")
+    c.arrow("M940 495 H825", "teal")
+    c.arrow("M1100 524 V635")
+    c.arrow("M1260 692 H1351", "purple", start=True)
+    c.arrow("M940 692 H825", "teal")
+    c.arrow("M480 472 H405", "teal")
+    c.arrow("M1166 284 V340 H760 V415", "purple")
+    c.arrow("M254 284 V340 H560 V415", "amber")
+    c.arrow("M600 524 V588 H250 V635", "gray")
+    c.arrow("M250 744 V855", "gray")
     steps = [
-        (592, 243, 592, 216, "idea", AMBER), (1202, 243, 1202, 216, "plan · tasks", BLUE),
-        (1420, 380, 1262, 448, "tasks · evidence", BLUE), (900, 580, 828, 585, "one task", BLUE),
-        (617, 805, 617, 778, "prompts", PURPLE), (1300, 590, 1300, 563, "pull request", TEAL),
-        (1182, 805, 1182, 778, "preview", TEAL), (900, 355, 968, 360, "review", PURPLE),
-        (495, 465, 495, 438, "accept · blocked", AMBER),
+        (480, 232, 480, 208, "idea", AMBER), (640, 360, 700, 318, "issues", PURPLE),
+        (878, 455, 878, 431, "pick", BLUE), (1100, 580, 1172, 585, "sandbox", BLUE),
+        (1305, 692, 1305, 668, "prompts", PURPLE), (882, 692, 882, 668, "preview", TEAL),
+        (878, 495, 878, 535, "pull request", TEAL), (442, 472, 442, 448, "checks", TEAL),
+        (960, 340, 960, 316, "review", PURPLE), (400, 340, 400, 316, "approve · merge", AMBER),
+        (250, 820, 316, 825, "mirror", SLATE),
     ]
     for number, (bx, by, lx, ly, name, color) in enumerate(steps, 1):
-        inside = ly > 640
+        inside = 360 < ly < 810
         c.label(lx, ly, name, color, 14, "#EAF1FE" if inside else "#F4F7FC")
         c.badge(bx, by, number)
-    c.rect(64, 930, 1672, 62, "#FFFFFF", BORDER, radius=14)
-    names = ["Idea", "Plan", "Ready task", "Assign", "Generate", "Pull request", "Preview", "Review", "Accept"]
+    c.rect(64, 975, 1672, 60, "#FFFFFF", BORDER, radius=14)
+    names = ["Idea", "Issues", "Pick", "Sandbox", "Generate", "Preview", "PR", "Checks", "Review", "Merge", "Mirror"]
     for number, name in enumerate(names, 1):
-        x = 110 + (number - 1) * 182
-        c.badge(x, 961, number)
-        c.text(x + 25, 967, name, 16, INK, bold=True)
-    c.footer("04", "Proposed target architecture; not a running system.", brands=True)
+        x = 100 + (number - 1) * 152
+        c.badge(x, 1005, number)
+        c.text(x + 24, 1011, name, 16, INK, bold=True)
+    c.footer("04", "Proposed target architecture; not a running system. Names: see the cast (08).", brands=True)
     c.save("04-system-map")
 
 
 def lifecycle():
     c = Canvas("Who does what", "Proposed lifecycle · owner, output and gate for every stage", 900)
     stages = [
-        ("Discover", "lightbulb", AMBER, [("user-round", "You"), ("claude", "Claude")], ["Brief"], "Scope agreed"),
-        ("Specify", "list-checks", BLUE, [("claude", "Claude"), ("user-round", "You")], ["Requirements", "+ examples"], "RQ rules"),
-        ("Design", "pencil-ruler", PURPLE, [("claude", "Claude"), ("user-round", "You")], ["Architecture", "+ UI packet"], "AR · U rules"),
-        ("Plan", "square-kanban", PURPLE, [("claude", "Claude")], ["Issues", "+ sub-issues"], "G0 Ready"),
-        ("Build", "code-xml", TEAL, [("bot", "Agents"), ("workflow", "Coordinator")], ["Code + tests"], "G1 Local"),
-        ("Verify", "shield-check", TEAL, [("githubactions", "CI"), ("claude", "Claude")], ["Evidence", "+ verdict"], "G2 · G3"),
-        ("Release", "rocket", BLUE, [("user-round", "You"), ("workflow", "Coordinator")], ["Running", "version"], "G4 · G5"),
+        ("Discover", "lightbulb", AMBER, ["gokhan", "atlas"], ["Brief"], "Scope agreed"),
+        ("Specify", "list-checks", BLUE, ["atlas", "gokhan"], ["Requirements", "+ examples"], "RQ rules"),
+        ("Design", "pencil-ruler", PURPLE, ["atlas", "gokhan"], ["Architecture", "+ UI packet"], "AR · U rules"),
+        ("Plan", "square-kanban", PURPLE, ["atlas"], ["Issues", "in Forge"], "G0 Ready"),
+        ("Build", "code-xml", TEAL, ["iris", "daedalus"], ["Code + tests"], "G1 Local"),
+        ("Verify", "shield-check", TEAL, ["cerberus", "argus"], ["Checks", "+ verdict"], "G2 · G3"),
+        ("Release", "rocket", BLUE, ["gokhan"], ["Merged", "change"], "G4 · G5"),
     ]
     for y, name in [(250, "STAGE"), (395, "WHO"), (515, "OUTPUT"), (608, "GATE")]:
         c.text(64, y, name, 13, MUTED, bold=True)
@@ -384,12 +427,8 @@ def lifecycle():
         if n < len(stages) - 1:
             c.arrow(f"M{x + 209} 247 H{x + 221}", "gray", width=2)
         c.rect(x, 335, 208, 110, "#FFFFFF", BORDER, radius=14)
-        for k, (owner_icon, owner) in enumerate(owners):
-            ox = mid + (k - (len(owners) - 1) / 2) * 96
-            owner_color = AMBER if owner == "You" else TEAL if owner == "Agents" else BLUE
-            c.mark(ox - 16, 352, owner_icon, owner_color, 32)
-            assert measure(owner, 14) < 94, owner
-            c.text(ox, 412, owner, 14, INK, anchor="middle")
+        for k, key in enumerate(owners):
+            c.avatar(mid + (k - (len(owners) - 1) / 2) * 96, 352, key)
         c.rect(x, 470, 208, 78, "#EEF2F8", radius=14)
         for k, line in enumerate(output):
             assert measure(line, 16, True) < 196, line
@@ -399,64 +438,62 @@ def lifecycle():
     c.label(1293, 690, "repair", size=14)
     c.arrow("M1626 630 V745 H294 V630", "gray", dash=True)
     c.label(960, 745, "lessons become standard changes", size=14)
-    c.footer("05", "You approve scope, requirements, design and release. Gates block the next stage until they pass.", brands=True)
+    c.footer("05", "Gökhan approves scope, requirements, design and merge. Gates block the next stage until they pass.", brands=True)
     c.save("05-who-does-what")
 
 
 def placement():
     c = Canvas("Where it runs", "Proposed placement · three places, each with its own credentials", 1090)
-    c.node(90, 185, 380, 100, "You", "Laptop · browser", "user-round", AMBER)
-    c.node(710, 185, 380, 100, "Claude", "Called on demand", "claude")
-    c.node(1330, 185, 380, 100, "GitHub", "Repo · issues · CI", "github")
+    c.character(90, 185, 380, 100, "gokhan", "Laptop · browser")
+    c.node(710, 185, 380, 100, "Atlas · Argus", "Claude · called on demand", "claude")
+    c.node(1330, 185, 380, 100, "GitHub", "Standards · code mirror", "github")
     c.arrow("M470 235 H705", "amber")
-    c.arrow("M1090 235 H1325")
     c.zone(64, 380, 1026, 470, "WORK SERVER  ·  no GPU", "server")
-    c.zone(1150, 380, 586, 470, "GPU SERVER", "nvidia")
-    c.arrow("M360 460 V330 H800 V290", "purple")
-    c.label(580, 330, "plan · review", PURPLE)
-    c.arrow("M640 446 V352 H1520 V290", "teal")
-    c.label(1150, 352, "scoped token", TEAL)
-    c.icon(1056, 340, "lock", TEAL, 22)
-    c.arrow("M400 515 H425")
-    c.arrow("M724 515 H755", "teal")
-    c.arrow("M250 570 V635", "gray")
-    c.arrow("M910 570 V635", "gray")
-    c.arrow("M580 756 V800 H1440 V756", "purple", start=True)
-    c.label(1120, 800, "private network", PURPLE, fill="#EAF1FE")
-    c.icon(1020, 789, "lock", PURPLE, 22)
-    c.arrow("M1440 570 V640", "gray", end=False)
-    c.node(100, 460, 300, 110, "Coordinator", "Assigns tasks", "workflow", BLUE, 19)
-    c.rect(442, 448, 280, 110, "#FFFFFF", BORDER)
-    c.rect(436, 454, 280, 110, "#FFFFFF", BORDER)
-    c.node(430, 460, 280, 110, "Sandboxes", "1 task = 1 box", "docker", TEAL, 19)
-    c.node(760, 460, 300, 110, "Test cluster", "kind", "kubernetes", BLUE, 19)
-    c.node(100, 640, 300, 110, "Task ledger", "Claims · attempts", "database", BLUE, 19)
-    c.node(430, 640, 300, 110, "Coding agents", "Run in sandboxes", "bot", TEAL, 19)
-    c.node(760, 640, 300, 110, "Preview apps", "Per pull request", "globe", BLUE, 19)
-    c.arrow("M570 640 V572", "gray", end=False)
+    c.zone(1150, 380, 586, 470, "GPU SERVER  ·  RunPod (pilot)", "nvidia")
+    c.arrow("M760 285 V318 H520 V455", "purple")
+    c.label(640, 318, "plan · review", PURPLE)
+    c.arrow("M680 455 V350 H1520 V290", "gray")
+    c.label(1150, 350, "Echo · scheduled mirror", SLATE)
+    c.character(100, 460, 300, 110, "iris", "Python program")
+    c.node(430, 460, 300, 110, "Forge", "Forgejo", "forgejo", BLUE, 19)
+    c.character(760, 460, 300, 110, "cerberus")
+    c.rect(112, 628, 300, 110, "#FFFFFF", BORDER)
+    c.rect(106, 634, 300, 110, "#FFFFFF", BORDER)
+    c.character(100, 640, 300, 110, "daedalus", "1 task = 1 sandbox")
+    c.node(430, 640, 300, 110, "Registry", "Local images", "container", BLUE, 19)
+    c.node(760, 640, 300, 110, "Preview", "kind · per branch", "kubernetes", BLUE, 19)
+    c.arrow("M400 515 H425", "blue")
+    c.arrow("M730 515 H755", "teal")
+    c.arrow("M250 570 V625")
+    c.arrow("M412 695 H425", "teal")
+    c.arrow("M730 695 H755", "teal")
     c.node(1190, 460, 506, 110, "Model weights", "Pinned version", "hard-drive", PURPLE)
-    c.node(1190, 640, 506, 110, "Model server", "Serves the open model", "cpu", PURPLE)
+    c.character(1190, 640, 506, 110, "pythia", "vLLM · serves the Qwen model")
+    c.arrow("M1440 570 V640", "gray", end=False)
+    c.arrow("M250 750 V800 H1440 V755", "purple", start=True)
+    c.label(1120, 800, "API key only", PURPLE, fill="#EAF1FE")
+    c.icon(1036, 789, "lock", PURPLE, 22)
     c.rect(64, 885, 1672, 90, "#FFFFFF", BORDER, radius=15)
     c.text(86, 912, "BUILT AND REBUILT FROM CODE", 13, MUTED, bold=True)
-    for x, name, icon in [(86, "Terraform", "terraform"), (420, "Ansible", "ansible"), (720, "Docker", "docker"),
-                          (1010, "Kubernetes", "kubernetes"), (1340, "Hetzner (candidate)", "hetzner")]:
+    for x, name, icon in [(86, "Terraform", "terraform"), (370, "Ansible", "ansible"), (640, "Docker", "docker"),
+                          (900, "Kubernetes", "kubernetes"), (1190, "Forgejo", "forgejo"), (1450, "vLLM", "vllm")]:
         c.brand(x, 928, icon, 28)
         c.text(x + 42, 949, name, 18, INK)
-    c.footer("06", "Proposed placement; no server has been ordered or installed. Provider and tools are candidates.", brands=True)
+    c.footer("06", "Proposed placement; no server has been ordered or installed. Daedalus holds no git token.", brands=True)
     c.save("06-where-it-runs")
 
 
 def project_start():
     c = Canvas("How a project starts", "Proposed sequence · from an idea to the first accepted change", 1010)
     steps = [
-        ("Idea", "You", "lightbulb", AMBER),
-        ("Discovery talk", "You + Claude", "messages-square", AMBER),
-        ("Requirements", "Claude writes · you approve", "list-checks", BLUE),
+        ("Idea", "Gökhan", "lightbulb", AMBER),
+        ("Discovery talk", "Gökhan + Atlas", "messages-square", AMBER),
+        ("Requirements", "Atlas writes · Gökhan approves", "list-checks", PURPLE),
         ("Design", "Architecture + UI packet", "pencil-ruler", PURPLE),
-        ("Repo + issues", "Coordinator creates", "github", BLUE),
-        ("Environment", "Sandbox · preview", "container", BLUE),
-        ("First task", "Agent builds · CI checks", "bot", TEAL),
-        ("Accepted", "Claude reviews · you accept", "circle-check", TEAL),
+        ("Repo + issues", "Iris creates them in Forge", "forgejo", BLUE),
+        ("Environment", "Sandbox · preview · CI", "container", BLUE),
+        ("First task", "Daedalus builds · Cerberus checks", "hammer", TEAL),
+        ("Accepted", "Argus reviews · Gökhan merges", "circle-check", TEAL),
     ]
     spots = [(64 + k * 424, 200) for k in range(4)] + [(64 + k * 424, 430) for k in range(3, -1, -1)]
     for number, ((x, y), (title, sub, icon, color)) in enumerate(zip(spots, steps), 1):
@@ -467,10 +504,10 @@ def project_start():
         c.arrow(f"M{1336 - k * 424} 490 H{1317 - k * 424}", "gray")
     c.arrow("M1536 320 V425", "gray")
     for x, y in [(1260, 200), (1684, 200), (464, 430)]:
-        c.pill(x - 62, y - 15, "you approve", AMBER, 12)
+        c.pill(x - 62, y - 15, "Gökhan approves", AMBER, 12)
     c.rect(64, 620, 1672, 250, "#FFFFFF", BORDER, radius=18)
-    c.brand(90, 645, "github", 26)
-    c.text(128, 665, "HOW TASKS ARE STORED", 14, BLUE, bold=True)
+    c.brand(90, 645, "forgejo", 26)
+    c.text(128, 665, "HOW TASKS ARE STORED IN FORGE", 14, BLUE, bold=True)
     tree = [
         (120, "Journey", "What the user achieves", "route", AMBER),
         (660, "Task", "One slice + its tests", "square-kanban", BLUE),
@@ -480,13 +517,96 @@ def project_start():
         c.node(x, 710, 440, 110, title, sub, icon, color)
     c.arrow("M560 765 H655", "gray")
     c.arrow("M1100 765 H1195", "gray")
-    c.footer("07", "Every task carries its own tests. A task with an open decision is not dispatched.", brands=True)
+    c.footer("07", "Every task carries its own tests. A task with an open decision is not given to Daedalus.", brands=True)
     c.save("07-project-start")
+
+
+def cast():
+    c = Canvas("The cast", "Proposed roles · one name and one icon for each actor", 1000)
+    never = {
+        "gokhan": "Reminds agents to test",
+        "atlas": "Writes the implementation",
+        "argus": "Approves its own work",
+        "iris": "Makes product decisions",
+        "daedalus": "Pushes or picks tasks",
+        "cerberus": "Waives a failing check",
+        "pythia": "Holds code or git tokens",
+        "echo": "Carries issues, PRs or CI",
+    }
+    does = {
+        "gokhan": "Decides and approves",
+        "atlas": "Plans and splits work",
+        "argus": "Reviews each pull request",
+        "iris": "Hands out tasks, sets limits",
+        "daedalus": "Builds one task + tests",
+        "cerberus": "Runs checks on every PR",
+        "pythia": "Serves the model",
+        "echo": "Copies code to GitHub",
+    }
+    for n, key in enumerate(CAST):
+        name, role, runs, icon, color = CAST[key]
+        x, y = 64 + (n % 4) * 424, 185 + (n // 4) * 330
+        c.rect(x, y, 400, 300, "#FFFFFF", BORDER, shadow=True)
+        c.rect(x + 24, y + 24, 76, 76, TINTS[color], radius=18)
+        c.icon(x + 40, y + 40, icon, color, 44)
+        c.text(x + 120, y + 52, role, 13, color, bold=True)
+        c.text(x + 120, y + 86, name, 28, INK, bold=True)
+        assert measure(runs, 16) < 352, runs
+        c.text(x + 24, y + 145, runs, 16, MUTED)
+        c.arrow(f"M{x + 24} {y + 170} H{x + 376}", "gray", width=.6, end=False)
+        c.icon(x + 24, y + 192, "circle-check", TEAL, 22)
+        c.text(x + 58, y + 210, does[key], 16, INK)
+        c.icon(x + 24, y + 238, "lock", "#B42318", 22)
+        c.text(x + 58, y + 256, "Never: " + never[key], 16, INK)
+        assert measure("Never: " + never[key], 16) < 330, key
+    c.rect(64, 860, 1672, 54, "#EAF1FE", "#B8C9E8", radius=12)
+    c.brand(86, 873, "forgejo", 26)
+    c.text(126, 893, "Forge (Forgejo) is the shared place where repositories, issues and pull requests live. It is a place, not an actor.", 16, INK)
+    c.footer("08", "Characters name roles; products keep their own names. See docs/architecture/cast.md.", brands=True)
+    c.save("08-cast")
+
+
+def two_loops():
+    c = Canvas("Two loops", "Proposed working rhythm · fast inside the sandbox, strict at acceptance", 1100)
+    c.zone(64, 185, 870, 660, "INNER LOOP  ·  inside one sandbox  ·  minutes", "hammer", TEAL)
+    c.zone(980, 185, 756, 660, "OUTER LOOP  ·  acceptance in Forge", "shield-check", TEAL)
+    c.node(100, 270, 360, 104, "Edit code", "From the issue and examples", "code-xml", TEAL)
+    c.node(530, 270, 370, 104, "Run checks", "Same scripts as CI", "flask-conical", TEAL)
+    c.node(530, 455, 370, 104, "Build image", "Push to local registry", "container", TEAL)
+    c.node(530, 640, 370, 104, "Preview", "Deployed to kind", "kubernetes", TEAL)
+    c.node(100, 640, 360, 104, "Try it", "Gökhan or a tester", "user-round", AMBER)
+    c.character(100, 455, 360, 104, "daedalus", "Runs this loop")
+    c.arrow("M460 322 H525", "teal")
+    c.arrow("M715 374 V450", "teal")
+    c.arrow("M715 559 V635", "teal")
+    c.arrow("M530 692 H465", "teal")
+    c.arrow("M280 640 V564", "gray", dash=True)
+    c.label(320, 602, "feedback", size=13, fill="#EAF1FE")
+    c.arrow("M280 455 V379", "gray", dash=True)
+    c.arrow("M900 322 H975", "blue")
+    c.label(938, 300, "done", BLUE, 13)
+    c.character(1016, 270, 330, 104, "iris", "Pushes · opens PR")
+    c.character(1016, 410, 330, 104, "cerberus", "Same checks, clean")
+    c.character(1016, 550, 330, 104, "argus", "Reviews the PR")
+    c.character(1016, 690, 330, 104, "gokhan", "Approves · merges")
+    for y in (374, 514, 654):
+        c.arrow(f"M1181 {y} V{y + 31}", "teal")
+    c.arrow("M1016 462 H944", "gray", dash=True)
+    c.label(976, 492, "fail → fix", size=13, fill="#EAF1FE")
+    c.character(1390, 690, 320, 104, "echo", "Scheduled push")
+    c.arrow("M1346 742 H1385", "gray")
+    c.node(1390, 910, 320, 90, "GitHub", "Code copy only", "github", BLUE, 19)
+    c.arrow("M1550 794 V905", "gray")
+    c.label(1550, 860, "only this leaves your servers", SLATE, 13)
+    c.text(100, 905, "Inner loop: no CI wait. Outer loop: nothing merges without passing checks and approval.", 17, INK, bold=True)
+    c.text(100, 935, "The checks are scripts in the repository, so the same command runs in the sandbox and in CI.", 16, MUTED)
+    c.footer("09", "Proposed working rhythm; target times are measured in the pilot, not promised.", brands=True)
+    c.save("09-two-loops")
 
 
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     views = {"01": process, "02": agents, "03": application, "04": system_map,
-             "05": lifecycle, "06": placement, "07": project_start}
+             "05": lifecycle, "06": placement, "07": project_start, "08": cast, "09": two_loops}
     for number in sys.argv[1:] or views:
         views[number]()

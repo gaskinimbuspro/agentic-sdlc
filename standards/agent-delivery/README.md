@@ -2,6 +2,8 @@
 
 Adopt this standard with the [backend task and evidence contract](../backend/adoption.md), [UI delivery workflow](../ui/delivery-workflow.md) and [operational security controls](../operations/security.md). It governs planning, delivery coordination and scoped authority over GitHub actions.
 
+Where these controls say GitHub, read the project's configured git server. The [target architecture](../../docs/architecture/README.md) uses Forgejo for project repositories and GitHub only as a code mirror.
+
 | ID | Required control | Owner and acceptance evidence |
 | --- | --- | --- |
 | AD01 | Store a versioned brief, adopted standards and project decisions. Map each accepted requirement to bounded tasks, dependencies, cases and expected evidence. | Planner and product authority review traceability and demonstrate that unresolved inputs block readiness. |

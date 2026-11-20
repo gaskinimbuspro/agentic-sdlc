@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000" role="img" aria-labelledby="title desc">
+<title id="title">The cast</title><desc id="desc">Proposed roles · one name and one icon for each actor</desc>
+<metadata>ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</metadata>
+<defs>
+<marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#2563EB" stroke-width="1.6"/></marker>
+<marker id="teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#087F8C" stroke-width="1.6"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#7756C8" stroke-width="1.6"/></marker>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#8292A8" stroke-width="1.6"/></marker>
+<marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#A76608" stroke-width="1.6"/></marker>
+</defs>
+<rect x="0" y="0" width="1800" height="1000" rx="0" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<rect x="0" y="0" width="1800" height="145" rx="0" fill="#13243C" stroke="none" stroke-width="1.5"  />
+<text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  ARCHITECTURE VIEWS</text>
+<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">The cast</text>
+<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Proposed roles · one name and one icon for each actor</text>
+<rect x="1510" y="44" width="225" height="43" rx="21" fill="#FFF0CD" stroke="none" stroke-width="1.5"  />
+<text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">DRAFT · v0.1</text>
+<rect x="64" y="189" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="64" y="185" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="88" y="209" width="76" height="76" rx="18" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
+<svg x="104" y="225" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="8" r="5" />
+  <path d="M20 21a8 8 0 0 0-16 0" />
+</svg>
+<text x="184" y="237" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A76608" font-weight="700" text-anchor="start">PRODUCT OWNER</text>
+<text x="184" y="271" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Gökhan</text>
+<text x="88" y="330" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Decides · approves · merges</text>
+<path d="M88 355 H440" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="88" y="377" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="122" y="395" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Decides and approves</text>
+<svg x="88" y="423" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="122" y="441" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Reminds agents to test</text>
+<rect x="488" y="189" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="488" y="185" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="512" y="209" width="76" height="76" rx="18" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
+<svg x="528" y="225" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13" />
+  <path d="m8 6 2-2" />
+  <path d="m18 16 2-2" />
+  <path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17" />
+  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+  <path d="m15 5 4 4" />
+</svg>
+<text x="608" y="237" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#7756C8" font-weight="700" text-anchor="start">ARCHITECT</text>
+<text x="608" y="271" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Atlas</text>
+<text x="512" y="330" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Claude</text>
+<path d="M512 355 H864" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="512" y="377" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="546" y="395" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Plans and splits work</text>
+<svg x="512" y="423" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="546" y="441" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Writes the implementation</text>
+<rect x="912" y="189" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="912" y="185" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="936" y="209" width="76" height="76" rx="18" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
+<svg x="952" y="225" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" />
+</svg>
+<text x="1032" y="237" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#7756C8" font-weight="700" text-anchor="start">REVIEWER</text>
+<text x="1032" y="271" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Argus</text>
+<text x="936" y="330" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Claude · separate session</text>
+<path d="M936 355 H1288" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="936" y="377" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="970" y="395" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Reviews each pull request</text>
+<svg x="936" y="423" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="970" y="441" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Approves its own work</text>
+<rect x="1336" y="189" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="1336" y="185" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="1360" y="209" width="76" height="76" rx="18" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="1376" y="225" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="8" height="8" x="3" y="3" rx="2" />
+  <path d="M7 11v4a2 2 0 0 0 2 2h4" />
+  <rect width="8" height="8" x="13" y="13" rx="2" />
+</svg>
+<text x="1456" y="237" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#2563EB" font-weight="700" text-anchor="start">COORDINATOR</text>
+<text x="1456" y="271" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Iris</text>
+<text x="1360" y="330" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Python program · not a model</text>
+<path d="M1360 355 H1712" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="1360" y="377" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="1394" y="395" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Hands out tasks, sets limits</text>
+<svg x="1360" y="423" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="1394" y="441" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Makes product decisions</text>
+<rect x="64" y="519" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="64" y="515" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="88" y="539" width="76" height="76" rx="18" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
+<svg x="104" y="555" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
+  <path d="m18 15 4-4" />
+  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
+</svg>
+<text x="184" y="567" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="700" text-anchor="start">BUILDER</text>
+<text x="184" y="601" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Daedalus</text>
+<text x="88" y="660" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Qwen Code + Qwen model</text>
+<path d="M88 685 H440" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="88" y="707" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="122" y="725" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Builds one task + tests</text>
+<svg x="88" y="753" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="122" y="771" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Pushes or picks tasks</text>
+<rect x="488" y="519" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="488" y="515" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="512" y="539" width="76" height="76" rx="18" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
+<svg x="528" y="555" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" />
+</svg>
+<text x="608" y="567" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="700" text-anchor="start">CI GATE</text>
+<text x="608" y="601" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Cerberus</text>
+<text x="512" y="660" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Woodpecker</text>
+<path d="M512 685 H864" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="512" y="707" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="546" y="725" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Runs checks on every PR</text>
+<svg x="512" y="753" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="546" y="771" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Waives a failing check</text>
+<rect x="912" y="519" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="912" y="515" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="936" y="539" width="76" height="76" rx="18" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
+<svg x="952" y="555" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 20v2" />
+  <path d="M12 2v2" />
+  <path d="M17 20v2" />
+  <path d="M17 2v2" />
+  <path d="M2 12h2" />
+  <path d="M2 17h2" />
+  <path d="M2 7h2" />
+  <path d="M20 12h2" />
+  <path d="M20 17h2" />
+  <path d="M20 7h2" />
+  <path d="M7 20v2" />
+  <path d="M7 2v2" />
+  <rect x="4" y="4" width="16" height="16" rx="2" />
+  <rect x="8" y="8" width="8" height="8" rx="1" />
+</svg>
+<text x="1032" y="567" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#7756C8" font-weight="700" text-anchor="start">MODEL SERVER</text>
+<text x="1032" y="601" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Pythia</text>
+<text x="936" y="660" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">vLLM · RunPod</text>
+<path d="M936 685 H1288" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="936" y="707" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="970" y="725" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Serves the model</text>
+<svg x="936" y="753" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="970" y="771" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Holds code or git tokens</text>
+<rect x="1336" y="519" width="400" height="300" rx="18" fill="#E1E8F2" opacity=".65"/>
+<rect x="1336" y="515" width="400" height="300" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<rect x="1360" y="539" width="76" height="76" rx="18" fill="#EEF2F8" stroke="none" stroke-width="1.5"  />
+<svg x="1376" y="555" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#52647C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+</svg>
+<text x="1456" y="567" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">MIRROR</text>
+<text x="1456" y="601" font-family="DejaVu Sans, sans-serif" font-size="28" fill="#13243C" font-weight="700" text-anchor="start">Echo</text>
+<text x="1360" y="660" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Forgejo push mirror</text>
+<path d="M1360 685 H1712" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<svg x="1360" y="707" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="1394" y="725" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Copies code to GitHub</text>
+<svg x="1360" y="753" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B42318" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="1394" y="771" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Never: Carries issues, PRs or CI</text>
+<rect x="64" y="860" width="1672" height="54" rx="12" fill="#EAF1FE" stroke="#B8C9E8" stroke-width="1.5"  />
+<svg x="86" y="873" width="26" height="26" viewBox="0 0 24 24" fill="#FB923C"><path d="M16.7773 0c1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.1175a7.0759 7.0759 0 0 1 4.148-1.4205l.1176-.001 1.3385.0002c.4973-.8827 1.4434-1.4788 2.5288-1.4788 1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.319c.8827.4973 1.4788 1.4434 1.4788 2.5287 0 1.602-1.2986 2.9005-2.9005 2.9005-1.6018 0-2.9004-1.2986-2.9004-2.9005 0-1.0853.596-2.0314 1.4788-2.5287l-.0002-9.9831c0-3.887 3.1195-7.0453 6.9915-7.108l.1176-.001h1.3385C14.7458.5962 15.692 0 16.7773 0ZM7.2227 19.9052c-.6596 0-1.1943.5347-1.1943 1.1943s.5347 1.1943 1.1943 1.1943 1.1944-.5347 1.1944-1.1943-.5348-1.1943-1.1944-1.1943Zm9.5546-10.4644c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Zm0-7.7346c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Z"/></svg>
+<text x="126" y="893" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Forge (Forgejo) is the shared place where repositories, issues and pull requests live. It is a place, not an actor.</text>
+<path d="M64 936 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<text x="64" y="965" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Characters name roles; products keep their own names. See docs/architecture/cast.md.</text>
+<text x="64" y="985" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">Icons: Lucide / Feather (ISC / MIT) · Simple Icons (CC0) · Product marks identify products and belong to their owners</text>
+<text x="1736" y="966" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  08</text>
+</svg>

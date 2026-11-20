@@ -67,7 +67,7 @@ SOFTWARE.
   <path d="M10 22h4" />
 </svg>
 <text x="158" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Idea</text>
-<text x="158" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">You</text>
+<text x="158" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Gökhan</text>
 <circle cx="72" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="72" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">1</text>
 <rect x="488" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
@@ -78,13 +78,13 @@ SOFTWARE.
   <path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1" />
 </svg>
 <text x="582" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Discovery talk</text>
-<text x="582" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">You + Claude</text>
+<text x="582" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Gökhan + Atlas</text>
 <circle cx="496" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="496" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">2</text>
 <rect x="912" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="912" y="200" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="930" y="231.0" width="58" height="58" rx="14" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
-<svg x="942" y="243.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="930" y="231.0" width="58" height="58" rx="14" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
+<svg x="942" y="243.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M13 5h8" />
   <path d="M13 12h8" />
   <path d="M13 19h8" />
@@ -92,7 +92,7 @@ SOFTWARE.
   <path d="m3 7 2 2 4-4" />
 </svg>
 <text x="1006" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Requirements</text>
-<text x="1006" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Claude writes · you approve</text>
+<text x="1006" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Atlas writes · Gökhan approves</text>
 <circle cx="920" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="920" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">3</text>
 <rect x="1336" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
@@ -113,9 +113,9 @@ SOFTWARE.
 <rect x="1336" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="1336" y="430" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="1354" y="461.0" width="58" height="58" rx="14" fill="#F3F5F9" stroke="none" stroke-width="1.5"  />
-<svg x="1366" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="#181717"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+<svg x="1366" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="#FB923C"><path d="M16.7773 0c1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.1175a7.0759 7.0759 0 0 1 4.148-1.4205l.1176-.001 1.3385.0002c.4973-.8827 1.4434-1.4788 2.5288-1.4788 1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.319c.8827.4973 1.4788 1.4434 1.4788 2.5287 0 1.602-1.2986 2.9005-2.9005 2.9005-1.6018 0-2.9004-1.2986-2.9004-2.9005 0-1.0853.596-2.0314 1.4788-2.5287l-.0002-9.9831c0-3.887 3.1195-7.0453 6.9915-7.108l.1176-.001h1.3385C14.7458.5962 15.692 0 16.7773 0ZM7.2227 19.9052c-.6596 0-1.1943.5347-1.1943 1.1943s.5347 1.1943 1.1943 1.1943 1.1944-.5347 1.1944-1.1943-.5348-1.1943-1.1944-1.1943Zm9.5546-10.4644c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Zm0-7.7346c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Z"/></svg>
 <text x="1430" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Repo + issues</text>
-<text x="1430" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Coordinator creates</text>
+<text x="1430" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Iris creates them in Forge</text>
 <circle cx="1344" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="1344" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">5</text>
 <rect x="912" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
@@ -129,22 +129,19 @@ SOFTWARE.
   <path d="M18 17.5V9.4" />
 </svg>
 <text x="1006" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Environment</text>
-<text x="1006" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Sandbox · preview</text>
+<text x="1006" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Sandbox · preview · CI</text>
 <circle cx="920" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="920" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">6</text>
 <rect x="488" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="488" y="430" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="506" y="461.0" width="58" height="58" rx="14" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
 <svg x="518" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 8V4H8" />
-  <rect width="16" height="12" x="4" y="8" rx="2" />
-  <path d="M2 14h2" />
-  <path d="M20 14h2" />
-  <path d="M15 13v2" />
-  <path d="M9 13v2" />
+  <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
+  <path d="m18 15 4-4" />
+  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
 </svg>
 <text x="582" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">First task</text>
-<text x="582" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Agent builds · CI checks</text>
+<text x="582" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Daedalus builds · Cerberus checks</text>
 <circle cx="496" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="496" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">7</text>
 <rect x="64" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
@@ -155,7 +152,7 @@ SOFTWARE.
   <path d="m16 9-5.5 5.5L8 12" />
 </svg>
 <text x="158" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Accepted</text>
-<text x="158" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Claude reviews · you accept</text>
+<text x="158" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Argus reviews · Gökhan merges</text>
 <circle cx="72" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
 <text x="72" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">8</text>
 <path d="M464 260 H483" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
@@ -165,15 +162,15 @@ SOFTWARE.
 <path d="M1312 260 H1331" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M488 490 H469" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M1536 320 V425" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<rect x="1141.890625" y="185" width="112.21875" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
-<text x="1198" y="202" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">you approve</text>
-<rect x="1565.890625" y="185" width="112.21875" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
-<text x="1622" y="202" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">you approve</text>
-<rect x="345.890625" y="415" width="112.21875" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
-<text x="402" y="432" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">you approve</text>
+<rect x="1125.0" y="185" width="146.0" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
+<text x="1198" y="202" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">Gökhan approves</text>
+<rect x="1549.0" y="185" width="146.0" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
+<text x="1622" y="202" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">Gökhan approves</text>
+<rect x="329.0" y="415" width="146.0" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
+<text x="402" y="432" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">Gökhan approves</text>
 <rect x="64" y="620" width="1672" height="250" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<svg x="90" y="645" width="26" height="26" viewBox="0 0 24 24" fill="#181717"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-<text x="128" y="665" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#2563EB" font-weight="700" text-anchor="start">HOW TASKS ARE STORED</text>
+<svg x="90" y="645" width="26" height="26" viewBox="0 0 24 24" fill="#FB923C"><path d="M16.7773 0c1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.1175a7.0759 7.0759 0 0 1 4.148-1.4205l.1176-.001 1.3385.0002c.4973-.8827 1.4434-1.4788 2.5288-1.4788 1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.319c.8827.4973 1.4788 1.4434 1.4788 2.5287 0 1.602-1.2986 2.9005-2.9005 2.9005-1.6018 0-2.9004-1.2986-2.9004-2.9005 0-1.0853.596-2.0314 1.4788-2.5287l-.0002-9.9831c0-3.887 3.1195-7.0453 6.9915-7.108l.1176-.001h1.3385C14.7458.5962 15.692 0 16.7773 0ZM7.2227 19.9052c-.6596 0-1.1943.5347-1.1943 1.1943s.5347 1.1943 1.1943 1.1943 1.1944-.5347 1.1944-1.1943-.5348-1.1943-1.1944-1.1943Zm9.5546-10.4644c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Zm0-7.7346c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Z"/></svg>
+<text x="128" y="665" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#2563EB" font-weight="700" text-anchor="start">HOW TASKS ARE STORED IN FORGE</text>
 <rect x="120" y="714" width="440" height="110" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="120" y="710" width="440" height="110" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
 <rect x="138" y="736.0" width="58" height="58" rx="14" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
@@ -210,7 +207,7 @@ SOFTWARE.
 <path d="M560 765 H655" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M1100 765 H1195" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
 <path d="M64 946 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
-<text x="64" y="975" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Every task carries its own tests. A task with an open decision is not dispatched.</text>
+<text x="64" y="975" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Every task carries its own tests. A task with an open decision is not given to Daedalus.</text>
 <text x="64" y="995" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">Icons: Lucide / Feather (ISC / MIT) · Simple Icons (CC0) · Product marks identify products and belong to their owners</text>
 <text x="1736" y="976" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  07</text>
 </svg>

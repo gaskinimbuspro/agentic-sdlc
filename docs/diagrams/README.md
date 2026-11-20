@@ -4,7 +4,7 @@ These views make the proposed method discussable. All are **draft v0.1**. They d
 
 ## Target architecture views
 
-These four views accompany the [target architecture](../architecture/README.md). Each card carries one icon, a short title and at most one short line; the explanation lives in that document.
+These views accompany the [target architecture](../architecture/README.md). Actors appear under the names in [the cast](../architecture/cast.md). Each card carries one icon, a short title and at most one short line; the explanation lives in that document.
 
 ![How the system works](04-system-map.png)
 
@@ -21,6 +21,14 @@ These four views accompany the [target architecture](../architecture/README.md).
 ![How a project starts](07-project-start.png)
 
 [SVG](07-project-start.svg) · [PNG](07-project-start.png)
+
+![The cast](08-cast.png)
+
+[SVG](08-cast.svg) · [PNG](08-cast.png)
+
+![Two loops](09-two-loops.png)
+
+[SVG](09-two-loops.svg) · [PNG](09-two-loops.png)
 
 ## Development process
 
@@ -57,6 +65,6 @@ python scripts/render_diagrams.py          # all views
 python scripts/render_diagrams.py 04 06    # selected views
 ```
 
-Rendering uses local assets and no network. The generator checks card text widths. PNGs are 1800 pixels wide; use SVG for scaling. Views 01–03 were rendered with Inkscape. Views 04–07 were rendered with the Chromium fallback because Inkscape was unavailable in the authoring environment; rerendering 01–03 with a different rasterizer can change their pixels.
+Rendering uses local assets and no network. The generator checks card text widths. PNGs are 1800 pixels wide; use SVG for scaling. Views 01–03 were rendered with Inkscape. Views 04–09 were rendered with the Chromium fallback because Inkscape was unavailable in the authoring environment; rerendering 01–03 with a different rasterizer can change their pixels.
 
-Generic icons come from [Lucide](assets/lucide/README.md). Product marks in views 04–07 come from [Simple Icons](assets/simple-icons/README.md) and are used only to identify the products they name. Provenance and license notices are recorded in both directories and in the PNG metadata.
+Generic icons come from [Lucide](assets/lucide/README.md). Product marks in views 04–09 come from [Simple Icons](assets/simple-icons/README.md) and are used only to identify the products they name. Provenance and license notices are recorded in both directories and in the PNG metadata.
