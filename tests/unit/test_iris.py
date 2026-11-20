@@ -154,6 +154,7 @@ BUILDERS = {
     "subprocess.run(['git', 'add', '-A'], check=True)\n"
     "subprocess.run(['git', 'commit', '-qm', 'Still broken'], check=True)\n",
     "delete_test": "os.remove('tests/test_seed.py')\n"
+    "Path('broken').write_text('no tests left')\n"
     "subprocess.run(['git', 'add', '-A'], check=True)\n"
     "subprocess.run(['git', 'commit', '-qm', 'Drop test'], check=True)\n",
     "edit_test": "Path('tests/test_seed.py').write_text('def test_seed():\\n    pass\\n')\n"
@@ -522,3 +523,28 @@ def test_claim_without_ready_issue_leaves_no_state(setup, tmp_path):
     _, _, make, _ = setup
     assert iris_steps.claim(make("commit"), tmp_path / "work") == "none"
     assert iris_steps.finish(make("commit"), tmp_path / "work", "Succeeded") == "idle"
+
+
+def test_token_with_trailing_newline_is_accepted(setup, monkeypatch):
+    forge, _, make, _ = setup
+    monkeypatch.setenv("IRIS_TEST_TOKEN", TOKEN + "\n")
+    forge.add_issue(31)
+    assert iris.run_once(make("commit"))["outcome"] == "review"
+
+
+def test_malformed_token_is_rejected_without_revealing_it(setup, monkeypatch):
+    _, _, make, _ = setup
+    secret = "abc" + "def\x01ghi"
+    monkeypatch.setenv("IRIS_TEST_TOKEN", secret)
+    with pytest.raises(iris.IrisError) as error:
+        iris.run_once(make("commit"))
+    assert "abcdef" not in str(error.value) and "invalid characters" in str(error.value)
+
+
+def test_deleting_tests_is_stopped_before_any_repair_round(setup):
+    forge, remote, make, _ = setup
+    forge.add_issue(32)
+    record = iris.run_once(make("delete_test"))
+    assert record["attempts"] == 1 and "checks_passed" not in record
+    assert "existing tests: tests/test_seed.py" in record["reason"]
+    assert remote_branches(remote) == ["main"]

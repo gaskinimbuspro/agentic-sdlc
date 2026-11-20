@@ -4,7 +4,7 @@ Status: **written, not executed**. The author had no access to RunPod, a GPU, a 
 
 Purpose: find out, cheaply and with numbers, whether Daedalus (Qwen Code with a self-hosted Qwen model) can complete small real tasks under the repository's gates, with everything except the model running on one work server. Names refer to [the cast](cast.md). This is the short rented trial that precedes the fuller [remote execution profile](../remote-execution.md). It decides nothing about production.
 
-Decisions already taken by the product owner: RunPod for the GPU, Forgejo as the git server, Woodpecker as CI, Qwen Code as the builder tool with OpenCode for comparison, a Qwen-family model, GitHub only as a code mirror.
+Decisions already taken by the product owner: RunPod for the GPU, Forgejo as the git server, Tekton as CI and Argo Workflows for Iris (installed by the [platform bootstrap](../../platform/README.md) instead of the manual Phase 0 steps below), Qwen Code as the builder tool with OpenCode for comparison, a Qwen-family model, GitHub only as a code mirror.
 
 ## Before starting
 

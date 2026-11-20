@@ -4,7 +4,7 @@ Iris is the [cast](cast.md)'s coordinator: a small program, not a model. One run
 
 Status: **written and tested against a fake Forgejo API, a local git repository and stand-in builders. Not yet run against a real Forgejo, Docker sandbox or Qwen Code.** Its Forgejo calls follow the Gitea-compatible REST API and must be confirmed on the installed version.
 
-Code: [`src/backend_standard/iris.py`](../../src/backend_standard/iris.py). Tests: [`tests/unit/test_iris.py`](../../tests/unit/test_iris.py).
+Code: [`src/backend_standard/iris.py`](../../src/backend_standard/iris.py) for the single-host `iris run-once`, and [`src/backend_standard/iris_steps.py`](../../src/backend_standard/iris_steps.py) for the same stages as separate `iris-step` commands used by the [Argo Workflows template](../../platform/components/iris/workflowtemplate.yaml). There, only claim, prepare, publish and finish receive the git token; the builder pod receives only the model variables and a checkout without a usable remote; check and guard receive no secret. Tests: [`tests/unit/test_iris.py`](../../tests/unit/test_iris.py). Trial results on a real Forgejo: [platform README](../../platform/README.md#what-was-tested-and-where).
 
 ## One run
 

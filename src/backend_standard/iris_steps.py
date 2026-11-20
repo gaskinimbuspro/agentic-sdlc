@@ -33,6 +33,7 @@ from backend_standard.iris import (
     build_prompt,
     change_guards,
     git,
+    integrity_violation,
     load_config,
     require_builder_env,
     run_builder,
@@ -152,6 +153,10 @@ def build(config: Config, work: Path, attempt: int) -> str:
         state["commits"] = commits
         if commits == 0:
             state.update(outcome="blocked", reason="builder made no commit")
+        else:
+            violation = integrity_violation(config, repo, "refs/iris/base")
+            if violation:
+                state.update(outcome="blocked", reason=violation)
     save_state(work, state)
     return "blocked" if state.get("outcome") else "built"
 

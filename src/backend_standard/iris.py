@@ -79,9 +79,12 @@ class Config:
 
     @property
     def token(self) -> str:
-        value = os.environ.get(self.token_env, "")
+        # Secrets created from files often end with a newline.
+        value = os.environ.get(self.token_env, "").strip()
         if not value:
             raise IrisError(f"Environment variable {self.token_env} is not set")
+        if any(ord(char) < 33 or ord(char) > 126 for char in value):
+            raise IrisError(f"{self.token_env} contains invalid characters")
         return value
 
 
@@ -208,6 +211,9 @@ class Forgejo:
             raise IrisError(f"{method} {path}: HTTP {error.code}") from error
         except urllib.error.URLError as error:
             raise IrisError(f"{method} {path}: {error.reason}") from error
+        except ValueError as error:
+            # Never echo the underlying message: it can contain the header value.
+            raise IrisError(f"{method} {path}: invalid request") from error
         return json.loads(raw) if raw.strip() else None
 
     def label_ids(self) -> dict[str, int]:
@@ -423,15 +429,13 @@ def run_checks(
     return passed, output[-4000:]
 
 
-def change_guards(config: Config, workspace: Path, base: str) -> tuple[str, int, int]:
-    """Return (blocking reason or "", changed files, changed lines)."""
-    files, lines, weakened = 0, 0, []
-    for row in git(workspace, "diff", "--numstat", f"{base}...HEAD").splitlines():
-        added, removed, path = row.split("\t", 2)
-        files += 1
-        lines += (int(added) if added.isdigit() else 0) + (
-            int(removed) if removed.isdigit() else 0
-        )
+def integrity_violation(config: Config, workspace: Path, base: str) -> str:
+    """Changes that no repair round may fix: protected paths or weakened tests.
+
+    Checked right after every build, before the checks run, so a builder that
+    deletes a failing test is stopped at once instead of being sent to repair.
+    """
+    weakened = []
     status = git(workspace, "diff", "--name-status", "-M", f"{base}...HEAD")
     for row in status.splitlines():
         parts = row.split("\t")
@@ -448,10 +452,24 @@ def change_guards(config: Config, workspace: Path, base: str) -> tuple[str, int,
     changed = [row.split("\t")[-1] for row in status.splitlines()]
     touched = protected_changes(config, changed)
     if touched:
-        return "builder changed protected paths: " + ", ".join(touched), files, lines
+        return "builder changed protected paths: " + ", ".join(touched)
     if weakened:
-        reason = "builder removed or edited existing tests: " + ", ".join(weakened)
-        return reason, files, lines
+        return "builder removed or edited existing tests: " + ", ".join(weakened)
+    return ""
+
+
+def change_guards(config: Config, workspace: Path, base: str) -> tuple[str, int, int]:
+    """Return (blocking reason or "", changed files, changed lines)."""
+    files, lines = 0, 0
+    for row in git(workspace, "diff", "--numstat", f"{base}...HEAD").splitlines():
+        added, removed, path = row.split("\t", 2)
+        files += 1
+        lines += (int(added) if added.isdigit() else 0) + (
+            int(removed) if removed.isdigit() else 0
+        )
+    violation = integrity_violation(config, workspace, base)
+    if violation:
+        return violation, files, lines
     if files > config.max_changed_files or lines > config.max_changed_lines:
         reason = (
             f"change exceeds the diff budget ({files} files, {lines} lines; limit"
@@ -613,6 +631,10 @@ def _work(
         record["commits"] = commits
         if commits == 0:
             record.update(outcome="blocked", reason="builder made no commit")
+            return
+        violation = integrity_violation(config, workspace, base)
+        if violation:
+            record.update(outcome="blocked", reason=violation)
             return
         if git(workspace, "status", "--porcelain").strip():
             git(workspace, "stash", "--include-untracked", "--quiet")
