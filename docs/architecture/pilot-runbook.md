@@ -21,7 +21,7 @@ Set a spending limit in the GPU provider account and a reminder to stop the pod.
 | 0.3 | Create a Forgejo user for Iris with a token limited to that repository: read issues, push branches, open pull requests. Iris gets no merge right. Daedalus gets no git token at all ([cast credentials](cast.md#credentials)). |
 | 0.4 | Protect the default branch in Forgejo: require the Woodpecker check and one approval, and refuse direct pushes. |
 | 0.5 | Install Woodpecker (Cerberus) server and agent and connect them to Forgejo. Add a pipeline that only calls the repository's test script. |
-| 0.6 | Configure Echo: a Forgejo push mirror from the project repository to a private GitHub repository, with a GitHub token limited to that repository. Disable Actions on the GitHub copy. |
+| 0.6 | Configure Echo: a Forgejo push mirror from the project repository to a private GitHub repository, with a GitHub token limited to that repository. Set the branch filter to the default branch so task branches are not mirrored; the mirror force-pushes and overwrites the copy. Disable Actions on the GitHub copy. |
 
 Exit test: a pull request with a failing test cannot be merged; a pull request opened by Iris's user cannot be merged without Gökhan's approval; a direct push to the default branch is refused; after the mirror interval the GitHub copy shows the latest default-branch commit and runs no workflow.
 
@@ -40,7 +40,7 @@ Outline, not executed by the author; check each flag against the vLLM documentat
 
 ```sh
 vllm serve <model-id> --api-key "$MODEL_API_KEY" \
-  --enable-auto-tool-choice --tool-call-parser <parser-named-by-the-model-card>
+  --enable-auto-tool-choice --tool-call-parser <parser>   # vLLM docs name qwen3_xml for Qwen3-Coder, hermes for Qwen2.5
 ```
 
 Exit test, from the work server:
@@ -73,8 +73,10 @@ Outline, not executed by the author; take exact options from the Qwen Code headl
 export OPENAI_BASE_URL="$MODEL_URL/v1"
 export OPENAI_MODEL="<model-id>"
 export OPENAI_API_KEY="$MODEL_API_KEY"
-qwen -p "<task text>" --output-format json
+qwen -p "<task text>" --yolo --max-wall-time 25m --max-session-turns 80 --output-format stream-json
 ```
+
+Without `--yolo` a headless run does not auto-approve edits or commands. Set all three `OPENAI_*` variables explicitly: Qwen Code fills unset ones from a `.env` file in the checkout. Exit code 55 means a budget was exceeded and 53 the turn cap.
 
 Exit test: the task finishes, the repository's test script passes inside the container, the change is confined to the checkout and committed locally, and the container could not reach anything outside its allowlist. Headless runs act without asking; this is acceptable only inside a container with nothing valuable in reach.
 

@@ -6,7 +6,7 @@
   "git_url": "https://forge.example.internal/team/project.git",
   "base_branch": "main",
   "labels": {"ready": "ready", "in_progress": "in-progress", "review": "review", "blocked": "blocked"},
-  "builder": ["qwen", "-p", "{prompt}", "--output-format", "json"],
+  "builder": ["qwen", "-p", "{prompt}", "--yolo", "--safe-mode", "--max-wall-time", "25m", "--max-session-turns", "80", "--output-format", "stream-json"],
   "builder_env": ["OPENAI_BASE_URL", "OPENAI_MODEL", "OPENAI_API_KEY"],
   "check_command": "./scripts/verify.sh",
   "sandbox": "docker",

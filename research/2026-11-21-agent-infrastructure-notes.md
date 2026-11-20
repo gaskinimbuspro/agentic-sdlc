@@ -72,6 +72,64 @@ Points they agree on, as stated by the authors:
 | Daily visibility | `runs.jsonl` | Briefing report (section 1) |
 | Durable loop across machine failure | Not implemented | Not needed for minute-scale serial tasks |
 
+## 4. Primary sources on agent harnesses
+
+Read in full on 22 November 2026: Anthropic's [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) (Justin Young), [Managed agents](https://www.anthropic.com/engineering/managed-agents) and [Harness design for long-running apps](https://www.anthropic.com/engineering/harness-design-long-running-apps) (Prithvi Rajasekaran); Cursor's [Scaling long-running autonomous coding](https://cursor.com/blog/scaling-agents); Stripe's [Minions, part 2](https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2) (Alistair Gray, 19 February 2026); OpenAI's [Harness engineering](https://openai.com/index/harness-engineering/) (Ryan Lopopolo, 11 February 2026); Addy Osmani's [Self-improving coding agents](https://addyosmani.com/blog/self-improving-agents/). All describe frontier hosted models. None discusses open-weight or local models, gives per-task success rates or publishes its reviewer prompts.
+
+| Practice, as reported | Source | Consequence for this setup |
+| --- | --- | --- |
+| Workflows are state machines where a node is either deterministic code or an agent loop. Linting and pushing "don't invoke an LLM at all". | Stripe | Iris already owns clone, push and pull request. Add deterministic check nodes; keep only "implement" and "fix failures" as agent steps. |
+| At most two CI rounds: push, one agent attempt to fix failures, second push, then back to a human, because of "diminishing marginal returns". Lint loops run locally before any push. | Stripe | Repair budget for Iris: local check loop first, then a small fixed number of repair rounds. |
+| A new session should: confirm its directory, read progress notes and recent git log, read the task list, run the init script and a smoke test before new work, work on one feature, commit and write a progress note. | Anthropic harness | A fixed start-of-run ritual in Iris's prompt; a progress note per attempt passed to the next. |
+| A feature list in JSON whose entries the agent may change only by flipping `passes`; and the rule "It is unacceptable to remove or edit tests because this could lead to missing or buggy functionality." | Anthropic harness | Iris, not the builder, records pass or fail. Add the sentence to the prompt and a deterministic guard on test files. |
+| Self-evaluation fails: agents praise mediocre work. A separate evaluator is "far more tractable" to make skeptical. An untuned evaluator finds real issues and then approves anyway. Useful output is one PASS or FAIL per agreed criterion with file, line and cause. | Anthropic harness design | Argus reports per acceptance example, with location and cause; tune its prompt from cases where it approved despite findings. |
+| The evaluator is worth its cost "when the task sits beyond what the current model does reliably solo". Reported runs: 20 minutes and $9 solo with a broken core feature; 6 hours and $200 with planner, generator and evaluator. | Anthropic harness design | A weaker local builder sits further from "reliable solo", so review matters more here, not less. |
+| A planner that fixes deliverables and high-level design but not implementation detail, because wrong detail cascades. Generator and evaluator agree testable criteria before code is written. | Anthropic harness design | Matches Atlas and RQ02; keep issue text on outcomes and examples. |
+| Credentials must not be reachable from the sandbox; in the coupled design "a prompt injection only had to convince Claude to read its own environment". Session log, harness and sandbox are separate so any one can die. | Anthropic managed agents | Already how Iris works. Keep the full event stream of each run outside the container. |
+| Flat peer agents with locks collapsed ("twenty agents would slow down to the effective throughput of two or three") and became risk-averse; an integrator role became a bottleneck. Planners, independent workers and a judge worked. "The prompts matter more" than harness or model. Models differ by role. | Cursor | Confirms serial-first and the planner, worker, judge split. Choose the model per role by measurement. |
+| One disposable machine per task from a warm pool, ready in about ten seconds with repositories cloned and caches warm; no production data or arbitrary egress, which is what allows running without confirmation prompts. | Stripe | Pre-built project image with dependencies; egress allowlist. |
+| Almost all rules are scoped to subdirectories or file patterns; global rules are used "very judiciously". Agents get a small curated tool set. | Stripe | Path-scoped instruction files in project repositories; short global file. |
+| A short AGENTS.md of roughly 100 lines as a map into versioned docs; freshness checked by linters and CI; "anything it can't access in-context while running effectively doesn't exist". | OpenAI | The project template's AGENTS.md should index, not contain, the adopted standards. |
+| Architecture and taste rules are custom lints whose "error messages … inject remediation instructions into agent context". "When documentation falls short, we promote the rule into code". | OpenAI | The cheapest steering for a weak model: check scripts whose failure text says how to fix it. Applies AR04. |
+| When a run fails, ask "what capability is missing, and how do we make it both legible and enforceable for the agent?" rather than retrying harder. | OpenAI | Is the ME06 loop. |
+| Stop conditions for a loop: iteration cap, time cap, no new commit in N iterations, diff much larger than expected or touching files outside scope. A task taking ten times the norm is stuck. | Osmani | Diff budget and stall detection in Iris. |
+
+## 5. Tool facts from documentation
+
+Read in full on 22 November 2026; versions as the pages showed them. Nothing was executed.
+
+**Qwen Code** ([headless](https://qwenlm.github.io/qwen-code-docs/en/users/features/headless), [sandbox](https://qwenlm.github.io/qwen-code-docs/en/users/features/sandbox), [authentication](https://qwenlm.github.io/qwen-code-docs/en/users/configuration/auth)):
+
+- Headless runs use `-p`. Without an approval mode, tool use is not auto-approved: add `--yolo` (or `--approval-mode yolo`). The docs recommend `--yolo` with budgets inside an ephemeral container and no Qwen sandbox there.
+- Budgets exist: `--max-wall-time` (for example `30m`), `--max-session-turns`, `--max-tool-calls`. They are enforced cooperatively. Exit code 55 means budget exceeded, 53 turn cap, 52 configuration error, 130 interrupt.
+- `--output-format json` is buffered until the end and lost if the process is killed; `stream-json` writes one event per line as it happens and ends with a `result` line carrying `is_error`, `usage` and `session_id`.
+- `--continue` and `--resume <sessionId>` resume a session stored under `~/.qwen/projects/`.
+- Exporting `OPENAI_API_KEY` selects OpenAI-compatible mode; `OPENAI_BASE_URL` and `OPENAI_MODEL` complete it. A `.env` file found from the working directory upwards fills any of these that the process has not set, so a checked-out repository could redirect the builder unless all three are set explicitly.
+- `--safe-mode` ignores repository-supplied hooks, extensions, MCP servers and context files.
+- A separate Linux tool sandbox (`tools.executionSandbox`, bubblewrap or Landlock) can close network access for tool commands while the CLI still reaches the model. Whether it works inside Docker or under gVisor is not stated.
+
+**vLLM** ([tool calling](https://docs.vllm.ai/en/latest/features/tool_calling.html)): `--enable-auto-tool-choice` plus `--tool-call-parser`. The page names `qwen3_xml` for Qwen3-Coder models and `hermes` for Qwen2.5 and QwQ. There is no `qwen3_coder` parser on that page, contrary to an earlier search summary. With automatic tool choice, "arguments may occasionally be malformed"; `--tool-strict-level` sets a server-side floor whose support for these parsers is not stated.
+
+**gVisor** ([install](https://gvisor.dev/docs/user_guide/install/), [Docker quick start](https://gvisor.dev/docs/user_guide/quick_start/docker/)): install `runsc` from the project's apt repository, which registers a Docker runtime; run with `docker run --runtime=runsc`. Needs Linux 5.6 or later. Compatibility and performance limits are on other pages that were not read.
+
+**Woodpecker 3.20** ([Forgejo forge](https://woodpecker-ci.org/docs/administration/configuration/forges/forgejo), [cron](https://woodpecker-ci.org/docs/usage/cron)): Forgejo support is built in and configured with `WOODPECKER_FORGEJO`, `WOODPECKER_FORGEJO_URL` and an OAuth client id and secret. On one host, put the agent on Forgejo's Docker network and set Forgejo's `[webhook] ALLOWED_HOST_LIST=external,loopback`. Cron jobs are defined in repository settings with schedules such as `@every 5m` and matched by `event: cron`, so Iris could run as a scheduled pipeline.
+
+**Forgejo** ([mirrors](https://forgejo.org/docs/latest/user/repo-mirror/), [protection](https://forgejo.org/docs/latest/user/protection/)): a push mirror runs periodically and can also sync when commits are pushed. It force-pushes and "will overwrite any changes in the remote repository". A branch filter limits what is pushed, for example `main` only. For GitHub it needs a fine-grained token with Contents permission on that one repository. Branch protection supports required approvals; requiring a Woodpecker status check is not described on the page read and must be confirmed on install. Issues can depend on other issues.
+
+## 6. Ordered backlog from this research
+
+| # | Change | Where |
+| --- | --- | --- |
+| 1 | Run the project's check command after the builder; on failure start a repair run with the failing output, up to a small fixed number of rounds | Iris |
+| 2 | Block runs that delete or edit existing tests, or exceed a diff budget in lines or files | Iris |
+| 3 | Refuse to start unless every builder variable is set, so a repository `.env` cannot redirect the model endpoint; use `--safe-mode` | Iris |
+| 4 | Use `--yolo`, Qwen Code's own budgets and `stream-json`; keep the event stream per attempt; map exit codes 55 and 53 to clear blocked reasons | Iris configuration |
+| 5 | Write a progress note per attempt and give it to the next attempt | Iris |
+| 6 | `iris report` daily briefing | Iris |
+| 7 | Tiered, per-criterion review output for Argus | Review template |
+| 8 | Project template: short AGENTS.md as a map, REVIEW.md, ROADMAP.md, context folder, check script with remediation messages, pre-built builder image | Project template |
+| 9 | gVisor as the sandbox runtime; mirror filter limited to the default branch | Pilot runbook |
+
 ## Sources
 
 Section 1: the article text as supplied, and the video it cites.
