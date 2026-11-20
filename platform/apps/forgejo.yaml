@@ -1,0 +1,32 @@
+# Argo CD Application: forgejo. Created by the root application from this directory.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: forgejo
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: forgejo
+  sources:
+    - repoURL: code.forgejo.org/forgejo-helm
+      chart: forgejo
+      targetRevision: 17.3.3
+      helm:
+        valueFiles:
+          - $values/platform/components/forgejo/values.yaml
+    - repoURL: https://github.com/gaskinimbuspro/agentic-sdlc.git
+      targetRevision: claude/nice-dijkstra-2lc88p
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

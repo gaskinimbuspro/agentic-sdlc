@@ -1,0 +1,23 @@
+# Forgejo (Forge) for the trial platform. Admin credentials come from a Secret
+# that Terraform creates; nothing secret is stored in this repository.
+gitea:
+  admin:
+    existingSecret: forgejo-admin
+    email: admin@forge.local
+    passwordMode: initialOnlyNoReset
+  config:
+    database:
+      DB_TYPE: sqlite3
+    server:
+      DOMAIN: forgejo-http.forgejo.svc.cluster.local
+      ROOT_URL: http://forgejo-http.forgejo.svc.cluster.local:3000/
+    service:
+      DISABLE_REGISTRATION: true
+    webhook:
+      ALLOWED_HOST_LIST: private,loopback
+    actions:
+      ENABLED: false
+persistence:
+  size: 5Gi
+test:
+  enabled: false
