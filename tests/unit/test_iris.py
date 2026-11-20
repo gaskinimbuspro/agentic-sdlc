@@ -139,6 +139,38 @@ BUILDERS = {
     "subprocess.run(['git', 'commit', '-qm', 'Weaken CI'], check=True)\n",
     "sleep": "time.sleep(30)\n",
     "fail": "sys.exit(3)\n",
+    "budget": "sys.exit(55)\n",
+    "broken_then_fix": "prompt = Path(sys.argv[1]).read_text()\n"
+    "if 'previous attempt' in prompt.lower():\n"
+    "    assert 'broken marker present' in prompt\n"
+    "    assert 'Attempt 1: checks failed' in Path('.iris/progress.md').read_text()\n"
+    "    os.remove('broken')\n"
+    "else:\n"
+    "    Path('broken').write_text('x')\n"
+    "Path('greeting.py').write_text('def hello():\\n    return 1\\n')\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Work'], check=True)\n",
+    "always_broken": "Path('broken').write_text(str(time.time()))\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Still broken'], check=True)\n",
+    "delete_test": "os.remove('tests/test_seed.py')\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Drop test'], check=True)\n",
+    "edit_test": "Path('tests/test_seed.py').write_text('def test_seed():\\n    pass\\n')\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Weaken test'], check=True)\n",
+    "add_test": "old = Path('tests/test_seed.py').read_text()\n"
+    "Path('tests/test_seed.py').write_text(old + '\\ndef test_more():\\n    assert True\\n')\n"
+    "Path('tests/test_new.py').write_text('def test_new():\\n    assert True\\n')\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Add tests'], check=True)\n",
+    "big": "Path('big.py').write_text('x = 1\\n' * 60)\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Big change'], check=True)\n",
+    "dirty": "Path('greeting.py').write_text('ok\\n')\n"
+    "subprocess.run(['git', 'add', '-A'], check=True)\n"
+    "subprocess.run(['git', 'commit', '-qm', 'Work'], check=True)\n"
+    "Path('broken').write_text('left uncommitted')\n",
     "env": "Path('seen_env.json').write_text(json.dumps(sorted(os.environ)))\n"
     "subprocess.run(['git', 'add', '-A'], check=True)\n"
     "subprocess.run(['git', 'commit', '-qm', 'Record env'], check=True)\n",
@@ -153,6 +185,18 @@ def setup(tmp_path, monkeypatch):
     run_git(tmp_path, "clone", "-q", str(remote), str(seed))
     (seed / "README.md").write_text("project\n")
     (seed / ".woodpecker.yml").write_text("steps: [test]\n")
+    (seed / "tests").mkdir()
+    (seed / "tests/test_seed.py").write_text(
+        "def test_seed():\n    assert 1 + 1 == 2\n    assert True\n"
+    )
+    checker = tmp_path / "check.py"
+    checker.write_text(
+        "import os, sys\n"
+        "if os.path.exists('broken'):\n"
+        "    print('AssertionError: broken marker present')\n"
+        "    sys.exit(1)\n"
+        "print('checks ok')\n"
+    )
     run_git(seed, "add", "-A")
     run_git(seed, "commit", "-qm", "seed")
     run_git(seed, "push", "-q", "origin", "HEAD:main")
@@ -175,7 +219,7 @@ def setup(tmp_path, monkeypatch):
             "git_url": str(remote),
             "builder": [sys.executable, str(script), "{prompt_file}"],
             "builder_env": ["OPENAI_API_KEY"],
-            "check_command": "pytest",
+            "check_command": f"{sys.executable} {checker}",
             "sandbox": "local",
             "wall_time_seconds": 20,
             "protected_paths": [".woodpecker.yml", "AGENTS.md"],
@@ -338,3 +382,83 @@ def test_docker_command_drops_privileges_and_passes_no_secrets(setup, tmp_path):
         command
     )
     assert "/workspace/.iris/prompt.md" in command
+
+
+def test_failing_checks_are_sent_back_and_repaired(setup):
+    forge, remote, make, tmp = setup
+    forge.add_issue(11)
+    record = iris.run_once(make("broken_then_fix"))
+    assert record["outcome"] == "review" and record["attempts"] == 2
+    assert record["checks_passed"] is True
+    assert "attempt 2" in forge.pulls[0]["body"]
+    logs = sorted(path.name for path in (tmp / "logs").glob("issue-11-*"))
+    assert [name.split("-", 3)[3] for name in logs] == [
+        "builder-1.log",
+        "builder-2.log",
+        "check-1.log",
+        "check-2.log",
+    ]
+
+
+def test_repair_rounds_are_bounded_and_nothing_is_pushed(setup):
+    forge, remote, make, _ = setup
+    forge.add_issue(12)
+    record = iris.run_once(make("always_broken", repair_rounds=1))
+    assert record["outcome"] == "blocked" and record["attempts"] == 2
+    assert "still fail after 1 repair round" in record["reason"]
+    assert "broken marker present" in forge.comments[-1][1]
+    assert remote_branches(remote) == ["main"] and forge.pulls == []
+
+
+def test_checks_run_on_the_committed_state_only(setup):
+    forge, remote, make, _ = setup
+    forge.add_issue(13)
+    assert iris.run_once(make("dirty"))["outcome"] == "review"
+
+
+@pytest.mark.parametrize("behavior", ["delete_test", "edit_test"])
+def test_removing_or_editing_existing_tests_is_blocked(setup, behavior):
+    forge, remote, make, _ = setup
+    forge.add_issue(14)
+    record = iris.run_once(make(behavior))
+    assert record["outcome"] == "blocked"
+    assert "existing tests: tests/test_seed.py" in record["reason"]
+    assert remote_branches(remote) == ["main"]
+
+
+def test_adding_tests_is_allowed(setup):
+    forge, _, make, _ = setup
+    forge.add_issue(15)
+    assert iris.run_once(make("add_test"))["outcome"] == "review"
+
+
+def test_change_over_the_diff_budget_is_blocked(setup):
+    forge, remote, make, _ = setup
+    forge.add_issue(16)
+    record = iris.run_once(make("big", max_changed_lines=10))
+    assert record["outcome"] == "blocked" and "diff budget" in record["reason"]
+    assert record["changed_lines"] == 60 and remote_branches(remote) == ["main"]
+
+
+def test_unset_builder_variable_stops_before_claiming(setup, monkeypatch):
+    forge, _, make, _ = setup
+    forge.add_issue(17)
+    monkeypatch.delenv("OPENAI_API_KEY")
+    with pytest.raises(iris.IrisError, match="not set: OPENAI_API_KEY"):
+        iris.run_once(make("commit"))
+    assert forge.label_names(17) == ["ready"]
+
+
+def test_known_builder_exit_codes_are_explained(setup):
+    forge, _, make, _ = setup
+    forge.add_issue(18)
+    record = iris.run_once(make("budget"))
+    assert "exited with 55: builder exceeded its own time" in record["reason"]
+
+
+def test_checks_receive_no_model_or_git_secret(setup, tmp_path):
+    _, _, make, _ = setup
+    config = make("commit", sandbox="docker", image="builder:pinned")
+    command = iris.sandbox_command(config, tmp_path, ["./verify"], "c", [])
+    assert "OPENAI_API_KEY" not in command
+    assert set(iris.process_env(tmp_path, [])) == {"PATH", "HOME"}

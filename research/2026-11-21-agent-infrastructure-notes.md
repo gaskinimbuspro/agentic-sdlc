@@ -118,6 +118,8 @@ Read in full on 22 November 2026; versions as the pages showed them. Nothing was
 
 ## 6. Ordered backlog from this research
 
+Items 1 to 5 were implemented in Iris on 22 November 2026 and are covered by tests; the rest are open.
+
 | # | Change | Where |
 | --- | --- | --- |
 | 1 | Run the project's check command after the builder; on failure start a repair run with the failing output, up to a small fixed number of rounds | Iris |

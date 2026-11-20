@@ -13,6 +13,10 @@
   "image": "registry.local/project-builder@sha256:<digest>",
   "docker_network": "builder-egress",
   "wall_time_seconds": 1800,
+  "check_timeout_seconds": 900,
+  "repair_rounds": 2,
+  "max_changed_files": 20,
+  "max_changed_lines": 400,
   "protected_paths": [".woodpecker.yml", ".woodpecker/*", "AGENTS.md", "scripts/verify.sh"],
   "log_dir": "/var/lib/iris/project"
 }
