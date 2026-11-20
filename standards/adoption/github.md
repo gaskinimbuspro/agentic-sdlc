@@ -6,6 +6,8 @@ Validate the HMAC-SHA256 signature of the untouched request body with a constant
 
 Record the delivery ID and payload digest in a durable inbox before returning success. An identical delivery can reuse the receipt. Reject a conflicting digest for the same delivery ID. Use a resource/operation key independent of the delivery header to prevent header substitution from producing a second external write. Reconcile ambiguous creates through authoritative reads and the [intent ledger](../agent-delivery/README.md#executable-reference). Keep preview or untrusted jobs away from privileged runners and write credentials.
 
+The [pilot runbook](../../docs/architecture/pilot-runbook.md) describes a smaller first trial with one App and branch protection; it does not satisfy the cases below.
+
 | Case | Action and required evidence |
 | --- | --- |
 | GH01 | Exercise allowed installation and repo scopes, token expiry and forbidden writes. Record provider results for each lane. |

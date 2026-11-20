@@ -83,21 +83,22 @@ Start with one coding agent and one reviewer, working serially, until gates and 
 | 0. Decide | Provider, model, runtime and budget chosen from the open decisions below | Recorded decisions with verified prices |
 | 1. Model | Model server on a rented GPU, authenticated, on a private network | A scripted prompt returns; an unauthenticated request is refused |
 | 2. Work server | Sandbox runtime, test cluster, agent runtime connected to the model | One agent completes a trivial task in a sandbox with no host access |
-| 3. Coordinator | Ledger, claims, budgets and GitHub operations bound to one repository | Duplicate claim, expiry and lost-response cases behave as [AD02, AD05 and AD07](../../standards/agent-delivery/README.md) require |
+| 3. Coordinator | Serial stage: an existing issue-to-pull-request action plus branch protection. Parallel stage: a ledger with claims and budgets | Serial: one issue becomes a reviewed pull request. Parallel: duplicate claim, expiry and lost-response cases behave as [AD02, AD05 and AD07](../../standards/agent-delivery/README.md) require |
 | 4. Pilot | One small real project from idea to accepted change | Measured under [ME01–ME04](../../standards/agent-delivery/measurement.md); false completions and human interventions recorded |
 | 5. Scale | Parallel agents and a fixed-price server if the numbers justify it | Reviewed capacity, cost and defect comparison |
 
-Provision cloud resources with Terraform and configure servers with a configuration tool so that the environment can be rebuilt. Whether a rented physical GPU server can be ordered through the provider's API has not been verified. No infrastructure code exists in this repository yet; it is written in phase 1 against the chosen provider.
+Phases 0 to 4 start as the short rented trial in the [pilot runbook](pilot-runbook.md). Provision cloud resources with Terraform and configure servers with a configuration tool so that the environment can be rebuilt. Whether a rented physical GPU server can be ordered through the provider's API has not been verified. No infrastructure code exists in this repository yet; it is written in phase 1 against the chosen provider.
 
 ## Open decisions and unverified assumptions
 
 | Topic | Candidate | Status |
 | --- | --- | --- |
-| Agent runtime | OpenHands in headless mode | Identified from its documentation through search summaries; not installed or run. Recovery, sandbox isolation and local-model reliability are unverified. |
-| Model serving | vLLM for concurrent agents; Ollama for single-user use | Not installed. Tool-calling behavior with the chosen model is unverified. |
-| Model | An open-weight coding model from the Qwen family | Not selected. Published benchmark figures vary by source and harness. |
-| GPU for the pilot | Hourly rental of a card with about 48 GB memory | Prices move; verify on the provider's page. |
-| GPU after the pilot | A fixed-price dedicated server, Hetzner as one candidate | Search results disagreed on current prices. No order placed. |
+| Agent runtime | OpenHands, headless and through its GitHub Action | Chosen for trial by the product owner. Not installed or run; see the [pilot runbook](pilot-runbook.md). |
+| Model serving | vLLM | Not installed. Tool-calling behavior with the chosen model is the first thing the pilot checks. |
+| Model | An open-weight model from the Qwen family | Search results indicated that Qwen 3.7 has no open weights and that other Qwen releases do. Confirm on the publisher's model card. General code understanding needs no special model; analysis of compiled binaries relies on separate tools. |
+| GPU for the pilot | RunPod, a pod with about 48 GB memory | Chosen by the product owner. Rates differed between sources; verify on the provider's page. |
+| GPU after the pilot | A fixed-price dedicated server | Decide from pilot utilization. No order placed. |
 | Benefit of the split | Hosted architect and reviewer, local implementer | The strongest independent study found gains from planner-executor designs uneven. Measure in the pilot. |
-| Coordinator | Extend [`DispatchLedger`](../../src/backend_standard/dispatch.py) or adopt an existing engine | The library covers claims, expiry and operation intents only. |
-| Identity for review | A reviewer identity separate from the implementing identity | Not configured; required by [D08](../../standards/backend/definition-of-done.md). |
+| Coordinator, serial stage | OpenHands GitHub Action with GitHub branch protection | No custom coordinator until parallel work is justified. This gives no exclusive claims or budgets. |
+| Coordinator, parallel stage | An existing orchestrator, or [`DispatchLedger`](../../src/backend_standard/dispatch.py) extended | Agent Orchestrator, AWS CLI Agent Orchestrator, Baton, Code Conductor and OpenAI Symphony were found by search and not inspected. |
+| Identity for review | A GitHub App as the implementing identity; the product owner or a second identity approves | Not configured. Phase 0 of the runbook sets it up; required by [D08](../../standards/backend/definition-of-done.md). |
