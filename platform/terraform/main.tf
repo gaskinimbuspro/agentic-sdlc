@@ -1,4 +1,4 @@
-# Platform bootstrap: a kind cluster, Argo CD and one root application.
+# Platform bootstrap on an existing cluster: Argo CD and one root application.
 # Argo CD then installs everything under platform/apps from Git.
 
 locals {
@@ -12,44 +12,15 @@ locals {
   ] : []
 }
 
-resource "kind_cluster" "this" {
-  name            = var.cluster_name
-  node_image      = var.node_image
-  wait_for_ready  = true
-  kubeconfig_path = pathexpand("~/.kube/${var.cluster_name}.config")
-
-  kind_config {
-    kind        = "Cluster"
-    api_version = "kind.x-k8s.io/v1alpha4"
-
-    node {
-      role = "control-plane"
-
-      dynamic "extra_mounts" {
-        for_each = local.custom_ca ? [1] : []
-        content {
-          host_path      = var.ca_bundle_path
-          container_path = local.ca_path
-          read_only      = true
-        }
-      }
-    }
-  }
-}
-
 provider "kubernetes" {
-  host                   = kind_cluster.this.endpoint
-  cluster_ca_certificate = kind_cluster.this.cluster_ca_certificate
-  client_certificate     = kind_cluster.this.client_certificate
-  client_key             = kind_cluster.this.client_key
+  config_path    = var.kubeconfig_path
+  config_context = var.kubeconfig_context
 }
 
 provider "helm" {
   kubernetes = {
-    host                   = kind_cluster.this.endpoint
-    cluster_ca_certificate = kind_cluster.this.cluster_ca_certificate
-    client_certificate     = kind_cluster.this.client_certificate
-    client_key             = kind_cluster.this.client_key
+    config_path    = var.kubeconfig_path
+    config_context = var.kubeconfig_context
   }
 }
 

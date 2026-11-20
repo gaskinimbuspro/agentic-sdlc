@@ -1,7 +1,0 @@
-# Local trial cluster for the platform bootstrap. Not a production topology.
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-name: sdlc
-nodes:
-  - role: control-plane
-    image: kindest/node:v1.33.4

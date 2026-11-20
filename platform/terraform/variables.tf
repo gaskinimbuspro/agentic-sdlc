@@ -1,13 +1,12 @@
-variable "cluster_name" {
-  description = "Name of the kind cluster."
+variable "kubeconfig_path" {
+  description = "Kubeconfig of the target cluster, for example the one written by platform/cluster/k3s.sh."
   type        = string
-  default     = "sdlc"
 }
 
-variable "node_image" {
-  description = "Pinned kind node image."
+variable "kubeconfig_context" {
+  description = "Optional context name inside the kubeconfig."
   type        = string
-  default     = "kindest/node:v1.33.4"
+  default     = null
 }
 
 variable "git_repo_url" {
@@ -41,7 +40,7 @@ variable "egress_proxy" {
 }
 
 variable "ca_bundle_path" {
-  description = "Optional CA bundle to trust inside nodes and Argo CD, for a TLS-intercepting proxy. Empty on a normal server."
+  description = "Optional CA bundle that Argo CD must trust, for a TLS-intercepting proxy. Empty on a normal server."
   type        = string
   default     = ""
 }
