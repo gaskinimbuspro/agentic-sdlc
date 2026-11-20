@@ -1,0 +1,18 @@
+{
+  "forgejo_url": "https://forge.example.internal",
+  "owner": "team",
+  "repo": "project",
+  "token_env": "IRIS_FORGEJO_TOKEN",
+  "git_url": "https://forge.example.internal/team/project.git",
+  "base_branch": "main",
+  "labels": {"ready": "ready", "in_progress": "in-progress", "review": "review", "blocked": "blocked"},
+  "builder": ["qwen", "-p", "{prompt}", "--output-format", "json"],
+  "builder_env": ["OPENAI_BASE_URL", "OPENAI_MODEL", "OPENAI_API_KEY"],
+  "check_command": "./scripts/verify.sh",
+  "sandbox": "docker",
+  "image": "registry.local/project-builder@sha256:<digest>",
+  "docker_network": "builder-egress",
+  "wall_time_seconds": 1800,
+  "protected_paths": [".woodpecker.yml", ".woodpecker/*", "AGENTS.md", "scripts/verify.sh"],
+  "log_dir": "/var/lib/iris/project"
+}

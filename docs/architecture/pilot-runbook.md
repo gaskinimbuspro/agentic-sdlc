@@ -82,7 +82,7 @@ If it fails: loops or malformed tool calls point back to Phase 1; a task the mod
 
 ## Phase 3 — Iris: issue to pull request
 
-Write the smallest serial version of Iris for this one repository. It may be started by hand during the pilot. One run:
+Use [Iris](iris.md), the serial coordinator in this repository, configured for the test repository. It may be started by hand during the pilot. One run:
 
 1. Find one issue labelled ready in Forge and relabel it as in progress.
 2. Clone the repository into a fresh sandbox and create a task branch.

@@ -128,6 +128,6 @@ Phases 1 to 4 are described in the [pilot runbook](pilot-runbook.md). Provision 
 | Model (Pythia) | An open-weight model from the Qwen family | Search results indicated that Qwen 3.7 has no open weights; confirm on the publisher's model card. |
 | GPU for the pilot | RunPod, about 48 GB | Chosen. Rates differed between sources; verify on the provider's page. |
 | GPU after the pilot | A fixed-price dedicated server | Decide from pilot utilization. |
-| Coordinator (Iris) | A small script written for the pilot | Not written. Serial only; no exclusive claims or recovery until the parallel stage. |
+| Coordinator (Iris) | [Iris](iris.md), serial | Written and tested against a fake Forgejo and stand-in builders; not run against real services. No exclusive claims or recovery until the parallel stage. |
 | Mirror (Echo) | Forgejo push mirror to GitHub | Interval to be chosen. Forge's own backup is a separate, open task. |
 | Benefit of the split | Hosted Atlas and Argus, local Daedalus | The strongest independent study found gains from planner-executor designs uneven. Measure in the pilot. |
