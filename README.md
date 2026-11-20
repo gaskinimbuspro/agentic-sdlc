@@ -27,6 +27,7 @@ Start with the [planning standard](standards/planning/README.md), then [delivery
 - [Research sources](research/sources.md)
 - [Method comparison criteria](research/comparison-criteria.md)
 - [Research tasks and GitHub links](research/backlog.json)
+- [Agent infrastructure notes: practices and Kubernetes projects](research/2026-11-21-agent-infrastructure-notes.md)
 - [Draft process and architecture diagrams](docs/diagrams/README.md)
 
 ![How the system works](docs/diagrams/04-system-map.png)
