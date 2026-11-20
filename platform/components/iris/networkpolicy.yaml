@@ -1,0 +1,29 @@
+# Daedalus (the builder) may reach DNS and addresses outside the cluster, such
+# as the model server, but nothing inside the cluster: not Forgejo, not the
+# Kubernetes API, not other pods (AS03).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: builder-egress
+  namespace: iris
+spec:
+  podSelector:
+    matchLabels:
+      iris.agentic-sdlc/role: builder
+  policyTypes: [Ingress, Egress]
+  ingress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - {protocol: UDP, port: 53}
+        - {protocol: TCP, port: 53}
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except: [10.0.0.0/8]

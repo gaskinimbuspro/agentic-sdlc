@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import pytest
 
-from backend_standard import iris
+from backend_standard import iris, iris_steps
 
 TOKEN = "test-token-not-a-secret"
 LABELS = {"ready": 1, "in-progress": 2, "review": 3, "blocked": 4}
@@ -462,3 +462,63 @@ def test_checks_receive_no_model_or_git_secret(setup, tmp_path):
     command = iris.sandbox_command(config, tmp_path, ["./verify"], "c", [])
     assert "OPENAI_API_KEY" not in command
     assert set(iris.process_env(tmp_path, [])) == {"PATH", "HOME"}
+
+
+def run_steps(config, work, attempts=3):
+    """Drive the step functions the way the Argo workflow does."""
+    if iris_steps.claim(config, work) == "none":
+        return None
+    iris_steps.prepare(config, work)
+    for attempt in range(1, attempts + 1):
+        iris_steps.build(config, work, attempt)
+        if iris_steps.check(config, work, attempt) != "retry":
+            break
+    iris_steps.guard(config, work)
+    iris_steps.publish(config, work)
+    iris_steps.finish(config, work, "Succeeded")
+    return iris_steps.load_state(work)
+
+
+def test_steps_turn_a_ready_issue_into_a_pull_request(setup, tmp_path):
+    forge, remote, make, _ = setup
+    forge.add_issue(21)
+    state = run_steps(make("broken_then_fix"), tmp_path / "work")
+    assert state["outcome"] == "review" and state["attempts"] == 2
+    assert "iris/issue-21" in remote_branches(remote)
+    assert forge.label_names(21) == ["review"]
+    assert forge.pulls[0]["body"].startswith("Closes #21")
+
+
+def test_steps_block_and_never_push_when_a_guard_fires(setup, tmp_path):
+    forge, remote, make, _ = setup
+    forge.add_issue(22)
+    state = run_steps(make("delete_test"), tmp_path / "work")
+    assert state["outcome"] == "blocked" and "existing tests" in state["reason"]
+    assert remote_branches(remote) == ["main"] and forge.pulls == []
+    assert forge.label_names(22) == ["blocked"]
+
+
+def test_builder_step_cannot_push_from_its_checkout(setup, tmp_path):
+    forge, _, make, _ = setup
+    forge.add_issue(23)
+    config, work = make("commit"), tmp_path / "work"
+    iris_steps.claim(config, work)
+    iris_steps.prepare(config, work)
+    url = run_git(work / "repo", "remote", "get-url", "origin").strip()
+    assert url == "https://invalid.invalid/no-push"
+
+
+def test_finish_reports_a_workflow_that_died_before_deciding(setup, tmp_path):
+    forge, _, make, _ = setup
+    forge.add_issue(24)
+    config, work = make("commit"), tmp_path / "work"
+    iris_steps.claim(config, work)
+    assert iris_steps.finish(config, work, "Failed") == "blocked"
+    assert "status Failed before a decision" in forge.comments[-1][1]
+    assert forge.label_names(24) == ["blocked"]
+
+
+def test_claim_without_ready_issue_leaves_no_state(setup, tmp_path):
+    _, _, make, _ = setup
+    assert iris_steps.claim(make("commit"), tmp_path / "work") == "none"
+    assert iris_steps.finish(make("commit"), tmp_path / "work", "Succeeded") == "idle"

@@ -1,0 +1,32 @@
+# Service account for Iris's workflow pods. Argo's executor only needs to
+# report step results; it gets no other access to the cluster.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: iris-workflow
+  namespace: iris
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: iris-workflow-executor
+  namespace: iris
+rules:
+  - apiGroups: [argoproj.io]
+    resources: [workflowtaskresults]
+    verbs: [create, patch]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: iris-workflow-executor
+  namespace: iris
+subjects:
+  - kind: ServiceAccount
+    name: iris-workflow
+    namespace: iris
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: iris-workflow-executor

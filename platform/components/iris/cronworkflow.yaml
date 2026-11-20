@@ -1,0 +1,15 @@
+# Iris looks for a ready issue every five minutes. The mutex in the template
+# and Forbid here keep it serial. Suspended until a project configures
+# iris-config, iris-forgejo and iris-model.
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: iris
+  namespace: iris
+spec:
+  schedules: ["*/5 * * * *"]
+  concurrencyPolicy: Forbid
+  suspend: true
+  workflowSpec:
+    workflowTemplateRef:
+      name: iris-task

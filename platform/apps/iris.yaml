@@ -1,0 +1,25 @@
+# Argo CD Application: iris. Created by the root application from this directory.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: iris
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: iris
+  source:
+    repoURL: https://github.com/gaskinimbuspro/agentic-sdlc.git
+    targetRevision: claude/nice-dijkstra-2lc88p
+    path: platform/components/iris
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true

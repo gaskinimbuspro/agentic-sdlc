@@ -13,6 +13,7 @@ backend-verify = "backend_standard.runner:main"
 ui-standard = "backend_standard.ui:main"
 operations-standard = "backend_standard.operations:main"
 iris = "backend_standard.iris:main"
+iris-step = "backend_standard.iris_steps:main"
 
 [build-system]
 requires = ["hatchling==1.33.0", "editables==0.5"]

@@ -1,0 +1,166 @@
+# Iris: one ready issue becomes one pull request, or a blocked issue with a reason.
+# Deterministic steps hold the git token; the builder step holds only the model
+# variables; check and guard hold no secret. Every step runs in its own pod.
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: iris-task
+  namespace: iris
+spec:
+  entrypoint: main
+  onExit: finish
+  serviceAccountName: iris-workflow
+  activeDeadlineSeconds: 7200
+  synchronization:
+    mutexes:
+      - name: iris-serial
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  arguments:
+    parameters:
+      - name: image
+        value: localhost/iris:0.1
+      - name: builder-image
+        value: localhost/iris:0.1
+      - name: max-attempts
+        value: "3"
+  volumeClaimTemplates:
+    - metadata:
+        name: work
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 2Gi
+  volumes:
+    - name: config
+      configMap:
+        name: iris-config
+  templates:
+    - name: main
+      steps:
+        - - name: claim
+            template: with-token
+            arguments:
+              parameters: [{name: step, value: claim}]
+        - - name: prepare
+            template: with-token
+            when: "'{{steps.claim.outputs.parameters.result}}' != 'none'"
+            arguments:
+              parameters: [{name: step, value: prepare}]
+        - - name: attempts
+            template: attempt
+            when: "'{{steps.claim.outputs.parameters.result}}' != 'none'"
+            arguments:
+              parameters: [{name: attempt, value: "1"}]
+        - - name: guard
+            template: no-secret
+            when: "'{{steps.claim.outputs.parameters.result}}' != 'none'"
+            arguments:
+              parameters: [{name: step, value: guard}, {name: attempt, value: "1"}]
+        - - name: publish
+            template: with-token
+            when: "'{{steps.claim.outputs.parameters.result}}' != 'none'"
+            arguments:
+              parameters: [{name: step, value: publish}]
+
+    # One build plus check; repeats while checks fail and attempts remain.
+    - name: attempt
+      inputs:
+        parameters:
+          - name: attempt
+      steps:
+        - - name: build
+            template: builder
+            arguments:
+              parameters: [{name: attempt, value: "{{inputs.parameters.attempt}}"}]
+        - - name: check
+            template: no-secret
+            arguments:
+              parameters:
+                - {name: step, value: check}
+                - {name: attempt, value: "{{inputs.parameters.attempt}}"}
+        - - name: repair
+            template: attempt
+            when: >-
+              '{{steps.check.outputs.parameters.result}}' == 'retry' &&
+              {{inputs.parameters.attempt}} < {{workflow.parameters.max-attempts}}
+            arguments:
+              parameters:
+                - name: attempt
+                  value: "{{=asInt(inputs.parameters.attempt) + 1}}"
+
+    - name: with-token
+      inputs:
+        parameters:
+          - name: step
+      container:
+        image: "{{workflow.parameters.image}}"
+        imagePullPolicy: IfNotPresent
+        command: [iris-step, "{{inputs.parameters.step}}", /etc/iris/iris.json,
+                  --work, /work/task, --result-file, /tmp/result]
+        env:
+          - name: IRIS_FORGEJO_TOKEN
+            valueFrom:
+              secretKeyRef: {name: iris-forgejo, key: token}
+        volumeMounts:
+          - {name: work, mountPath: /work}
+          - {name: config, mountPath: /etc/iris, readOnly: true}
+      outputs:
+        parameters:
+          - name: result
+            valueFrom: {path: /tmp/result, default: none}
+
+    - name: builder
+      inputs:
+        parameters:
+          - name: attempt
+      metadata:
+        labels:
+          iris.agentic-sdlc/role: builder
+      container:
+        image: "{{workflow.parameters.builder-image}}"
+        imagePullPolicy: IfNotPresent
+        command: [iris-step, build, /etc/iris/iris.json, --work, /work/task,
+                  --attempt, "{{inputs.parameters.attempt}}"]
+        envFrom:
+          - secretRef: {name: iris-model}
+        volumeMounts:
+          - {name: work, mountPath: /work}
+          - {name: config, mountPath: /etc/iris, readOnly: true}
+
+    - name: no-secret
+      inputs:
+        parameters:
+          - name: step
+          - name: attempt
+      container:
+        image: "{{workflow.parameters.image}}"
+        imagePullPolicy: IfNotPresent
+        command: [iris-step, "{{inputs.parameters.step}}", /etc/iris/iris.json,
+                  --work, /work/task, --attempt, "{{inputs.parameters.attempt}}",
+                  --result-file, /tmp/result]
+        volumeMounts:
+          - {name: work, mountPath: /work}
+          - {name: config, mountPath: /etc/iris, readOnly: true}
+      outputs:
+        parameters:
+          - name: result
+            valueFrom: {path: /tmp/result, default: none}
+
+    - name: finish
+      container:
+        image: "{{workflow.parameters.image}}"
+        imagePullPolicy: IfNotPresent
+        command: [iris-step, finish, /etc/iris/iris.json, --work, /work/task,
+                  --workflow-status, "{{workflow.status}}"]
+        env:
+          - name: IRIS_FORGEJO_TOKEN
+            valueFrom:
+              secretKeyRef: {name: iris-forgejo, key: token}
+        volumeMounts:
+          - {name: work, mountPath: /work}
+          - {name: config, mountPath: /etc/iris, readOnly: true}
