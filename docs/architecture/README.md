@@ -108,9 +108,9 @@ The view marks each step as tried in the sandbox, built but not yet used, or not
 2. Voltran runs the [discovery sequence](../../standards/planning/README.md#discovery-sequence) until every in-scope behavior has an example or an open decision.
 3. Gökhan approves the requirements.
 4. Gökhan approves the architecture and, for a UI, the design packet: every screen, state, action destination and API outcome.
-5. Iris creates the repository and issues in Forge and configures Echo's mirror to GitHub, under the [operation contract](../../standards/agent-delivery/README.md#github-operation-contract).
+5. Voltran writes the [task plan](../../standards/planning/tasks.md) `plan/tasks.json` in a pull request; Cerberus validates it and Gökhan merges it. Cerberus then creates one issue per task with its dependencies: tasks with no open dependency are `ready`, the rest `waiting`, and tasks with an open decision `draft`. Echo's mirror to GitHub is configured once per project.
 6. The project environment is prepared on the platform: Iris's configuration and secrets, builder image, the Woodpecker pipelines and branch protection, the deploy repository and its Argo CD applications ([deployment](#deployment)).
-7. Iris gives the first ready issue to Daedalus; Cerberus checks the pull request.
+7. Iris gives the oldest ready issue to Daedalus; Cerberus checks the pull request. Before each claim, Iris marks `waiting` tasks `ready` once the issues they depend on are closed by merged pull requests.
 8. Argus reviews and Gökhan merges the first change.
 
 ### Task structure

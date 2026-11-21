@@ -191,6 +191,19 @@ class Forgejo:
         self.repo_path = f"/repos/{config.owner}/{config.repo}"
         self.token = config.token
 
+    @classmethod
+    def for_repo(cls, url: str, owner: str, repo: str, token: str) -> Forgejo:
+        """A client without an Iris configuration, for the task plan tools."""
+        if urllib.parse.urlsplit(url).scheme not in {"http", "https"}:
+            raise IrisError("Forgejo URL must use http or https")
+        if not token or any(ord(char) < 33 or ord(char) > 126 for char in token):
+            raise IrisError("Forgejo token is missing or contains invalid characters")
+        client = cls.__new__(cls)
+        client.base = f"{url.rstrip('/')}/api/v1"
+        client.repo_path = f"/repos/{owner}/{repo}"
+        client.token = token
+        return client
+
     def request(self, method: str, path: str, body: object = None) -> Any:
         data = None if body is None else json.dumps(body).encode()
         request = urllib.request.Request(

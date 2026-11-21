@@ -5,6 +5,7 @@ Apply this standard before any implementation task becomes ready. It defines how
 | Document | Purpose |
 | --- | --- |
 | [Discovery questionnaire](discovery.md) | DQ01–DQ06: the mandatory questions, in eleven stages, that the product owner answers and approves |
+| [Task plan](tasks.md) | TP01–TP06: the reviewed plan file that becomes Forgejo issues, and dependency-based readiness |
 | [Requirements](requirements.md) | RQ01–RQ06: how behavior, examples, non-goals and quality targets are written and frozen |
 | [Architecture](architecture.md) | AR01–AR05: views, decision records, boundary selection and automated architecture checks |
 | [Sources](sources.md) | References that inform these controls and the limits of their inspection |

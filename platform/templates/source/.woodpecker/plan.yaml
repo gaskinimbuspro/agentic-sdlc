@@ -1,0 +1,26 @@
+# Task plan (Cerberus): validate plan/tasks.json on every pull request, as a
+# required check; after the owner merges a plan change, turn the plan into
+# Forgejo issues. The planner token can only write issues; it is limited to
+# push events, so pull-request pipelines cannot read it.
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+    path: plan/**
+
+steps:
+  - name: validate
+    image: forgejo-http.forgejo.svc.cluster.local:3000/OWNER/agentic-tools@sha256:<tools digest>
+    commands:
+      - if [ -f plan/tasks.json ]; then planning-standard tasks validate plan/tasks.json; else echo "no task plan in this repository"; fi
+
+  - name: sync
+    image: forgejo-http.forgejo.svc.cluster.local:3000/OWNER/agentic-tools@sha256:<tools digest>
+    when:
+      - event: push
+        branch: main
+    environment:
+      FORGEJO_TOKEN:
+        from_secret: planner_token
+    commands:
+      - planning-standard tasks sync plan/tasks.json --forgejo-url http://forgejo-http.forgejo.svc.cluster.local:3000 --repo "$CI_REPO"

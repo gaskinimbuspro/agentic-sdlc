@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Prepare Forgejo for a project's release path.
+"""Prepare Forgejo for a project's task plan and release path.
 
-    setup_project.py OWNER NAME --tokens DIR
+    setup_project.py OWNER NAME --tokens DIR [--rotate]
 
 Creates, when missing:
 - the deploy repository OWNER/NAME-deploy (private);
 - release-bot (write:package, write:repository) and deploy-reader
-  (read:package, read:repository), each with a fresh token named "ci";
+  (read:package, read:repository), each with a token named "ci";
+- planner-bot (write:issue only), a writer on OWNER/NAME so it can manage the
+  task issues, and the task labels in OWNER/NAME (ready, waiting, draft,
+  in-progress, review, blocked);
 - the teams "release" (write) and "deploy-readers" (read) in OWNER, limited to
   the deploy repository;
 - protection of main in the deploy repository: no direct push except
   overlays/staging/kustomization.yaml; everything else by pull request that
   PRODUCT_OWNER approves and merges.
 
-Tokens are written to DIR/release-bot.token and DIR/deploy-reader.token with
-mode 0600 and never printed. Re-running rotates both tokens.
+Tokens are written to DIR/<bot>.token with mode 0600 and never printed. A
+token is issued only when its file is missing, or for every bot with
+--rotate; after rotating, update every place that holds the old tokens.
 
 Environment: FORGEJO_ADMIN_PASSWORD (required), FORGEJO_URL, FORGEJO_ADMIN,
 PRODUCT_OWNER (default: FORGEJO_ADMIN).
@@ -41,6 +45,15 @@ OWNER_USER = os.environ.get("PRODUCT_OWNER", ADMIN)
 BOTS = {
     "release-bot": ["write:package", "write:repository"],
     "deploy-reader": ["read:package", "read:repository"],
+    "planner-bot": ["write:issue"],
+}
+LABELS = {
+    "ready": "22c55e",
+    "waiting": "a3a3a3",
+    "draft": "e5e7eb",
+    "in-progress": "3b82f6",
+    "review": "8b5cf6",
+    "blocked": "ef4444",
 }
 TEAMS = {
     "release": ("write", "release-bot"),
@@ -91,6 +104,7 @@ def main() -> int:
     parser.add_argument("owner")
     parser.add_argument("name")
     parser.add_argument("--tokens", type=Path, required=True)
+    parser.add_argument("--rotate", action="store_true", help="issue new tokens")
     args = parser.parse_args()
     args.tokens.mkdir(parents=True, exist_ok=True)
     deploy = f"{args.name}-deploy"
@@ -127,6 +141,8 @@ def main() -> int:
                 f"create user {bot}",
             )
             print(f"created user {bot}")
+        if (args.tokens / f"{bot}.token").exists() and not args.rotate:
+            continue
         call("DELETE", f"/users/{bot}/tokens/ci", sudo=bot)
         token = need(
             call(
@@ -168,6 +184,22 @@ def main() -> int:
             call("PUT", f"/teams/{teams[team]}/repos/{args.owner}/{deploy}"),
             f"add repo to {team}",
         )
+
+    source = f"/repos/{args.owner}/{args.name}"
+    need(
+        call("PUT", f"{source}/collaborators/planner-bot", {"permission": "write"}),
+        "add planner-bot to the source repository",
+    )
+    existing = {
+        label["name"]
+        for label in need(call("GET", f"{source}/labels?limit=100"), "list labels")
+    }
+    for label, color in LABELS.items():
+        if label not in existing:
+            need(
+                call("POST", f"{source}/labels", {"name": label, "color": color}),
+                f"create label {label}",
+            )
 
     rule = {
         "rule_name": "main",

@@ -131,6 +131,7 @@ def main():
         ("ui/design-process.md", "UX", 14),
         ("operations/schema-design.md", "DD", 20),
         ("planning/discovery.md", "DQ", 6),
+        ("planning/tasks.md", "TP", 6),
     ):
         found = re.findall(
             rf"^\| ({prefix}\d{{2}}) \|",

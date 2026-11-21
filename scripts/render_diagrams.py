@@ -510,7 +510,7 @@ def project_start():
         ("Idea", "Gökhan", "Describes the product in plain words", "lightbulb", AMBER, None),
         ("Discovery", "Voltran asks · Gökhan answers", "11 stages, each approved before the next", "messages-square", AMBER, "built"),
         ("Specify and design", "Voltran writes · Gökhan approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
-        ("Tasks in Forge", "Voltran plans", "Issues with tests, dependencies, ready label", "square-kanban", PURPLE, "missing"),
+        ("Tasks in Forge", "Voltran plans · Gökhan merges", "Plan file becomes issues; ready when deps merge", "square-kanban", PURPLE, "tried"),
         ("Project setup", "Platform scripts", "Deploy repo · bots · protection · Argo CD", "settings-2", BLUE, "tried"),
         ("Build", "Iris + Daedalus", "One issue, one sandbox, one pull request", "hammer", TEAL, "partly"),
         ("Review and merge", "Cerberus · Argus · Gökhan", "Checks pass, review, only Gökhan merges", "git-merge", TEAL, "partly"),
@@ -548,7 +548,7 @@ def project_start():
         if status:
             label, tone = STATUS[status]
             c.pill(1600, y + 23, label, tone, 13)
-    for n in (1, 2, 6):
+    for n in (1, 2, 3, 6):
         c.icon(486, 198 + n * 88 + 27, "circle-check", AMBER, 22)
     c.rect(64, 920, 1672, 112, "#FFFFFF", BORDER, radius=16)
     c.icon(86, 942, "lock", SLATE, 22)

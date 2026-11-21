@@ -1,0 +1,55 @@
+{
+  "task_plan_standard": "0.1",
+  "project": "customer-portal",
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "Create a customer",
+      "goal": "An operator can create a customer with a unique email address.",
+      "scope": ["POST /customers", "customers table migration"],
+      "non_goals": ["Editing or deleting customers"],
+      "requirement_ids": ["R-01"],
+      "acceptance_criteria": [
+        "A valid request returns 201 with the stored customer",
+        "A duplicate email, compared case-insensitively, returns 409"
+      ],
+      "test_case_ids": ["TC01", "TC03"],
+      "depends_on": [],
+      "allowed_paths": ["src/customers/*", "migrations/*", "tests/customers/*"],
+      "size": "S",
+      "status": "planned"
+    },
+    {
+      "id": "T02",
+      "title": "List customers with paging",
+      "goal": "An operator sees customers in pages of 50, newest first.",
+      "scope": ["GET /customers with keyset paging"],
+      "non_goals": ["Search and filters"],
+      "requirement_ids": ["R-02"],
+      "acceptance_criteria": [
+        "The first page holds at most 50 customers, newest first",
+        "The next-page cursor returns the following customers with no overlap"
+      ],
+      "test_case_ids": ["TC02"],
+      "depends_on": ["T01"],
+      "allowed_paths": ["src/customers/*", "tests/customers/*"],
+      "size": "S",
+      "status": "planned"
+    },
+    {
+      "id": "T03",
+      "title": "Send a welcome email",
+      "goal": "A new customer receives a welcome email.",
+      "scope": ["Email after a successful create"],
+      "non_goals": ["Marketing emails"],
+      "requirement_ids": ["R-05"],
+      "acceptance_criteria": ["Exactly one welcome email is queued per created customer"],
+      "test_case_ids": ["TC04"],
+      "depends_on": ["T01"],
+      "allowed_paths": ["src/notifications/*", "tests/notifications/*"],
+      "size": "M",
+      "status": "draft",
+      "open_decision": "Which email provider, and may customer addresses leave the EU?"
+    }
+  ]
+}

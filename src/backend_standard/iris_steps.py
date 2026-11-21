@@ -39,6 +39,7 @@ from backend_standard.iris import (
     run_builder,
     run_checks,
 )
+from backend_standard.task_plan import ForgejoTracker, label_names, promote
 
 STEPS = ("claim", "prepare", "build", "check", "guard", "publish", "finish")
 
@@ -71,10 +72,29 @@ def _labels(config: Config, forge: Forgejo) -> dict[str, int]:
     return {key: ids[name] for key, name in config.labels.items()}
 
 
+def plan_labels(config: Config) -> dict[str, str]:
+    """Label names for the task plan tools, using Iris's names where they overlap."""
+    return label_names(
+        {
+            "ready": config.labels["ready"],
+            "in-progress": config.labels["in_progress"],
+            "review": config.labels["review"],
+            "blocked": config.labels["blocked"],
+        }.items()
+    )
+
+
 def claim(config: Config, work: Path) -> str:
-    """Take the oldest ready issue. Return its number, or "none"."""
+    """Take the oldest ready issue. Return its number, or "none".
+
+    Waiting tasks whose dependencies are closed become ready first, when the
+    repository uses a task plan (it has a ``waiting`` label).
+    """
     forge = Forgejo(config)
     label = _labels(config, forge)
+    names = plan_labels(config)
+    if names["waiting"] in forge.label_ids():
+        promote(ForgejoTracker(forge, config.owner, config.repo, names))
     issues = forge.ready_issues(config.labels["ready"])
     if not issues:
         return "none"

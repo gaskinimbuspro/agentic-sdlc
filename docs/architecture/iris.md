@@ -9,7 +9,7 @@ Code: [`src/backend_standard/iris.py`](../../src/backend_standard/iris.py) for t
 ## One run
 
 1. Take a host lock so only one Iris runs at a time.
-2. Find the oldest open issue labelled `ready` and relabel it `in-progress`.
+2. If the repository uses a [task plan](../../standards/planning/tasks.md) (it has a `waiting` label), relabel `waiting` issues as `ready` when every issue they depend on is closed. Then find the oldest open issue labelled `ready` and relabel it `in-progress`.
 3. Clone the repository into a fresh temporary workspace and create `iris/issue-<n>`. If that branch already exists on the server, stop; Iris never overwrites one.
 4. Write the prompt: fixed rules first, then the issue text between markers as data. Run the builder in the sandbox with only the listed model variables and a wall-time limit.
 5. Run the project's check command itself, in the same sandbox image without any secret, on the committed state. The builder's own claim of success is not used. If the checks fail, start the builder again with the end of the check output and a progress note, up to `repair_rounds` times (default 2).
@@ -47,7 +47,7 @@ uv run --no-sync iris run-once iris.json
 
 Start from [the example configuration](iris.example.json). `check` verifies the API, repository, labels and builder executable. `run-once` exits 0 when it opened a pull request or found nothing ready, 2 when the issue was blocked and 1 on an error. Run it by hand during the pilot, or from a timer once it behaves.
 
-Create the four labels in the repository first: `ready`, `in-progress`, `review` and `blocked`.
+Create the four labels in the repository first: `ready`, `in-progress`, `review` and `blocked`. A repository with a task plan also has `waiting` and `draft`; [setup_project.py](../../platform/scripts/setup_project.py) creates all six. Add `plan/*` and the pipeline files to `protected_paths`, so the builder cannot change the plan or the checks.
 
 ## Not yet
 

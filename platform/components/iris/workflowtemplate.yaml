@@ -22,9 +22,9 @@ spec:
   arguments:
     parameters:
       - name: image
-        value: localhost/iris:0.3
+        value: localhost/iris:0.4
       - name: builder-image
-        value: localhost/iris:0.3
+        value: localhost/iris:0.4
       - name: max-attempts
         value: "3"
   volumeClaimTemplates:
