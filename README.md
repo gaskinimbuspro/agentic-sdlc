@@ -16,7 +16,7 @@ Start with the [planning standard](standards/planning/README.md), then [delivery
 
 - [Goals and requirements](docs/goals-and-requirements.md)
 - [Target architecture: who does what, where it runs, how a project starts](docs/architecture/README.md)
-- [Planning: requirements and architecture records](standards/planning/README.md)
+- [Planning: discovery questionnaire, requirements and architecture records](standards/planning/README.md)
 - [Backend standard and language profiles](standards/backend/README.md)
 - [UI/UX standard and design readiness](standards/ui/README.md)
 - [Database, platform/GitOps and security standards](standards/operations/README.md)

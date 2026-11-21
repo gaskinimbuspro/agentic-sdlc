@@ -19,6 +19,7 @@ from backend_standard.gates import (
     require,
     text,
 )
+from backend_standard.schema_lint import lint_directory
 
 
 def smoke_names(raw: bytes, expected: dict[str, str]) -> set[str]:
@@ -159,8 +160,21 @@ def main() -> int:
         gate.add_argument("evidence", type=Path)
         gate.add_argument("--policy", type=Path, required=True)
         gate.add_argument("--reports", type=Path, required=True)
+    lint = sub.add_parser("schema-lint")
+    lint.add_argument("directory", type=Path)
     args = parser.parse_args()
     result: dict[str, list[str] | dict[str, int]]
+    if args.command == "schema-lint":
+        try:
+            findings = lint_directory(args.directory)
+        except (OSError, ValueError) as error:
+            reason = {"status": "blocked", "reason": str(error)}
+            print(json.dumps(reason), file=sys.stderr)
+            return 1
+        scope = "static CREATE TABLE checks only"
+        status = "findings" if findings else "clean"
+        print(json.dumps({"status": status, "scope": scope, "findings": findings}))
+        return 1 if findings else 0
     try:
         if args.command == "adoption":
             profiles = verify_adoption(

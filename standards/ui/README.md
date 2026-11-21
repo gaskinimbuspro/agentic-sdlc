@@ -15,6 +15,7 @@ This candidate defines how a project brief becomes explicit user journeys, scree
 | Document | Purpose |
 | --- | --- |
 | [Common rules](common.md) | Mandatory behavior, design, accessibility, security and engineering obligations |
+| [Design process and screen patterns](design-process.md) | UX01–UX14: how screens are decided, approved and frozen, and the patterns each screen follows |
 | [Delivery workflow](delivery-workflow.md) | Inputs/outputs, owners, design acceptance, task breakdown and change policy |
 | [Testing](testing.md) | Test portfolio, environments, evidence, fast feedback and failure policy |
 | [Case matrix](test-case-matrix.md) | Scenario families to select for the actual product |

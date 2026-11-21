@@ -1,0 +1,331 @@
+{
+  "version": "0.1",
+  "stages": [
+    {
+      "id": "S01",
+      "title": "Strategy",
+      "questions": [
+        {
+          "id": "S01-Q01",
+          "text": "Who are the users, and which distinct roles exist?"
+        },
+        {
+          "id": "S01-Q02",
+          "text": "What problem, goal or job does each role have today, and how is it handled now?"
+        },
+        {
+          "id": "S01-Q03",
+          "text": "What is the business objective and how will success be measured?"
+        },
+        {
+          "id": "S01-Q04",
+          "text": "Which statements above are evidence and which are assumptions?"
+        },
+        {
+          "id": "S01-Q05",
+          "text": "What are the riskiest assumptions and how will they be tested?"
+        },
+        {
+          "id": "S01-Q06",
+          "text": "What constraints apply: budget, deadline, client environment, regulation?"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "Scope and MVP",
+      "questions": [
+        {
+          "id": "S02-Q01",
+          "text": "Which single end-to-end journey must the first release complete?"
+        },
+        {
+          "id": "S02-Q02",
+          "text": "Which activities and tasks are in the first release?"
+        },
+        {
+          "id": "S02-Q03",
+          "text": "Which features are explicitly excluded from the first release?"
+        },
+        {
+          "id": "S02-Q04",
+          "text": "What content or data must each task show or collect, and why is each field needed?"
+        },
+        {
+          "id": "S02-Q05",
+          "text": "Which regulatory, contractual or other non-negotiable requirements apply?"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "Roles and access",
+      "questions": [
+        {
+          "id": "S03-Q01",
+          "text": "How do users sign in: method, identity provider, password reset and session lifetime?"
+        },
+        {
+          "id": "S03-Q02",
+          "text": "What can each role see and do, as a role-to-capability matrix?"
+        },
+        {
+          "id": "S03-Q03",
+          "text": "How are users and roles created, changed and removed?"
+        },
+        {
+          "id": "S03-Q04",
+          "text": "Is the product multi-tenant, and what separates one tenant's data from another's?"
+        },
+        {
+          "id": "S03-Q05",
+          "text": "What happens on sign-out, session expiry and a denied action?"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "Journeys",
+      "questions": [
+        {
+          "id": "S04-Q01",
+          "text": "What are the main journeys for each role, step by step?"
+        },
+        {
+          "id": "S04-Q02",
+          "text": "What is the concrete example (given, when, then) for each step that changes data?"
+        },
+        {
+          "id": "S04-Q03",
+          "text": "What are the failure, empty, permission-denied and cancel branches of each journey?"
+        },
+        {
+          "id": "S04-Q04",
+          "text": "Which steps are irreversible or destructive?"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "Information architecture and navigation",
+      "questions": [
+        {
+          "id": "S05-Q01",
+          "text": "What are the top-level destinations and their labels?"
+        },
+        {
+          "id": "S05-Q02",
+          "text": "Which destinations does each role reach, as a role-to-destination matrix?"
+        },
+        {
+          "id": "S05-Q03",
+          "text": "Which navigation pattern is used on wide and narrow screens?"
+        },
+        {
+          "id": "S05-Q04",
+          "text": "What is the first screen after sign-in for each role?"
+        },
+        {
+          "id": "S05-Q05",
+          "text": "How do deep links, refresh and browser back behave?"
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "Screen specifications",
+      "questions": [
+        {
+          "id": "S06-Q01",
+          "text": "What is the complete screen inventory, each mapped to a journey step?"
+        },
+        {
+          "id": "S06-Q02",
+          "text": "What does each screen show, in priority order?"
+        },
+        {
+          "id": "S06-Q03",
+          "text": "For each table: identifier column, column order, sorting, filters, row and batch actions?"
+        },
+        {
+          "id": "S06-Q04",
+          "text": "For each form: fields, which are required, validation rules, when validation runs and the error messages?"
+        },
+        {
+          "id": "S06-Q05",
+          "text": "What are the loading, empty, error, unauthorized and forbidden states of each screen?"
+        },
+        {
+          "id": "S06-Q06",
+          "text": "Where does each action lead and which backend operation does it call?"
+        },
+        {
+          "id": "S06-Q07",
+          "text": "Which actions need confirmation, and is undo possible instead?"
+        },
+        {
+          "id": "S06-Q08",
+          "text": "Has the product owner approved the clickable prototype, and where are the approved screenshots stored?"
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "Visual design",
+      "questions": [
+        {
+          "id": "S07-Q01",
+          "text": "Which design system or component library is adopted or adapted?"
+        },
+        {
+          "id": "S07-Q02",
+          "text": "What are the spacing base unit, type scale and colour tokens?"
+        },
+        {
+          "id": "S07-Q03",
+          "text": "Do text and control colour pairs meet the chosen contrast level?"
+        },
+        {
+          "id": "S07-Q04",
+          "text": "Which browsers, devices, languages and text directions are supported?"
+        },
+        {
+          "id": "S07-Q05",
+          "text": "What accessibility level applies and who performs the manual evaluation?"
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "Data model",
+      "questions": [
+        {
+          "id": "S08-Q01",
+          "text": "Which module owns each entity, and who writes and reads it?"
+        },
+        {
+          "id": "S08-Q02",
+          "text": "What are the entities, relationships and cardinalities?"
+        },
+        {
+          "id": "S08-Q03",
+          "text": "For each relationship, is the child part of the parent or independent, and what happens on delete?"
+        },
+        {
+          "id": "S08-Q04",
+          "text": "What are the attributes of each entity, with type class, optionality and the meaning of an absent value?"
+        },
+        {
+          "id": "S08-Q05",
+          "text": "What are the natural keys and their uniqueness scope, including case rules?"
+        },
+        {
+          "id": "S08-Q06",
+          "text": "Which value sets are closed and who may change them?"
+        },
+        {
+          "id": "S08-Q07",
+          "text": "How are money, time zones and rounding handled?"
+        },
+        {
+          "id": "S08-Q08",
+          "text": "What history is kept: current state only, audit trail, soft delete?"
+        },
+        {
+          "id": "S08-Q09",
+          "text": "Which columns hold personal or sensitive data, and what are the retention and erasure rules?"
+        },
+        {
+          "id": "S08-Q10",
+          "text": "What is the tenancy model and how is isolation enforced?"
+        },
+        {
+          "id": "S08-Q11",
+          "text": "What are the main read and write queries and their expected volumes?"
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "title": "Backend and architecture decisions",
+      "questions": [
+        {
+          "id": "S09-Q01",
+          "text": "Which language and framework are used, and why if not the default?"
+        },
+        {
+          "id": "S09-Q02",
+          "text": "How many deployable units are there, and what justifies each beyond the first?"
+        },
+        {
+          "id": "S09-Q03",
+          "text": "What are the module boundaries and which rules are enforced by checks?"
+        },
+        {
+          "id": "S09-Q04",
+          "text": "What is the API contract: operations, errors, pagination and compatibility?"
+        },
+        {
+          "id": "S09-Q05",
+          "text": "Which external systems are integrated, and how do timeouts and failures behave?"
+        },
+        {
+          "id": "S09-Q06",
+          "text": "How are business rules organised, and what justifies anything beyond simple service functions?"
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "title": "Quality, security and privacy targets",
+      "questions": [
+        {
+          "id": "S10-Q01",
+          "text": "What are the measurable performance and availability targets and their environment?"
+        },
+        {
+          "id": "S10-Q02",
+          "text": "What are the main abuse cases and the mitigation for each?"
+        },
+        {
+          "id": "S10-Q03",
+          "text": "Which personal data is processed, for what purpose and on what recorded basis?"
+        },
+        {
+          "id": "S10-Q04",
+          "text": "Which AI or model providers receive project content, and what do they receive?"
+        },
+        {
+          "id": "S10-Q05",
+          "text": "Which test cases are mandatory for the first release?"
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "title": "Delivery and operations",
+      "questions": [
+        {
+          "id": "S11-Q01",
+          "text": "Where does the product run and who authorizes a release?"
+        },
+        {
+          "id": "S11-Q02",
+          "text": "What are the recovery objectives and the backup and restore plan?"
+        },
+        {
+          "id": "S11-Q03",
+          "text": "What is monitored and who responds to an alert?"
+        },
+        {
+          "id": "S11-Q04",
+          "text": "What is the first task list, in order, with dependencies?"
+        },
+        {
+          "id": "S11-Q05",
+          "text": "Which decisions remain open, who owns each and by when?"
+        }
+      ]
+    }
+  ]
+}

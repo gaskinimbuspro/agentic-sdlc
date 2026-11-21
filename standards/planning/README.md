@@ -4,13 +4,14 @@ Apply this standard before any implementation task becomes ready. It defines how
 
 | Document | Purpose |
 | --- | --- |
+| [Discovery questionnaire](discovery.md) | DQ01–DQ06: the mandatory questions, in eleven stages, that the product owner answers and approves |
 | [Requirements](requirements.md) | RQ01–RQ06: how behavior, examples, non-goals and quality targets are written and frozen |
 | [Architecture](architecture.md) | AR01–AR05: views, decision records, boundary selection and automated architecture checks |
 | [Sources](sources.md) | References that inform these controls and the limits of their inspection |
 
 ## Discovery sequence
 
-1. The human states the idea, the users and the outcome that matters. The Architect/Planner asks questions until every in-scope behavior has a concrete example or an explicit open decision. The human answers product and material risk questions; the Planner does not guess them.
+1. The human states the idea. The Architect/Planner works through the [discovery questionnaire](discovery.md) stage by stage; the human answers product and material risk questions and approves each stage. The Planner does not guess answers.
 2. The Planner writes the requirements under RQ01–RQ06 and the human accepts them. Open decisions stay visible and keep the affected work in `draft`.
 3. The Planner records architecture under AR01–AR05 and, where a UI exists, prepares the [design packet](../ui/README.md). The human accepts material trade-offs.
 4. The Planner splits accepted requirements into bounded tasks using the existing [task packet](../backend/templates/task-packet.template.json). The Coordinator dispatches only ready packets.

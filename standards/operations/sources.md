@@ -39,3 +39,19 @@ Identified through search summaries on 16 November 2026. The network policy of t
 - Republic of Türkiye, Personal Data Protection Authority, [Law No. 6698 (KVKK)](https://www.kvkk.gov.tr/). The Turkish personal data protection law. Relevant to projects processing personal data in Türkiye.
 - European Union, [Artificial Intelligence Act, Regulation (EU) 2024/1689](https://eur-lex.europa.eu/eli/reg/2024/1689/oj). Risk-based obligations for AI systems. Informs the classification question in PV05; classification is a legal determination.
 - NIST, [AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework), and ISO/IEC [42001](https://www.iso.org/standard/42001), AI management systems. Voluntary governance frameworks. Inform PV05.
+
+### Schema design
+
+Read in full on 21 November 2026 unless marked. Books are cited by title only where marked; their chapter content was not read and no rule depends on it alone.
+
+- Pramod Sadalage and Martin Fowler, [Evolutionary Database Design](https://martinfowler.com/articles/evodb.html); Danilo Sato, [ParallelChange](https://martinfowler.com/bliki/ParallelChange.html). Versioned migrations of schema and data; expand, migrate, contract. Inform DD09 and DD19.
+- Martin Fowler, [IntegrationDatabase](https://martinfowler.com/bliki/IntegrationDatabase.html) and [Optimistic Offline Lock](https://martinfowler.com/eaaCatalog/optimisticOfflineLock.html); Chris Richardson, [Database per service](https://microservices.io/patterns/data/database-per-service.html). Inform DD06 and DD18.
+- PostgreSQL Global Development Group, PostgreSQL 18 documentation: [constraints](https://www.postgresql.org/docs/18/ddl-constraints.html), [data types](https://www.postgresql.org/docs/18/datatype.html), [row security](https://www.postgresql.org/docs/18/ddl-rowsecurity.html), [ALTER TABLE](https://www.postgresql.org/docs/18/sql-altertable.html), [CREATE INDEX](https://www.postgresql.org/docs/18/sql-createindex.html). The site announced version 19 on 19 November 2026; this standard still pins 18.
+- PostgreSQL wiki, [Don't Do This](https://wiki.postgresql.org/wiki/Don't_Do_This). Informs DD01, DD03, DD08, DD10, DD11, DD15 and DD18.
+- IETF, [RFC 9562: Universally Unique IDentifiers](https://www.rfc-editor.org/rfc/rfc9562). Informs DD03.
+- Markus Winand, [Use The Index, Luke](https://use-the-index-luke.com/), including [no offset](https://use-the-index-luke.com/no-offset). Informs DD17 and DD18.
+- William Kent, [A Simple Guide to Five Normal Forms in Relational Database Theory](https://www.bkent.net/Doc/simple5.htm), 1983; E. F. Codd, "A Relational Model of Data for Large Shared Data Banks", 1970 (normal form section read from a mirror). Inform DD15 and DD16.
+- Simon Holywell, [SQL Style Guide](https://www.sqlstyle.guide/). Informs DD01; some of its advice differs from PostgreSQL practice and is not adopted.
+- AWS, [Multi-tenant data isolation with PostgreSQL Row Level Security](https://aws.amazon.com/blogs/database/multi-tenant-data-isolation-with-postgresql-row-level-security/). Informs DD13.
+- GitLab, [Migration Style Guide](https://docs.gitlab.com/development/migration_style_guide/); [squawk rules](https://squawkhq.com/docs/rules). Inform DD19.
+- Bill Karwin, *SQL Antipatterns, Volume 1* (Pragmatic Bookshelf, 2022): **table of contents only**. Scott Ambler and Pramod Sadalage, *Refactoring Databases* (2006): **catalog entry names only**. They name the shapes in DD12 and DD15.

@@ -81,3 +81,39 @@ European Union, [Directive (EU) 2019/882, European Accessibility Act](https://eu
 ## SUI19
 
 W3C Internationalization Activity, [Localization vs. Internationalization](https://www.w3.org/International/questions/qa-i18n). Designing so that content can be adapted to languages, scripts and regions, including text direction. Informs the language and direction decision.
+
+## Additions of 21 November 2026
+
+Read in full on 21 November 2026 unless marked. Books by Alan Cooper, Don Norman, Steve Krug and Jeff Patton could not be opened and no rule here depends on them.
+
+## SUI20
+
+Jesse James Garrett, *The Elements of User Experience* diagram, 30 March 2000 (read from a university mirror; the author's site was unreachable). Five planes from strategy to surface. Garrett states the model "does not describe a development process".
+
+## SUI21
+
+Nielsen Norman Group: [IA vs. Navigation](https://www.nngroup.com/articles/ia-vs-navigation/), [Left-Side Vertical Navigation](https://www.nngroup.com/articles/vertical-nav/), [Tabs, Used Right](https://www.nngroup.com/articles/tabs-used-right/), [Wireflows](https://www.nngroup.com/articles/wireflows/), [UX Prototypes: Low Fidelity vs. High Fidelity](https://www.nngroup.com/articles/ux-prototype-hi-lo-fidelity/). Several were read as summaries and headings only.
+
+## SUI22
+
+Nielsen Norman Group: [Data Tables: Four Major User Tasks](https://www.nngroup.com/articles/data-tables/), [Designing Empty States in Complex Applications](https://www.nngroup.com/articles/empty-state-interface-design/), [Progress Indicators](https://www.nngroup.com/articles/progress-indicators/), [Skeleton Screens 101](https://www.nngroup.com/articles/skeleton-screens/), [Confirmation Dialogs](https://www.nngroup.com/articles/confirmation-dialog/), [Indicators, Validations, and Notifications](https://www.nngroup.com/articles/indicators-validations-notifications/), [Error-Message Guidelines](https://www.nngroup.com/articles/error-message-guidelines/).
+
+## SUI23
+
+GOV.UK, [Recover from validation errors](https://design-system.service.gov.uk/patterns/validation/) and [Structuring forms](https://www.gov.uk/service-manual/design/form-structure); Luke Wroblewski, [Inline Validation in Web Forms](https://alistapart.com/article/inline-validation-in-web-forms/). They disagree on when to validate: GOV.UK validates on submit unless research supports inline; Wroblewski's small study favoured inline validation for difficult fields. UX07 requires the project to record its choice.
+
+## SUI24
+
+IBM Carbon Design System patterns: [empty states](https://carbondesignsystem.com/patterns/empty-states-pattern/), [loading](https://carbondesignsystem.com/patterns/loading-pattern/), [notifications](https://carbondesignsystem.com/patterns/notification-pattern/), [dialogs](https://carbondesignsystem.com/patterns/dialog-pattern/).
+
+## SUI25
+
+[shadcn/ui](https://ui.shadcn.com/docs) documentation and changelog. Component source is copied into the consuming repository; its primitives handle focus and keyboard behavior, while contrast, labels and composition remain the project's responsibility. Choosing it as the default base is our policy.
+
+## SUI26
+
+Design Tokens Community Group, [Design Tokens Format Module 2025.10](https://www.designtokens.org/TR/2025.10/format/), a W3C Community Group Final Report, not a W3C Recommendation. Atlassian, [Spacing](https://atlassian.design/foundations/spacing). This supersedes the status note in SUI17.
+
+## SUI27
+
+Nielsen Norman Group, [How to Conduct a Heuristic Evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/): independent evaluators; not a replacement for user research. Vendor documentation and terms for AI design tools, including Polymet, were read for the [research record](../../research/2026-11-21-ui-and-database-design-research.md).

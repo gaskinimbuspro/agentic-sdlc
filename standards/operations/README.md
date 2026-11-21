@@ -5,6 +5,7 @@ Adopt this standard alongside the [backend](../backend/README.md) and [UI](../ui
 | Domain | Standard | Reference evidence |
 | --- | --- | --- |
 | Database operations | [Database lifecycle and PostgreSQL profile](database.md) | Versioned migration history, engine constraints, real HTTP/PostgreSQL acceptance and an isolated logical restore drill |
+| Schema design | [Relational schema design](schema-design.md) | DD01–DD20; a static lint for part of it, shown against the reference migrations |
 | Platform and GitOps | [Platform delivery and recovery](platform.md) | Artifact identity, promotion/reconciliation decisions, observed revision and smoke evidence |
 | Security | [Security and supply chain](security.md) | Threat/risk decisions, dependency and secret checks, provenance verification, isolation and negative tests |
 | Reliability | [Reliability, telemetry and progressive delivery](reliability.md) | Specified controls RL01–RL06; not exercised by the reference |

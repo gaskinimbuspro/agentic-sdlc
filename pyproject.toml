@@ -12,6 +12,7 @@ backend-standard = "backend_standard.cli:main"
 backend-verify = "backend_standard.runner:main"
 ui-standard = "backend_standard.ui:main"
 operations-standard = "backend_standard.operations:main"
+planning-standard = "backend_standard.discovery:main"
 iris = "backend_standard.iris:main"
 iris-step = "backend_standard.iris_steps:main"
 
