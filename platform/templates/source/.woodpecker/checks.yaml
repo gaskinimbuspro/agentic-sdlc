@@ -1,0 +1,12 @@
+# Required pull-request checks (Cerberus). The same script Iris runs before it
+# opens a pull request; this run is the trusted one.
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+
+steps:
+  - name: verify
+    image: docker.io/library/python:3.12-alpine
+    commands:
+      - sh scripts/verify.sh

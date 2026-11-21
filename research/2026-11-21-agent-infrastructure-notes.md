@@ -143,3 +143,12 @@ Sections 2 and 3 (READMEs read in full where noted above; the rest from search s
 - kagent: [CNCF project page](https://www.cncf.io/projects/kagent/), [CNCF introduction](https://www.cncf.io/blog/2025/04/15/kagent-bringing-agentic-ai-to-cloud-native/), [DEV detail](https://dev.to/spanobserver/kagent-ai-agents-kubernetes-the-framework-in-detail-533g).
 - Kueue and KServe: [MLflow serving guide](https://mlflow.org/articles/the-role-of-kubernetes-in-ai-serving-2026-guide/), [GPU scheduling overview](https://kaden-projects.com/blog/kubernetes-gpu-scheduling-dra-dynamic-resource-allocation/), [Kubernetes GPU guide](https://kubezilla.io/kubernetes-gpu-guide/).
 - Background agents, read in full: [Upstash: seven infrastructure layers](https://upstash.com/blog/how-background-coding-agents-keep-working), [Addy Osmani: long-running agents](https://www.oreilly.com/radar/long-running-agents/). From search summaries only: [Reason Machines guide](https://reasonmachines.com/guides/background-coding-agents), [Rerun: background agents](https://rerun.build/blog/background-agents).
+
+## Observed in the sandbox trial, 21 November
+
+These are our observations on a temporary cluster, not vendor claims; details are in the [platform trial](../platform/README.md#what-was-tested-and-where).
+
+- Forgejo branch protection can require the Woodpecker status context (`ci/woodpecker/pr/<workflow>`), which the Forgejo page read above did not describe. Required approval does not by itself stop the pull request author from merging; a merge allow-list does.
+- Forgejo's `unprotected_file_patterns` lets an identity without push rights push changes that touch only the listed files. This gives the release bot a direct path to the staging overlay while every other change, prod included, needs a pull request.
+- A Woodpecker secret limited to push events is refused to pull-request pipelines with an explicit error, so agent-written pipeline changes cannot read the release token before a merge.
+- The Woodpecker kaniko plugin now ships the osscontainertools fork of kaniko and accepts `extra_opts`, which carries `--digest-file` for recording the built digest.

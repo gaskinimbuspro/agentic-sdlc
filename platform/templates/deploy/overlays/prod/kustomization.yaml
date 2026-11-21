@@ -1,0 +1,7 @@
+# prod. The image digest is the only field the release pipeline changes.
+resources:
+  - ../../base
+images:
+  - name: NAME
+    newName: forgejo-http.forgejo.svc.cluster.local:3000/OWNER/NAME
+    digest: sha256:0000000000000000000000000000000000000000000000000000000000000000

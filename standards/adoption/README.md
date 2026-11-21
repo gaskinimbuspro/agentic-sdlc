@@ -5,7 +5,7 @@ Apply the [planning](../planning/README.md), [backend](../backend/README.md), [U
 | Profile ID | Binding | Prerequisite for acceptance |
 | --- | --- | --- |
 | `identity` | [OIDC, API authorization and browser sessions](identity.md) | Registered provider, HTTPS callback, measured session and key lifecycle, and tenant authorization evidence |
-| `gitops` | [Flux and Kubernetes rollout](gitops.md) | Approved target, pinned controller, observed revisions and digests, and drift, failure and recovery drills |
+| `gitops` | [Argo CD and Kubernetes rollout](gitops.md) | Approved target, pinned controller, observed revisions and digests, and drift, failure and recovery drills |
 | `github` | [GitHub App dispatch and task evidence](github.md) | Restricted app installation, durable delivery handling, write reconciliation and separately protected integration authorization |
 | `accessibility` | [Manual accessibility and visual acceptance](accessibility.md) | Qualified evaluator, approved scope and environment matrix, dated observations and reviewed visual baselines |
 | `remote` | [Remote operations and Hetzner pilot](../../docs/remote-execution.md) | Authorized disposable target, uninterrupted observation coverage, verified off-host restore and measured operating decision |

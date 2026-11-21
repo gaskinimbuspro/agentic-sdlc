@@ -11,7 +11,7 @@ Every role in the [target architecture](README.md) has a name and an icon, so th
 | **Argus** | Reviewer | Claude, in a separate session from Atlas | Reviews each pull request against the requirements and examples | Approves its own work, merges |
 | **Iris** | Coordinator | A small Python program, run step by step by Argo Workflows ([details](iris.md)) | Picks a ready issue, opens a sandbox, starts Daedalus with time and attempt limits, pushes the branch, opens the pull request | Makes product or design decisions; it is not a model |
 | **Daedalus** | Builder | Qwen Code driving a Qwen model, one sandbox per task | Implements one task with its tests, runs them, repairs failures, commits locally | Chooses tasks, pushes, holds git server credentials, changes its own rules |
-| **Cerberus** | CI gate | Tekton Pipelines on the work server's cluster | Runs the required checks on every pull request in a clean container | Gives opinions or waives a failure |
+| **Cerberus** | CI gate and release | Woodpecker on the work server's cluster, each step a pod | Runs the required checks on every pull request in a clean container; after a merge builds the image once and sets the staging digest | Gives opinions, waives a failure or deploys to the cluster |
 | **Pythia** | Model server | vLLM on a rented GPU | Serves the pinned Qwen model to Daedalus behind an API key | Holds source code or git credentials |
 | **Echo** | Mirror | Forgejo's push mirror | Copies project code to GitHub on a schedule as a backup | Carries issues, pull requests or CI; nobody develops on the copy |
 
@@ -23,7 +23,8 @@ Every role in the [target architecture](README.md) has a name and an icon, so th
 | --- | --- | --- |
 | Iris | A Forgejo token for the project repositories: read issues, push task branches, open pull requests | Merge rights, GitHub credentials, production access |
 | Daedalus | The model API key, inside its sandbox only | Any git server token |
-| Cerberus | Read access to the repository it tests | Write access to protected branches, production access |
+| Cerberus | Read access to the repository it tests; on main only, the release token (registry push, staging overlay of the deploy repository) | Write access to protected branches, the prod overlay, cluster credentials |
+| Argo CD (deployer, not a character) | Read-only access to deploy repositories; the only identity that changes the cluster | Write access to any repository |
 | Echo | A GitHub token limited to the mirror repositories | Anything else |
 | Gökhan | Merge rights on protected branches | — |
 

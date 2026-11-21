@@ -1,6 +1,6 @@
 # Target architecture
 
-Status: **proposed, not installed**. This document describes how the method is intended to run on real projects. No server has been ordered, no program written for it is running and no agent has executed a task under it. Tool, model, provider and price statements are candidates to verify in the [pilot](pilot-runbook.md); see [open decisions](#open-decisions-and-unverified-assumptions).
+Status: **proposed; parts tried in a sandbox**. This document describes how the method is intended to run on real projects. No server has been ordered and no model-driven agent has executed a task under it. The platform, Iris with a stand-in builder, the pull-request gate and the release path to staging and prod were exercised in a temporary sandbox cluster; see the [platform trial](../../platform/README.md#what-was-tested-and-where). Tool, model, provider and price statements are candidates to verify in the [pilot](pilot-runbook.md); see [open decisions](#open-decisions-and-unverified-assumptions).
 
 The actors have names; see [the cast](cast.md).
 
@@ -15,7 +15,7 @@ The actors have names; see [the cast](cast.md).
 | Argus (Claude, separate session) | Reviewer | Reviews each pull request against the requirements and examples | Review its own work, merge |
 | Iris (a program, not a model) | Coordinator | Picks ready issues, opens sandboxes, starts Daedalus with limits, pushes branches, opens pull requests | Decide product behavior, judge design quality |
 | Daedalus (Qwen Code + Qwen model) | Builder | Implements one task with its tests in an isolated sandbox | Pick tasks, push, change requirements, workflows or its own permissions |
-| Cerberus (Tekton) | CI gate | Runs the required checks on each pull request | Give opinions |
+| Cerberus (Woodpecker) | CI gate and release | Runs the required checks on each pull request; after a merge builds the image once and sets its digest for staging | Give opinions, deploy to the cluster |
 
 The split follows the existing [role contract](../../standards/backend/agent-contract.md). Reviewing with a different model from the one that implements reduces shared mistakes; it does not replace the gates.
 
@@ -48,11 +48,11 @@ Iris is deliberately not a model. A model given the git token and the task queue
 | Place | Runs | Must not hold |
 | --- | --- | --- |
 | GPU server (RunPod for the pilot) | Pythia: vLLM serving the pinned model behind an API key ([AS08](../../standards/agent-delivery/security.md)) | Source code, git credentials |
-| Work server, no GPU | A k3s cluster installed by [platform bootstrap](../../platform/README.md): Argo CD, Forge (Forgejo), Cerberus (Tekton), Iris on Argo Workflows with one pod per step, preview deployments |  Production credentials; git tokens inside a sandbox |
+| Work server, no GPU | A k3s cluster installed by [platform bootstrap](../../platform/README.md): Argo CD, Forge (Forgejo), Cerberus (Woodpecker, steps as pods), Iris on Argo Workflows with one pod per step, staging and prod namespaces deployed by Argo CD |  Production credentials; git tokens inside a sandbox |
 | GitHub | The agentic-sdlc standards repository, and Echo's mirror copies of project code | Project CI, pull requests or issues |
 | Claude | Atlas and Argus, called when needed | Standing access to the servers |
 
-Each sandbox has an outbound allowlist ([AS03](../../standards/agent-delivery/security.md)). The `kind` cluster is for tests and previews; it is not a production target. Production deployment uses the project's own [GitOps profile](../../standards/adoption/gitops.md).
+Each sandbox has an outbound allowlist ([AS03](../../standards/agent-delivery/security.md)). The work-server cluster is for staging and the trial; real production uses its own cluster under the [GitOps profile](../../standards/adoption/gitops.md), with the same deploy-repository flow.
 
 ## Source of truth and mirroring
 
@@ -72,11 +72,29 @@ Rules:
 
 ![Two loops](../diagrams/09-two-loops.png)
 
-**Inner loop, minutes, inside the sandbox.** Daedalus edits code, runs the same check scripts the project uses in CI, builds the image, pushes it to the local registry and deploys it to a preview in `kind`. Gökhan or a tester can open the preview at once. Nothing in this loop waits for CI.
+**Inner loop, minutes, inside the sandbox.** Daedalus edits code, runs the same check scripts the project uses in CI, and, once previews are built, deploys the change to a short-lived preview namespace that Gökhan or a tester can open at once. Nothing in this loop waits for CI.
 
 **Outer loop, acceptance.** Iris pushes the branch and opens a pull request in Forge. Cerberus runs the same scripts in a clean container. Argus reviews. Forge's branch protection blocks the merge until the checks pass and Gökhan approves.
 
-The check logic lives in scripts in the repository, as with this repository's `backend-verify`. The Tekton pipeline only calls them. The same command therefore runs in the sandbox, in CI and on a laptop, and replacing the CI tool or the git server does not change the checks.
+The check logic lives in scripts in the repository, as with this repository's `backend-verify`. The Woodpecker pipeline only calls them. The same command therefore runs in the sandbox, in CI and on a laptop, and replacing the CI tool or the git server does not change the checks.
+
+## Deployment
+
+Agents propose changes; pipelines build; only Argo CD changes the cluster. Nobody else, and no agent, holds cluster credentials.
+
+| Step | Who | What happens |
+| --- | --- | --- |
+| 1 | Iris | Opens a pull request in the source repository |
+| 2 | Cerberus | Runs the required check; Forgejo shows the status on the pull request |
+| 3 | Argus, then Gökhan | Review; Gökhan approves and merges. Agents cannot merge and nobody pushes to main |
+| 4 | Cerberus | On main, after the check passes again: builds the image once, records its digest, writes the digest into `overlays/staging` of the deploy repository |
+| 5 | Argo CD | Syncs staging from the deploy repository |
+| 6 | Release bot, then Gökhan | A pull request in the deploy repository copies the staging digest to `overlays/prod`; Gökhan approves and merges after checking staging |
+| 7 | Argo CD | Syncs prod; the running digest is the one built in step 4 |
+
+The release token is a Woodpecker secret limited to push events, so pipelines started by a pull request cannot read it. The deploy repository lets the release bot push only the staging overlay; every other change needs Gökhan's approval and merge. Templates and scripts are in [platform/templates](../../platform/templates/README.md).
+
+Not built yet: pull-request preview environments, schema migrations as a pre-sync job, a secrets manager for application secrets, and an automated staging smoke test before the prod pull request.
 
 ## How a project starts
 
@@ -87,7 +105,7 @@ The check logic lives in scripts in the repository, as with this repository's `b
 3. Gökhan approves the requirements.
 4. Gökhan approves the architecture and, for a UI, the design packet: every screen, state, action destination and API outcome.
 5. Iris creates the repository and issues in Forge and configures Echo's mirror to GitHub, under the [operation contract](../../standards/agent-delivery/README.md#github-operation-contract).
-6. The project environment is prepared on the platform: Iris's configuration and secrets, builder image, preview route, Tekton pipeline.
+6. The project environment is prepared on the platform: Iris's configuration and secrets, builder image, the Woodpecker pipelines and branch protection, the deploy repository and its Argo CD applications ([deployment](#deployment)).
 7. Iris gives the first ready issue to Daedalus; Cerberus checks the pull request.
 8. Argus reviews and Gökhan merges the first change.
 
@@ -111,19 +129,20 @@ Start with one Daedalus and one Argus, working serially, until gates and evidenc
 | --- | --- | --- |
 | 0. Decide | Model, provider account and budget | Recorded decisions with verified prices |
 | 1. Pythia | vLLM on a rented GPU, authenticated | A scripted prompt and a tool call return; an unauthenticated request is refused |
-| 2. Work server | Forge, Cerberus, Echo, sandbox runtime, registry, `kind`; Daedalus connected to Pythia | Daedalus completes a trivial task in a sandbox with no host access; a failing check blocks a merge |
+| 2. Work server | Forge, Cerberus, Echo, sandbox runtime, registry, k3s; Daedalus connected to Pythia | Daedalus completes a trivial task in a sandbox with no host access; a failing check blocks a merge |
 | 3. Iris | The serial coordinator script for one repository | One issue becomes a reviewed pull request with nobody editing the branch |
 | 4. Pilot | One small real project from idea to accepted change | Measured under [ME01–ME04](../../standards/agent-delivery/measurement.md) |
 | 5. Scale | Parallel builders and a fixed-price GPU if the numbers justify it | Reviewed capacity, cost and defect comparison |
 
-Phases 1 to 4 are described in the [pilot runbook](pilot-runbook.md). Provision cloud resources with Terraform and configure servers with a configuration tool, so the environment can be rebuilt. No infrastructure code exists in this repository yet.
+Phases 1 to 4 are described in the [pilot runbook](pilot-runbook.md). The work-server platform is installed from [platform/](../../platform/README.md) with Terraform and Argo CD, so it can be rebuilt; the GPU server is not automated yet.
 
 ## Open decisions and unverified assumptions
 
 | Topic | Choice | Status |
 | --- | --- | --- |
 | Git server (Forge) | Forgejo | Chosen by the product owner. Installed and exercised in the [platform trial](../../platform/README.md#what-was-tested-and-where). Push mirror and branch protection not yet configured. |
-| CI (Cerberus) | Tekton Pipelines and Triggers, installed by Argo CD | Chosen by the product owner instead of Woodpecker, so CI, workflows and deployment share one Kubernetes platform. Installed in the trial; the Forgejo pull-request pipeline and status reporting are not built yet. |
+| CI (Cerberus) | Woodpecker with the Kubernetes backend, installed by Argo CD | Chosen by the product owner after comparing it with Tekton: native Forgejo support, commit status and pull-request events without extra glue. Tried in the sandbox: pull-request check, status on the pull request, merge blocked on failure, release to staging. |
+| Deployment | Argo CD with one deploy repository per project; staging automatic, prod by approved pull request | Tried in the sandbox ([deployment](#deployment)). Pull-request previews, database migrations and a secrets manager are not built yet. |
 | Builder tool (Daedalus) | Qwen Code in headless mode; OpenCode run on the same tasks for comparison | Chosen for trial. Documentation describes `qwen -p` and OpenAI-compatible endpoints; tool calls through vLLM are unverified. OpenHands is the fallback. |
 | Model (Pythia) | An open-weight model from the Qwen family | Search results indicated that Qwen 3.7 has no open weights; confirm on the publisher's model card. |
 | GPU for the pilot | RunPod, about 48 GB | Chosen. Rates differed between sources; verify on the provider's page. |

@@ -1,0 +1,45 @@
+# Release (Cerberus): after the checks pass on main, build the image once,
+# record its digest, and set that digest in the staging overlay of the deploy
+# repository. Argo CD deploys staging from there. Production is promoted by a
+# pull request in the deploy repository that the product owner approves.
+when:
+  - event: push
+    branch: main
+
+depends_on:
+  - checks
+
+steps:
+  - name: build
+    image: docker.io/woodpeckerci/plugin-kaniko@sha256:a481d1dbf661af90b6781735438a35c7b03a9d20510a8b4e5aa16166ea609e0b
+    settings:
+      registry: forgejo-http.forgejo.svc.cluster.local:3000
+      repo: OWNER/NAME
+      tags: ${CI_COMMIT_SHA}
+      username: release-bot
+      password:
+        from_secret: release_token
+      # The trial registry is Forgejo's own, over plain HTTP inside the cluster.
+      # Remove both lines once the registry is served over TLS.
+      insecure: true
+      insecure_pull: true
+      extra_opts: --digest-file=image.digest
+
+  - name: promote-staging
+    image: docker.io/alpine/git:v2.49.1
+    environment:
+      RELEASE_TOKEN:
+        from_secret: release_token
+    # One script, so no line is read as YAML. $$ escapes shell variables
+    # from Woodpecker's own substitution.
+    commands:
+      - |
+        set -eu
+        digest=$$(cat image.digest)
+        echo "$$digest" | grep -Eq '^sha256:[0-9a-f]{64}$$'
+        auth="http.extraHeader=Authorization: token $$RELEASE_TOKEN"
+        git -c "$$auth" clone -q http://forgejo-http.forgejo.svc.cluster.local:3000/OWNER/NAME-deploy.git deploy
+        cd deploy
+        sed -i "s/^    digest: .*/    digest: $$digest/" overlays/staging/kustomization.yaml
+        git -c user.name=release-bot -c user.email=release-bot@forge.local commit -qam "staging: OWNER/NAME ${CI_COMMIT_SHA} at $$digest"
+        git -c "$$auth" push -q origin HEAD:main
