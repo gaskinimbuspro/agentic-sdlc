@@ -47,7 +47,7 @@ INK, MUTED, BORDER = "#13243C", "#52647C", "#D9E2EF"
 # The cast: name, role, what it runs as, Lucide icon, color. Keep in step with docs/architecture/cast.md.
 CAST = {
     "gokhan": ("Gökhan", "PRODUCT OWNER", "Decides · approves · merges", "user-round", AMBER),
-    "atlas": ("Atlas", "ARCHITECT", "Claude", "pencil-ruler", PURPLE),
+    "voltran": ("Voltran", "ARCHITECT", "Claude", "pencil-ruler", PURPLE),
     "argus": ("Argus", "REVIEWER", "Claude · separate session", "eye", PURPLE),
     "iris": ("Iris", "COORDINATOR", "Python program · not a model", "workflow", BLUE),
     "daedalus": ("Daedalus", "BUILDER", "Qwen Code + Qwen model", "hammer", TEAL),
@@ -370,7 +370,7 @@ def application():
 def system_map():
     c = Canvas("How the system works", "Proposed target · who decides, who builds, who checks", 1150)
     c.character(64, 180, 380, 104, "gokhan")
-    c.character(520, 180, 380, 104, "atlas")
+    c.character(520, 180, 380, 104, "voltran")
     c.character(976, 180, 380, 104, "argus")
     c.zone(64, 360, 1240, 450, "WORK SERVER  ·  your machine", "server")
     c.zone(1330, 360, 406, 450, "GPU SERVER", "nvidia")
@@ -420,10 +420,10 @@ def system_map():
 def lifecycle():
     c = Canvas("Who does what", "Proposed lifecycle · owner, output and gate for every stage", 900)
     stages = [
-        ("Discover", "lightbulb", AMBER, ["gokhan", "atlas"], ["Brief"], "Scope agreed"),
-        ("Specify", "list-checks", BLUE, ["atlas", "gokhan"], ["Requirements", "+ examples"], "RQ rules"),
-        ("Design", "pencil-ruler", PURPLE, ["atlas", "gokhan"], ["Architecture", "+ UI packet"], "AR · U rules"),
-        ("Plan", "square-kanban", PURPLE, ["atlas"], ["Issues", "in Forge"], "G0 Ready"),
+        ("Discover", "lightbulb", AMBER, ["gokhan", "voltran"], ["Brief"], "Scope agreed"),
+        ("Specify", "list-checks", BLUE, ["voltran", "gokhan"], ["Requirements", "+ examples"], "RQ rules"),
+        ("Design", "pencil-ruler", PURPLE, ["voltran", "gokhan"], ["Architecture", "+ UI packet"], "AR · U rules"),
+        ("Plan", "square-kanban", PURPLE, ["voltran"], ["Issues", "in Forge"], "G0 Ready"),
         ("Build", "code-xml", TEAL, ["iris", "daedalus"], ["Code + tests"], "G1 Local"),
         ("Verify", "shield-check", TEAL, ["cerberus", "argus"], ["Checks", "+ verdict"], "G2 · G3"),
         ("Release", "rocket", BLUE, ["gokhan"], ["Merged", "change"], "G4 · G5"),
@@ -458,7 +458,7 @@ def lifecycle():
 def placement():
     c = Canvas("Where it runs", "Proposed placement · three places, each with its own credentials", 1090)
     c.character(90, 185, 380, 100, "gokhan", "Laptop · browser")
-    c.node(710, 185, 380, 100, "Atlas · Argus", "Claude · called on demand", "claude")
+    c.node(710, 185, 380, 100, "Voltran · Argus", "Claude · called on demand", "claude")
     c.node(1330, 185, 380, 100, "GitHub", "Standards · code mirror", "github")
     c.arrow("M470 235 H705", "amber")
     c.zone(64, 380, 1026, 470, "WORK SERVER  ·  no GPU", "server")
@@ -508,9 +508,9 @@ def project_start():
     c = Canvas("How a project runs", "Today's flow · from an idea to production, with what exists and what is missing", 1150)
     steps = [
         ("Idea", "Gökhan", "Describes the product in plain words", "lightbulb", AMBER, None),
-        ("Discovery", "Atlas asks · Gökhan answers", "11 stages, each approved before the next", "messages-square", AMBER, "built"),
-        ("Specify and design", "Atlas writes · Gökhan approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
-        ("Tasks in Forge", "Atlas plans", "Issues with tests, dependencies, ready label", "square-kanban", PURPLE, "missing"),
+        ("Discovery", "Voltran asks · Gökhan answers", "11 stages, each approved before the next", "messages-square", AMBER, "built"),
+        ("Specify and design", "Voltran writes · Gökhan approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
+        ("Tasks in Forge", "Voltran plans", "Issues with tests, dependencies, ready label", "square-kanban", PURPLE, "missing"),
         ("Project setup", "Platform scripts", "Deploy repo · bots · protection · Argo CD", "settings-2", BLUE, "tried"),
         ("Build", "Iris + Daedalus", "One issue, one sandbox, one pull request", "hammer", TEAL, "partly"),
         ("Review and merge", "Cerberus · Argus · Gökhan", "Checks pass, review, only Gökhan merges", "git-merge", TEAL, "partly"),
@@ -606,7 +606,7 @@ def cast():
     c = Canvas("The cast", "Proposed roles · one name and one avatar for each actor", 1000)
     never = {
         "gokhan": "Reminds agents to test",
-        "atlas": "Writes the implementation",
+        "voltran": "Writes the implementation",
         "argus": "Approves its own work",
         "iris": "Makes product decisions",
         "daedalus": "Pushes or picks tasks",
@@ -616,7 +616,7 @@ def cast():
     }
     does = {
         "gokhan": "Decides and approves",
-        "atlas": "Plans and splits work",
+        "voltran": "Plans and splits work",
         "argus": "Reviews each pull request",
         "iris": "Hands out tasks, sets limits",
         "daedalus": "Builds one task + tests",

@@ -14,7 +14,7 @@ TEMPLATE = ROOT / "standards/planning/discovery.template.json"
 def filled(stages: int = 11) -> dict:
     record = json.loads(TEMPLATE.read_text())
     record.update(project="invoice-tracker", product_owner="gokhan")
-    record["agent_identities"] = ["atlas", "daedalus"]
+    record["agent_identities"] = ["voltran", "daedalus"]
     for stage in record["stages"][:stages]:
         stage.update(approved_by="gokhan", approved_at="2026-11-21")
         for question in stage["questions"]:
@@ -66,9 +66,9 @@ def test_not_applicable_needs_a_reason() -> None:
         (lambda r: r["stages"][5]["questions"][0].update(id="S06-Q99"), "unknown"),
         (lambda r: r["stages"].pop(3), "reordered stages"),
         (lambda r: r["stages"][2].update(approved_by=None), "before an earlier"),
-        (lambda r: r["stages"][4].update(approved_by="atlas"), "product owner"),
+        (lambda r: r["stages"][4].update(approved_by="voltran"), "product owner"),
         (lambda r: r["stages"][4].update(approved_at="yesterday"), "approval date"),
-        (lambda r: r.update(product_owner="Atlas"), "cannot be an agent"),
+        (lambda r: r.update(product_owner="Voltran"), "cannot be an agent"),
         (lambda r: r.update(project=None), "project"),
         (lambda r: r.update(discovery_standard="9"), "version"),
     ],

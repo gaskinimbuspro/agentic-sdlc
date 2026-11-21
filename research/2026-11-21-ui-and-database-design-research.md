@@ -36,9 +36,9 @@ Most cited web pages were read in full; some Nielsen Norman Group articles were 
 | Figma Make | Prototype inside Figma | Fits only where Figma is already the source of truth. |
 | Google Stitch | Screens plus an open `DESIGN.md` token specification with lint | The specification is interesting; the product is experimental. |
 | Subframe | A visual canvas that maps deterministically to React components in the repository | The closest fit if a visual tool is wanted; one-way sync and React only. |
-| Claude Design | Designs and clickable prototypes | Matches "Atlas designs with the product owner"; a research preview. |
+| Claude Design | Designs and clickable prototypes | Matches "Voltran designs with the product owner"; a research preview. |
 
-Decision recorded in UX05, UX12 and UX14: Atlas prepares the prototype, the product owner approves it, the Git design packet is the only source of truth, and the default component base is shadcn/ui on Tailwind with the component source given to the builder. Whether an open-weight builder follows current shadcn component APIs from memory is unverified, which is why the source is supplied.
+Decision recorded in UX05, UX12 and UX14: Voltran prepares the prototype, the product owner approves it, the Git design packet is the only source of truth, and the default component base is shadcn/ui on Tailwind with the component source given to the builder. Whether an open-weight builder follows current shadcn component APIs from memory is unverified, which is why the source is supplied.
 
 ## Reference schema findings
 

@@ -11,7 +11,7 @@ The actors have names; see [the cast](cast.md).
 | Character | Role | Does | Does not |
 | --- | --- | --- | --- |
 | Gökhan | Product Owner | States the idea, answers product and risk questions, approves scope, requirements, design and merge | Remind agents to test, review routine code |
-| Atlas (Claude) | Architect | Runs discovery, writes requirements and architecture, prepares the UI packet, splits work into tasks, helps when a task is blocked | Write the implementation, run continuously |
+| Voltran (Claude) | Architect | Runs discovery, writes requirements and architecture, prepares the UI packet, splits work into tasks, helps when a task is blocked | Write the implementation, run continuously |
 | Argus (Claude, separate session) | Reviewer | Reviews each pull request against the requirements and examples | Review its own work, merge |
 | Iris (a program, not a model) | Coordinator | Picks ready issues, opens sandboxes, starts Daedalus with limits, pushes branches, opens pull requests | Decide product behavior, judge design quality |
 | Daedalus (Qwen Code + Qwen model) | Builder | Implements one task with its tests in an isolated sandbox | Pick tasks, push, change requirements, workflows or its own permissions |
@@ -25,10 +25,10 @@ The split follows the existing [role contract](../../standards/backend/agent-con
 
 | Stage | Owner | Output | Gate before the next stage |
 | --- | --- | --- | --- |
-| Discover | Gökhan with Atlas | Brief with scope and non-goals | Gökhan agrees the scope |
-| Specify | Atlas, Gökhan approves | Requirements with concrete examples | [RQ01–RQ06](../../standards/planning/requirements.md) |
-| Design | Atlas, Gökhan approves | Architecture records and, for a UI, the design packet | [AR01–AR05](../../standards/planning/architecture.md), [UI design validation](../../standards/ui/README.md#executable-scope) |
-| Plan | Atlas | Issues in Forge, with dependencies and case IDs | [G0 Ready](../../standards/backend/testing.md#gates) |
+| Discover | Gökhan with Voltran | Brief with scope and non-goals | Gökhan agrees the scope |
+| Specify | Voltran, Gökhan approves | Requirements with concrete examples | [RQ01–RQ06](../../standards/planning/requirements.md) |
+| Design | Voltran, Gökhan approves | Architecture records and, for a UI, the design packet | [AR01–AR05](../../standards/planning/architecture.md), [UI design validation](../../standards/ui/README.md#executable-scope) |
+| Plan | Voltran | Issues in Forge, with dependencies and case IDs | [G0 Ready](../../standards/backend/testing.md#gates) |
 | Build | Daedalus, started by Iris | Code, tests, local commits; Iris opens the pull request | G1 Local |
 | Verify | Cerberus, then Argus | Check reports and a review verdict | G2 Clean CI and G3 Independent acceptance |
 | Release | Gökhan authorizes | Merged change, and a running version when deployment is in scope | G4 and G5, when in scope |
@@ -37,7 +37,7 @@ A failed check returns the task to Build within its repair budget. A missing dec
 
 ## Why Claude is not the always-on manager
 
-Supervising agents around the clock with a hosted model would consume the budget the design is meant to save. Iris handles the continuous, mechanical part: queue, claims, time limits, pushing and opening pull requests. Claude is called at four points only: discovery and planning as Atlas, task breakdown as Atlas, review as Argus, and a blocked task that needs judgment. Everything it needs is read from versioned files and the issue, not from a long conversation.
+Supervising agents around the clock with a hosted model would consume the budget the design is meant to save. Iris handles the continuous, mechanical part: queue, claims, time limits, pushing and opening pull requests. Claude is called at four points only: discovery and planning as Voltran, task breakdown as Voltran, review as Argus, and a blocked task that needs judgment. Everything it needs is read from versioned files and the issue, not from a long conversation.
 
 Iris is deliberately not a model. A model given the git token and the task queue would set its own limits and could be steered by text inside an issue ([AS01 and AS02](../../standards/agent-delivery/security.md)).
 
@@ -50,7 +50,7 @@ Iris is deliberately not a model. A model given the git token and the task queue
 | GPU server (RunPod for the pilot) | Pythia: vLLM serving the pinned model behind an API key ([AS08](../../standards/agent-delivery/security.md)) | Source code, git credentials |
 | Work server, no GPU | A k3s cluster installed by [platform bootstrap](../../platform/README.md): Argo CD, Forge (Forgejo), Cerberus (Woodpecker, steps as pods), Iris on Argo Workflows with one pod per step, staging and prod namespaces deployed by Argo CD |  Production credentials; git tokens inside a sandbox |
 | GitHub | The agentic-sdlc standards repository, and Echo's mirror copies of project code | Project CI, pull requests or issues |
-| Claude | Atlas and Argus, called when needed | Standing access to the servers |
+| Claude | Voltran and Argus, called when needed | Standing access to the servers |
 
 Each sandbox has an outbound allowlist ([AS03](../../standards/agent-delivery/security.md)). The work-server cluster is for staging and the trial; real production uses its own cluster under the [GitOps profile](../../standards/adoption/gitops.md), with the same deploy-repository flow.
 
@@ -105,7 +105,7 @@ Not built yet: pull-request preview environments, schema migrations as a pre-syn
 The view marks each step as tried in the sandbox, built but not yet used, or not built.
 
 1. Gökhan describes the idea.
-2. Atlas runs the [discovery sequence](../../standards/planning/README.md#discovery-sequence) until every in-scope behavior has an example or an open decision.
+2. Voltran runs the [discovery sequence](../../standards/planning/README.md#discovery-sequence) until every in-scope behavior has an example or an open decision.
 3. Gökhan approves the requirements.
 4. Gökhan approves the architecture and, for a UI, the design packet: every screen, state, action destination and API outcome.
 5. Iris creates the repository and issues in Forge and configures Echo's mirror to GitHub, under the [operation contract](../../standards/agent-delivery/README.md#github-operation-contract).
@@ -153,4 +153,4 @@ Phases 1 to 4 are described in the [pilot runbook](pilot-runbook.md). The work-s
 | GPU after the pilot | A fixed-price dedicated server | Decide from pilot utilization. |
 | Coordinator (Iris) | [Iris](iris.md) as an Argo Workflows template, one pod per step; `iris run-once` for a single host | Ran on Argo Workflows against a real Forgejo with a stand-in builder in the [platform trial](../../platform/README.md#what-was-tested-and-where). Not yet with Qwen Code or a real model. |
 | Mirror (Echo) | Forgejo push mirror to GitHub | Interval to be chosen. Forge's own backup is a separate, open task. |
-| Benefit of the split | Hosted Atlas and Argus, local Daedalus | The strongest independent study found gains from planner-executor designs uneven. Measure in the pilot. |
+| Benefit of the split | Hosted Voltran and Argus, local Daedalus | The strongest independent study found gains from planner-executor designs uneven. Measure in the pilot. |

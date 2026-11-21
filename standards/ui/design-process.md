@@ -1,6 +1,6 @@
 # UI design process and screen patterns
 
-These controls are our policy, informed by the [design sources](sources.md#additions-of-21-november-2026). They define how screens are decided before implementation and which patterns every screen follows. They extend [U01–U16](common.md) without changing them. The Planner (Atlas) proposes; the product owner approves; the Implementer builds the approved packet and cannot redesign it.
+These controls are our policy, informed by the [design sources](sources.md#additions-of-21-november-2026). They define how screens are decided before implementation and which patterns every screen follows. They extend [U01–U16](common.md) without changing them. The Planner (Voltran) proposes; the product owner approves; the Implementer builds the approved packet and cannot redesign it.
 
 | ID | Required control | Check and rejection example | Sources |
 | --- | --- | --- | --- |
@@ -23,9 +23,9 @@ These controls are our policy, informed by the [design sources](sources.md#addit
 
 | Decision | Proposes | Decides |
 | --- | --- | --- |
-| Roles, journeys, scope | Atlas, from the product owner's answers | Product owner |
-| Navigation, screens, states, patterns | Atlas, applying UX04–UX11 | Product owner, on the prototype |
-| Design system, tokens, look | Atlas, applying UX12–UX13 | Product owner |
+| Roles, journeys, scope | Voltran, from the product owner's answers | Product owner |
+| Navigation, screens, states, patterns | Voltran, applying UX04–UX11 | Product owner, on the prototype |
+| Design system, tokens, look | Voltran, applying UX12–UX13 | Product owner |
 | Change to an approved screen or baseline | Anyone, as a recorded change | Product owner |
 
 The frozen result is the [design packet](design-packet.template.json), which `ui-standard design` validates structurally. That validator does not check UX06–UX14; they are review items.

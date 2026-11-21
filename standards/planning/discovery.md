@@ -1,6 +1,6 @@
 # Discovery questionnaire
 
-Discovery turns an idea into decisions an Implementer can follow. It is a fixed set of questions in eleven stages. Atlas asks them, the product owner answers and approves each stage, and nothing downstream becomes ready until the stages it depends on are complete. The questions are our policy, drawn from the sources of the [UI design process](../ui/design-process.md), [schema design](../operations/schema-design.md) and [planning](sources.md) standards.
+Discovery turns an idea into decisions an Implementer can follow. It is a fixed set of questions in eleven stages. Voltran asks them, the product owner answers and approves each stage, and nothing downstream becomes ready until the stages it depends on are complete. The questions are our policy, drawn from the sources of the [UI design process](../ui/design-process.md), [schema design](../operations/schema-design.md) and [planning](sources.md) standards.
 
 | ID | Required control | Check and rejection example |
 | --- | --- | --- |

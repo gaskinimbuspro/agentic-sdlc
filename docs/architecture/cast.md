@@ -7,8 +7,8 @@ Every role in the [target architecture](README.md) has a name and an [avatar](..
 | Character | Role | Runs as | Does | Never does |
 | --- | --- | --- | --- | --- |
 | **Gökhan** | Product Owner | A person | States the idea, decides product and risk questions, approves scope, requirements, design and merge | Reminds agents to run their checks |
-| **Atlas** | Architect | Claude, called on demand | Runs discovery, writes requirements and architecture, prepares the UI packet, splits work into tasks | Writes the implementation |
-| **Argus** | Reviewer | Claude, in a separate session from Atlas | Reviews each pull request against the requirements and examples | Approves its own work, merges |
+| **Voltran** | Architect | Claude, called on demand | Runs discovery, writes requirements and architecture, prepares the UI packet, splits work into tasks | Writes the implementation |
+| **Argus** | Reviewer | Claude, in a separate session from Voltran | Reviews each pull request against the requirements and examples | Approves its own work, merges |
 | **Iris** | Coordinator | A small Python program, run step by step by Argo Workflows ([details](iris.md)) | Picks a ready issue, opens a sandbox, starts Daedalus with time and attempt limits, pushes the branch, opens the pull request | Makes product or design decisions; it is not a model |
 | **Daedalus** | Builder | Qwen Code driving a Qwen model, one sandbox per task | Implements one task with its tests, runs them, repairs failures, commits locally | Chooses tasks, pushes, holds git server credentials, changes its own rules |
 | **Cerberus** | CI gate and release | Woodpecker on the work server's cluster, each step a pod | Runs the required checks on every pull request in a clean container; after a merge builds the image once and sets the staging digest | Gives opinions, waives a failure or deploys to the cluster |
@@ -35,7 +35,7 @@ Keeping push and pull-request rights with Iris instead of Daedalus means injecte
 | Standard role | Character |
 | --- | --- |
 | Human / product owner | Gökhan |
-| Backend Architect / Planner, UX Planner | Atlas |
+| Backend Architect / Planner, UX Planner | Voltran |
 | Independent Reviewer | Argus |
 | Coordinator | Iris |
 | Implementer | Daedalus |
