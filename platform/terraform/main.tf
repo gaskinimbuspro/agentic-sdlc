@@ -76,12 +76,18 @@ resource "helm_release" "argocd" {
   values = [yamlencode({
     configs = {
       params = { "server.insecure" = true }
-      # The Forgejo chart is published as an OCI artifact.
+      # The Forgejo and Woodpecker charts are published as OCI artifacts.
       repositories = {
         forgejo-helm = {
           type      = "helm"
           name      = "forgejo-helm"
           url       = "code.forgejo.org/forgejo-helm"
+          enableOCI = "true"
+        }
+        woodpecker-helm = {
+          type      = "helm"
+          name      = "woodpecker-helm"
+          url       = "ghcr.io/woodpecker-ci/helm"
           enableOCI = "true"
         }
       }

@@ -1,0 +1,26 @@
+# Woodpecker (Cerberus) runs pull-request checks against Forgejo. Steps run as
+# pods in the woodpecker namespace. The OAuth client id and secret for Forgejo
+# come from the woodpecker-forgejo Secret, created after Forgejo is up
+# (see platform/README.md); nothing secret is stored here.
+server:
+  env:
+    WOODPECKER_HOST: http://woodpecker-server.woodpecker.svc.cluster.local
+    WOODPECKER_FORGEJO: "true"
+    WOODPECKER_FORGEJO_URL: http://forgejo-http.forgejo.svc.cluster.local:3000
+    WOODPECKER_ADMIN: forge-admin
+    WOODPECKER_OPEN: "false"
+  extraSecretNamesForEnvFrom:
+    - woodpecker-forgejo
+  persistentVolume:
+    size: 2Gi
+agent:
+  replicaCount: 1
+  env:
+    WOODPECKER_SERVER: woodpecker-server:9000
+    WOODPECKER_BACKEND: kubernetes
+    WOODPECKER_BACKEND_K8S_NAMESPACE: woodpecker
+    WOODPECKER_BACKEND_K8S_STORAGE_RWX: "false"
+    WOODPECKER_BACKEND_K8S_VOLUME_SIZE: 1G
+    WOODPECKER_MAX_WORKFLOWS: "2"
+  persistence:
+    size: 1Gi

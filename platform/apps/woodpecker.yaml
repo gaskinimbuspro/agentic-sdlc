@@ -1,0 +1,32 @@
+# Argo CD Application: woodpecker. Created by the root application from this directory.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: woodpecker
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: woodpecker
+  sources:
+    - repoURL: ghcr.io/woodpecker-ci/helm
+      chart: woodpecker
+      targetRevision: 3.7.7
+      helm:
+        valueFiles:
+          - $values/platform/components/woodpecker.values.yaml
+    - repoURL: https://github.com/gaskinimbuspro/agentic-sdlc.git
+      targetRevision: claude/nice-dijkstra-2lc88p
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
