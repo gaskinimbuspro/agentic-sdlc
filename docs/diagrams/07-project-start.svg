@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1010" viewBox="0 0 1800 1010" role="img" aria-labelledby="title desc">
-<title id="title">How a project starts</title><desc id="desc">Proposed sequence · from an idea to the first accepted change</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1150" viewBox="0 0 1800 1150" role="img" aria-labelledby="title desc">
+<title id="title">How a project runs</title><desc id="desc">Today&#x27;s flow · from an idea to production, with what exists and what is missing</desc>
 <metadata>ISC License
 
 Copyright (c) 2026 Lucide Icons and Contributors
@@ -51,54 +51,51 @@ SOFTWARE.
 <marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#8292A8" stroke-width="1.6"/></marker>
 <marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#A76608" stroke-width="1.6"/></marker>
 </defs>
-<rect x="0" y="0" width="1800" height="1010" rx="0" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
+<rect x="0" y="0" width="1800" height="1150" rx="0" fill="#F4F7FC" stroke="none" stroke-width="1.5"  />
 <rect x="0" y="0" width="1800" height="145" rx="0" fill="#13243C" stroke="none" stroke-width="1.5"  />
 <text x="64" y="34" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A7BEDA" font-weight="700" text-anchor="start">AGENTIC SDLC  /  ARCHITECTURE VIEWS</text>
-<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">How a project starts</text>
-<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Proposed sequence · from an idea to the first accepted change</text>
+<text x="64" y="82" font-family="DejaVu Sans, sans-serif" font-size="36" fill="#FFFFFF" font-weight="700" text-anchor="start">How a project runs</text>
+<text x="64" y="116" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#C4D1E4" font-weight="400" text-anchor="start">Today&#x27;s flow · from an idea to production, with what exists and what is missing</text>
 <rect x="1510" y="44" width="225" height="43" rx="21" fill="#FFF0CD" stroke="none" stroke-width="1.5"  />
 <text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">DRAFT · v0.1</text>
-<rect x="64" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="64" y="200" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="82" y="231.0" width="58" height="58" rx="14" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
-<svg x="94" y="243.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<text x="190" y="180" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">STEP</text>
+<text x="520" y="180" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">WHO</text>
+<text x="900" y="180" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">WHAT HAPPENS</text>
+<text x="1600" y="180" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="middle">STATUS</text>
+<path d="M90 230 V880" fill="none" stroke="#8292A8" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"  />
+<rect x="120" y="202" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="198" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="236" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="241" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">1</text>
+<rect x="140" y="210" width="52" height="52" rx="12" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="222" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
   <path d="M9 18h6" />
   <path d="M10 22h4" />
 </svg>
-<text x="158" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Idea</text>
-<text x="158" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Gökhan</text>
-<circle cx="72" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="72" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">1</text>
-<rect x="488" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="488" y="200" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="506" y="231.0" width="58" height="58" rx="14" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
-<svg x="518" y="243.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<text x="214" y="243" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Idea</text>
+<text x="520" y="243" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Gökhan</text>
+<text x="900" y="243" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Describes the product in plain words</text>
+<rect x="120" y="290" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="286" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="324" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="329" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">2</text>
+<rect x="140" y="298" width="52" height="52" rx="12" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="310" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
   <path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1" />
 </svg>
-<text x="582" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Discovery talk</text>
-<text x="582" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Gökhan + Atlas</text>
-<circle cx="496" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="496" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">2</text>
-<rect x="912" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="912" y="200" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="930" y="231.0" width="58" height="58" rx="14" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
-<svg x="942" y="243.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M13 5h8" />
-  <path d="M13 12h8" />
-  <path d="M13 19h8" />
-  <path d="m3 17 2 2 4-4" />
-  <path d="m3 7 2 2 4-4" />
-</svg>
-<text x="1006" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Requirements</text>
-<text x="1006" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Atlas writes · Gökhan approves</text>
-<circle cx="920" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="920" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">3</text>
-<rect x="1336" y="204" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="1336" y="200" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="1354" y="231.0" width="58" height="58" rx="14" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
-<svg x="1366" y="243.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<text x="214" y="331" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Discovery</text>
+<text x="520" y="331" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Atlas asks · Gökhan answers</text>
+<text x="900" y="331" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">11 stages, each approved before the next</text>
+<rect x="1505.5390625" y="309" width="188.921875" height="29" rx="14.5" fill="#EDF3FF" stroke="#2563EB" stroke-width="1.5"  />
+<text x="1600" y="327" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#2563EB" font-weight="700" text-anchor="middle">BUILT · NOT USED YET</text>
+<rect x="120" y="378" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="374" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="412" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="417" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">3</text>
+<rect x="140" y="386" width="52" height="52" rx="12" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="398" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13" />
   <path d="m8 6 2-2" />
   <path d="m18 16 2-2" />
@@ -106,108 +103,116 @@ SOFTWARE.
   <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
   <path d="m15 5 4 4" />
 </svg>
-<text x="1430" y="258.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Design</text>
-<text x="1430" y="282.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Architecture + UI packet</text>
-<circle cx="1344" cy="208" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="1344" y="213" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">4</text>
-<rect x="1336" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="1336" y="430" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="1354" y="461.0" width="58" height="58" rx="14" fill="#F3F5F9" stroke="none" stroke-width="1.5"  />
-<svg x="1366" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="#FB923C"><path d="M16.7773 0c1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.1175a7.0759 7.0759 0 0 1 4.148-1.4205l.1176-.001 1.3385.0002c.4973-.8827 1.4434-1.4788 2.5288-1.4788 1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.319c.8827.4973 1.4788 1.4434 1.4788 2.5287 0 1.602-1.2986 2.9005-2.9005 2.9005-1.6018 0-2.9004-1.2986-2.9004-2.9005 0-1.0853.596-2.0314 1.4788-2.5287l-.0002-9.9831c0-3.887 3.1195-7.0453 6.9915-7.108l.1176-.001h1.3385C14.7458.5962 15.692 0 16.7773 0ZM7.2227 19.9052c-.6596 0-1.1943.5347-1.1943 1.1943s.5347 1.1943 1.1943 1.1943 1.1944-.5347 1.1944-1.1943-.5348-1.1943-1.1944-1.1943Zm9.5546-10.4644c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Zm0-7.7346c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Z"/></svg>
-<text x="1430" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Repo + issues</text>
-<text x="1430" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Iris creates them in Forge</text>
-<circle cx="1344" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="1344" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">5</text>
-<rect x="912" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="912" y="430" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="930" y="461.0" width="58" height="58" rx="14" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
-<svg x="942" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M22 7.7c0-.6-.4-1.2-.8-1.5l-6.3-3.9a1.72 1.72 0 0 0-1.7 0l-10.3 6c-.5.2-.9.8-.9 1.4v6.6c0 .5.4 1.2.8 1.5l6.3 3.9a1.72 1.72 0 0 0 1.7 0l10.3-6c.5-.3.9-1 .9-1.5Z" />
-  <path d="M10 21.9V14L2.1 9.1" />
-  <path d="m10 14 11.9-6.9" />
-  <path d="M14 19.8v-8.1" />
-  <path d="M18 17.5V9.4" />
-</svg>
-<text x="1006" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Environment</text>
-<text x="1006" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Sandbox · preview · CI</text>
-<circle cx="920" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="920" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">6</text>
-<rect x="488" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="488" y="430" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="506" y="461.0" width="58" height="58" rx="14" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
-<svg x="518" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
-  <path d="m18 15 4-4" />
-  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
-</svg>
-<text x="582" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">First task</text>
-<text x="582" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Daedalus builds · Cerberus checks</text>
-<circle cx="496" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="496" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">7</text>
-<rect x="64" y="434" width="400" height="120" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="64" y="430" width="400" height="120" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="82" y="461.0" width="58" height="58" rx="14" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
-<svg x="94" y="473.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="12" r="10" />
-  <path d="m16 9-5.5 5.5L8 12" />
-</svg>
-<text x="158" y="488.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Accepted</text>
-<text x="158" y="512.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Argus reviews · Gökhan merges</text>
-<circle cx="72" cy="438" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
-<text x="72" y="443" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">8</text>
-<path d="M464 260 H483" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M1336 490 H1317" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M888 260 H907" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M912 490 H893" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M1312 260 H1331" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M488 490 H469" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M1536 320 V425" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<rect x="1125.0" y="185" width="146.0" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
-<text x="1198" y="202" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">Gökhan approves</text>
-<rect x="1549.0" y="185" width="146.0" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
-<text x="1622" y="202" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">Gökhan approves</text>
-<rect x="329.0" y="415" width="146.0" height="28" rx="14.0" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
-<text x="402" y="432" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="middle">Gökhan approves</text>
-<rect x="64" y="620" width="1672" height="250" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<svg x="90" y="645" width="26" height="26" viewBox="0 0 24 24" fill="#FB923C"><path d="M16.7773 0c1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.1175a7.0759 7.0759 0 0 1 4.148-1.4205l.1176-.001 1.3385.0002c.4973-.8827 1.4434-1.4788 2.5288-1.4788 1.6018 0 2.9004 1.2986 2.9004 2.9005s-1.2986 2.9004-2.9004 2.9004c-1.0854 0-2.0315-.596-2.5288-1.4787H12.91c-2.3322 0-4.2272 1.8718-4.2649 4.195l-.0007 2.319c.8827.4973 1.4788 1.4434 1.4788 2.5287 0 1.602-1.2986 2.9005-2.9005 2.9005-1.6018 0-2.9004-1.2986-2.9004-2.9005 0-1.0853.596-2.0314 1.4788-2.5287l-.0002-9.9831c0-3.887 3.1195-7.0453 6.9915-7.108l.1176-.001h1.3385C14.7458.5962 15.692 0 16.7773 0ZM7.2227 19.9052c-.6596 0-1.1943.5347-1.1943 1.1943s.5347 1.1943 1.1943 1.1943 1.1944-.5347 1.1944-1.1943-.5348-1.1943-1.1944-1.1943Zm9.5546-10.4644c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Zm0-7.7346c-.6596 0-1.1944.5347-1.1944 1.1943s.5348 1.1943 1.1944 1.1943c.6596 0 1.1943-.5347 1.1943-1.1943s-.5347-1.1943-1.1943-1.1943Z"/></svg>
-<text x="128" y="665" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#2563EB" font-weight="700" text-anchor="start">HOW TASKS ARE STORED IN FORGE</text>
-<rect x="120" y="714" width="440" height="110" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="120" y="710" width="440" height="110" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="138" y="736.0" width="58" height="58" rx="14" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
-<svg x="150" y="748.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M9 5h8.5a1 1 0 010 7h-11a1 1 0 000 7H15" />
-  <circle cx="18" cy="19" r="3" />
-  <circle cx="6" cy="5" r="3" />
-</svg>
-<text x="214" y="763.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Journey</text>
-<text x="214" y="787.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">What the user achieves</text>
-<rect x="660" y="714" width="440" height="110" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="660" y="710" width="440" height="110" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="678" y="736.0" width="58" height="58" rx="14" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
-<svg x="690" y="748.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<text x="214" y="419" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Specify and design</text>
+<text x="520" y="419" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Atlas writes · Gökhan approves</text>
+<text x="900" y="419" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Requirements · architecture · UI packet</text>
+<rect x="1505.5390625" y="397" width="188.921875" height="29" rx="14.5" fill="#EDF3FF" stroke="#2563EB" stroke-width="1.5"  />
+<text x="1600" y="415" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#2563EB" font-weight="700" text-anchor="middle">BUILT · NOT USED YET</text>
+<rect x="120" y="462" width="1616" height="76" rx="14" fill="#F8FAFD" stroke="#9AA8BC" stroke-width="1.5" stroke-dasharray="7 6" />
+<circle cx="90" cy="500" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="505" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">4</text>
+<rect x="140" y="474" width="52" height="52" rx="12" fill="#F3F5F9" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="486" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#52647C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
   <rect width="18" height="18" x="3" y="3" rx="2" />
   <path d="M8 7v7" />
   <path d="M12 7v4" />
   <path d="M16 7v9" />
 </svg>
-<text x="754" y="763.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Task</text>
-<text x="754" y="787.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">One slice + its tests</text>
-<rect x="1200" y="714" width="440" height="110" rx="18" fill="#E1E8F2" opacity=".65"/>
-<rect x="1200" y="710" width="440" height="110" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="1218" y="736.0" width="58" height="58" rx="14" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
-<svg x="1230" y="748.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M13 5h8" />
-  <path d="M13 12h8" />
-  <path d="M13 19h8" />
-  <path d="m3 17 2 2 4-4" />
-  <path d="m3 7 2 2 4-4" />
+<text x="214" y="507" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Tasks in Forge</text>
+<text x="520" y="507" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Atlas plans</text>
+<text x="900" y="507" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Issues with tests, dependencies, ready label</text>
+<rect x="1548.1796875" y="485" width="103.640625" height="29" rx="14.5" fill="#EEF2F8" stroke="#52647C" stroke-width="1.5"  />
+<text x="1600" y="503" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="middle">NOT BUILT</text>
+<rect x="120" y="554" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="550" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="588" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="593" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">5</text>
+<rect x="140" y="562" width="52" height="52" rx="12" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="574" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14 17H5" />
+  <path d="M19 7h-9" />
+  <circle cx="17" cy="17" r="3" />
+  <circle cx="7" cy="7" r="3" />
 </svg>
-<text x="1294" y="763.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Sub-task</text>
-<text x="1294" y="787.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Only when needed</text>
-<path d="M560 765 H655" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M1100 765 H1195" fill="none" stroke="#8292A8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"  marker-end="url(#gray)"/>
-<path d="M64 946 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
-<text x="64" y="975" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Every task carries its own tests. A task with an open decision is not given to Daedalus.</text>
-<text x="64" y="995" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">Icons: Lucide / Feather (ISC / MIT) · Simple Icons (CC0) · Product marks identify products and belong to their owners</text>
-<text x="1736" y="976" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  07</text>
+<text x="214" y="595" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Project setup</text>
+<text x="520" y="595" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Platform scripts</text>
+<text x="900" y="595" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Deploy repo · bots · protection · Argo CD</text>
+<rect x="1516.109375" y="573" width="167.78125" height="29" rx="14.5" fill="#E3F4F5" stroke="#087F8C" stroke-width="1.5"  />
+<text x="1600" y="591" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="700" text-anchor="middle">TRIED IN SANDBOX</text>
+<rect x="120" y="642" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="638" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="676" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="681" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">6</text>
+<rect x="140" y="650" width="52" height="52" rx="12" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="662" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
+  <path d="m18 15 4-4" />
+  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
+</svg>
+<text x="214" y="683" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Build</text>
+<text x="520" y="683" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Iris + Daedalus</text>
+<text x="900" y="676" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">One issue, one sandbox, one pull request</text>
+<text x="900" y="698" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#A76608" font-weight="700" text-anchor="start">stand-in builder; real Qwen not tried</text>
+<rect x="1535.84375" y="661" width="128.3125" height="29" rx="14.5" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
+<text x="1600" y="679" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A76608" font-weight="700" text-anchor="middle">PARTLY TRIED</text>
+<rect x="120" y="730" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="726" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="764" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="769" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">7</text>
+<rect x="140" y="738" width="52" height="52" rx="12" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="750" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="18" cy="18" r="3" />
+  <circle cx="6" cy="6" r="3" />
+  <path d="M6 21V9a9 9 0 0 0 9 9" />
+</svg>
+<text x="214" y="771" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Review and merge</text>
+<text x="520" y="771" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Cerberus · Argus · Gökhan</text>
+<text x="900" y="764" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Checks pass, review, only Gökhan merges</text>
+<text x="900" y="786" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#A76608" font-weight="700" text-anchor="start">Argus review is manual</text>
+<rect x="1535.84375" y="749" width="128.3125" height="29" rx="14.5" fill="#FFF2D9" stroke="#A76608" stroke-width="1.5"  />
+<text x="1600" y="767" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#A76608" font-weight="700" text-anchor="middle">PARTLY TRIED</text>
+<rect x="120" y="818" width="1616" height="76" rx="14" fill="#E1E8F2" opacity=".65"/>
+<rect x="120" y="814" width="1616" height="76" rx="14" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<circle cx="90" cy="852" r="15" fill="#13243C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="90" y="857" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle">8</text>
+<rect x="140" y="826" width="52" height="52" rx="12" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
+<svg x="152" y="838" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" />
+  <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" />
+  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" />
+</svg>
+<text x="214" y="859" font-family="DejaVu Sans, sans-serif" font-size="20" fill="#13243C" font-weight="700" text-anchor="start">Release</text>
+<text x="520" y="859" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Cerberus · Argo CD · Gökhan</text>
+<text x="900" y="859" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#52647C" font-weight="400" text-anchor="start">Staging automatic, prod by approved PR</text>
+<rect x="1516.109375" y="837" width="167.78125" height="29" rx="14.5" fill="#E3F4F5" stroke="#087F8C" stroke-width="1.5"  />
+<text x="1600" y="855" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#087F8C" font-weight="700" text-anchor="middle">TRIED IN SANDBOX</text>
+<svg x="486" y="313" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<svg x="486" y="401" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<svg x="486" y="753" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<rect x="64" y="920" width="1672" height="112" rx="16" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
+<svg x="86" y="942" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#52647C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+</svg>
+<text x="120" y="960" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="start">NOT BUILT YET, OUTSIDE THE STEPS ABOVE</text>
+<text x="120" y="992" font-family="DejaVu Sans, sans-serif" font-size="16" fill="#13243C" font-weight="400" text-anchor="start">Pull-request previews · migrations as a pre-sync job · secrets manager · staging smoke test before the prod PR</text>
+<svg x="1380" y="942" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="10" />
+  <path d="m16 9-5.5 5.5L8 12" />
+</svg>
+<text x="1412" y="960" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#13243C" font-weight="400" text-anchor="start">= Gökhan approves here</text>
+<path d="M64 1086 H1736" fill="none" stroke="#8292A8" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"  />
+<text x="64" y="1115" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#52647C" font-weight="400" text-anchor="start">Status as of 21 November 2026. Tried means run end to end on a temporary sandbox cluster, not on a real server.</text>
+<text x="64" y="1135" font-family="DejaVu Sans, sans-serif" font-size="11" fill="#52647C" font-weight="400" text-anchor="start">Icons: Lucide / Feather (ISC / MIT) · Simple Icons (CC0) · Product marks identify products and belong to their owners</text>
+<text x="1736" y="1116" font-family="DejaVu Sans, sans-serif" font-size="13" fill="#52647C" font-weight="700" text-anchor="end">AGENTIC SDLC  /  07</text>
 </svg>

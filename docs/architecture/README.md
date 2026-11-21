@@ -82,6 +82,8 @@ The check logic lives in scripts in the repository, as with this repository's `b
 
 Agents propose changes; pipelines build; only Argo CD changes the cluster. Nobody else, and no agent, holds cluster credentials.
 
+![From merge to production](../diagrams/10-release-path.png)
+
 | Step | Who | What happens |
 | --- | --- | --- |
 | 1 | Iris | Opens a pull request in the source repository |
@@ -98,7 +100,9 @@ Not built yet: pull-request preview environments, schema migrations as a pre-syn
 
 ## How a project starts
 
-![How a project starts](../diagrams/07-project-start.png)
+![How a project runs](../diagrams/07-project-start.png)
+
+The view marks each step as tried in the sandbox, built but not yet used, or not built.
 
 1. Gökhan describes the idea.
 2. Atlas runs the [discovery sequence](../../standards/planning/README.md#discovery-sequence) until every in-scope behavior has an example or an open decision.

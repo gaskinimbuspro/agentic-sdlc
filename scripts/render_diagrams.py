@@ -25,6 +25,7 @@ BRAND_COLORS = {
     "ansible": "#EE0000", "claude": "#D97757", "docker": "#2496ED", "github": "#181717",
     "githubactions": "#2088FF", "hetzner": "#D50C2D", "kubernetes": "#326CE5",
     "nvidia": "#76B900", "terraform": "#844FBA", "forgejo": "#FB923C", "vllm": "#30A2FF",
+    "argo": "#EF7B4D", "k3s": "#FFC61C",
 }
 SLATE = "#52647C"
 TINTS = {"#2563EB": "#EDF3FF", "#087F8C": "#E3F4F5", "#7756C8": "#F1ECFB", "#A76608": "#FFF2D9",
@@ -133,9 +134,14 @@ class Canvas:
         else:
             self.icon(x, y, name, color, size)
 
-    def node(self, x, y, w, h, title, sub, icon, color=BLUE, title_size=21):
-        """Compact card: one icon, a short title and at most one short line."""
-        self.rect(x, y, w, h, "#FFFFFF", BORDER, shadow=True)
+    def node(self, x, y, w, h, title, sub, icon, color=BLUE, title_size=21, dashed=False):
+        """Compact card: one icon, a short title and at most one short line.
+
+        A dashed card marks something planned but not built."""
+        if dashed:
+            self.rect(x, y, w, h, "#F8FAFD", "#9AA8BC", dash=True)
+        else:
+            self.rect(x, y, w, h, "#FFFFFF", BORDER, shadow=True)
         branded = (BRANDS / f"{icon}.svg").exists()
         self.rect(x + 18, y + (h - 58) / 2, 58, 58, "#F3F5F9" if branded else TINTS[color], radius=14)
         self.mark(x + 30, y + (h - 34) / 2, icon, color, 34)
@@ -365,7 +371,7 @@ def system_map():
     c.node(480, 420, 340, 104, "Forge", "Forgejo · repo · issues · PRs", "forgejo", BLUE)
     c.character(940, 420, 320, 104, "iris", "Python program")
     c.character(100, 640, 300, 104, "echo")
-    c.node(480, 640, 340, 104, "Preview", "kind · per branch", "kubernetes", BLUE)
+    c.node(480, 640, 340, 104, "Argo CD", "Deploys staging · prod", "argo", BLUE)
     c.character(940, 640, 320, 104, "daedalus")
     c.character(1356, 640, 354, 104, "pythia")
     c.node(100, 860, 300, 90, "GitHub", "Code copy only", "github", BLUE, 19)
@@ -376,8 +382,8 @@ def system_map():
     c.arrow("M940 495 H825", "teal")
     c.arrow("M1100 524 V635")
     c.arrow("M1260 692 H1351", "purple", start=True)
-    c.arrow("M940 692 H825", "teal")
     c.arrow("M480 472 H405", "teal")
+    c.arrow("M740 524 V635", "teal")
     c.arrow("M1166 284 V340 H760 V415", "purple")
     c.arrow("M254 284 V340 H560 V415", "amber")
     c.arrow("M600 524 V588 H250 V635", "gray")
@@ -385,22 +391,22 @@ def system_map():
     steps = [
         (480, 232, 480, 208, "idea", AMBER), (640, 360, 700, 318, "issues", PURPLE),
         (878, 455, 878, 431, "pick", BLUE), (1100, 580, 1172, 585, "sandbox", BLUE),
-        (1305, 692, 1305, 668, "prompts", PURPLE), (882, 692, 882, 668, "preview", TEAL),
+        (1305, 692, 1305, 668, "prompts", PURPLE),
         (878, 495, 878, 535, "pull request", TEAL), (442, 472, 442, 448, "checks", TEAL),
         (960, 340, 960, 316, "review", PURPLE), (400, 340, 400, 316, "approve · merge", AMBER),
-        (250, 820, 316, 825, "mirror", SLATE),
+        (740, 580, 800, 585, "deploy", TEAL), (250, 820, 316, 825, "mirror", SLATE),
     ]
     for number, (bx, by, lx, ly, name, color) in enumerate(steps, 1):
         inside = 360 < ly < 810
         c.label(lx, ly, name, color, 14, "#EAF1FE" if inside else "#F4F7FC")
         c.badge(bx, by, number)
     c.rect(64, 975, 1672, 60, "#FFFFFF", BORDER, radius=14)
-    names = ["Idea", "Issues", "Pick", "Sandbox", "Generate", "Preview", "PR", "Checks", "Review", "Merge", "Mirror"]
+    names = ["Idea", "Issues", "Pick", "Sandbox", "Generate", "PR", "Checks", "Review", "Merge", "Deploy", "Mirror"]
     for number, name in enumerate(names, 1):
         x = 100 + (number - 1) * 152
         c.badge(x, 1005, number)
         c.text(x + 24, 1011, name, 16, INK, bold=True)
-    c.footer("04", "Proposed target architecture; not a running system. Names: see the cast (08).", brands=True)
+    c.footer("04", "Proposed target; the platform, gates and deployment were tried on a sandbox cluster. Names: see the cast (08).", brands=True)
     c.save("04-system-map")
 
 
@@ -460,12 +466,12 @@ def placement():
     c.rect(112, 628, 300, 110, "#FFFFFF", BORDER)
     c.rect(106, 634, 300, 110, "#FFFFFF", BORDER)
     c.character(100, 640, 300, 110, "daedalus", "1 task = 1 sandbox")
-    c.node(430, 640, 300, 110, "Registry", "Local images", "container", BLUE, 19)
-    c.node(760, 640, 300, 110, "Preview", "kind · per branch", "kubernetes", BLUE, 19)
+    c.node(430, 640, 300, 110, "Registry", "Forgejo · by digest", "package", BLUE, 19)
+    c.node(760, 640, 300, 110, "Staging · prod", "Argo CD deploys", "argo", BLUE, 19)
     c.arrow("M400 515 H425", "blue")
     c.arrow("M730 515 H755", "teal")
     c.arrow("M250 570 V625")
-    c.arrow("M412 695 H425", "teal")
+    c.arrow("M910 570 V605 H600 V635", "teal")
     c.arrow("M730 695 H755", "teal")
     c.node(1190, 460, 506, 110, "Model weights", "Pinned version", "hard-drive", PURPLE)
     c.character(1190, 640, 506, 110, "pythia", "vLLM · serves the Qwen model")
@@ -475,50 +481,115 @@ def placement():
     c.icon(1036, 789, "lock", PURPLE, 22)
     c.rect(64, 885, 1672, 90, "#FFFFFF", BORDER, radius=15)
     c.text(86, 912, "BUILT AND REBUILT FROM CODE", 13, MUTED, bold=True)
-    for x, name, icon in [(86, "Terraform", "terraform"), (370, "Ansible", "ansible"), (640, "Docker", "docker"),
-                          (900, "Kubernetes", "kubernetes"), (1190, "Forgejo", "forgejo"), (1450, "vLLM", "vllm")]:
-        c.brand(x, 928, icon, 28)
+    for x, name, icon in [(86, "Terraform", "terraform"), (370, "k3s", "k3s"), (600, "Argo CD · Workflows", "argo"),
+                          (930, "Forgejo", "forgejo"), (1170, "Woodpecker", "shield-check"), (1450, "vLLM", "vllm")]:
+        c.mark(x, 928, icon, TEAL, 28)
         c.text(x + 42, 949, name, 18, INK)
-    c.footer("06", "Proposed placement; no server has been ordered or installed. Daedalus holds no git token.", brands=True)
+    c.footer("06", "Proposed placement; tried on a sandbox cluster, no server ordered yet. Daedalus holds no git token.", brands=True)
     c.save("06-where-it-runs")
 
 
+STATUS = {
+    "tried": ("TRIED IN SANDBOX", TEAL),
+    "partly": ("PARTLY TRIED", AMBER),
+    "built": ("BUILT · NOT USED YET", BLUE),
+    "missing": ("NOT BUILT", SLATE),
+}
+
+
 def project_start():
-    c = Canvas("How a project starts", "Proposed sequence · from an idea to the first accepted change", 1010)
+    c = Canvas("How a project runs", "Today's flow · from an idea to production, with what exists and what is missing", 1150)
     steps = [
-        ("Idea", "Gökhan", "lightbulb", AMBER),
-        ("Discovery talk", "Gökhan + Atlas", "messages-square", AMBER),
-        ("Requirements", "Atlas writes · Gökhan approves", "list-checks", PURPLE),
-        ("Design", "Architecture + UI packet", "pencil-ruler", PURPLE),
-        ("Repo + issues", "Iris creates them in Forge", "forgejo", BLUE),
-        ("Environment", "Sandbox · preview · CI", "container", BLUE),
-        ("First task", "Daedalus builds · Cerberus checks", "hammer", TEAL),
-        ("Accepted", "Argus reviews · Gökhan merges", "circle-check", TEAL),
+        ("Idea", "Gökhan", "Describes the product in plain words", "lightbulb", AMBER, None),
+        ("Discovery", "Atlas asks · Gökhan answers", "11 stages, each approved before the next", "messages-square", AMBER, "built"),
+        ("Specify and design", "Atlas writes · Gökhan approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
+        ("Tasks in Forge", "Atlas plans", "Issues with tests, dependencies, ready label", "square-kanban", PURPLE, "missing"),
+        ("Project setup", "Platform scripts", "Deploy repo · bots · protection · Argo CD", "settings-2", BLUE, "tried"),
+        ("Build", "Iris + Daedalus", "One issue, one sandbox, one pull request", "hammer", TEAL, "partly"),
+        ("Review and merge", "Cerberus · Argus · Gökhan", "Checks pass, review, only Gökhan merges", "git-merge", TEAL, "partly"),
+        ("Release", "Cerberus · Argo CD · Gökhan", "Staging automatic, prod by approved PR", "rocket", BLUE, "tried"),
     ]
-    spots = [(64 + k * 424, 200) for k in range(4)] + [(64 + k * 424, 430) for k in range(3, -1, -1)]
-    for number, ((x, y), (title, sub, icon, color)) in enumerate(zip(spots, steps), 1):
-        c.node(x, y, 400, 120, title, sub, icon, color)
-        c.badge(x + 8, y + 8, number)
-    for k in range(3):
-        c.arrow(f"M{464 + k * 424} 260 H{483 + k * 424}", "gray")
-        c.arrow(f"M{1336 - k * 424} 490 H{1317 - k * 424}", "gray")
-    c.arrow("M1536 320 V425", "gray")
-    for x, y in [(1260, 200), (1684, 200), (464, 430)]:
-        c.pill(x - 62, y - 15, "Gökhan approves", AMBER, 12)
-    c.rect(64, 620, 1672, 250, "#FFFFFF", BORDER, radius=18)
-    c.brand(90, 645, "forgejo", 26)
-    c.text(128, 665, "HOW TASKS ARE STORED IN FORGE", 14, BLUE, bold=True)
-    tree = [
-        (120, "Journey", "What the user achieves", "route", AMBER),
-        (660, "Task", "One slice + its tests", "square-kanban", BLUE),
-        (1200, "Sub-task", "Only when needed", "list-checks", TEAL),
-    ]
-    for x, title, sub, icon, color in tree:
-        c.node(x, 710, 440, 110, title, sub, icon, color)
-    c.arrow("M560 765 H655", "gray")
-    c.arrow("M1100 765 H1195", "gray")
-    c.footer("07", "Every task carries its own tests. A task with an open decision is not given to Daedalus.", brands=True)
+    notes = {
+        "Build": "stand-in builder; real Qwen not tried",
+        "Review and merge": "Argus review is manual",
+    }
+    c.text(190, 180, "STEP", 13, MUTED, bold=True)
+    c.text(520, 180, "WHO", 13, MUTED, bold=True)
+    c.text(900, 180, "WHAT HAPPENS", 13, MUTED, bold=True)
+    c.text(1600, 180, "STATUS", 13, MUTED, bold=True, anchor="middle")
+    c.arrow("M90 230 V880", "gray", width=1.2, end=False)
+    for n, (title, who, what, icon, color, status) in enumerate(steps):
+        y = 198 + n * 88
+        missing = status == "missing"
+        if missing:
+            c.rect(120, y, 1616, 76, "#F8FAFD", "#9AA8BC", radius=14, dash=True)
+        else:
+            c.rect(120, y, 1616, 76, "#FFFFFF", BORDER, radius=14, shadow=True)
+        c.badge(90, y + 38, n + 1)
+        c.rect(140, y + 12, 52, 52, "#F3F5F9" if missing else TINTS[color], radius=12)
+        c.icon(152, y + 24, icon, SLATE if missing else color, 28)
+        for value, width, size, bold in ((title, 300, 20, True), (who, 360, 16, False), (what, 470, 16, False)):
+            assert measure(value, size, bold) < width, value
+        c.text(214, y + 45, title, 20, INK, bold=True)
+        c.text(520, y + 45, who, 16, INK)
+        c.text(900, y + (38 if title in notes else 45), what, 16, MUTED)
+        if title in notes:
+            c.text(900, y + 60, notes[title], 14, AMBER, bold=True)
+        if status:
+            label, tone = STATUS[status]
+            c.pill(1600, y + 23, label, tone, 13)
+    for n in (1, 2, 6):
+        c.icon(486, 198 + n * 88 + 27, "circle-check", AMBER, 22)
+    c.rect(64, 920, 1672, 112, "#FFFFFF", BORDER, radius=16)
+    c.icon(86, 942, "lock", SLATE, 22)
+    c.text(120, 960, "NOT BUILT YET, OUTSIDE THE STEPS ABOVE", 13, SLATE, bold=True)
+    c.text(120, 992, "Pull-request previews · migrations as a pre-sync job · secrets manager · staging smoke test before the prod PR", 16, INK)
+    c.icon(1380, 942, "circle-check", AMBER, 22)
+    c.text(1412, 960, "= Gökhan approves here", 15, INK)
+    c.footer("07", "Status as of 21 November 2026. Tried means run end to end on a temporary sandbox cluster, not on a real server.", brands=True)
     c.save("07-project-start")
+
+
+def release_path():
+    c = Canvas("From merge to production", "Tried in a sandbox · one image, built once, promoted by digest", 1070)
+    c.character(64, 190, 420, 104, "gokhan", "Approves and merges the PR")
+    c.character(580, 190, 440, 104, "cerberus", "Checks again · builds image once")
+    c.node(1116, 190, 420, 104, "Forgejo registry", "image @ sha256 digest", "package", BLUE)
+    c.arrow("M484 242 H575", "amber")
+    c.label(530, 230, "main", AMBER, 13)
+    c.arrow("M1020 242 H1111", "teal")
+    c.label(1066, 230, "push", TEAL, 13)
+    c.zone(64, 360, 1672, 230, "DEPLOY REPOSITORY  ·  one per project", "forgejo", BLUE)
+    c.node(110, 430, 520, 120, "overlays/staging", "Release bot writes the digest", "git-branch", TEAL)
+    c.node(800, 430, 520, 120, "overlays/prod", "Pull request · Gökhan merges", "git-pull-request", AMBER)
+    c.node(1380, 430, 300, 120, "Everything else", "Gökhan merges", "lock", SLATE, 19)
+    c.arrow("M800 294 V335 H560 V425", "teal")
+    c.label(680, 335, "digest", TEAL, 13)
+    c.arrow("M630 490 H795", "amber")
+    c.label(712, 478, "promote", AMBER, 13, "#EAF1FE")
+    c.node(520, 650, 420, 110, "Argo CD", "The only one that deploys", "argo", BLUE)
+    c.arrow("M370 550 V615 H660 V645", "blue")
+    c.arrow("M1060 550 V615 H800 V645", "blue")
+    c.label(730, 615, "sync", BLUE, 13)
+    c.node(1100, 630, 400, 90, "Staging", "Automatic after each merge", "kubernetes", TEAL, 19)
+    c.node(1100, 740, 400, 90, "Prod", "Only the approved digest", "kubernetes", AMBER, 19)
+    c.arrow("M940 680 H1095", "blue")
+    c.arrow("M940 730 H1020 V785 H1095", "blue")
+    c.arrow("M1536 242 H1710 V785 H1505", "gray", dash=True)
+    c.label(1710, 700, "pull by digest", SLATE, 13)
+    c.rect(64, 875, 1672, 110, "#FFFFFF", BORDER, radius=16)
+    guards = [
+        (90, "Agents never merge or push to main"),
+        (650, "Release token: push events only, refused to PRs"),
+        (1230, "No agent holds cluster credentials"),
+    ]
+    for x, text in guards:
+        c.icon(x, 912, "lock", "#B42318", 24)
+        assert measure(text, 17) < 500, text
+        c.text(x + 36, 931, text, 17, INK)
+    c.text(90, 966, "Each was tried: the bot's merge, its push to prod and a PR reading the token were all refused.", 15, MUTED)
+    c.footer("10", "Tried end to end on a sandbox cluster on 21 November 2026; not yet on a real server.", brands=True)
+    c.save("10-release-path")
 
 
 def cast():
@@ -572,14 +643,14 @@ def two_loops():
     c.zone(980, 185, 756, 660, "OUTER LOOP  ·  acceptance in Forge", "shield-check", TEAL)
     c.node(100, 270, 360, 104, "Edit code", "From the issue and examples", "code-xml", TEAL)
     c.node(530, 270, 370, 104, "Run checks", "Same scripts as CI", "flask-conical", TEAL)
-    c.node(530, 455, 370, 104, "Build image", "Push to local registry", "container", TEAL)
-    c.node(530, 640, 370, 104, "Preview", "Deployed to kind", "kubernetes", TEAL)
-    c.node(100, 640, 360, 104, "Try it", "Gökhan or a tester", "user-round", AMBER)
+    c.node(530, 455, 370, 104, "Commit", "Only when checks pass", "git-branch", TEAL)
+    c.node(530, 640, 370, 104, "Preview", "Planned · not built", "kubernetes", SLATE, dashed=True)
+    c.node(100, 640, 360, 104, "Try it", "Gökhan or a tester", "user-round", AMBER, dashed=True)
     c.character(100, 455, 360, 104, "daedalus", "Runs this loop")
     c.arrow("M460 322 H525", "teal")
     c.arrow("M715 374 V450", "teal")
-    c.arrow("M715 559 V635", "teal")
-    c.arrow("M530 692 H465", "teal")
+    c.arrow("M715 559 V635", "gray", dash=True)
+    c.arrow("M530 692 H465", "gray", dash=True)
     c.arrow("M280 640 V564", "gray", dash=True)
     c.label(320, 602, "feedback", size=13, fill="#EAF1FE")
     c.arrow("M280 455 V379", "gray", dash=True)
@@ -593,6 +664,8 @@ def two_loops():
         c.arrow(f"M1181 {y} V{y + 31}", "teal")
     c.arrow("M1016 462 H944", "gray", dash=True)
     c.label(976, 492, "fail → fix", size=13, fill="#EAF1FE")
+    c.node(1390, 410, 320, 104, "Release", "Staging · prod PR", "argo", BLUE)
+    c.arrow("M1346 715 H1366 V462 H1385", "blue")
     c.character(1390, 690, 320, 104, "echo", "Scheduled push")
     c.arrow("M1346 742 H1385", "gray")
     c.node(1390, 910, 320, 90, "GitHub", "Code copy only", "github", BLUE, 19)
@@ -607,6 +680,7 @@ def two_loops():
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     views = {"01": process, "02": agents, "03": application, "04": system_map,
-             "05": lifecycle, "06": placement, "07": project_start, "08": cast, "09": two_loops}
+             "05": lifecycle, "06": placement, "07": project_start, "08": cast, "09": two_loops,
+             "10": release_path}
     for number in sys.argv[1:] or views:
         views[number]()

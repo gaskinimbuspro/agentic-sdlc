@@ -18,7 +18,7 @@ These views accompany the [target architecture](../architecture/README.md). Acto
 
 [SVG](06-where-it-runs.svg) · [PNG](06-where-it-runs.png)
 
-![How a project starts](07-project-start.png)
+![How a project runs: steps, owners and what is tried, built or missing](07-project-start.png)
 
 [SVG](07-project-start.svg) · [PNG](07-project-start.png)
 
@@ -29,6 +29,10 @@ These views accompany the [target architecture](../architecture/README.md). Acto
 ![Two loops](09-two-loops.png)
 
 [SVG](09-two-loops.svg) · [PNG](09-two-loops.png)
+
+![From merge to production](10-release-path.png)
+
+[SVG](10-release-path.svg) · [PNG](10-release-path.png)
 
 ## Development process
 
