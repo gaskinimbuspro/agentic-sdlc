@@ -21,6 +21,7 @@ OUT = ROOT / "docs/diagrams"
 ASSETS = OUT / "assets/lucide"
 LICENSE = (ASSETS / "LICENSE").read_text()
 BRANDS = OUT / "assets/simple-icons"
+AVATARS = OUT / "assets/avatars"
 BRAND_COLORS = {
     "ansible": "#EE0000", "claude": "#D97757", "docker": "#2496ED", "github": "#181717",
     "githubactions": "#2088FF", "hetzner": "#D50C2D", "kubernetes": "#326CE5",
@@ -134,6 +135,13 @@ class Canvas:
         else:
             self.icon(x, y, name, color, size)
 
+    def portrait(self, x, y, key, size=62):
+        """The character's own avatar (scripts/render_avatars.py)."""
+        raw = (AVATARS / f"{key}.svg").read_text()
+        inner = re.search(r"<svg\b[^>]*>(.*)</svg>", raw, re.S).group(1)
+        inner = re.sub(r"<title>.*?</title>", "", inner)
+        self.parts.append(f'<svg x="{x}" y="{y}" width="{size}" height="{size}" viewBox="0 0 64 64">{inner}</svg>')
+
     def node(self, x, y, w, h, title, sub, icon, color=BLUE, title_size=21, dashed=False):
         """Compact card: one icon, a short title and at most one short line.
 
@@ -156,18 +164,17 @@ class Canvas:
         name, role, runs, icon, color = CAST[key]
         sub = runs if sub is None else sub
         self.rect(x, y, w, h, "#FFFFFF", BORDER, shadow=True)
-        self.rect(x + 18, y + (h - 58) / 2, 58, 58, TINTS[color], radius=14)
-        self.icon(x + 30, y + (h - 34) / 2, icon, color, 34)
+        self.portrait(x + 16, y + (h - 64) / 2, key, 64)
         for value, size, bold in ((role, 12, True), (name, 21, True), (sub, 15, False)):
             assert measure(value, size, bold) < w - 108, value
         self.text(x + 94, y + h / 2 - 22, role, 12, color, bold=True)
         self.text(x + 94, y + h / 2 + 4, name, 21, INK, bold=True)
         self.text(x + 94, y + h / 2 + 27, sub, 15, MUTED)
 
-    def avatar(self, cx, y, key, size=32, label=True):
-        """Small icon with the character name underneath, centered on cx."""
-        name, _, _, icon, color = CAST[key]
-        self.icon(cx - size / 2, y, icon, color, size)
+    def avatar(self, cx, y, key, size=40, label=True):
+        """Small portrait with the character name underneath, centered on cx."""
+        name = CAST[key][0]
+        self.portrait(cx - size / 2, y, key, size)
         if label:
             self.text(cx, y + size + 26, name, 14, INK, anchor="middle")
 
@@ -528,10 +535,13 @@ def project_start():
         c.badge(90, y + 38, n + 1)
         c.rect(140, y + 12, 52, 52, "#F3F5F9" if missing else TINTS[color], radius=12)
         c.icon(152, y + 24, icon, SLATE if missing else color, 28)
-        for value, width, size, bold in ((title, 300, 20, True), (who, 360, 16, False), (what, 470, 16, False)):
+        for value, width, size, bold in ((title, 300, 20, True), (who, 270, 16, False), (what, 470, 16, False)):
             assert measure(value, size, bold) < width, value
         c.text(214, y + 45, title, 20, INK, bold=True)
-        c.text(520, y + 45, who, 16, INK)
+        faces = sorted((key for key in CAST if CAST[key][0] in who), key=lambda k: who.index(CAST[k][0]))
+        for k, key in enumerate(faces):
+            c.portrait(520 + k * 30, y + 22, key, 32)
+        c.text(520 + (len(faces) * 30 + 10 if faces else 0), y + 45, who, 16, INK)
         c.text(900, y + (38 if title in notes else 45), what, 16, MUTED)
         if title in notes:
             c.text(900, y + 60, notes[title], 14, AMBER, bold=True)
@@ -593,7 +603,7 @@ def release_path():
 
 
 def cast():
-    c = Canvas("The cast", "Proposed roles · one name and one icon for each actor", 1000)
+    c = Canvas("The cast", "Proposed roles · one name and one avatar for each actor", 1000)
     never = {
         "gokhan": "Reminds agents to test",
         "atlas": "Writes the implementation",
@@ -618,8 +628,7 @@ def cast():
         name, role, runs, icon, color = CAST[key]
         x, y = 64 + (n % 4) * 424, 185 + (n // 4) * 330
         c.rect(x, y, 400, 300, "#FFFFFF", BORDER, shadow=True)
-        c.rect(x + 24, y + 24, 76, 76, TINTS[color], radius=18)
-        c.icon(x + 40, y + 40, icon, color, 44)
+        c.portrait(x + 22, y + 22, key, 84)
         c.text(x + 120, y + 52, role, 13, color, bold=True)
         c.text(x + 120, y + 86, name, 28, INK, bold=True)
         assert measure(runs, 16) < 352, runs

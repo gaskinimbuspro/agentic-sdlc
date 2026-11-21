@@ -1,6 +1,6 @@
 # The cast
 
-Every role in the [target architecture](README.md) has a name and an icon, so that documents, diagrams and conversations refer to the same actor. The names are labels for roles. The products underneath keep their own names, and the standards keep their role names and rule IDs.
+Every role in the [target architecture](README.md) has a name and an [avatar](../diagrams/assets/avatars/README.md), so that documents, diagrams and conversations refer to the same actor. The names are labels for roles. The products underneath keep their own names, and the standards keep their role names and rule IDs.
 
 ![The cast](../diagrams/08-cast.png)
 

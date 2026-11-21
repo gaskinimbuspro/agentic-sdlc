@@ -60,35 +60,19 @@ SOFTWARE.
 <text x="1622" y="71" font-family="DejaVu Sans, sans-serif" font-size="17" fill="#805100" font-weight="700" text-anchor="middle">DRAFT · v0.1</text>
 <rect x="64" y="184" width="380" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="64" y="180" width="380" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="82" y="203.0" width="58" height="58" rx="14" fill="#FFF2D9" stroke="none" stroke-width="1.5"  />
-<svg x="94" y="215.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#A76608" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="12" cy="8" r="5" />
-  <path d="M20 21a8 8 0 0 0-16 0" />
-</svg>
+<svg x="80" y="200.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#A76608"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><circle cx="32" cy="24" r="8.5" fill="#FFFFFF"/><path d="M15 49 C16 38 24 35 32 35 C40 35 48 38 49 49 Z" fill="#FFFFFF"/></svg>
 <text x="158" y="210.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#A76608" font-weight="700" text-anchor="start">PRODUCT OWNER</text>
 <text x="158" y="236.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Gökhan</text>
 <text x="158" y="259.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Decides · approves · merges</text>
 <rect x="520" y="184" width="380" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="520" y="180" width="380" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="538" y="203.0" width="58" height="58" rx="14" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
-<svg x="550" y="215.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M13 7 8.7 2.7a2.41 2.41 0 0 0-3.4 0L2.7 5.3a2.41 2.41 0 0 0 0 3.4L7 13" />
-  <path d="m8 6 2-2" />
-  <path d="m18 16 2-2" />
-  <path d="m17 11 4.3 4.3c.94.94.94 2.46 0 3.4l-2.6 2.6c-.94.94-2.46.94-3.4 0L11 17" />
-  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
-  <path d="m15 5 4 4" />
-</svg>
+<svg x="536" y="200.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#7756C8"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><circle cx="32" cy="22" r="11" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><ellipse cx="32" cy="22" rx="4.6" ry="11" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M21 22 H43" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="32" cy="41" r="4.2" fill="#FFFFFF"/><path d="M23 54 C24 47 40 47 41 54 Z" fill="#FFFFFF"/><path d="M26 49 L21 31 M38 49 L43 31" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
 <text x="614" y="210.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">ARCHITECT</text>
 <text x="614" y="236.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Atlas</text>
 <text x="614" y="259.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Claude</text>
 <rect x="976" y="184" width="380" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="976" y="180" width="380" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="994" y="203.0" width="58" height="58" rx="14" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
-<svg x="1006" y="215.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-  <circle cx="12" cy="12" r="3" />
-</svg>
+<svg x="992" y="200.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#5B47B0"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><path d="M19 33 Q32 22.6 45 33 Q32 43.4 19 33 Z" fill="#FFFFFF"/><circle cx="32" cy="33" r="4.16" fill="#5B47B0"/><path d="M13.5 18 Q19 13.6 24.5 18 Q19 22.4 13.5 18 Z" fill="#FFFFFF"/><circle cx="19" cy="18" r="1.76" fill="#5B47B0"/><path d="M39.5 18 Q45 13.6 50.5 18 Q45 22.4 39.5 18 Z" fill="#FFFFFF"/><circle cx="45" cy="18" r="1.76" fill="#5B47B0"/><path d="M16 49 Q21 45.0 26 49 Q21 53.0 16 49 Z" fill="#FFFFFF"/><circle cx="21" cy="49" r="1.6" fill="#5B47B0"/><path d="M38 49 Q43 45.0 48 49 Q43 53.0 38 49 Z" fill="#FFFFFF"/><circle cx="43" cy="49" r="1.6" fill="#5B47B0"/></svg>
 <text x="1070" y="210.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">REVIEWER</text>
 <text x="1070" y="236.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Argus</text>
 <text x="1070" y="259.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Claude · separate session</text>
@@ -105,11 +89,7 @@ SOFTWARE.
 <text x="1390" y="396" font-family="DejaVu Sans, sans-serif" font-size="14" fill="#2563EB" font-weight="700" text-anchor="start">GPU SERVER</text>
 <rect x="100" y="424" width="300" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="100" y="420" width="300" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="118" y="443.0" width="58" height="58" rx="14" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
-<svg x="130" y="455.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-  <path d="m9 12 2 2 4-4" />
-</svg>
+<svg x="116" y="440.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#0A6670"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><polygon points="13,33 13.5,24 18,29" fill="#FFFFFF"/><polygon points="25,33 24.5,24 20,29" fill="#FFFFFF"/><circle cx="19" cy="35" r="6.5" fill="#FFFFFF"/><circle cx="16.6" cy="34.2" r="1.2" fill="#0A6670"/><circle cx="21.4" cy="34.2" r="1.2" fill="#0A6670"/><ellipse cx="19" cy="38.2" rx="1.8" ry="1.2" fill="#0A6670"/><polygon points="39,33 39.5,24 44,29" fill="#FFFFFF"/><polygon points="51,33 50.5,24 46,29" fill="#FFFFFF"/><circle cx="45" cy="35" r="6.5" fill="#FFFFFF"/><circle cx="42.6" cy="34.2" r="1.2" fill="#0A6670"/><circle cx="47.4" cy="34.2" r="1.2" fill="#0A6670"/><ellipse cx="45" cy="38.2" rx="1.8" ry="1.2" fill="#0A6670"/><polygon points="26,26 26.5,17 31,22" fill="#FFFFFF"/><polygon points="38,26 37.5,17 33,22" fill="#FFFFFF"/><circle cx="32" cy="28" r="6.5" fill="#FFFFFF"/><circle cx="29.6" cy="27.2" r="1.2" fill="#0A6670"/><circle cx="34.4" cy="27.2" r="1.2" fill="#0A6670"/><ellipse cx="32" cy="31.2" rx="1.8" ry="1.2" fill="#0A6670"/><path d="M15 47 Q32 55 49 47" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
 <text x="194" y="450.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">CI GATE</text>
 <text x="194" y="476.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Cerberus</text>
 <text x="194" y="499.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Woodpecker</text>
@@ -121,22 +101,13 @@ SOFTWARE.
 <text x="574" y="494.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Forgejo · repo · issues · PRs</text>
 <rect x="940" y="424" width="320" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="940" y="420" width="320" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="958" y="443.0" width="58" height="58" rx="14" fill="#EDF3FF" stroke="none" stroke-width="1.5"  />
-<svg x="970" y="455.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <rect width="8" height="8" x="3" y="3" rx="2" />
-  <path d="M7 11v4a2 2 0 0 0 2 2h4" />
-  <rect width="8" height="8" x="13" y="13" rx="2" />
-</svg>
+<svg x="956" y="440.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#2563EB"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><path d="M12 44 A20 20 0 0 1 52 44" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M18 44 A14 14 0 0 1 46 44" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M24 44 A8 8 0 0 1 40 44" stroke="#FFFFFF" stroke-opacity=".6" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M45 17 L47 21 L51 23 L47 25 L45 29 L43 25 L39 23 L43 21 Z" fill="#FFFFFF"/></svg>
 <text x="1034" y="450.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#2563EB" font-weight="700" text-anchor="start">COORDINATOR</text>
 <text x="1034" y="476.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Iris</text>
 <text x="1034" y="499.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Python program</text>
 <rect x="100" y="644" width="300" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="100" y="640" width="300" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="118" y="663.0" width="58" height="58" rx="14" fill="#EEF2F8" stroke="none" stroke-width="1.5"  />
-<svg x="130" y="675.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#52647C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-  <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-</svg>
+<svg x="116" y="660.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#52647C"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><circle cx="20" cy="32" r="4" fill="#FFFFFF"/><path d="M27 24 A11 11 0 0 1 27 40" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M32 18 A17 17 0 0 1 32 46" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M37 12 A23 23 0 0 1 37 52" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg>
 <text x="194" y="670.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#52647C" font-weight="700" text-anchor="start">MIRROR</text>
 <text x="194" y="696.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Echo</text>
 <text x="194" y="719.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Forgejo push mirror</text>
@@ -148,34 +119,13 @@ SOFTWARE.
 <text x="574" y="714.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Deploys staging · prod</text>
 <rect x="940" y="644" width="320" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="940" y="640" width="320" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="958" y="663.0" width="58" height="58" rx="14" fill="#E3F4F5" stroke="none" stroke-width="1.5"  />
-<svg x="970" y="675.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#087F8C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" />
-  <path d="m18 15 4-4" />
-  <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" />
-</svg>
+<svg x="956" y="660.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#087F8C"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><path d="M30 21 C21 14 11 18 9 29 C15 27 19 29 21 32 C17 33 14 36 13 41 C19 38 25 38 30 41 Z" fill="#FFFFFF"/><path d="M34 21 C43 14 53 18 55 29 C49 27 45 29 43 32 C47 33 50 36 51 41 C45 38 39 38 34 41 Z" fill="#FFFFFF"/><path d="M32 18 V47" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
 <text x="1034" y="670.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#087F8C" font-weight="700" text-anchor="start">BUILDER</text>
 <text x="1034" y="696.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Daedalus</text>
 <text x="1034" y="719.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">Qwen Code + Qwen model</text>
 <rect x="1356" y="644" width="354" height="104" rx="18" fill="#E1E8F2" opacity=".65"/>
 <rect x="1356" y="640" width="354" height="104" rx="18" fill="#FFFFFF" stroke="#D9E2EF" stroke-width="1.5"  />
-<rect x="1374" y="663.0" width="58" height="58" rx="14" fill="#F1ECFB" stroke="none" stroke-width="1.5"  />
-<svg x="1386" y="675.0" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7756C8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M12 20v2" />
-  <path d="M12 2v2" />
-  <path d="M17 20v2" />
-  <path d="M17 2v2" />
-  <path d="M2 12h2" />
-  <path d="M2 17h2" />
-  <path d="M2 7h2" />
-  <path d="M20 12h2" />
-  <path d="M20 17h2" />
-  <path d="M20 7h2" />
-  <path d="M7 20v2" />
-  <path d="M7 2v2" />
-  <rect x="4" y="4" width="16" height="16" rx="2" />
-  <rect x="8" y="8" width="8" height="8" rx="1" />
-</svg>
+<svg x="1372" y="660.0" width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#7756C8"/><circle cx="32" cy="32" r="27.5" fill="none" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="1.4"/><path d="M21 34 H43 Q41 41 32 41 Q23 41 21 34 Z" fill="#FFFFFF"/><path d="M25 41 L21 51 M39 41 L43 51 M32 41 V51" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M32 31 C26 27 33 22 29 14 C37 18 40 25 32 31 Z" fill="#FFFFFF"/></svg>
 <text x="1450" y="670.0" font-family="DejaVu Sans, sans-serif" font-size="12" fill="#7756C8" font-weight="700" text-anchor="start">MODEL SERVER</text>
 <text x="1450" y="696.0" font-family="DejaVu Sans, sans-serif" font-size="21" fill="#13243C" font-weight="700" text-anchor="start">Pythia</text>
 <text x="1450" y="719.0" font-family="DejaVu Sans, sans-serif" font-size="15" fill="#52647C" font-weight="400" text-anchor="start">vLLM · RunPod</text>
