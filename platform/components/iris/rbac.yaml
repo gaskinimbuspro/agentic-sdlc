@@ -1,4 +1,4 @@
-# Service account for Iris's workflow pods. Argo's executor only needs to
+# Service account for Debora's workflow pods. Argo's executor only needs to
 # report step results; it gets no other access to the cluster.
 apiVersion: v1
 kind: ServiceAccount

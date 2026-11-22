@@ -1,4 +1,4 @@
-# Woodpecker (Cerberus) runs pull-request checks against Forgejo. Steps run as
+# Woodpecker (McCall) runs pull-request checks against Forgejo. Steps run as
 # pods in the woodpecker namespace. The OAuth client id and secret for Forgejo
 # come from the woodpecker-forgejo Secret, created after Forgejo is up
 # (see platform/README.md); nothing secret is stored here.

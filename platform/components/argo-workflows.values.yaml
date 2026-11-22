@@ -1,4 +1,4 @@
-# Argo Workflows runs Iris's task workflows. Trial settings: no SSO.
+# Argo Workflows runs Debora's task workflows. Trial settings: no SSO.
 server:
   authModes: [server]
 controller:

@@ -6,7 +6,7 @@
 # - Nobody pushes to main directly; changes arrive by pull request.
 # - The Woodpecker pull-request checks must pass (contexts ci/woodpecker/pr/<workflow>).
 # - One approval from the product owner; stale approvals are dismissed on new commits.
-# - Only the product owner may merge. Agents (Iris, the builder) never merge.
+# - Only the product owner may merge. Agents (Debora, the builder) never merge.
 #
 # Required: FORGEJO_ADMIN_PASSWORD. Optional: FORGEJO_URL, FORGEJO_ADMIN,
 # PRODUCT_OWNER (default: FORGEJO_ADMIN), CHECK_WORKFLOWS (default: "checks plan").

@@ -1,4 +1,4 @@
-# Image for Iris's workflow steps. Wheels are built beforehand (see build.sh),
+# Image for Debora's workflow steps. Wheels are built beforehand (see build.sh),
 # so the image build needs no network beyond the base image.
 # The full Debian-based Python image already contains git.
 FROM python:3.12.14-bookworm

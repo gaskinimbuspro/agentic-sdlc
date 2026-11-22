@@ -1,4 +1,4 @@
-"""Iris as separate steps, for a workflow engine such as Argo Workflows.
+"""Debora as separate steps, for a workflow engine such as Argo Workflows.
 
 Each step runs in its own pod. Only claim, prepare, publish and finish receive
 the git token; build receives only the model variables; check and guard receive
@@ -73,7 +73,7 @@ def _labels(config: Config, forge: Forgejo) -> dict[str, int]:
 
 
 def plan_labels(config: Config) -> dict[str, str]:
-    """Label names for the task plan tools, using Iris's names where they overlap."""
+    """Label names for the task plan tools, using Debora's names where they overlap."""
     return label_names(
         {
             "ready": config.labels["ready"],
@@ -249,11 +249,11 @@ def publish(config: Config, work: Path) -> str:
     )
     body = (
         f"Closes #{state['issue']}\n\n"
-        f"Built by {BUILDER_NAME}, coordinated by Iris. "
+        f"Built by {BUILDER_NAME}, coordinated by Debora. "
         f"{state.get('commits', 0)} commit(s), {state.get('changed_files', 0)} "
         f"file(s) and {state.get('changed_lines', 0)} line(s) changed, checks "
         f"passed on attempt {state.get('attempts', 1)}. "
-        "Cerberus runs the required checks; Argus reviews; Gökhan approves."
+        "McCall runs the required checks; Raymond reviews; Gökhan approves."
     )
     title = re.sub(r"\s+", " ", state["title"]).strip()
     state["pull"] = forge.open_pull(
@@ -283,12 +283,12 @@ def finish(config: Config, work: Path, workflow_status: str) -> str:
         forge.relabel(number, label["review"], label["in_progress"])
         forge.comment(
             number,
-            f"Iris opened pull request #{state['pull']} from `{state['branch']}` "
+            f"Debora opened pull request #{state['pull']} from `{state['branch']}` "
             f"after {state['seconds']} s.",
         )
     else:
         forge.relabel(number, label["blocked"], label["in_progress"])
-        forge.comment(number, f"Iris stopped: {state['reason']}")
+        forge.comment(number, f"Debora stopped: {state['reason']}")
     save_state(work, state)
     record = {key: value for key, value in state.items() if key not in {"body"}}
     print(json.dumps({"iris_run": record}))
@@ -329,7 +329,7 @@ def main() -> int:
             state = load_state(args.work)
             if state.get("issue") and not state.get("outcome"):
                 state.update(
-                    outcome="blocked", reason=f"Iris error in {args.step}: {error}"
+                    outcome="blocked", reason=f"Debora error in {args.step}: {error}"
                 )
                 save_state(args.work, state)
                 result = "blocked"

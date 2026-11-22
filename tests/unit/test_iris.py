@@ -14,7 +14,7 @@ LABELS = {"ready": 1, "in-progress": 2, "review": 3, "blocked": 4}
 
 
 class FakeForgejo:
-    """Just enough of the Forgejo API for Iris, with recorded calls."""
+    """Just enough of the Forgejo API for Debora, with recorded calls."""
 
     def __init__(self):
         self.issues = []
@@ -209,7 +209,7 @@ def setup(tmp_path, monkeypatch):
         script = tmp_path / f"builder_{behavior}.py"
         script.write_text(
             "import json, os, subprocess, sys, time\nfrom pathlib import Path\n"
-            "assert Path(sys.argv[1]).read_text().startswith('You are Daedalus')\n"
+            "assert Path(sys.argv[1]).read_text().startswith('You are Patrick')\n"
             + BUILDERS[behavior]
         )
         raw = {
@@ -324,7 +324,7 @@ def test_second_run_on_the_same_host_is_refused(setup):
     forge, _, make, tmp = setup
     config = make("commit")
     with iris.single_run(config.log_dir):
-        with pytest.raises(iris.IrisError, match="Another Iris run"):
+        with pytest.raises(iris.IrisError, match="Another Debora run"):
             iris.run_once(config)
 
 

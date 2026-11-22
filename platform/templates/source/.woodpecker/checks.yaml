@@ -1,4 +1,4 @@
-# Required pull-request checks (Cerberus). The same script Iris runs before it
+# Required pull-request checks (McCall). The same script Debora runs before it
 # opens a pull request; this run is the trusted one.
 when:
   - event: pull_request

@@ -1,6 +1,6 @@
-# Iris: the serial coordinator
+# Debora: the serial coordinator
 
-Iris is the [cast](cast.md)'s coordinator: a small program, not a model. One run takes the oldest issue labelled `ready` in Forge, has Daedalus build it in a sandbox, and either opens a pull request or marks the issue `blocked` with the reason. It implements Phase 3 of the [pilot runbook](pilot-runbook.md).
+Debora is the [cast](cast.md)'s coordinator: a small program, not a model, whose technical name is `iris`. One run takes the oldest issue labelled `ready` in Forge, has Patrick build it in a sandbox, and either opens a pull request or marks the issue `blocked` with the reason. It implements Phase 3 of the [pilot runbook](pilot-runbook.md).
 
 Status: **written and tested against a fake Forgejo API, a local git repository and stand-in builders. Not yet run against a real Forgejo, Docker sandbox or Qwen Code.** Its Forgejo calls follow the Gitea-compatible REST API and must be confirmed on the installed version.
 
@@ -8,9 +8,9 @@ Code: [`src/backend_standard/iris.py`](../../src/backend_standard/iris.py) for t
 
 ## One run
 
-1. Take a host lock so only one Iris runs at a time.
+1. Take a host lock so only one Debora runs at a time.
 2. If the repository uses a [task plan](../../standards/planning/tasks.md) (it has a `waiting` label), relabel `waiting` issues as `ready` when every issue they depend on is closed. Then find the oldest open issue labelled `ready` and relabel it `in-progress`.
-3. Clone the repository into a fresh temporary workspace and create `iris/issue-<n>`. If that branch already exists on the server, stop; Iris never overwrites one.
+3. Clone the repository into a fresh temporary workspace and create `iris/issue-<n>`. If that branch already exists on the server, stop; Debora never overwrites one.
 4. Write the prompt: fixed rules first, then the issue text between markers as data. Run the builder in the sandbox with only the listed model variables and a wall-time limit.
 5. Run the project's check command itself, in the same sandbox image without any secret, on the committed state. The builder's own claim of success is not used. If the checks fail, start the builder again with the end of the check output and a progress note, up to `repair_rounds` times (default 2).
 6. Apply the change guards, then decide:
@@ -30,8 +30,8 @@ Code: [`src/backend_standard/iris.py`](../../src/backend_standard/iris.py) for t
 ## What keeps it safe
 
 - The Forgejo token is passed to git through environment configuration, never on the command line, and is never in the builder's environment. A test checks the builder's environment directly.
-- Iris refuses to start unless every variable in `builder_env` is set, because Qwen Code fills unset model variables from a `.env` file in the checkout.
-- The builder has no git server access; only Iris pushes. Injected text in an issue cannot make the model push or open pull requests ([AS01, AS02, AS04](../../standards/agent-delivery/security.md)).
+- Debora refuses to start unless every variable in `builder_env` is set, because Qwen Code fills unset model variables from a `.env` file in the checkout.
+- The builder has no git server access; only Debora pushes. Injected text in an issue cannot make the model push or open pull requests ([AS01, AS02, AS04](../../standards/agent-delivery/security.md)).
 - The docker sandbox drops all capabilities, forbids privilege escalation, runs as the invoking user and mounts only the workspace. Restricting outbound traffic is done by the Docker network named in `docker_network`, which the operator must create with an allowlist ([AS03](../../standards/agent-delivery/security.md)).
 - `local` sandbox mode runs the builder directly on the host. It exists for tests and trusted development only.
 
@@ -40,7 +40,7 @@ Tests also demonstrate the controls failing when broken: removing the protected-
 ## Use
 
 ```sh
-export IRIS_FORGEJO_TOKEN=...   # token of Iris's Forgejo user
+export IRIS_FORGEJO_TOKEN=...   # token of Debora's Forgejo user
 uv run --no-sync iris check iris.json
 uv run --no-sync iris run-once iris.json
 ```
@@ -51,4 +51,4 @@ Create the four labels in the repository first: `ready`, `in-progress`, `review`
 
 ## Not yet
 
-The test guard works on file names and removed lines; it cannot tell a weakened assertion from a legitimate edit, so a blocked run may need a human decision, and Argus still reviews test quality. No claims across hosts, attempt budgets across runs, crash recovery of a half-finished run, or parallel builders. A run interrupted after relabelling leaves the issue `in-progress` for a human to reset. Add these from the [dispatch ledger](../../src/backend_standard/dispatch.py) before running more than one builder.
+The test guard works on file names and removed lines; it cannot tell a weakened assertion from a legitimate edit, so a blocked run may need a human decision, and Raymond still reviews test quality. No claims across hosts, attempt budgets across runs, crash recovery of a half-finished run, or parallel builders. A run interrupted after relabelling leaves the issue `in-progress` for a human to reset. Add these from the [dispatch ledger](../../src/backend_standard/dispatch.py) before running more than one builder.

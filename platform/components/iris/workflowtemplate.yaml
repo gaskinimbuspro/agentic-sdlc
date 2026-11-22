@@ -1,4 +1,4 @@
-# Iris: one ready issue becomes one pull request, or a blocked issue with a reason.
+# Debora: one ready issue becomes one pull request, or a blocked issue with a reason.
 # Deterministic steps hold the git token; the builder step holds only the model
 # variables; check and guard hold no secret. Every step runs in its own pod.
 apiVersion: argoproj.io/v1alpha1

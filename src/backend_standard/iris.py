@@ -1,9 +1,9 @@
-"""Iris, the serial coordinator for one Forgejo repository.
+"""Debora, the serial coordinator for one Forgejo repository.
 
-One run picks the oldest issue labelled ready, runs the builder (Daedalus) on a
+One run picks the oldest issue labelled ready, runs the builder (Patrick) on a
 fresh checkout inside a sandbox with a wall-time limit, then pushes the branch
-and opens a pull request. Iris is a program, not a model. The git token stays
-with Iris: the builder process never receives it.
+and opens a pull request. Debora is a program, not a model. The git token stays
+with Debora: the builder process never receives it.
 
 This is the serial pilot version. It has no exclusive claims across hosts, no
 attempt budget across runs and no crash recovery beyond labelling the issue
@@ -36,8 +36,8 @@ from typing import Any
 LABEL_KEYS = ("ready", "in_progress", "review", "blocked")
 BLOCKED_NOTE = ".iris/BLOCKED.md"
 PROMPT_FILE = ".iris/prompt.md"
-BUILDER_NAME = "Daedalus"
-BUILDER_EMAIL = "daedalus@iris.invalid"
+BUILDER_NAME = "Patrick"
+BUILDER_EMAIL = "patrick@iris.invalid"
 PROGRESS_NOTE = ".iris/progress.md"
 TEST_PATTERNS = ["tests/*", "test/*", "*/tests/*", "*/test/*", "test_*", "*/test_*"]
 TEST_PATTERNS += ["*_test.*", "*.test.*", "*.spec.*", "*Tests.cs", "*Test.java"]
@@ -184,7 +184,7 @@ def load_config(path: Path) -> Config:
 
 
 class Forgejo:
-    """The few Forgejo REST calls Iris needs."""
+    """The few Forgejo REST calls Debora needs."""
 
     def __init__(self, config: Config) -> None:
         self.base = f"{config.forgejo_url}/api/v1"
@@ -193,7 +193,7 @@ class Forgejo:
 
     @classmethod
     def for_repo(cls, url: str, owner: str, repo: str, token: str) -> Forgejo:
-        """A client without an Iris configuration, for the task plan tools."""
+        """A client without an Debora configuration, for the task plan tools."""
         if urllib.parse.urlsplit(url).scheme not in {"http", "https"}:
             raise IrisError("Forgejo URL must use http or https")
         if not token or any(ord(char) < 33 or ord(char) > 126 for char in token):
@@ -309,7 +309,7 @@ def build_prompt(config: Config, issue: dict[str, Any], feedback: str = "") -> s
             "- Work only inside this repository checkout.",
             "- Implement the task below together with its tests.",
             f"- Run the project's checks with: {config.check_command}",
-            "- Iris runs the same checks after you finish. Your own statement that"
+            "- Debora runs the same checks after you finish. Your own statement that"
             " the work is done is not used.",
             "- It is unacceptable to remove or edit existing tests to make checks"
             " pass. Add tests for the new behavior.",
@@ -528,7 +528,7 @@ def single_run(log_dir: Path) -> Iterator[None]:
         try:
             fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError as error:
-            raise IrisError("Another Iris run is active on this host") from error
+            raise IrisError("Another Debora run is active on this host") from error
         yield
 
 
@@ -568,7 +568,7 @@ def run_once(config: Config, keep_workspace: bool = False) -> dict[str, Any]:
         try:
             _work(config, forge, issue, record, workspace, stamp)
         except (IrisError, OSError, subprocess.SubprocessError, ValueError) as error:
-            record.update(outcome="blocked", reason=f"Iris error: {error}")
+            record.update(outcome="blocked", reason=f"Debora error: {error}")
         finally:
             if not keep_workspace:
                 shutil.rmtree(workspace, ignore_errors=True)
@@ -578,12 +578,12 @@ def run_once(config: Config, keep_workspace: bool = False) -> dict[str, Any]:
             forge.relabel(number, label["review"], label["in_progress"])
             forge.comment(
                 number,
-                f"Iris opened pull request #{record['pull']} from "
+                f"Debora opened pull request #{record['pull']} from "
                 f"`{record['branch']}` after {record['seconds']} s.",
             )
         else:
             forge.relabel(number, label["blocked"], label["in_progress"])
-            forge.comment(number, f"Iris stopped: {record['reason']}")
+            forge.comment(number, f"Debora stopped: {record['reason']}")
         with (config.log_dir / "runs.jsonl").open("a") as runs:
             runs.write(json.dumps(record) + "\n")
         return record
@@ -683,10 +683,10 @@ def _work(
     )
     body = (
         f"Closes #{issue['number']}\n\n"
-        f"Built by {BUILDER_NAME}, coordinated by Iris. "
+        f"Built by {BUILDER_NAME}, coordinated by Debora. "
         f"{commits} commit(s), {files} file(s) and {lines} line(s) changed, "
         f"checks passed on attempt {record['attempts']}. "
-        "Cerberus runs the required checks; Argus reviews; Gökhan approves."
+        "McCall runs the required checks; Raymond reviews; Gökhan approves."
     )
     title = re.sub(r"\s+", " ", str(issue.get("title", ""))).strip()
     record["pull"] = forge.open_pull(

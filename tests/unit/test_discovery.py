@@ -14,7 +14,7 @@ TEMPLATE = ROOT / "standards/planning/discovery.template.json"
 def filled(stages: int = 11) -> dict:
     record = json.loads(TEMPLATE.read_text())
     record.update(project="invoice-tracker", product_owner="gokhan")
-    record["agent_identities"] = ["voltran", "daedalus"]
+    record["agent_identities"] = ["voltran", "patrick"]
     for stage in record["stages"][:stages]:
         stage.update(approved_by="gokhan", approved_at="2026-11-21")
         for question in stage["questions"]:

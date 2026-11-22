@@ -168,7 +168,7 @@ def voltran() -> str:
     )
 
 
-def argus() -> str:
+def raymond() -> str:
     skin, grey = SKIN["warm"], "#D1D5DB"
     return (
         bust("#7F1D1D", skin)
@@ -183,7 +183,7 @@ def argus() -> str:
     )
 
 
-def iris() -> str:
+def debora() -> str:
     skin, hair = SKIN["tan"], "#3B2416"
     curls = "".join(
         f'<circle cx="{x}" cy="{y}" r="{r}" fill="{hair}"/>'
@@ -210,7 +210,7 @@ def iris() -> str:
     )
 
 
-def daedalus() -> str:
+def patrick() -> str:
     skin = SKIN["light"]
     return (
         bust("#4B5563", skin, width=22)
@@ -225,7 +225,7 @@ def daedalus() -> str:
     )
 
 
-def cerberus() -> str:
+def mccall() -> str:
     skin = SKIN["deep"]
     return (
         bust("#1F2937", skin)
@@ -242,7 +242,7 @@ def cerberus() -> str:
     )
 
 
-def pythia() -> str:
+def dembe() -> str:
     skin, hair = SKIN["warm"], "#E5E7EB"
     return (
         bust("#111827", skin)
@@ -255,7 +255,7 @@ def pythia() -> str:
     )
 
 
-def echo() -> str:
+def teresa() -> str:
     skin, hair = SKIN["tan"], "#111827"
     curls = "".join(
         f'<circle cx="{x}" cy="{y}" r="3.6" fill="{hair}"/>'
@@ -286,12 +286,12 @@ def echo() -> str:
 CAST = {
     "gokhan": ("#A76608", gokhan, "Gökhan, product owner"),
     "voltran": ("#7756C8", voltran, "Voltran, architect"),
-    "argus": ("#5B47B0", argus, "Argus, reviewer"),
-    "iris": ("#2563EB", iris, "Iris, coordinator"),
-    "daedalus": ("#087F8C", daedalus, "Daedalus, builder"),
-    "cerberus": ("#0A6670", cerberus, "Cerberus, CI gate"),
-    "pythia": ("#7756C8", pythia, "Pythia, model server"),
-    "echo": ("#52647C", echo, "Echo, mirror"),
+    "raymond": ("#5B47B0", raymond, "Raymond, reviewer"),
+    "debora": ("#2563EB", debora, "Debora, coordinator"),
+    "patrick": ("#087F8C", patrick, "Patrick, builder"),
+    "mccall": ("#0A6670", mccall, "McCall, CI gate"),
+    "dembe": ("#7756C8", dembe, "Dembe, model server"),
+    "teresa": ("#52647C", teresa, "Teresa, mirror"),
 }
 
 

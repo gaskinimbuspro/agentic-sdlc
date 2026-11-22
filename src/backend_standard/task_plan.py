@@ -5,7 +5,7 @@ truth: the architect writes it in a pull request and the product owner's merge
 approves it. Issues are a view of the plan. ``sync`` creates or updates one
 issue per task, idempotently, and labels it ``draft``, ``waiting`` or
 ``ready``. ``promote`` turns ``waiting`` into ``ready`` once every dependency
-issue is closed. Issues that Iris is working on (``in-progress``, ``review``,
+issue is closed. Issues that Debora is working on (``in-progress``, ``review``,
 ``blocked``) keep their label; only their text is refreshed.
 """
 
@@ -260,7 +260,7 @@ def promote(tracker: Tracker) -> list[int]:
 
 
 class ForgejoTracker:
-    """Tracker backed by the Forgejo REST API, through Iris's client."""
+    """Tracker backed by the Forgejo REST API, through Debora's client."""
 
     def __init__(self, forge: Any, owner: str, repo: str, names: dict[str, str]):
         self.forge = forge

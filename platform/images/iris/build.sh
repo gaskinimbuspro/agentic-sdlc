@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the Iris step image from this repository's locked dependencies.
+# Build the Debora step image from this repository's locked dependencies.
 # Usage: platform/images/iris/build.sh [image-tag]
 set -euo pipefail
 tag="${1:-localhost/iris:0.1}"

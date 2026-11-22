@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Connect Woodpecker (Cerberus) to Forgejo once both are installed.
+# Connect Woodpecker (McCall) to Forgejo once both are installed.
 #
 # Creates a Forgejo OAuth2 application for Woodpecker and stores its client id
 # and secret, and a gRPC signing secret, in the woodpecker-forgejo Secret that

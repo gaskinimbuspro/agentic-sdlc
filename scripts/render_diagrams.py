@@ -48,12 +48,12 @@ INK, MUTED, BORDER = "#13243C", "#52647C", "#D9E2EF"
 CAST = {
     "gokhan": ("Gökhan", "PRODUCT OWNER", "Decides · approves · merges", "user-round", AMBER),
     "voltran": ("Voltran", "ARCHITECT", "Claude", "pencil-ruler", PURPLE),
-    "argus": ("Argus", "REVIEWER", "Claude · separate session", "eye", PURPLE),
-    "iris": ("Iris", "COORDINATOR", "Python program · not a model", "workflow", BLUE),
-    "daedalus": ("Daedalus", "BUILDER", "Qwen Code + Qwen model", "hammer", TEAL),
-    "cerberus": ("Cerberus", "CI GATE", "Woodpecker", "shield-check", TEAL),
-    "pythia": ("Pythia", "MODEL SERVER", "vLLM · RunPod", "cpu", PURPLE),
-    "echo": ("Echo", "MIRROR", "Forgejo push mirror", "copy", "#52647C"),
+    "raymond": ("Raymond", "REVIEWER", "Claude · separate session", "eye", PURPLE),
+    "debora": ("Debora", "COORDINATOR", "Python program · not a model", "workflow", BLUE),
+    "patrick": ("Patrick", "BUILDER", "Qwen Code + Qwen model", "hammer", TEAL),
+    "mccall": ("McCall", "CI GATE", "Woodpecker", "shield-check", TEAL),
+    "dembe": ("Dembe", "MODEL SERVER", "vLLM · RunPod", "cpu", PURPLE),
+    "teresa": ("Teresa", "MIRROR", "Forgejo push mirror", "copy", "#52647C"),
 }
 
 
@@ -371,16 +371,16 @@ def system_map():
     c = Canvas("How the system works", "Proposed target · who decides, who builds, who checks", 1150)
     c.character(64, 180, 380, 104, "gokhan")
     c.character(520, 180, 380, 104, "voltran")
-    c.character(976, 180, 380, 104, "argus")
+    c.character(976, 180, 380, 104, "raymond")
     c.zone(64, 360, 1240, 450, "WORK SERVER  ·  your machine", "server")
     c.zone(1330, 360, 406, 450, "GPU SERVER", "nvidia")
-    c.character(100, 420, 300, 104, "cerberus")
+    c.character(100, 420, 300, 104, "mccall")
     c.node(480, 420, 340, 104, "Forge", "Forgejo · repo · issues · PRs", "forgejo", BLUE)
-    c.character(940, 420, 320, 104, "iris", "Python program")
-    c.character(100, 640, 300, 104, "echo")
+    c.character(940, 420, 320, 104, "debora", "Python program")
+    c.character(100, 640, 300, 104, "teresa")
     c.node(480, 640, 340, 104, "Argo CD", "Deploys staging · prod", "argo", BLUE)
-    c.character(940, 640, 320, 104, "daedalus")
-    c.character(1356, 640, 354, 104, "pythia")
+    c.character(940, 640, 320, 104, "patrick")
+    c.character(1356, 640, 354, 104, "dembe")
     c.node(100, 860, 300, 90, "GitHub", "Code copy only", "github", BLUE, 19)
     c.text(440, 912, "The standards repository lives on GitHub. Projects only mirror their code there.", 15, MUTED)
     c.arrow("M444 232 H515", "amber")
@@ -424,8 +424,8 @@ def lifecycle():
         ("Specify", "list-checks", BLUE, ["voltran", "gokhan"], ["Requirements", "+ examples"], "RQ rules"),
         ("Design", "pencil-ruler", PURPLE, ["voltran", "gokhan"], ["Architecture", "+ UI packet"], "AR · U rules"),
         ("Plan", "square-kanban", PURPLE, ["voltran"], ["Issues", "in Forge"], "G0 Ready"),
-        ("Build", "code-xml", TEAL, ["iris", "daedalus"], ["Code + tests"], "G1 Local"),
-        ("Verify", "shield-check", TEAL, ["cerberus", "argus"], ["Checks", "+ verdict"], "G2 · G3"),
+        ("Build", "code-xml", TEAL, ["debora", "patrick"], ["Code + tests"], "G1 Local"),
+        ("Verify", "shield-check", TEAL, ["mccall", "raymond"], ["Checks", "+ verdict"], "G2 · G3"),
         ("Release", "rocket", BLUE, ["gokhan"], ["Merged", "change"], "G4 · G5"),
     ]
     for y, name in [(250, "STAGE"), (395, "WHO"), (515, "OUTPUT"), (608, "GATE")]:
@@ -458,7 +458,7 @@ def lifecycle():
 def placement():
     c = Canvas("Where it runs", "Proposed placement · three places, each with its own credentials", 1090)
     c.character(90, 185, 380, 100, "gokhan", "Laptop · browser")
-    c.node(710, 185, 380, 100, "Voltran · Argus", "Claude · called on demand", "claude")
+    c.node(710, 185, 380, 100, "Voltran · Raymond", "Claude · called on demand", "claude")
     c.node(1330, 185, 380, 100, "GitHub", "Standards · code mirror", "github")
     c.arrow("M470 235 H705", "amber")
     c.zone(64, 380, 1026, 470, "WORK SERVER  ·  no GPU", "server")
@@ -466,13 +466,13 @@ def placement():
     c.arrow("M760 285 V318 H520 V455", "purple")
     c.label(640, 318, "plan · review", PURPLE)
     c.arrow("M680 455 V350 H1520 V290", "gray")
-    c.label(1150, 350, "Echo · scheduled mirror", SLATE)
-    c.character(100, 460, 300, 110, "iris", "Python program")
+    c.label(1150, 350, "Teresa · scheduled mirror", SLATE)
+    c.character(100, 460, 300, 110, "debora", "Python program")
     c.node(430, 460, 300, 110, "Forge", "Forgejo", "forgejo", BLUE, 19)
-    c.character(760, 460, 300, 110, "cerberus")
+    c.character(760, 460, 300, 110, "mccall")
     c.rect(112, 628, 300, 110, "#FFFFFF", BORDER)
     c.rect(106, 634, 300, 110, "#FFFFFF", BORDER)
-    c.character(100, 640, 300, 110, "daedalus", "1 task = 1 sandbox")
+    c.character(100, 640, 300, 110, "patrick", "1 task = 1 sandbox")
     c.node(430, 640, 300, 110, "Registry", "Forgejo · by digest", "package", BLUE, 19)
     c.node(760, 640, 300, 110, "Staging · prod", "Argo CD deploys", "argo", BLUE, 19)
     c.arrow("M400 515 H425", "blue")
@@ -481,7 +481,7 @@ def placement():
     c.arrow("M910 570 V605 H600 V635", "teal")
     c.arrow("M730 695 H755", "teal")
     c.node(1190, 460, 506, 110, "Model weights", "Pinned version", "hard-drive", PURPLE)
-    c.character(1190, 640, 506, 110, "pythia", "vLLM · serves the Qwen model")
+    c.character(1190, 640, 506, 110, "dembe", "vLLM · serves the Qwen model")
     c.arrow("M1440 570 V640", "gray", end=False)
     c.arrow("M250 750 V800 H1440 V755", "purple", start=True)
     c.label(1120, 800, "API key only", PURPLE, fill="#EAF1FE")
@@ -492,7 +492,7 @@ def placement():
                           (930, "Forgejo", "forgejo"), (1170, "Woodpecker", "shield-check"), (1450, "vLLM", "vllm")]:
         c.mark(x, 928, icon, TEAL, 28)
         c.text(x + 42, 949, name, 18, INK)
-    c.footer("06", "Proposed placement; tried on a sandbox cluster, no server ordered yet. Daedalus holds no git token.", brands=True)
+    c.footer("06", "Proposed placement; tried on a sandbox cluster, no server ordered yet. Patrick holds no git token.", brands=True)
     c.save("06-where-it-runs")
 
 
@@ -512,13 +512,13 @@ def project_start():
         ("Specify and design", "Voltran writes · Gökhan approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
         ("Tasks in Forge", "Voltran plans · Gökhan merges", "Plan file becomes issues; ready when deps merge", "square-kanban", PURPLE, "tried"),
         ("Project setup", "Platform scripts", "Deploy repo · bots · protection · Argo CD", "settings-2", BLUE, "tried"),
-        ("Build", "Iris + Daedalus", "One issue, one sandbox, one pull request", "hammer", TEAL, "partly"),
-        ("Review and merge", "Cerberus · Argus · Gökhan", "Checks pass, review, only Gökhan merges", "git-merge", TEAL, "partly"),
-        ("Release", "Cerberus · Argo CD · Gökhan", "Staging automatic, prod by approved PR", "rocket", BLUE, "tried"),
+        ("Build", "Debora + Patrick", "One issue, one sandbox, one pull request", "hammer", TEAL, "partly"),
+        ("Review and merge", "McCall · Raymond · Gökhan", "Checks pass, review, only Gökhan merges", "git-merge", TEAL, "partly"),
+        ("Release", "McCall · Argo CD · Gökhan", "Staging automatic, prod by approved PR", "rocket", BLUE, "tried"),
     ]
     notes = {
         "Build": "stand-in builder; real Qwen not tried",
-        "Review and merge": "Argus review is manual",
+        "Review and merge": "Raymond review is manual",
     }
     c.text(190, 180, "STEP", 13, MUTED, bold=True)
     c.text(520, 180, "WHO", 13, MUTED, bold=True)
@@ -563,7 +563,7 @@ def project_start():
 def release_path():
     c = Canvas("From merge to production", "Tried in a sandbox · one image, built once, promoted by digest", 1070)
     c.character(64, 190, 420, 104, "gokhan", "Approves and merges the PR")
-    c.character(580, 190, 440, 104, "cerberus", "Checks again · builds image once")
+    c.character(580, 190, 440, 104, "mccall", "Checks again · builds image once")
     c.node(1116, 190, 420, 104, "Forgejo registry", "image @ sha256 digest", "package", BLUE)
     c.arrow("M484 242 H575", "amber")
     c.label(530, 230, "main", AMBER, 13)
@@ -607,22 +607,22 @@ def cast():
     never = {
         "gokhan": "Reminds agents to test",
         "voltran": "Writes the implementation",
-        "argus": "Approves its own work",
-        "iris": "Makes product decisions",
-        "daedalus": "Pushes or picks tasks",
-        "cerberus": "Waives a failing check",
-        "pythia": "Holds code or git tokens",
-        "echo": "Carries issues, PRs or CI",
+        "raymond": "Approves its own work",
+        "debora": "Makes product decisions",
+        "patrick": "Pushes or picks tasks",
+        "mccall": "Waives a failing check",
+        "dembe": "Holds code or git tokens",
+        "teresa": "Carries issues, PRs or CI",
     }
     does = {
         "gokhan": "Decides and approves",
         "voltran": "Plans and splits work",
-        "argus": "Reviews each pull request",
-        "iris": "Hands out tasks, sets limits",
-        "daedalus": "Builds one task + tests",
-        "cerberus": "Runs checks on every PR",
-        "pythia": "Serves the model",
-        "echo": "Copies code to GitHub",
+        "raymond": "Reviews each pull request",
+        "debora": "Hands out tasks, sets limits",
+        "patrick": "Builds one task + tests",
+        "mccall": "Runs checks on every PR",
+        "dembe": "Serves the model",
+        "teresa": "Copies code to GitHub",
     }
     for n, key in enumerate(CAST):
         name, role, runs, icon, color = CAST[key]
@@ -655,7 +655,7 @@ def two_loops():
     c.node(530, 455, 370, 104, "Commit", "Only when checks pass", "git-branch", TEAL)
     c.node(530, 640, 370, 104, "Preview", "Planned · not built", "kubernetes", SLATE, dashed=True)
     c.node(100, 640, 360, 104, "Try it", "Gökhan or a tester", "user-round", AMBER, dashed=True)
-    c.character(100, 455, 360, 104, "daedalus", "Runs this loop")
+    c.character(100, 455, 360, 104, "patrick", "Runs this loop")
     c.arrow("M460 322 H525", "teal")
     c.arrow("M715 374 V450", "teal")
     c.arrow("M715 559 V635", "gray", dash=True)
@@ -665,9 +665,9 @@ def two_loops():
     c.arrow("M280 455 V379", "gray", dash=True)
     c.arrow("M900 322 H975", "blue")
     c.label(938, 300, "done", BLUE, 13)
-    c.character(1016, 270, 330, 104, "iris", "Pushes · opens PR")
-    c.character(1016, 410, 330, 104, "cerberus", "Same checks, clean")
-    c.character(1016, 550, 330, 104, "argus", "Reviews the PR")
+    c.character(1016, 270, 330, 104, "debora", "Pushes · opens PR")
+    c.character(1016, 410, 330, 104, "mccall", "Same checks, clean")
+    c.character(1016, 550, 330, 104, "raymond", "Reviews the PR")
     c.character(1016, 690, 330, 104, "gokhan", "Approves · merges")
     for y in (374, 514, 654):
         c.arrow(f"M1181 {y} V{y + 31}", "teal")
@@ -675,7 +675,7 @@ def two_loops():
     c.label(976, 492, "fail → fix", size=13, fill="#EAF1FE")
     c.node(1390, 410, 320, 104, "Release", "Staging · prod PR", "argo", BLUE)
     c.arrow("M1346 715 H1366 V462 H1385", "blue")
-    c.character(1390, 690, 320, 104, "echo", "Scheduled push")
+    c.character(1390, 690, 320, 104, "teresa", "Scheduled push")
     c.arrow("M1346 742 H1385", "gray")
     c.node(1390, 910, 320, 90, "GitHub", "Code copy only", "github", BLUE, 19)
     c.arrow("M1550 794 V905", "gray")

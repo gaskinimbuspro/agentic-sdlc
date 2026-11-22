@@ -1,4 +1,4 @@
-# Task plan (Cerberus): validate plan/tasks.json on every pull request, as a
+# Task plan (McCall): validate plan/tasks.json on every pull request, as a
 # required check; after the owner merges a plan change, turn the plan into
 # Forgejo issues. The planner token can only write issues; it is limited to
 # push events, so pull-request pipelines cannot read it.

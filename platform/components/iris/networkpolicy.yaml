@@ -1,4 +1,4 @@
-# Daedalus (the builder) may reach DNS and addresses outside the cluster, such
+# Patrick (the builder) may reach DNS and addresses outside the cluster, such
 # as the model server, but nothing inside the cluster: not Forgejo, not the
 # Kubernetes API, not other pods (AS03).
 apiVersion: networking.k8s.io/v1

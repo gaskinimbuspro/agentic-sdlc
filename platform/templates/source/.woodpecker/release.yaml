@@ -1,4 +1,4 @@
-# Release (Cerberus): after the checks pass on main, build the image once,
+# Release (McCall): after the checks pass on main, build the image once,
 # record its digest, and set that digest in the staging overlay of the deploy
 # repository. Argo CD deploys staging from there. Production is promoted by a
 # pull request in the deploy repository that the product owner approves.

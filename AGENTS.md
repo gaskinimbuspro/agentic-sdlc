@@ -19,4 +19,6 @@ Do not weaken tests, acceptance criteria, or required checks to claim success. R
 
 For repository maintenance, validate Markdown links/anchors, JSON templates, rule IDs, and source/diagram consistency. Regenerate diagrams after editing their generator and inspect the previews. Do not claim application test execution when this repository contains no backend application.
 
+The product owner follows the project through a Turkish system map at https://claude.ai/artifact/BYTBwSDVRp5bmStVJwRzj2. It mirrors the step statuses of diagram view 07, the trial table in `platform/README.md`, the decision tables in `docs/architecture/README.md` and the cast. When any of these changes, update the map in the same session: read the artifact, change only what changed, set its last-updated date and republish to the same link. Keep the Turkish page out of this repository.
+
 Never commit credentials or sensitive environment output. Preserve unrelated user changes. Use focused branches/PRs; do not merge or deploy without task authorization. Update the PR description to its final scope.
