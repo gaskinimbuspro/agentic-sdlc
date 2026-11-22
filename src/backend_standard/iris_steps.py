@@ -253,7 +253,7 @@ def publish(config: Config, work: Path) -> str:
         f"{state.get('commits', 0)} commit(s), {state.get('changed_files', 0)} "
         f"file(s) and {state.get('changed_lines', 0)} line(s) changed, checks "
         f"passed on attempt {state.get('attempts', 1)}. "
-        "McCall runs the required checks; Raymond reviews; Gökhan approves."
+        "McCall runs the required checks; Raymond reviews; Cooper approves."
     )
     title = re.sub(r"\s+", " ", state["title"]).strip()
     state["pull"] = forge.open_pull(

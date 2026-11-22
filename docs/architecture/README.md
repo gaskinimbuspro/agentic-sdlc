@@ -10,7 +10,7 @@ The actors have names; see [the cast](cast.md).
 
 | Character | Role | Does | Does not |
 | --- | --- | --- | --- |
-| Gökhan | Product Owner | States the idea, answers product and risk questions, approves scope, requirements, design and merge | Remind agents to test, review routine code |
+| Cooper | Product Owner | States the idea, answers product and risk questions, approves scope, requirements, design and merge | Remind agents to test, review routine code |
 | Voltran (Claude) | Architect | Runs discovery, writes requirements and architecture, prepares the UI packet, splits work into tasks, helps when a task is blocked | Write the implementation, run continuously |
 | Raymond (Claude, separate session) | Reviewer | Reviews each pull request against the requirements and examples | Review its own work, merge |
 | Debora (a program, not a model) | Coordinator | Picks ready issues, opens sandboxes, starts Patrick with limits, pushes branches, opens pull requests | Decide product behavior, judge design quality |
@@ -25,15 +25,15 @@ The split follows the existing [role contract](../../standards/backend/agent-con
 
 | Stage | Owner | Output | Gate before the next stage |
 | --- | --- | --- | --- |
-| Discover | Gökhan with Voltran | Brief with scope and non-goals | Gökhan agrees the scope |
-| Specify | Voltran, Gökhan approves | Requirements with concrete examples | [RQ01–RQ06](../../standards/planning/requirements.md) |
-| Design | Voltran, Gökhan approves | Architecture records and, for a UI, the design packet | [AR01–AR05](../../standards/planning/architecture.md), [UI design validation](../../standards/ui/README.md#executable-scope) |
+| Discover | Cooper with Voltran | Brief with scope and non-goals | Cooper agrees the scope |
+| Specify | Voltran, Cooper approves | Requirements with concrete examples | [RQ01–RQ06](../../standards/planning/requirements.md) |
+| Design | Voltran, Cooper approves | Architecture records and, for a UI, the design packet | [AR01–AR05](../../standards/planning/architecture.md), [UI design validation](../../standards/ui/README.md#executable-scope) |
 | Plan | Voltran | Issues in Forge, with dependencies and case IDs | [G0 Ready](../../standards/backend/testing.md#gates) |
 | Build | Patrick, started by Debora | Code, tests, local commits; Debora opens the pull request | G1 Local |
 | Verify | McCall, then Raymond | Check reports and a review verdict | G2 Clean CI and G3 Independent acceptance |
-| Release | Gökhan authorizes | Merged change, and a running version when deployment is in scope | G4 and G5, when in scope |
+| Release | Cooper authorizes | Merged change, and a running version when deployment is in scope | G4 and G5, when in scope |
 
-A failed check returns the task to Build within its repair budget. A missing decision, exhausted budget or missing access blocks the task and reaches Gökhan. Recurring corrections become standard changes under [ME06](../../standards/agent-delivery/measurement.md).
+A failed check returns the task to Build within its repair budget. A missing decision, exhausted budget or missing access blocks the task and reaches Cooper. Recurring corrections become standard changes under [ME06](../../standards/agent-delivery/measurement.md).
 
 ## Why Claude is not the always-on manager
 
@@ -72,9 +72,9 @@ Rules:
 
 ![Two loops](../diagrams/09-two-loops.png)
 
-**Inner loop, minutes, inside the sandbox.** Patrick edits code, runs the same check scripts the project uses in CI, and, once previews are built, deploys the change to a short-lived preview namespace that Gökhan or a tester can open at once. Nothing in this loop waits for CI.
+**Inner loop, minutes, inside the sandbox.** Patrick edits code, runs the same check scripts the project uses in CI, and, once previews are built, deploys the change to a short-lived preview namespace that Cooper or a tester can open at once. Nothing in this loop waits for CI.
 
-**Outer loop, acceptance.** Debora pushes the branch and opens a pull request in Forge. McCall runs the same scripts in a clean container. Raymond reviews. Forge's branch protection blocks the merge until the checks pass and Gökhan approves.
+**Outer loop, acceptance.** Debora pushes the branch and opens a pull request in Forge. McCall runs the same scripts in a clean container. Raymond reviews. Forge's branch protection blocks the merge until the checks pass and Cooper approves.
 
 The check logic lives in scripts in the repository, as with this repository's `backend-verify`. The Woodpecker pipeline only calls them. The same command therefore runs in the sandbox, in CI and on a laptop, and replacing the CI tool or the git server does not change the checks.
 
@@ -88,13 +88,13 @@ Agents propose changes; pipelines build; only Argo CD changes the cluster. Nobod
 | --- | --- | --- |
 | 1 | Debora | Opens a pull request in the source repository |
 | 2 | McCall | Runs the required check; Forgejo shows the status on the pull request |
-| 3 | Raymond, then Gökhan | Review; Gökhan approves and merges. Agents cannot merge and nobody pushes to main |
+| 3 | Raymond, then Cooper | Review; Cooper approves and merges. Agents cannot merge and nobody pushes to main |
 | 4 | McCall | On main, after the check passes again: builds the image once, records its digest, writes the digest into `overlays/staging` of the deploy repository |
 | 5 | Argo CD | Syncs staging from the deploy repository |
-| 6 | Release bot, then Gökhan | A pull request in the deploy repository copies the staging digest to `overlays/prod`; Gökhan approves and merges after checking staging |
+| 6 | Release bot, then Cooper | A pull request in the deploy repository copies the staging digest to `overlays/prod`; Cooper approves and merges after checking staging |
 | 7 | Argo CD | Syncs prod; the running digest is the one built in step 4 |
 
-The release token is a Woodpecker secret limited to push events, so pipelines started by a pull request cannot read it. The deploy repository lets the release bot push only the staging overlay; every other change needs Gökhan's approval and merge. Templates and scripts are in [platform/templates](../../platform/templates/README.md).
+The release token is a Woodpecker secret limited to push events, so pipelines started by a pull request cannot read it. The deploy repository lets the release bot push only the staging overlay; every other change needs Cooper's approval and merge. Templates and scripts are in [platform/templates](../../platform/templates/README.md).
 
 Not built yet: pull-request preview environments, schema migrations as a pre-sync job, a secrets manager for application secrets, and an automated staging smoke test before the prod pull request.
 
@@ -104,14 +104,14 @@ Not built yet: pull-request preview environments, schema migrations as a pre-syn
 
 The view marks each step as tried in the sandbox, built but not yet used, or not built.
 
-1. Gökhan describes the idea.
+1. Cooper describes the idea.
 2. Voltran runs the [discovery sequence](../../standards/planning/README.md#discovery-sequence) until every in-scope behavior has an example or an open decision.
-3. Gökhan approves the requirements.
-4. Gökhan approves the architecture and, for a UI, the design packet: every screen, state, action destination and API outcome.
-5. Voltran writes the [task plan](../../standards/planning/tasks.md) `plan/tasks.json` in a pull request; McCall validates it and Gökhan merges it. McCall then creates one issue per task with its dependencies: tasks with no open dependency are `ready`, the rest `waiting`, and tasks with an open decision `draft`. Teresa's mirror to GitHub is configured once per project.
+3. Cooper approves the requirements.
+4. Cooper approves the architecture and, for a UI, the design packet: every screen, state, action destination and API outcome.
+5. Voltran writes the [task plan](../../standards/planning/tasks.md) `plan/tasks.json` in a pull request; McCall validates it and Cooper merges it. McCall then creates one issue per task with its dependencies: tasks with no open dependency are `ready`, the rest `waiting`, and tasks with an open decision `draft`. Teresa's mirror to GitHub is configured once per project.
 6. The project environment is prepared on the platform: Debora's configuration and secrets, builder image, the Woodpecker pipelines and branch protection, the deploy repository and its Argo CD applications ([deployment](#deployment)).
 7. Debora gives the oldest ready issue to Patrick; McCall checks the pull request. Before each claim, Debora marks `waiting` tasks `ready` once the issues they depend on are closed by merged pull requests.
-8. Raymond reviews and Gökhan merges the first change.
+8. Raymond reviews and Cooper merges the first change.
 
 ### Task structure
 
@@ -129,9 +129,9 @@ Agreed with the product owner, not built yet. The first and third ideas come fro
 
 | Addition | What it does | Built on |
 | --- | --- | --- |
-| Raymond review | Claude reviews each pull request against the task's acceptance criteria and reports a required commit status and a review comment. Gökhan still approves and merges. | The Claude API, with the key from the secrets store |
+| Raymond review | Claude reviews each pull request against the task's acceptance criteria and reports a required commit status and a review comment. Cooper still approves and merges. | The Claude API, with the key from the secrets store |
 | Feedback to the builder | When a required check fails or a review asks for changes, Debora runs Patrick again on the same branch with the check output or the review findings, within the task's repair budget, and pushes the fix. After the budget, the task is `blocked`. | Debora's repair rounds, Forgejo commit statuses and reviews |
-| "Needs you" notifications | A push message to Gökhan's phone when a task is `blocked`, a pull request waits for approval, or a deployment to prod waits for a merge. | A self-hosted notification service; the message carries a link, not code or secrets |
+| "Needs you" notifications | A push message to Cooper's phone when a task is `blocked`, a pull request waits for approval, or a deployment to prod waits for a merge. | A self-hosted notification service; the message carries a link, not code or secrets |
 | Board | One view with a column per state: draft, waiting, ready, in progress, review, blocked, done. | Forgejo's project board, driven by the existing labels |
 
 ## Scale
@@ -163,6 +163,6 @@ Phases 1 to 4 are described in the [pilot runbook](pilot-runbook.md). The work-s
 | GPU for the pilot | RunPod, about 48 GB | Chosen. Rates differed between sources; verify on the provider's page. |
 | GPU after the pilot | A fixed-price dedicated server | Decide from pilot utilization. |
 | Coordinator (Debora) | [Debora](iris.md) as an Argo Workflows template, one pod per step; `iris run-once` for a single host | Ran on Argo Workflows against a real Forgejo with a stand-in builder in the [platform trial](../../platform/README.md#what-was-tested-and-where). Not yet with Qwen Code or a real model. |
-| Secrets store | Bitwarden Secrets Manager; Bitwarden's Kubernetes operator (sm-operator) syncs secrets into the cluster, one read-only machine account per consumer | Chosen by the product owner. Not installed. The operator needs one bootstrap token per namespace, entered by Gökhan on the server; agents never receive Bitwarden access. |
+| Secrets store | Bitwarden Secrets Manager; Bitwarden's Kubernetes operator (sm-operator) syncs secrets into the cluster, one read-only machine account per consumer | Chosen by the product owner. Not installed. The operator needs one bootstrap token per namespace, entered by Cooper on the server; agents never receive Bitwarden access. |
 | Mirror (Teresa) | Forgejo push mirror to GitHub | Interval to be chosen. Forge's own backup is a separate, open task. |
 | Benefit of the split | Hosted Voltran and Raymond, local Patrick | The strongest independent study found gains from planner-executor designs uneven. Measure in the pilot. |

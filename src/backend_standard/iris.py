@@ -686,7 +686,7 @@ def _work(
         f"Built by {BUILDER_NAME}, coordinated by Debora. "
         f"{commits} commit(s), {files} file(s) and {lines} line(s) changed, "
         f"checks passed on attempt {record['attempts']}. "
-        "McCall runs the required checks; Raymond reviews; Gökhan approves."
+        "McCall runs the required checks; Raymond reviews; Cooper approves."
     )
     title = re.sub(r"\s+", " ", str(issue.get("title", ""))).strip()
     record["pull"] = forge.open_pull(

@@ -23,7 +23,7 @@ Set a spending limit in the GPU provider account and a reminder to stop the pod.
 | 0.5 | Install Woodpecker (McCall) server and agent and connect them to Forgejo. Add a pipeline that only calls the repository's test script. |
 | 0.6 | Configure Teresa: a Forgejo push mirror from the project repository to a private GitHub repository, with a GitHub token limited to that repository. Set the branch filter to the default branch so task branches are not mirrored; the mirror force-pushes and overwrites the copy. Disable Actions on the GitHub copy. |
 
-Exit test: a pull request with a failing test cannot be merged; a pull request opened by Debora's user cannot be merged without Gökhan's approval; a direct push to the default branch is refused; after the mirror interval the GitHub copy shows the latest default-branch commit and runs no workflow.
+Exit test: a pull request with a failing test cannot be merged; a pull request opened by Debora's user cannot be merged without Cooper's approval; a direct push to the default branch is refused; after the mirror interval the GitHub copy shows the latest default-branch commit and runs no workflow.
 
 If it fails: fix it before going on. The later phases are meaningless without enforced gates.
 
@@ -94,7 +94,7 @@ Use [Debora](iris.md), the serial coordinator in this repository, configured for
 
 Write each issue in the [requirements form](../../standards/planning/requirements.md): outcome, a concrete example with the expected result, and non-goals.
 
-Exit test: one issue becomes a pull request that McCall passes, with nobody editing the branch by hand. Raymond reviews it and Gökhan approves or requests changes.
+Exit test: one issue becomes a pull request that McCall passes, with nobody editing the branch by hand. Raymond reviews it and Cooper approves or requests changes.
 
 This Debora has no exclusive claims, budgets across attempts or crash recovery. That is acceptable for one builder working on one issue at a time, and is the reason not to run two builders yet.
 

@@ -17,7 +17,7 @@ The task plan turns approved requirements and design into tasks that Debora can 
 | --- | --- | --- |
 | 1 | Voltran | Writes or changes `plan/tasks.json` in a pull request. |
 | 2 | McCall | Runs `planning-standard tasks validate` on the pull request. |
-| 3 | Gökhan | Reviews and merges the plan. |
+| 3 | Cooper | Reviews and merges the plan. |
 | 4 | McCall, with the planner token | On main, runs `planning-standard tasks sync`. It creates or updates one issue per task, marked with its task ID, adds Forgejo issue dependencies, and labels the issue `draft`, `waiting` or `ready`. Running it again changes nothing. |
 | 5 | Debora | Before each claim, turns `waiting` into `ready` for tasks whose dependency issues are closed, then takes the oldest `ready` issue. |
 

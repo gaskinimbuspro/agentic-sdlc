@@ -6,7 +6,7 @@ Every role in the [target architecture](README.md) has a name and an [avatar](..
 
 | Character | Role | Runs as | Does | Never does |
 | --- | --- | --- | --- | --- |
-| **Gökhan** | Product Owner | A person | States the idea, decides product and risk questions, approves scope, requirements, design and merge | Reminds agents to run their checks |
+| **Cooper** | Product Owner | A person | States the idea, decides product and risk questions, approves scope, requirements, design and merge | Reminds agents to run their checks |
 | **Voltran** | Architect | Claude, called on demand | Runs discovery, writes requirements and architecture, prepares the UI packet, splits work into tasks | Writes the implementation |
 | **Raymond** | Reviewer | Claude, in a separate session from Voltran | Reviews each pull request against the requirements and examples | Approves its own work, merges |
 | **Debora** | Coordinator | A small Python program, run step by step by Argo Workflows ([details](iris.md)) | Picks a ready issue, opens a sandbox, starts Patrick with time and attempt limits, pushes the branch, opens the pull request | Makes product or design decisions; it is not a model |
@@ -26,7 +26,7 @@ Every role in the [target architecture](README.md) has a name and an [avatar](..
 | McCall | Read access to the repository it tests; on main only, the release token (registry push, staging overlay of the deploy repository) | Write access to protected branches, the prod overlay, cluster credentials |
 | Argo CD (deployer, not a character) | Read-only access to deploy repositories; the only identity that changes the cluster | Write access to any repository |
 | Teresa | A GitHub token limited to the mirror repositories | Anything else |
-| Gökhan | Merge rights on protected branches | — |
+| Cooper | Merge rights on protected branches | — |
 
 Keeping push and pull-request rights with Debora instead of Patrick means injected text in an issue cannot make the model write to the git server directly ([AS01, AS02 and AS04](../../standards/agent-delivery/security.md)).
 
@@ -34,11 +34,11 @@ Keeping push and pull-request rights with Debora instead of Patrick means inject
 
 | Standard role | Character |
 | --- | --- |
-| Human / product owner | Gökhan |
+| Human / product owner | Cooper |
 | Backend Architect / Planner, UX Planner | Voltran |
 | Independent Reviewer | Raymond |
 | Coordinator | Debora |
 | Implementer | Patrick |
 | CI | McCall |
 
-The product owner chose the names on 22 November 2026, after favourite characters from television and film: Raymond, Dembe, Patrick, Teresa, McCall and Debora. Only the first names are used, as labels; the avatars are generic drawings, not likenesses. Earlier drafts used Argus, Iris, Daedalus, Cerberus, Pythia and Echo for the same roles. The coordinator's program keeps its technical name `iris` (module, command, Kubernetes namespace, image and `iris/issue-N` branches), so commands and deployed workflows do not change. Rename a character here, in the diagram generator and in the avatar generator together.
+The product owner chose the names on 22 November 2026, after favourite characters from television and film: Cooper for the product owner's own role, then Raymond, Dembe, Patrick, Teresa, McCall and Debora. Only the first names are used, as labels; the avatars are generic drawings, not likenesses. Earlier drafts used Argus, Iris, Daedalus, Cerberus, Pythia and Echo for the same roles. The coordinator's program keeps its technical name `iris` (module, command, Kubernetes namespace, image and `iris/issue-N` branches), so commands and deployed workflows do not change. Rename a character here, in the diagram generator and in the avatar generator together.

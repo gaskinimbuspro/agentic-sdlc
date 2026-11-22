@@ -4,7 +4,7 @@
 Output: docs/diagrams/assets/avatars/<key>.svg, one per key in CAST of
 render_diagrams.py. Original artwork for this repository; no third-party marks.
 Each avatar is a disc in the character's color with a head-and-shoulders bust
-clipped to it, and one prop for the role. Gökhan's is drawn after Gökhan's
+clipped to it, and one prop for the role. Cooper's is drawn after Cooper's
 own portrait, on request. Run render_diagrams.py afterwards.
 """
 
@@ -115,7 +115,7 @@ def grin(cx: float, cy: float) -> str:
     )
 
 
-def gokhan() -> str:
+def cooper() -> str:
     skin, line = "#D9A27A", "#B07A55"
     hair, grey = "#4E4B48", "#9A9794"
     return (
@@ -284,7 +284,7 @@ def teresa() -> str:
 
 
 CAST = {
-    "gokhan": ("#A76608", gokhan, "Gökhan, product owner"),
+    "cooper": ("#A76608", cooper, "Cooper, product owner"),
     "voltran": ("#7756C8", voltran, "Voltran, architect"),
     "raymond": ("#5B47B0", raymond, "Raymond, reviewer"),
     "debora": ("#2563EB", debora, "Debora, coordinator"),

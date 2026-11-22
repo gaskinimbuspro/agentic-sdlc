@@ -4,7 +4,7 @@ One avatar per character in [the cast](../../../architecture/cast.md): a flat ca
 
 | Character | Drawn as |
 | --- | --- |
-| Gökhan | After Gökhan's own portrait, on request: short swept-up hair greying at the sides, stubble, a wide smile, navy puffer jacket over a black tee |
+| Cooper | The product owner; drawn after the product owner's own portrait, on request: short swept-up hair greying at the sides, stubble, a wide smile, navy puffer jacket over a black tee |
 | Voltran | Architect: black bob, round glasses, dark blazer |
 | Raymond | Reviewer: grey beard, square glasses, maroon sweater |
 | Debora | Coordinator: curly hair, headset with a microphone |

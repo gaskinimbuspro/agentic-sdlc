@@ -46,7 +46,7 @@ BLUE, TEAL, PURPLE, AMBER = "#2563EB", "#087F8C", "#7756C8", "#A76608"
 INK, MUTED, BORDER = "#13243C", "#52647C", "#D9E2EF"
 # The cast: name, role, what it runs as, Lucide icon, color. Keep in step with docs/architecture/cast.md.
 CAST = {
-    "gokhan": ("Gökhan", "PRODUCT OWNER", "Decides · approves · merges", "user-round", AMBER),
+    "cooper": ("Cooper", "PRODUCT OWNER", "Decides · approves · merges", "user-round", AMBER),
     "voltran": ("Voltran", "ARCHITECT", "Claude", "pencil-ruler", PURPLE),
     "raymond": ("Raymond", "REVIEWER", "Claude · separate session", "eye", PURPLE),
     "debora": ("Debora", "COORDINATOR", "Python program · not a model", "workflow", BLUE),
@@ -292,7 +292,7 @@ def process():
 
 def agents():
     c = Canvas("Backend roles, task context, and evidence", "Proposed responsibilities · exclusive coding ownership · independent review · trusted checks", 1200)
-    c.card(64, 180, 350, 145, "Gökhan", ["Goals, priorities, material decisions"], "user-round", "PRODUCT OWNER", AMBER, "#FFF2D9", 16)
+    c.card(64, 180, 350, 145, "Cooper", ["Goals, priorities, material decisions"], "user-round", "PRODUCT OWNER", AMBER, "#FFF2D9", 16)
     c.card(480, 180, 475, 145, "Project brief", ["Scenarios, scope, and constraints"], "file-text", "PROJECT INPUT", BLUE)
     c.card(1040, 180, 696, 145, "Shared standards and settings", ["Language and test profiles · GitHub · task schema"], "settings-2", "VERSIONED GUIDANCE", PURPLE)
     c.arrow("M414 252 H475", "amber")
@@ -369,7 +369,7 @@ def application():
 
 def system_map():
     c = Canvas("How the system works", "Proposed target · who decides, who builds, who checks", 1150)
-    c.character(64, 180, 380, 104, "gokhan")
+    c.character(64, 180, 380, 104, "cooper")
     c.character(520, 180, 380, 104, "voltran")
     c.character(976, 180, 380, 104, "raymond")
     c.zone(64, 360, 1240, 450, "WORK SERVER  ·  your machine", "server")
@@ -420,13 +420,13 @@ def system_map():
 def lifecycle():
     c = Canvas("Who does what", "Proposed lifecycle · owner, output and gate for every stage", 900)
     stages = [
-        ("Discover", "lightbulb", AMBER, ["gokhan", "voltran"], ["Brief"], "Scope agreed"),
-        ("Specify", "list-checks", BLUE, ["voltran", "gokhan"], ["Requirements", "+ examples"], "RQ rules"),
-        ("Design", "pencil-ruler", PURPLE, ["voltran", "gokhan"], ["Architecture", "+ UI packet"], "AR · U rules"),
+        ("Discover", "lightbulb", AMBER, ["cooper", "voltran"], ["Brief"], "Scope agreed"),
+        ("Specify", "list-checks", BLUE, ["voltran", "cooper"], ["Requirements", "+ examples"], "RQ rules"),
+        ("Design", "pencil-ruler", PURPLE, ["voltran", "cooper"], ["Architecture", "+ UI packet"], "AR · U rules"),
         ("Plan", "square-kanban", PURPLE, ["voltran"], ["Issues", "in Forge"], "G0 Ready"),
         ("Build", "code-xml", TEAL, ["debora", "patrick"], ["Code + tests"], "G1 Local"),
         ("Verify", "shield-check", TEAL, ["mccall", "raymond"], ["Checks", "+ verdict"], "G2 · G3"),
-        ("Release", "rocket", BLUE, ["gokhan"], ["Merged", "change"], "G4 · G5"),
+        ("Release", "rocket", BLUE, ["cooper"], ["Merged", "change"], "G4 · G5"),
     ]
     for y, name in [(250, "STAGE"), (395, "WHO"), (515, "OUTPUT"), (608, "GATE")]:
         c.text(64, y, name, 13, MUTED, bold=True)
@@ -451,13 +451,13 @@ def lifecycle():
     c.label(1293, 690, "repair", size=14)
     c.arrow("M1626 630 V745 H294 V630", "gray", dash=True)
     c.label(960, 745, "lessons become standard changes", size=14)
-    c.footer("05", "Gökhan approves scope, requirements, design and merge. Gates block the next stage until they pass.", brands=True)
+    c.footer("05", "Cooper approves scope, requirements, design and merge. Gates block the next stage until they pass.", brands=True)
     c.save("05-who-does-what")
 
 
 def placement():
     c = Canvas("Where it runs", "Proposed placement · three places, each with its own credentials", 1090)
-    c.character(90, 185, 380, 100, "gokhan", "Laptop · browser")
+    c.character(90, 185, 380, 100, "cooper", "Laptop · browser")
     c.node(710, 185, 380, 100, "Voltran · Raymond", "Claude · called on demand", "claude")
     c.node(1330, 185, 380, 100, "GitHub", "Standards · code mirror", "github")
     c.arrow("M470 235 H705", "amber")
@@ -507,14 +507,14 @@ STATUS = {
 def project_start():
     c = Canvas("How a project runs", "Today's flow · from an idea to production, with what exists and what is missing", 1150)
     steps = [
-        ("Idea", "Gökhan", "Describes the product in plain words", "lightbulb", AMBER, None),
-        ("Discovery", "Voltran asks · Gökhan answers", "11 stages, each approved before the next", "messages-square", AMBER, "built"),
-        ("Specify and design", "Voltran writes · Gökhan approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
-        ("Tasks in Forge", "Voltran plans · Gökhan merges", "Plan file becomes issues; ready when deps merge", "square-kanban", PURPLE, "tried"),
+        ("Idea", "Cooper", "Describes the product in plain words", "lightbulb", AMBER, None),
+        ("Discovery", "Voltran asks · Cooper answers", "11 stages, each approved before the next", "messages-square", AMBER, "built"),
+        ("Specify and design", "Voltran writes · Cooper approves", "Requirements · architecture · UI packet", "pencil-ruler", PURPLE, "built"),
+        ("Tasks in Forge", "Voltran plans · Cooper merges", "Plan file becomes issues; ready when deps merge", "square-kanban", PURPLE, "tried"),
         ("Project setup", "Platform scripts", "Deploy repo · bots · protection · Argo CD", "settings-2", BLUE, "tried"),
         ("Build", "Debora + Patrick", "One issue, one sandbox, one pull request", "hammer", TEAL, "partly"),
-        ("Review and merge", "McCall · Raymond · Gökhan", "Checks pass, review, only Gökhan merges", "git-merge", TEAL, "partly"),
-        ("Release", "McCall · Argo CD · Gökhan", "Staging automatic, prod by approved PR", "rocket", BLUE, "tried"),
+        ("Review and merge", "McCall · Raymond · Cooper", "Checks pass, review, only Cooper merges", "git-merge", TEAL, "partly"),
+        ("Release", "McCall · Argo CD · Cooper", "Staging automatic, prod by approved PR", "rocket", BLUE, "tried"),
     ]
     notes = {
         "Build": "stand-in builder; real Qwen not tried",
@@ -555,14 +555,14 @@ def project_start():
     c.text(120, 960, "NOT BUILT YET, OUTSIDE THE STEPS ABOVE", 13, SLATE, bold=True)
     c.text(120, 992, "Pull-request previews · migrations as a pre-sync job · secrets manager · staging smoke test before the prod PR", 16, INK)
     c.icon(1380, 942, "circle-check", AMBER, 22)
-    c.text(1412, 960, "= Gökhan approves here", 15, INK)
+    c.text(1412, 960, "= Cooper approves here", 15, INK)
     c.footer("07", "Status as of 21 November 2026. Tried means run end to end on a temporary sandbox cluster, not on a real server.", brands=True)
     c.save("07-project-start")
 
 
 def release_path():
     c = Canvas("From merge to production", "Tried in a sandbox · one image, built once, promoted by digest", 1070)
-    c.character(64, 190, 420, 104, "gokhan", "Approves and merges the PR")
+    c.character(64, 190, 420, 104, "cooper", "Approves and merges the PR")
     c.character(580, 190, 440, 104, "mccall", "Checks again · builds image once")
     c.node(1116, 190, 420, 104, "Forgejo registry", "image @ sha256 digest", "package", BLUE)
     c.arrow("M484 242 H575", "amber")
@@ -571,8 +571,8 @@ def release_path():
     c.label(1066, 230, "push", TEAL, 13)
     c.zone(64, 360, 1672, 230, "DEPLOY REPOSITORY  ·  one per project", "forgejo", BLUE)
     c.node(110, 430, 520, 120, "overlays/staging", "Release bot writes the digest", "git-branch", TEAL)
-    c.node(800, 430, 520, 120, "overlays/prod", "Pull request · Gökhan merges", "git-pull-request", AMBER)
-    c.node(1380, 430, 300, 120, "Everything else", "Gökhan merges", "lock", SLATE, 19)
+    c.node(800, 430, 520, 120, "overlays/prod", "Pull request · Cooper merges", "git-pull-request", AMBER)
+    c.node(1380, 430, 300, 120, "Everything else", "Cooper merges", "lock", SLATE, 19)
     c.arrow("M800 294 V335 H560 V425", "teal")
     c.label(680, 335, "digest", TEAL, 13)
     c.arrow("M630 490 H795", "amber")
@@ -605,7 +605,7 @@ def release_path():
 def cast():
     c = Canvas("The cast", "Proposed roles · one name and one avatar for each actor", 1000)
     never = {
-        "gokhan": "Reminds agents to test",
+        "cooper": "Reminds agents to test",
         "voltran": "Writes the implementation",
         "raymond": "Approves its own work",
         "debora": "Makes product decisions",
@@ -615,7 +615,7 @@ def cast():
         "teresa": "Carries issues, PRs or CI",
     }
     does = {
-        "gokhan": "Decides and approves",
+        "cooper": "Decides and approves",
         "voltran": "Plans and splits work",
         "raymond": "Reviews each pull request",
         "debora": "Hands out tasks, sets limits",
@@ -654,7 +654,7 @@ def two_loops():
     c.node(530, 270, 370, 104, "Run checks", "Same scripts as CI", "flask-conical", TEAL)
     c.node(530, 455, 370, 104, "Commit", "Only when checks pass", "git-branch", TEAL)
     c.node(530, 640, 370, 104, "Preview", "Planned · not built", "kubernetes", SLATE, dashed=True)
-    c.node(100, 640, 360, 104, "Try it", "Gökhan or a tester", "user-round", AMBER, dashed=True)
+    c.node(100, 640, 360, 104, "Try it", "Cooper or a tester", "user-round", AMBER, dashed=True)
     c.character(100, 455, 360, 104, "patrick", "Runs this loop")
     c.arrow("M460 322 H525", "teal")
     c.arrow("M715 374 V450", "teal")
@@ -668,7 +668,7 @@ def two_loops():
     c.character(1016, 270, 330, 104, "debora", "Pushes · opens PR")
     c.character(1016, 410, 330, 104, "mccall", "Same checks, clean")
     c.character(1016, 550, 330, 104, "raymond", "Reviews the PR")
-    c.character(1016, 690, 330, 104, "gokhan", "Approves · merges")
+    c.character(1016, 690, 330, 104, "cooper", "Approves · merges")
     for y in (374, 514, 654):
         c.arrow(f"M1181 {y} V{y + 31}", "teal")
     c.arrow("M1016 462 H944", "gray", dash=True)
