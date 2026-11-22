@@ -152,3 +152,11 @@ These are our observations on a temporary cluster, not vendor claims; details ar
 - Forgejo's `unprotected_file_patterns` lets an identity without push rights push changes that touch only the listed files. This gives the release bot a direct path to the staging overlay while every other change, prod included, needs a pull request.
 - A Woodpecker secret limited to push events is refused to pull-request pipelines with an explicit error, so agent-written pipeline changes cannot read the release token before a merge.
 - The Woodpecker kaniko plugin now ships the osscontainertools fork of kaniko and accepts `extra_opts`, which carries `--digest-file` for recording the built digest.
+
+## Orchestrator.inc, assessed 22 November
+
+Source: the project's [README](https://github.com/OrchestratorInc/agent-orchestrator), `docs/architecture.md` and `docs/STATUS.md`, and its source tree, read on 22 November 2026. Apache-2.0, actively developed.
+
+- What it is: a desktop application (macOS, Windows, Linux) with a local Go daemon and a phone app. It runs a fleet of coding agents, one branch and worktree per task, on a Kanban board. It routes failed checks and review comments back to the agent that owns the branch, and can run a reviewer agent before a person looks. It supports Qwen and more than 35 other agents.
+- Why it does not replace our platform: its source has GitHub and GitLab adapters only (Forgejo and Gitea issues exist but are closed, and no such adapter is in the tree). It is built to run agents on the user's own machine or in its vendor's cloud, not headless on our server. Its documentation describes the reviewer's read-only behaviour as an instruction policy, not an enforced sandbox. Telemetry, including the GitHub user name, is on by default and can be switched off.
+- Adopted as ideas, not as software: feedback from checks and reviews back to the builder, "needs you" notifications, and a status board ([planned additions](../docs/architecture/README.md#planned-additions)). It may still serve as a personal cockpit for interactive work on GitHub repositories such as this one.

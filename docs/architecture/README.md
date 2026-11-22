@@ -123,6 +123,17 @@ The view marks each step as tried in the sandbox, built but not yet used, or not
 
 There is no separate "write tests later" task. A task that depends on an open decision stays in draft.
 
+## Planned additions
+
+Agreed with the product owner, not built yet. The first and third ideas come from [Orchestrator.inc](https://github.com/OrchestratorInc/agent-orchestrator); see the [research note](../../research/2026-11-21-agent-infrastructure-notes.md#orchestratorinc-assessed-22-november).
+
+| Addition | What it does | Built on |
+| --- | --- | --- |
+| Argus review | Claude reviews each pull request against the task's acceptance criteria and reports a required commit status and a review comment. Gökhan still approves and merges. | The Claude API, with the key from the secrets store |
+| Feedback to the builder | When a required check fails or a review asks for changes, Iris runs Daedalus again on the same branch with the check output or the review findings, within the task's repair budget, and pushes the fix. After the budget, the task is `blocked`. | Iris's repair rounds, Forgejo commit statuses and reviews |
+| "Needs you" notifications | A push message to Gökhan's phone when a task is `blocked`, a pull request waits for approval, or a deployment to prod waits for a merge. | A self-hosted notification service; the message carries a link, not code or secrets |
+| Board | One view with a column per state: draft, waiting, ready, in progress, review, blocked, done. | Forgejo's project board, driven by the existing labels |
+
 ## Scale
 
 Start with one Daedalus and one Argus, working serially, until gates and evidence behave as specified. Move to two or three parallel builders only for tasks with compatible contracts and non-overlapping changes, and compare the result under [ME04](../../standards/agent-delivery/measurement.md). At that point Iris needs exclusive claims, expiry and recovery, either from the repository's [`DispatchLedger`](../../src/backend_standard/dispatch.py) or an existing orchestrator.
@@ -152,5 +163,6 @@ Phases 1 to 4 are described in the [pilot runbook](pilot-runbook.md). The work-s
 | GPU for the pilot | RunPod, about 48 GB | Chosen. Rates differed between sources; verify on the provider's page. |
 | GPU after the pilot | A fixed-price dedicated server | Decide from pilot utilization. |
 | Coordinator (Iris) | [Iris](iris.md) as an Argo Workflows template, one pod per step; `iris run-once` for a single host | Ran on Argo Workflows against a real Forgejo with a stand-in builder in the [platform trial](../../platform/README.md#what-was-tested-and-where). Not yet with Qwen Code or a real model. |
+| Secrets store | Bitwarden Secrets Manager; Bitwarden's Kubernetes operator (sm-operator) syncs secrets into the cluster, one read-only machine account per consumer | Chosen by the product owner. Not installed. The operator needs one bootstrap token per namespace, entered by Gökhan on the server; agents never receive Bitwarden access. |
 | Mirror (Echo) | Forgejo push mirror to GitHub | Interval to be chosen. Forge's own backup is a separate, open task. |
 | Benefit of the split | Hosted Voltran and Argus, local Daedalus | The strongest independent study found gains from planner-executor designs uneven. Measure in the pilot. |
