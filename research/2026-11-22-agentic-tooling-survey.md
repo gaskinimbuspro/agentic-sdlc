@@ -33,6 +33,25 @@ Fit is judged against our constraints: Forgejo as the git server, everything sel
 | [dagger/container-use](https://github.com/dagger/container-use), [e2b-dev/E2B](https://github.com/e2b-dev/E2B), [kubernetes-sigs/agent-sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | 4.1k; 15k; 4.7k, all Apache-2.0 | README (container-use), metadata | Isolated environments for agents. | We isolate with one pod per step on Argo; agent-sandbox was already noted as the Kubernetes-native option to watch. |
 | [BloopAI/vibe-kanban](https://github.com/BloopAI/vibe-kanban), [smtg-ai/claude-squad](https://github.com/smtg-ai/claude-squad), [OrchestratorInc/agent-orchestrator](https://github.com/OrchestratorInc/agent-orchestrator) | 28.8k Apache-2.0; 8.8k AGPL-3.0; 15k Apache-2.0 | README | Local cockpits for running several coding agents in parallel. | Personal tools for interactive work, not part of the 24/7 pipeline. |
 
+## Claude Ship, assessed 26 November
+
+Sources, read on 26 November 2026: [Claude Ship](https://code.claude.com/docs/en/claude-ship), [`/ship` and `/steward`](https://code.claude.com/docs/en/ship-command), [PR Steward](https://code.claude.com/docs/en/pr-steward) and [Claude Approvals](https://code.claude.com/docs/en/approvals).
+
+What the vendor documentation says:
+
+- Claude Ship is "a set of agents that help get your team's GitHub pull requests ready to merge": Code Review (generally available), PR Steward and Claude Approvals (both public beta).
+- PR Steward works on failing checks, merge conflicts and review comments and pushes fixes; it "is designed not to approve or merge pull requests".
+- Claude Approvals is a check driven by a policy file, `.claude/approvals.yml`, that can set how many people have to approve changes to a path. It blocks a merge only when made a required check, and it has an observe mode.
+- The agents are for organizations on Team and Enterprise plans, billed on token usage from usage credits, separately from the plan's included usage.
+- The `/ship` command runs in the user's own Claude Code session and counts against that user's usage. On GitHub it can commit, push, open the pull request, review it and then watch it, pushing fixes. On other hosts (GitLab, Bitbucket and Azure DevOps are named) it opens nothing and only reviews and watches a branch. In a public repository it does not commit uncommitted changes.
+
+Our assessment:
+
+- The product owner is on a Pro or Max plan, so the organization agents are not available.
+- Our project repositories are on Forgejo, which the documentation does not name, so none of Claude Ship sits in the Qwen pipeline.
+- `/ship` is usable on this repository, which is on GitHub.
+- Adopted as ideas: the path-based approval policy with an observe mode first ([planned additions](../docs/architecture/README.md#planned-additions)). PR Steward confirms the design of our planned feedback loop; ours runs on the local model.
+
 ## Our proposals, in order
 
 These are recommendations, not decisions.

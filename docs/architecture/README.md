@@ -125,14 +125,19 @@ There is no separate "write tests later" task. A task that depends on an open de
 
 ## Planned additions
 
-Agreed with the product owner, not built yet. The first and third ideas come from [Orchestrator.inc](https://github.com/OrchestratorInc/agent-orchestrator); see the [research note](../../research/2026-11-21-agent-infrastructure-notes.md#orchestratorinc-assessed-22-november).
+Agreed with the product owner, not built yet. Feedback to the builder, notifications and the board come from [Orchestrator.inc](https://github.com/OrchestratorInc/agent-orchestrator); see the [research note](../../research/2026-11-21-agent-infrastructure-notes.md#orchestratorinc-assessed-22-november). The approval policy comes from Claude Ship's Claude Approvals; see the [survey](../../research/2026-11-22-agentic-tooling-survey.md#claude-ship-assessed-26-november).
 
 | Addition | What it does | Built on |
 | --- | --- | --- |
 | Raymond review | Claude reviews each pull request against the task's acceptance criteria and reports a required commit status and a review comment. Cooper still approves and merges. | The Claude API, with the key from the secrets store |
-| Feedback to the builder | When a required check fails or a review asks for changes, Debora runs Patrick again on the same branch with the check output or the review findings, within the task's repair budget, and pushes the fix. After the budget, the task is `blocked`. | Debora's repair rounds, Forgejo commit statuses and reviews |
+| Feedback to the builder | When a required check fails or a review asks for changes, Debora runs Patrick again on the same branch with the check output or the review findings, within the task's repair budget, and pushes the fix. After the budget, the task is `blocked`. Claude Ship's PR Steward does the same on GitHub with Claude; ours uses Patrick's local model to keep the cost per fix low. | Debora's repair rounds, Forgejo commit statuses and reviews |
+| Path-based approval policy | A policy file in each project, for example `.forgejo/approvals.json`, names which paths need which approvers: for example, `migrations/*`, `platform/*` and `.woodpecker/*` need Cooper and a passing Raymond review, while documentation needs Cooper only. A Woodpecker check reports what the policy decides. It starts in observe mode and becomes a required check only when Cooper decides. Built after the Raymond review, which its rules refer to. | Forgejo's API and branch protection |
 | "Needs you" notifications | A push message to Cooper's phone when a task is `blocked`, a pull request waits for approval, or a deployment to prod waits for a merge. | A self-hosted notification service; the message carries a link, not code or secrets |
 | Board | One view with a column per state: draft, waiting, ready, in progress, review, blocked, done. | Forgejo's project board, driven by the existing labels |
+
+### Claude Ship on this repository
+
+This standards repository is on GitHub, so the product owner can use Claude Code's `/ship` command on it: in a local clone, with the GitHub CLI signed in, commit the change on a branch other than `main` (the repository is public, so `/ship` does not commit uncommitted work here), then run `/ship`. It opens the pull request, reviews it and keeps fixing review findings and failing checks from that session; the product owner still merges. The run counts against the product owner's own Claude usage. Claude Ship's organization agents need a Team or Enterprise plan and are not in use. Neither is used for project repositories on Forgejo.
 
 ## Scale
 
